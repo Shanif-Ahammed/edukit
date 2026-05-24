@@ -46,6 +46,7 @@ export const DataProvider = ({ children }) => {
   const [selectedClass, setSelectedClass] = useState('');
   const [missingColumns, setMissingColumns] = useState([]);
   const [subject, setSubject] = useState('');
+  const [subjects, setSubjects] = useState([]);
   const [teacherName, setTeacherName] = useState('');
   const [schoolName, setSchoolName] = useState('Swiss International Scientific School Dubai');
 
@@ -59,6 +60,7 @@ export const DataProvider = ({ children }) => {
         const savedClasses = JSON.parse(localStorage.getItem('edukit_mis_classes') || '[]');
         const savedSelClass = localStorage.getItem('edukit_mis_selected_class') || '';
         const savedSubject = localStorage.getItem('edukit_mis_subject') || '';
+        const savedSubjects = JSON.parse(localStorage.getItem('edukit_mis_subjects') || '[]');
         const savedTeacher = localStorage.getItem('edukit_mis_teacher') || '';
         const savedMissing = JSON.parse(localStorage.getItem('edukit_mis_missing') || '[]');
 
@@ -68,6 +70,7 @@ export const DataProvider = ({ children }) => {
           setSelectedClass(savedSelClass || savedClasses[0] || '');
           setFileName(savedFileName);
           setSubject(savedSubject);
+          setSubjects(savedSubjects);
           setTeacherName(savedTeacher);
           setMissingColumns(savedMissing);
           setFileConnected(true);
@@ -86,6 +89,7 @@ export const DataProvider = ({ children }) => {
     setSelectedClass('');
     setMissingColumns([]);
     setSubject('');
+    setSubjects([]);
     setTeacherName('');
     
     localStorage.removeItem('edukit_mis_connected');
@@ -94,6 +98,7 @@ export const DataProvider = ({ children }) => {
     localStorage.removeItem('edukit_mis_classes');
     localStorage.removeItem('edukit_mis_selected_class');
     localStorage.removeItem('edukit_mis_subject');
+    localStorage.removeItem('edukit_mis_subjects');
     localStorage.removeItem('edukit_mis_teacher');
     localStorage.removeItem('edukit_mis_missing');
   };
@@ -226,11 +231,21 @@ export const DataProvider = ({ children }) => {
     const finalSubject = detectedSubject || 'Mathematics';
     const finalTeacher = detectedTeacher || 'Mr. Anderson';
 
+    // Extract unique subjects
+    const uniqueSubjects = Array.from(new Set(parsedStudents.map(s => s.subject)))
+      .filter(subj => subj && subj.trim() !== '' && subj !== 'undefined')
+      .sort();
+    
+    if (uniqueSubjects.length === 0) {
+      uniqueSubjects.push(finalSubject);
+    }
+
     setStudents(parsedStudents);
     setClasses(uniqueClasses);
     setSelectedClass(defaultClass);
     setFileName(name);
     setSubject(finalSubject);
+    setSubjects(uniqueSubjects);
     setTeacherName(finalTeacher);
     setMissingColumns(missing);
     setFileConnected(true);
@@ -285,6 +300,8 @@ export const DataProvider = ({ children }) => {
       missingColumns,
       subject,
       setSubject,
+      subjects,
+      setSubjects,
       teacherName,
       setTeacherName,
       schoolName,

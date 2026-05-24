@@ -15,6 +15,7 @@ export default function HeaderNav() {
     selectedClass, 
     setSelectedClass, 
     subject, 
+    subjects = [], 
     schoolName, 
     connectData, 
     changeFile 
@@ -233,9 +234,17 @@ export default function HeaderNav() {
                   {students.length} students
                 </span>
                 <span style={{ color: 'var(--border-color-hover)' }}>·</span>
-                <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
-                  {classes.length} classes
+                 <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
+                  {classes.length} {classes.length > 1 ? 'classes' : 'class'}
                 </span>
+                {subjects && subjects.length > 0 && (
+                  <>
+                    <span style={{ color: 'var(--border-color-hover)' }}>·</span>
+                    <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
+                      {subjects.length} {subjects.length > 1 ? 'subjects' : 'subject'}
+                    </span>
+                  </>
+                )}
                 <span style={{ color: 'var(--border-color-hover)' }}>·</span>
                 <span style={{ 
                   fontSize: '0.78rem', 
