@@ -1,32 +1,32 @@
 {
   "Communication": {
-    "Excellent": "Student! consistently demonstrates excellent ATL skills in Communication, expressing ideas clearly and listening actively in all activities.",
-    "Good": "Student! generally demonstrates good ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.",
-    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.",
-    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Communication, as active participation in discussions will support His! overall progress."
+    "Expert": "Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.",
+    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.",
+    "Beginner": "Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.",
+    "Novice": "Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support His! overall progress."
   },
   "Social": {
-    "Excellent": "Student! consistently demonstrates excellent ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.",
-    "Good": "Student! generally demonstrates good ATL skills in collaboration, working harmoniously with peers to complete group assignments.",
-    "Satisfactory": "Student! demonstrates satisfactory ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.",
-    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL social skills, cooperating more actively with peers to achieve shared targets."
+    "Expert": "Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.",
+    "Practitioner": "Student! generally demonstrates practitioner ATL skills in collaboration, working harmoniously with peers to complete group assignments.",
+    "Beginner": "Student! demonstrates beginner ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.",
+    "Novice": "Student! is currently demonstrating novice ATL skills in collaboration, and is encouraged to cooperate more actively with peers to achieve shared targets."
   },
   "Self-Management": {
-    "Excellent": "Student! consistently demonstrates excellent ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.",
-    "Good": "Student! generally demonstrates good ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.",
-    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.",
-    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Self-Management, as greater engagement and time-management will support His! overall progress."
+    "Expert": "Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.",
+    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.",
+    "Beginner": "Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.",
+    "Novice": "Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage His! time more effectively."
   },
   "Research": {
-    "Excellent": "Student! consistently demonstrates excellent ATL skills in Research, showing superb information literacy when gathering and citing source information.",
-    "Good": "Student! generally demonstrates good ATL skills in Research, successfully finding and interpreting relevant subject data.",
-    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Research, though He! should work on verifying His! source credibility more systematically.",
-    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Research, as stronger investigation habits will support His! academic progress."
+    "Expert": "Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.",
+    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.",
+    "Beginner": "Student! demonstrates beginner ATL skills in Research, though He! should work on verifying His! source credibility more systematically.",
+    "Novice": "Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support His! progress."
   },
   "Thinking": {
-    "Excellent": "Student! consistently demonstrates excellent ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.",
-    "Good": "Student! generally demonstrates good ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.",
-    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.",
-    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Thinking, practicing how to approach problems from different viewpoints."
+    "Expert": "Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.",
+    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.",
+    "Beginner": "Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.",
+    "Novice": "Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints."
   }
 }
