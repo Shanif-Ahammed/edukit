@@ -945,33 +945,11 @@ export default function Dashboard({ setActiveTool }) {
                 </p>
 
                 {subjects && subjects.length > 0 && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap', marginTop: '0.85rem' }}>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      {subjects.length > 1 ? 'Assigned Subjects:' : 'Subject:'}
-                    </span>
-                    {subjects.map((subj) => (
-                      <span 
-                        key={subj} 
-                        style={{
-                          fontSize: '0.74rem',
-                          fontWeight: '800',
-                          color: '#fff',
-                          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.22) 0%, rgba(99, 102, 241, 0.12) 100%)',
-                          border: '1px solid rgba(59, 130, 246, 0.4)',
-                          padding: '0.25rem 0.8rem',
-                          borderRadius: '30px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
-                          letterSpacing: '-0.01em',
-                          textTransform: 'capitalize'
-                        }}
-                      >
-                        <span style={{ fontSize: '0.82rem' }}>📚</span> {subj}
-                      </span>
-                    ))}
-                  </div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.86rem', fontWeight: '600', marginTop: '0.45rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span style={{ filter: 'grayscale(1)', opacity: 0.8 }}>📚</span>
+                    <span>{subjects.length > 1 ? 'Subjects:' : 'Subject:'}</span>
+                    <strong style={{ color: 'var(--text-main)', fontWeight: '750', textTransform: 'capitalize' }}>{subjects.join(', ')}</strong>
+                  </p>
                 )}
               </div>
 
