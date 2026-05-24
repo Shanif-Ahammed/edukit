@@ -1737,6 +1737,31 @@ export default function Dashboard({ setActiveTool }) {
               </div>
             </div>
 
+            {/* How to download instructions */}
+            <div style={{
+              background: 'rgba(59, 130, 246, 0.04)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
+              borderRadius: '16px',
+              padding: '1rem 1.25rem',
+              marginBottom: '1.5rem',
+              fontSize: '0.82rem',
+              lineHeight: '1.5',
+              color: 'var(--text-muted)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#3b82f6', fontWeight: '800' }}>
+                <Info size={16} /> How to export from iSAMS:
+              </div>
+              <ol style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <li>Go to <strong>iSAMS</strong>.</li>
+                <li>On the <strong>wizard bar</strong> at the top right, go to <strong>Analytics & Insights</strong> &gt; <strong>Create New Report</strong>.</li>
+                <li>Choose <strong>Edukit Export</strong>.</li>
+                <li>Once it opens, select your name in the <strong>Select User</strong> dropdown (this creates the Excel file with all your assigned classes and student data).</li>
+              </ol>
+              <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700' }}>
+                💡 We recommend downloading this file after completing your gradebook and resyncing/saving the grades in OAS.
+              </div>
+            </div>
+
             {/* Drag & Drop Container inside Modal */}
             <div 
               onDragEnter={handleDrag}

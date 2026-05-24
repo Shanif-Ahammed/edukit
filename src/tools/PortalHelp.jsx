@@ -119,6 +119,34 @@ export default function PortalHelp() {
                 </div>
               </div>
 
+              <h3 style={{ fontSize: '1.05rem', fontWeight: '750', marginBottom: '0.65rem', color: '#3b82f6', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                📥 How to Download the Excel Export from iSAMS
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '0.75rem' }}>
+                Follow these exact steps in iSAMS to export your ready-to-go student database:
+              </p>
+              <ol style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.25rem' }}>
+                <li>Log into <strong>iSAMS</strong>.</li>
+                <li>On the <strong>wizard bar</strong> on the right side top, go to <strong>Analytics & Insights</strong>.</li>
+                <li>Select <strong>Create New Report</strong> and choose <strong>Edukit Export</strong>.</li>
+                <li>Once it opens, select your name in the <strong>Select User</strong> dropdown.</li>
+                <li>This will compile and download an Excel spreadsheet containing all the classes assigned to you, along with their active student rosters and demographic data.</li>
+              </ol>
+              <div 
+                style={{ 
+                  background: 'rgba(59, 130, 246, 0.05)', 
+                  borderLeft: '4px solid #3b82f6', 
+                  padding: '0.75rem 1rem', 
+                  borderRadius: '0 8px 8px 0', 
+                  marginBottom: '1.75rem',
+                  fontSize: '0.82rem',
+                  color: 'var(--text-muted)',
+                  lineHeight: '1.5'
+                }}
+              >
+                💡 <strong>Pro Tip:</strong> We highly recommend downloading this file after completing your term gradebook, ensuring all grades are published, and resyncing/saving in the <strong>Online Assessment System (OAS)</strong> first.
+              </div>
+
               <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Excel Layout Guidelines</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1rem' }}>
                 The Excel gradebook downloaded directly from iSAMS is <strong style={{ fontWeight: '800' }}>completely ready-to-go</strong> out-of-the-box. The portal and the iSAMS templates are designed to match perfectly. You <strong style={{ fontWeight: '800' }}>never</strong> need to rename headers. The parser automatically maps columns:
