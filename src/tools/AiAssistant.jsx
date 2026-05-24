@@ -110,8 +110,8 @@ const SUGGESTED_PROMPTS = [
   },
   {
     icon: <HelpCircle size={15} style={{ color: 'var(--primary)' }} />,
-    label: "Do I need to manually format the iSAMS Excel file?",
-    text: "Do I need to rename column headers, remove merged banners, or format the Excel sheet after downloading it from iSAMS? Or is it completely ready-to-go out-of-the-box?"
+    label: "How and where to get the Excel file?",
+    text: "How and where do I download the correct Excel gradebook spreadsheet from iSAMS, and do I need to perform any resync steps?"
   },
   {
     icon: <Layers size={15} style={{ color: '#10b981' }} />,
