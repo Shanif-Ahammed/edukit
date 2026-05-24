@@ -1,0 +1,65 @@
+{
+  "Mathematics": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating exceptional mastery across all areas of the curriculum.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing a thorough understanding of the key concepts and skills covered this term.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting a solid grasp of the core concepts and an ability to apply them effectively.",
+    "4": "Student! has achieved a grade of 4 in Subject!, demonstrating an adequate understanding of the core concepts covered this term.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating a basic but developing understanding of the material.",
+    "2": "Student! has achieved a grade of 2 in Subject!, suggesting that He! would benefit from additional support to consolidate foundational skills.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and it is important that He! seeks additional support to strengthen His! understanding of the core concepts."
+  },
+  "Sciences": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating exceptional scientific inquiry and critical analysis.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing thorough understanding of the scientific concepts covered this term.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting solid analytical skills and a good understanding of core scientific topics.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate understanding of scientific processes and content.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating basic but developing scientific inquiry skills.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! is encouraged to review core concepts to build foundational scientific knowledge.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted support is recommended to strengthen basic scientific understanding."
+  },
+  "Language & Literature": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating a sophisticated appreciation of literary devices and brilliant analytical skills.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing a highly competent command of literary analysis and textual comprehension.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting solid comprehension of texts and clear communication skills.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate textual analysis and clear articulation of ideas.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating basic textual comprehension with developing analysis.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! would benefit from focused reading to build foundational comprehension skills.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted assistance is recommended to support basic comprehension."
+  },
+  "Individuals & Societies": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating highly sophisticated critical thinking and a deep understanding of historical and social contexts.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing thorough conceptual understanding and strong critical thinking.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting a solid grasp of key social, economic, and historical concepts.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate factual recall and basic conceptual analysis.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating a basic but developing understanding of individuals and societies.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! would benefit from reviewing key terms and historical concepts.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted support is recommended to establish foundational conceptual understanding."
+  },
+  "Design": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating exceptional creativity, rigorous analysis, and a highly refined design cycle.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing a strong and consistent application of the design cycle.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting a solid ability to develop, test, and evaluate design solutions.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate planning and execution throughout the design cycle.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating basic design planning with developing technical execution.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! should focus on completing design portfolio documentation systematically.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted guidance is recommended to help Him! work through the design cycle."
+  },
+  "Arts": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating superb artistic inquiry, creative risk-taking, and highly expressive execution.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing high skill and consistent reflection within their creative processes.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting a solid grasp of artistic techniques and conceptual themes.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate development of ideas and competent execution of skills.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating basic technical competence with developing creative reflection.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! is encouraged to practice foundational techniques more consistently.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted support is recommended to establish basic artistic confidence."
+  },
+  "Physical & Health Education": {
+    "7": "Student! has achieved an outstanding grade of 7 in Subject!, demonstrating exceptional physical performance and a deep conceptual understanding of health and fitness.",
+    "6": "Student! has achieved an excellent grade of 6 in Subject!, showing thorough physical skill and excellent tactical decision-making.",
+    "5": "Student! has achieved a strong grade of 5 in Subject!, reflecting a solid and consistent performance in physical and tactical tasks.",
+    "4": "Student! has achieved a grade of 4 in Subject!, showing adequate physical performance and cooperative participation in activities.",
+    "3": "Student! has achieved a grade of 3 in Subject!, indicating basic physical skill development with developing tactical awareness.",
+    "2": "Student! has achieved a grade of 2 in Subject!, and He! is encouraged to participate more actively to build physical confidence.",
+    "1": "Student! has achieved a grade of 1 in Subject!, and targeted guidance is recommended to build basic movement skills."
+  }
+}
