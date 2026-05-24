@@ -360,12 +360,12 @@ Error generating stack: `+e.message+`
             margin: 0; 
           }
           body, html { 
-            width: 297mm; 
-            height: 210mm; 
+            width: 100% !important; 
+            height: 100% !important; 
             background-color: white !important; 
             margin: 0 !important; 
             padding: 0 !important; 
-            overflow: hidden !important; 
+            overflow: visible !important; 
           }
           .sidebar, aside, header, nav, .print-hidden, .sc-toolbar, .sc-top-action-bar { 
             display: none !important; 
@@ -374,33 +374,43 @@ Error generating stack: `+e.message+`
             display: block !important;
             padding: 0 !important;
             margin: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .main-content {
             display: block !important;
             padding: 0 !important;
             margin: 0 !important;
-            width: 297mm !important;
-            height: 210mm !important;
-            max-width: 100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            overflow: visible !important;
           }
           .sc-container {
             border: none !important;
             background: white !important;
             display: block !important;
-            height: auto !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .sc-main-workspace { 
             display: block !important; 
-            width: 297mm !important; 
-            height: 210mm !important; 
+            width: 100% !important; 
+            height: 100% !important; 
             padding: 0 !important; 
             margin: 0 !important; 
             background: white !important; 
+            overflow: visible !important;
           }
           .sc-scroll-area {
             padding: 0 !important;
             margin: 0 !important;
             display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .sc-a4-paper { 
             width: 297mm !important; 
@@ -409,6 +419,10 @@ Error generating stack: `+e.message+`
             border: none !important; 
             margin: 0 !important; 
             transform: none !important; 
+            transform-origin: top left !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
           }
           .sc-canvas-element.selected { box-shadow: none; }
           .sc-canvas-element.selected::after { display: none; }
