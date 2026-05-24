@@ -1,32 +1,112 @@
 {
   "Communication": {
-    "Expert": "Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.",
-    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.",
-    "Beginner": "Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.",
-    "Novice": "Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support His! overall progress."
+    "Expert": [
+      "Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.",
+      "Student! exhibits outstanding communication proficiency, articulating complex conceptual insights clearly and engaging maturely in classroom dialogue.",
+      "In communication, Student! shows expert capability, presenting well-formulated arguments and actively fostering collaborative group exchanges."
+    ],
+    "Practitioner": [
+      "Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.",
+      "Student! communicates effectively during unit tasks, though He! is encouraged to share His! reasoning even more confidently in class presentations.",
+      "Student! shows good communication habits, and with ongoing practice, He! will continue to clarify and refine His! collaborative reasoning skills."
+    ],
+    "Beginner": [
+      "Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.",
+      "Student! is developing communication competencies, and He! should focus on explaining His! theoretical steps more consistently.",
+      "Student! shows beginner communication skills, and He! is encouraged to ask questions more proactively to consolidate His! understanding."
+    ],
+    "Novice": [
+      "Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support His! overall progress.",
+      "Student! exhibits novice communication habits, and He! is urged to participate more regularly in collaborative exchanges to boost His! learning.",
+      "In communication, Student! is a novice and should seek regular feedback to build His! vocabulary and confidence during discussions."
+    ]
   },
   "Social": {
-    "Expert": "Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.",
-    "Practitioner": "Student! generally demonstrates practitioner ATL skills in collaboration, working harmoniously with peers to complete group assignments.",
-    "Beginner": "Student! demonstrates beginner ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.",
-    "Novice": "Student! is currently demonstrating novice ATL skills in collaboration, and is encouraged to cooperate more actively with peers to achieve shared targets."
+    "Expert": [
+      "Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.",
+      "Student! excels in social settings, showing expert cooperative skills, supporting group dynamics, and leading teammates constructively.",
+      "Student! acts as a collaborative leader, working productively with classmates and fostering a supportive, focused team environment."
+    ],
+    "Practitioner": [
+      "Student! generally demonstrates practitioner ATL skills in collaboration, working harmoniously with peers to complete group assignments.",
+      "Student! collaborates effectively with peers, cooperating well to ensure collaborative tasks are successfully completed.",
+      "In group scenarios, Student! shows reliable cooperative skills, contributing productively to the team's shared goals."
+    ],
+    "Beginner": [
+      "Student! demonstrates beginner ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.",
+      "Student! is developing group work habits, and He! is encouraged to listen more receptively to different viewpoints within the team.",
+      "In social tasks, Student! is a beginner, and He! should strive to participate more actively and share responsibilities with group peers."
+    ],
+    "Novice": [
+      "Student! is currently demonstrating novice ATL skills in collaboration, and is encouraged to cooperate more actively with peers to achieve shared targets.",
+      "Student! exhibits novice social skills, and He! should focus on maintaining a positive, collaborative focus during pair activities.",
+      "Student! is encouraged to work on team integration, participating more cooperatively in structured group contexts."
+    ]
   },
   "Self-Management": {
-    "Expert": "Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.",
-    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.",
-    "Beginner": "Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.",
-    "Novice": "Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage His! time more effectively."
+    "Expert": [
+      "Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.",
+      "Student! shows exemplary self-management, maintaining rigorous focus, planning ahead, and submitting highly organized deliverables.",
+      "In self-management, Student! is expert, consistently structuring His! study periods effectively and demonstrating excellent metacognition."
+    ],
+    "Practitioner": [
+      "Student! generally demonstrates practitioner ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.",
+      "Student! organizes His! tasks effectively, managing study times reliably to meet all class goals.",
+      "Student! maintains practical self-management routines, preparing adequately and submitting tasks on time."
+    ],
+    "Beginner": [
+      "Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.",
+      "Student! is developing self-management habits, and He! should focus on minimizing distractions during structured independent studies.",
+      "In self-management, Student! is a beginner, and He! is encouraged to keep a clearer tracker of homework deadlines and lesson notes."
+    ],
+    "Novice": [
+      "Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage His! time more effectively.",
+      "Student! exhibits novice organization, and He! is urged to structure His! tasks systematically to prevent falling behind.",
+      "Student! needs to dedicate closer attention to self-organization, preparing more consistently for daily lesson requirements."
+    ]
   },
   "Research": {
-    "Expert": "Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.",
-    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.",
-    "Beginner": "Student! demonstrates beginner ATL skills in Research, though He! should work on verifying His! source credibility more systematically.",
-    "Novice": "Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support His! progress."
+    "Expert": [
+      "Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.",
+      "Student! exhibits expert research skills, locating high-quality reference data and synthesizing information with great analytical depth.",
+      "In inquiry tasks, Student! is expert, selecting highly reliable sources and demonstrating excellent information integrity."
+    ],
+    "Practitioner": [
+      "Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.",
+      "Student! shows proficient research habits, successfully navigating resources to support His! unit inquiries.",
+      "Student! extracts information effectively from resources, supporting His! arguments with reliable gathered data."
+    ],
+    "Beginner": [
+      "Student! demonstrates beginner ATL skills in Research, though He! should work on verifying His! source credibility more systematically.",
+      "Student! is developing research capabilities, and He! is encouraged to look beyond introductory web results to deepen His! investigation.",
+      "In inquiry tasks, Student! is a beginner, and He! should focus on documenting His! reference sources more systematically."
+    ],
+    "Novice": [
+      "Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support His! progress.",
+      "Student! exhibits novice research habits, and He! should focus on learning how to filter and select credible learning materials.",
+      "Student! is encouraged to practice basic research steps, seeking guidance to organize gathered facts cleanly."
+    ]
   },
   "Thinking": {
-    "Expert": "Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.",
-    "Practitioner": "Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.",
-    "Beginner": "Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.",
-    "Novice": "Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints."
+    "Expert": [
+      "Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.",
+      "Student! shows expert thinking capacity, applying deep critical analysis and creative problem-solving to conceptual unit topics.",
+      "In thinking, Student! exhibits expert competence, making creative conceptual links and evaluating tasks from multiple points of view."
+    ],
+    "Practitioner": [
+      "Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.",
+      "Student! thinks critically when working through challenges, reflecting productively on His! academic progress.",
+      "In problem contexts, Student! shows good analytical thinking, successfully applying taught methods to standard scenarios."
+    ],
+    "Beginner": [
+      "Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.",
+      "Student! is developing thinking habits, and He! is encouraged to move beyond simple facts to explore underlying concepts.",
+      "In thinking, Student! is a beginner, and He! should focus on explaining His! logic step-by-step rather than jumping to conclusions."
+    ],
+    "Novice": [
+      "Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints.",
+      "Student! exhibits novice critical thinking, and He! is encouraged to seek structural guides when tackling unfamiliar conceptual prompts.",
+      "In thinking, Student! is a novice, and He! should practice basic logic steps with structured tutoring to build His! cognitive resilience."
+    ]
   }
 }
