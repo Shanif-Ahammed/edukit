@@ -1749,7 +1749,7 @@ export default function Dashboard({ setActiveTool }) {
               color: 'var(--text-muted)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#3b82f6', fontWeight: '800' }}>
-                <Info size={16} /> How to export from iSAMS:
+                <HelpCircle size={16} /> How to export from iSAMS:
               </div>
               <ol style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                 <li>Go to <strong>iSAMS</strong>.</li>
