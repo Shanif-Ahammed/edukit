@@ -1,0 +1,389 @@
+/* ==========================================================================
+   EduKit Ultra-Premium Visual Design System
+   ========================================================================== */
+
+:root {
+  /* Premium Type Pairing */
+  --font-header: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+
+  /* Theme: Dark Neon Obsidian (Default) */
+  --bg-app: #030712;
+  --bg-sidebar: rgba(8, 12, 26, 0.65);
+  --bg-card: rgba(17, 24, 39, 0.5);
+  --bg-card-hover: rgba(31, 41, 55, 0.65);
+  
+  --border-color: rgba(255, 255, 255, 0.05);
+  --border-color-hover: rgba(255, 255, 255, 0.12);
+  --border-primary: rgba(225, 0, 49, 0.25);
+  --border-primary-hover: rgba(225, 0, 49, 0.55);
+
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-inverse: #030712;
+
+  --workspace-banner-bg: linear-gradient(135deg, rgba(8, 12, 26, 0.75) 0%, rgba(225, 0, 49, 0.04) 100%);
+  --workspace-banner-border: rgba(255, 255, 255, 0.07);
+  --workspace-banner-inset: rgba(255, 255, 255, 0.06);
+
+  --warning-text: #fbbf24;
+  --warning-bg: rgba(245, 158, 11, 0.08);
+  --warning-border: rgba(245, 158, 11, 0.25);
+
+  /* HSL Tailored Colors */
+  --primary-hue: 347;
+  --primary: hsl(var(--primary-hue), 100%, 44%); /* SISD Red #E10031 */
+  --primary-glow: rgba(225, 0, 49, 0.12);
+  --primary-gradient: linear-gradient(135deg, hsl(347, 100%, 44%) 0%, hsl(340, 100%, 32%) 100%);
+
+  --accent-hue: 243; /* Royal Indigo */
+  --accent: hsl(var(--accent-hue), 82%, 60%);
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-gradient: linear-gradient(135deg, hsl(243, 82%, 60%) 0%, hsl(256, 85%, 48%) 100%);
+  
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.08);
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  /* Depth & Blur Specifications */
+  --glass-blur: blur(24px);
+  --shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 15px rgba(225, 0, 49, 0.02);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 32px;
+  
+  --transition-fast: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Theme Overrides (Extremely Elegant Minimalist) */
+[data-theme="light"] {
+  --bg-app: #f9fafb;
+  --bg-sidebar: rgba(255, 255, 255, 0.7);
+  --bg-card: rgba(255, 255, 255, 0.6);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+  
+  --border-color: rgba(17, 24, 39, 0.06);
+  --border-color-hover: rgba(17, 24, 39, 0.12);
+  --border-primary: rgba(225, 0, 49, 0.15);
+  --border-primary-hover: rgba(225, 0, 49, 0.35);
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-inverse: #ffffff;
+
+  --workspace-banner-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(225, 0, 49, 0.03) 100%);
+  --workspace-banner-border: rgba(17, 24, 39, 0.08);
+  --workspace-banner-inset: rgba(255, 255, 255, 0.4);
+
+  --warning-text: #b45309;
+  --warning-bg: rgba(245, 158, 11, 0.04);
+  --warning-border: rgba(245, 158, 11, 0.2);
+  
+  --primary-glow: rgba(225, 0, 49, 0.05);
+  --accent-glow: rgba(99, 102, 241, 0.05);
+  --shadow-lg: 0 10px 25px -10px rgba(17, 24, 39, 0.04);
+  --shadow-xl: 0 20px 40px -15px rgba(17, 24, 39, 0.08);
+}
+
+/* Base Resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(225, 0, 49, 0.02) 0px, transparent 40%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.01) 0px, transparent 45%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-header);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Custom Selection Highlight */
+::selection {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* Premium Thin Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color-hover);
+  border-radius: 100px;
+  transition: background var(--transition-fast);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  /* Inset light reflect edge */
+  box-shadow: var(--shadow-lg), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Tactile Hover Elevations */
+.glass-panel-hover:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+.glass-panel-active {
+  background: var(--bg-card-hover);
+  border-color: var(--primary);
+  box-shadow: 0 0 25px var(--primary-glow), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Common Layouts */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar {
+  width: 290px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  background: var(--bg-sidebar);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.35rem;
+  transition: width var(--transition-smooth), transform var(--transition-smooth);
+  z-index: 100;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar nav {
+  overflow-y: auto;
+  flex-grow: 1;
+  margin: 1.5rem 0;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  height: 100%;
+  padding: 3rem;
+  overflow-y: auto;
+  max-width: 1550px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Premium Buttons & Press Transforms */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-header);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+.btn:active {
+  transform: scale(0.97) translateY(0) !important;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(225, 0, 49, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(225, 0, 49, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: var(--border-color-hover);
+  color: var(--text-main);
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+  background: var(--border-color-hover);
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+}
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-icon:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+  transform: scale(1.06) translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+.float-bg {
+  opacity: 0.85;
+  transition: opacity 0.5s ease;
+}
+
+
+
+
+/* Animated SISD 4 Interlocking Rings Logo */
+@keyframes sisd-stroke-draw {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sisd-ring-fade-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(225, 0, 49, 0.3));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(225, 0, 49, 0.75));
+    transform: scale(1.03);
+  }
+}
+
+.sisd-logo-svg {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sisd-logo-svg:hover {
+  filter: drop-shadow(0 0 20px rgba(225, 0, 49, 0.85));
+  transform: scale(1.08) rotate(5deg);
+}
+
+.sisd-logo-svg .sisd-ring {
+  fill: none;
+  stroke-width: 14px;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: 
+    sisd-stroke-draw 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: stroke 0.3s ease;
+}
+
+.sisd-logo-svg .sisd-ring-1 {
+  stroke: #E10031;
+  animation-delay: 0.1s;
+}
+
+.sisd-logo-svg .sisd-ring-2 {
+  stroke: #E10031;
+  animation-delay: 0.35s;
+}
+
+.sisd-logo-svg .sisd-ring-3 {
+  stroke: #E10031;
+  animation-delay: 0.6s;
+}
+
+.sisd-logo-svg .sisd-ring-4 {
+  stroke: #6b7280;
+  animation-delay: 0.85s;
+}
+
+.logo-orb-active {
+  animation: sisd-ring-fade-glow 4s ease-in-out infinite;
+  animation-delay: 2.1s; /* Start after the drawing animation is complete */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    height: 100vh;
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    padding: 2rem;
+  }
+}

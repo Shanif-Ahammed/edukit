@@ -1,0 +1,32 @@
+{
+  "Communication": {
+    "Excellent": "Student! consistently demonstrates excellent ATL skills in Communication, expressing ideas clearly and listening actively in all activities.",
+    "Good": "Student! generally demonstrates good ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.",
+    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.",
+    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Communication, as active participation in discussions will support His! overall progress."
+  },
+  "Social": {
+    "Excellent": "Student! consistently demonstrates excellent ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.",
+    "Good": "Student! generally demonstrates good ATL skills in collaboration, working harmoniously with peers to complete group assignments.",
+    "Satisfactory": "Student! demonstrates satisfactory ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.",
+    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL social skills, cooperating more actively with peers to achieve shared targets."
+  },
+  "Self-Management": {
+    "Excellent": "Student! consistently demonstrates excellent ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.",
+    "Good": "Student! generally demonstrates good ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.",
+    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.",
+    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Self-Management, as greater engagement and time-management will support His! overall progress."
+  },
+  "Research": {
+    "Excellent": "Student! consistently demonstrates excellent ATL skills in Research, showing superb information literacy when gathering and citing source information.",
+    "Good": "Student! generally demonstrates good ATL skills in Research, successfully finding and interpreting relevant subject data.",
+    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Research, though He! should work on verifying His! source credibility more systematically.",
+    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Research, as stronger investigation habits will support His! academic progress."
+  },
+  "Thinking": {
+    "Excellent": "Student! consistently demonstrates excellent ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.",
+    "Good": "Student! generally demonstrates good ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.",
+    "Satisfactory": "Student! demonstrates satisfactory ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.",
+    "Needs Improvement": "Student! is encouraged to focus on developing His! ATL skills in Thinking, practicing how to approach problems from different viewpoints."
+  }
+}

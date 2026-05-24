@@ -1,0 +1,61 @@
+Student Name,Class,Subject,Teacher Name,Gender,Crit A,Crit B,Crit C,Crit D,CPT,IB Grade,MEG,ATL Progress,EAL Status,SEN / Learning Support Flag,Gifted & Talented Flag,Emirati
+Liam Henderson,7A Mathematics,Mathematics,Ms. Carter,Male,7,6,7,6,26,6,24,Excellent,No,No,Yes,No
+Sophia Patel,7A Mathematics,Mathematics,Ms. Carter,Female,5,5,6,5,21,5,19,Good,Yes,No,No,No
+Marcus Vance,7A Mathematics,Mathematics,Ms. Carter,Male,4,3,4,3,14,3,15,Needs Improvement,No,Yes,No,No
+Ji-Woo Park,7A Mathematics,Mathematics,Ms. Carter,Male,8,7,8,7,30,7,28,Excellent,No,No,Yes,No
+Zara Ahmed,7A Mathematics,Mathematics,Ms. Carter,Female,6,5,6,5,22,5,24,Good,No,No,No,Yes
+Fiona Gallagher,7A Mathematics,Mathematics,Ms. Carter,Female,3,2,3,3,11,3,15,Needs Improvement,No,Yes,No,No
+Ethan Caldwell,7A Mathematics,Mathematics,Ms. Carter,Male,5,6,5,5,21,5,19,Good,No,No,No,No
+Maya Patel,7A Mathematics,Mathematics,Ms. Carter,Female,7,7,8,6,28,7,24,Excellent,No,No,Yes,No
+Oscar Finch,7A Mathematics,Mathematics,Ms. Carter,Male,4,4,4,4,16,4,15,Developing,No,No,No,No
+Nia Brooks,7A Mathematics,Mathematics,Ms. Carter,Female,6,5,6,6,23,5,19,Good,Yes,No,No,No
+Lucas Thorne,7A Mathematics,Mathematics,Ms. Carter,Male,5,5,5,4,19,5,19,Good,No,No,No,No
+Isabella Rossi,7A Mathematics,Mathematics,Ms. Carter,Female,3,4,3,4,14,3,19,Needs Improvement,Yes,No,No,No
+Dante Cruz,7A Mathematics,Mathematics,Ms. Carter,Male,6,6,7,5,24,6,19,Excellent,No,No,No,No
+Emma Watson,7A Mathematics,Mathematics,Ms. Carter,Female,5,5,5,5,20,5,19,Good,No,No,No,No
+Aisha Nasser,7A Mathematics,Mathematics,Ms. Carter,Female,7,6,7,7,27,6,24,Excellent,No,No,No,Yes
+Ryan Kowalski,7A Mathematics,Mathematics,Ms. Carter,Male,4,4,5,4,17,4,15,Developing,No,No,No,No
+Chloe Sterling,7A Mathematics,Mathematics,Ms. Carter,Female,6,6,6,6,24,6,24,Good,No,No,Yes,No
+Ben Hargreaves,7A Mathematics,Mathematics,Ms. Carter,Male,2,3,2,3,10,3,15,Needs Improvement,No,Yes,No,No
+Priya Sharma,7A Mathematics,Mathematics,Ms. Carter,Female,5,5,6,4,20,5,19,Good,Yes,No,No,No
+Tomás Rivera,7A Mathematics,Mathematics,Ms. Carter,Male,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Alex Mercer,8B Mathematics,Mathematics,Mr. Thompson,Male,6,5,6,6,23,5,24,Good,No,No,No,No
+Sofia Lin,8B Mathematics,Mathematics,Mr. Thompson,Female,7,7,8,7,29,7,28,Excellent,No,No,Yes,No
+Elena Rostova,8B Mathematics,Mathematics,Mr. Thompson,Female,4,4,4,3,15,4,15,Developing,Yes,No,No,No
+Tariq Al Mansouri,8B Mathematics,Mathematics,Mr. Thompson,Male,8,7,7,7,29,7,24,Excellent,No,No,No,Yes
+Chloe Bennett,8B Mathematics,Mathematics,Mr. Thompson,Female,5,5,6,5,21,5,19,Good,No,No,No,No
+Jake Morrison,8B Mathematics,Mathematics,Mr. Thompson,Male,3,3,4,3,13,3,15,Needs Improvement,No,Yes,No,No
+Yuki Tanaka,8B Mathematics,Mathematics,Mr. Thompson,Female,6,6,7,6,25,6,24,Good,Yes,No,No,No
+Daniel Osei,8B Mathematics,Mathematics,Mr. Thompson,Male,4,5,4,4,17,4,15,Developing,No,No,No,No
+Amira Hassan,8B Mathematics,Mathematics,Mr. Thompson,Female,7,6,7,7,27,6,28,Excellent,No,No,No,Yes
+Connor Walsh,8B Mathematics,Mathematics,Mr. Thompson,Male,5,4,5,5,19,5,19,Good,No,No,No,No
+Lily Nakamura,8B Mathematics,Mathematics,Mr. Thompson,Female,6,6,6,5,23,5,24,Good,No,No,Yes,No
+Samuel Adeyemi,8B Mathematics,Mathematics,Mr. Thompson,Male,3,3,3,2,11,3,15,Needs Improvement,No,Yes,No,No
+Hana Al Zaabi,8B Mathematics,Mathematics,Mr. Thompson,Female,7,7,6,6,26,6,24,Excellent,No,No,No,Yes
+Ben Fitzgerald,8B Mathematics,Mathematics,Mr. Thompson,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Nour Khalil,8B Mathematics,Mathematics,Mr. Thompson,Female,4,3,4,4,15,4,15,Developing,Yes,No,No,No
+Matteo Ferrari,8B Mathematics,Mathematics,Mr. Thompson,Male,6,7,6,6,25,6,19,Excellent,No,No,No,No
+Jessica Park,8B Mathematics,Mathematics,Mr. Thompson,Female,7,6,7,6,26,6,24,Good,No,No,Yes,No
+Khalid Ibrahim,8B Mathematics,Mathematics,Mr. Thompson,Male,2,3,2,2,9,2,15,Needs Improvement,No,Yes,No,Yes
+Vivienne Dubois,8B Mathematics,Mathematics,Mr. Thompson,Female,5,6,5,5,21,5,19,Good,Yes,No,No,No
+Hamza Qureshi,8B Mathematics,Mathematics,Mr. Thompson,Male,8,8,7,7,30,7,28,Excellent,No,No,Yes,No
+Charlotte Hughes,9C Mathematics,Mathematics,Ms. Williams,Female,6,5,6,6,23,5,24,Good,No,No,No,No
+Ravi Menon,9C Mathematics,Mathematics,Ms. Williams,Male,7,7,7,6,27,6,24,Excellent,No,No,No,No
+Isabelle Laurent,9C Mathematics,Mathematics,Ms. Williams,Female,4,4,3,4,15,4,15,Developing,Yes,No,No,No
+Omar Siddiqui,9C Mathematics,Mathematics,Ms. Williams,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Grace Kim,9C Mathematics,Mathematics,Ms. Williams,Female,3,3,4,3,13,3,15,Needs Improvement,No,Yes,No,No
+Noah Andersson,9C Mathematics,Mathematics,Ms. Williams,Male,7,6,7,7,27,6,28,Excellent,No,No,Yes,No
+Fatima Al Rashidi,9C Mathematics,Mathematics,Ms. Williams,Female,6,6,7,6,25,6,24,Good,No,No,No,Yes
+Jack Sullivan,9C Mathematics,Mathematics,Ms. Williams,Male,4,5,4,5,18,4,19,Developing,No,No,No,No
+Mei Chen,9C Mathematics,Mathematics,Ms. Williams,Female,8,7,8,8,31,7,28,Excellent,No,No,Yes,No
+Aarav Nair,9C Mathematics,Mathematics,Ms. Williams,Male,5,5,4,5,19,5,19,Good,Yes,No,No,No
+Leila Moradi,9C Mathematics,Mathematics,Ms. Williams,Female,3,4,3,3,13,3,15,Needs Improvement,No,Yes,No,No
+Tyler Evans,9C Mathematics,Mathematics,Ms. Williams,Male,6,6,6,5,23,5,19,Good,No,No,No,No
+Amelia Scott,9C Mathematics,Mathematics,Ms. Williams,Female,7,7,6,7,27,6,24,Excellent,No,No,No,No
+Kenji Watanabe,9C Mathematics,Mathematics,Ms. Williams,Male,5,5,5,5,20,5,24,Good,No,No,No,No
+Layla Al Hammadi,9C Mathematics,Mathematics,Ms. Williams,Female,6,5,6,6,23,5,19,Good,No,No,No,Yes
+Ethan Brooks,9C Mathematics,Mathematics,Ms. Williams,Male,2,3,2,3,10,3,15,Needs Improvement,No,Yes,No,No
+Sana Hussain,9C Mathematics,Mathematics,Ms. Williams,Female,7,6,6,7,26,6,24,Good,Yes,No,No,No
+Luca Bianchi,9C Mathematics,Mathematics,Ms. Williams,Male,5,5,6,5,21,5,19,Excellent,No,No,No,No
+Aisha Begum,9C Mathematics,Mathematics,Ms. Williams,Female,4,4,4,4,16,4,15,Developing,Yes,No,No,No
+James O'Brien,9C Mathematics,Mathematics,Ms. Williams,Male,6,7,6,6,25,6,24,Good,No,No,Yes,No

@@ -1,0 +1,1164 @@
+import React, { useState, useEffect } from 'react';
+import {
+  Sparkles, Download, FileSpreadsheet, CheckCircle,
+  AlertCircle, Edit2, RefreshCw, BookOpen, Settings2, ChevronDown, ChevronUp, Save, Shuffle, Copy, ArrowLeft
+} from 'lucide-react';
+import * as XLSX from 'xlsx';
+import confetti from 'canvas-confetti';
+import { useData } from '../context/DataContext';
+
+// ─── IB MYP Subject Configurations ───────────────────────────────────────────
+const MYP_SUBJECTS = {
+  Mathematics: {
+    A: 'Knowing and Understanding',
+    B: 'Investigating Patterns',
+    C: 'Communicating',
+    D: 'Applying Mathematics in Real-life Contexts',
+  },
+  Sciences: {
+    A: 'Knowing and Understanding',
+    B: 'Inquiring and Designing',
+    C: 'Processing and Evaluating',
+    D: 'Reflecting on the Impacts of Science',
+  },
+  'Language & Literature': {
+    A: 'Analysing',
+    B: 'Organising',
+    C: 'Producing Text',
+    D: 'Using Language',
+  },
+  'Individuals & Societies': {
+    A: 'Knowing and Understanding',
+    B: 'Investigating',
+    C: 'Communicating',
+    D: 'Thinking Critically',
+  },
+  Design: {
+    A: 'Inquiring and Analysing',
+    B: 'Developing Ideas',
+    C: 'Creating the Solution',
+    D: 'Evaluating',
+  },
+  Arts: {
+    A: 'Knowing and Understanding',
+    B: 'Developing Skills',
+    C: 'Thinking Creatively',
+    D: 'Responding',
+  },
+  'Physical & Health Education': {
+    A: 'Knowing and Understanding',
+    B: 'Planning for Performance',
+    C: 'Applying and Performing',
+    D: 'Reflecting and Improving Performance',
+  },
+};
+
+const ATL_SKILLS = [
+  'Communication',
+  'Social',
+  'Self-Management',
+  'Research',
+  'Thinking',
+];
+
+const ATL_LEVELS = ['Excellent', 'Good', 'Satisfactory', 'Needs Improvement'];
+
+// Subject key mapping for comments.json lookup (display name → JSON key)
+const SUBJECT_KEYS = {
+  Mathematics: 'Mathematics',
+  Sciences: 'Sciences',
+  'Language & Literature': 'Language & Literature',
+  'Individuals & Societies': 'Individuals & Societies',
+  Design: 'Design',
+  Arts: 'Arts',
+  'Physical & Health Education': 'Physical & Health Education',
+};
+
+// ─── Default 3-Group Comment Bank (Mathematics & Generic ATL) ────────────────
+const DEFAULT_BANK = {
+  ib_grade: {
+    7: 'Student! has achieved an outstanding grade of 7 in Subject!, demonstrating exceptional mastery across all areas of the curriculum.',
+    6: 'Student! has achieved an excellent grade of 6 in Subject!, showing a thorough understanding of the key concepts and skills covered this term.',
+    5: 'Student! has achieved a strong grade of 5 in Subject!, reflecting a solid grasp of the core concepts and an ability to apply them effectively.',
+    4: 'Student! has achieved a grade of 4 in Subject!, demonstrating an adequate understanding of the core concepts covered this term.',
+    3: 'Student! has achieved a grade of 3 in Subject!, indicating a basic but developing understanding of the material.',
+    2: 'Student! has achieved a grade of 2 in Subject!, suggesting that He! would benefit from additional support to consolidate foundational skills.',
+    1: 'Student! has achieved a grade of 1 in Subject!, and it is important that He! seeks additional support to strengthen His! understanding of the core concepts.',
+  },
+  atl: {
+    Communication: {
+      Excellent: 'Student! consistently demonstrates excellent ATL skills in Communication, expressing ideas clearly and listening actively in all activities.',
+      Good: 'Student! generally demonstrates good ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.',
+      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.',
+      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Communication, as active participation in discussions will support His! overall progress.'
+    },
+    Social: {
+      Excellent: 'Student! consistently demonstrates excellent ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.',
+      Good: 'Student! generally demonstrates good ATL skills in collaboration, working harmoniously with peers to complete group assignments.',
+      Satisfactory: 'Student! demonstrates satisfactory ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.',
+      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL social skills, cooperating more actively with peers to achieve shared targets.'
+    },
+    'Self-Management': {
+      Excellent: 'Student! consistently demonstrates excellent ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.',
+      Good: 'Student! generally demonstrates good ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.',
+      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.',
+      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Self-Management, as greater engagement and time-management will support His! overall progress.'
+    },
+    Research: {
+      Excellent: 'Student! consistently demonstrates excellent ATL skills in Research, showing superb information literacy when gathering and citing source information.',
+      Good: 'Student! generally demonstrates good ATL skills in Research, successfully finding and interpreting relevant data.',
+      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Research, though He! should work on verifying His! source credibility more systematically.',
+      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Research, as stronger investigation habits will support His! academic progress.'
+    },
+    Thinking: {
+      Excellent: 'Student! consistently demonstrates excellent ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.',
+      Good: 'Student! generally demonstrates good ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.',
+      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.',
+      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Thinking, practicing how to approach problems from different viewpoints.'
+    }
+  },
+  strength: {
+    8: "Student!'s greatest strength this term has been in BestCrit!, where He! achieved an outstanding Grade 8, demonstrating flawless problem-solving.",
+    7: "Student!'s greatest strength this term has been in BestCrit!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding.",
+    6: "Student! achieved a strong Grade 6 in BestCrit!, proving His! solid capability to solve mathematical models.",
+    5: "Student! achieved a Grade 5 in BestCrit!, showing reliable performance and execution.",
+    4: "Student! achieved a Grade 4 in BestCrit!, which is an adequate outcome for this unit.",
+    3: "Student! achieved a Grade 3 in BestCrit!, highlighting areas where He! has basic capability.",
+    2: "Student! achieved a Grade 2 in BestCrit!, representing a starting point for skills consolidation.",
+    1: "Student! achieved a Grade 1 in BestCrit!, indicating that He! is in the early stages of skills acquisition."
+  },
+  improvement: {
+    8: "Even at Grade 8, Student! should continue to seek extensions in WeakCrit! to push His! boundaries.",
+    7: "To continue His! progress in WeakCrit! (Grade 7), Student! should maintain His! focus on challenging problem contexts.",
+    6: "To advance His! progress, Student! should focus on deepening His! skills in WeakCrit! (Grade 6) through active practices.",
+    5: "In WeakCrit! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency.",
+    4: "To support His! progress, Student! should dedicate regular review sessions to WeakCrit! (Grade 4) topics.",
+    3: "Student! is encouraged to address critical gaps in WeakCrit! (Grade 3) by seeking additional support.",
+    2: "It is important that Student! seeks targeted support to address gaps in WeakCrit! (Grade 2) to build confidence.",
+    1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in WeakCrit! (Grade 1)."
+  }
+};
+
+const BANK_STORAGE_KEY = 'edukit_comment_bank';
+
+const pickRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const getBestAndWorst = (critScores) => {
+  const entries = Object.entries(critScores).filter(([, v]) => v !== null && v !== undefined && v !== '');
+  if (entries.length === 0) return { best: 'A', worst: 'D', bestScore: 4, worstScore: 4 };
+
+  const maxScore = Math.max(...entries.map(([, v]) => Number(v)));
+  const minScore = Math.min(...entries.map(([, v]) => Number(v)));
+
+  const bests = entries.filter(([, v]) => Number(v) === maxScore).map(([k]) => k);
+  const worsts = entries.filter(([, v]) => Number(v) === minScore).map(([k]) => k);
+
+  const best = pickRandom(bests);
+  const worstCandidates = worsts.filter((k) => k !== best);
+  const worst = worstCandidates.length > 0 ? pickRandom(worstCandidates) : pickRandom(worsts);
+
+  const bestScore = Math.max(1, Math.min(8, Math.round(maxScore)));
+  const worstScore = Math.max(1, Math.min(8, Math.round(minScore)));
+
+  return { best, worst, bestScore, worstScore };
+};
+
+const applyPlaceholders = (template, data) => {
+  if (!template) return '';
+  return template
+    // Standard placeholders
+    .replace(/\[Name\]/g, data.forename)
+    .replace(/\[He\/She\]/g, data.pronouns.subj.charAt(0).toUpperCase() + data.pronouns.subj.slice(1))
+    .replace(/\[he\/she\]/g, data.pronouns.subj)
+    .replace(/\[His\/Her\]/g, data.pronouns.poss.charAt(0).toUpperCase() + data.pronouns.poss.slice(1))
+    .replace(/\[his\/her\]/g, data.pronouns.poss)
+    .replace(/\[Him\/Her\]/g, data.pronouns.obj.charAt(0).toUpperCase() + data.pronouns.obj.slice(1))
+    .replace(/\[him\/her\]/g, data.pronouns.obj)
+    .replace(/\[Grade\]/g, data.grade)
+    .replace(/\[Subject\]/g, data.subject)
+    .replace(/\[CritA\]/g, data.critNames.A)
+    .replace(/\[CritB\]/g, data.critNames.B)
+    .replace(/\[CritC\]/g, data.critNames.C)
+    .replace(/\[CritD\]/g, data.critNames.D)
+    .replace(/\[BestCrit\]/g, data.critNames[data.best])
+    .replace(/\[WeakCrit\]/g, data.critNames[data.worst])
+    .replace(/\[ATL Skill\]/g, data.atlSkill)
+    .replace(/\[ATL\]/g, data.atlProgress)
+
+    // Custom iSAMS placeholders
+    .replace(/Student!/g, data.forename)
+    .replace(/He!/g, data.pronouns.subj.charAt(0).toUpperCase() + data.pronouns.subj.slice(1))
+    .replace(/he!/g, data.pronouns.subj)
+    .replace(/His!/g, data.pronouns.poss.charAt(0).toUpperCase() + data.pronouns.poss.slice(1))
+    .replace(/his!/g, data.pronouns.poss)
+    .replace(/him!/g, data.pronouns.obj)
+    .replace(/Subject!/g, data.subject)
+    .replace(/A!\(?/g, data.critNames.A)
+    .replace(/B!\(?/g, data.critNames.B)
+    .replace(/C!\(?/g, data.critNames.C)
+    .replace(/D!\(?/g, data.critNames.D)
+    .replace(/BestCrit!\(?/g, data.critNames[data.best])
+    .replace(/WeakCrit!\(?/g, data.critNames[data.worst]);
+};
+
+export default function CommentGenerator() {
+  const {
+    fileConnected,
+    students,
+    selectedClass,
+    missingColumns,
+    subject,
+    setSubject,
+    updateStudent,
+    updateStudents
+  } = useData();
+
+  const [activeView, setActiveView] = useState('intro'); // 'intro' | 'generator' | 'bank'
+  const [atlSkill, setAtlSkill] = useState(''); // Prompt state: empty initially so they choose!
+  const [prevClass, setPrevClass] = useState(selectedClass);
+  const [bank, setBank] = useState(() => {
+    try {
+      const saved = localStorage.getItem(BANK_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : DEFAULT_BANK;
+    } catch { return DEFAULT_BANK; }
+  });
+
+  const [expandedSection, setExpandedSection] = useState('ib_grade');
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [editingCell, setEditingCell] = useState(null);
+  const [editValue, setEditValue] = useState('');
+  const [isLoadingBank, setIsLoadingBank] = useState(false);
+
+  // Reset generated comments when switching classes globally from top nav
+  useEffect(() => {
+    if (selectedClass !== prevClass) {
+      setPrevClass(selectedClass);
+
+      const classStudents = students.filter(s => s.className === selectedClass);
+      const hasGeneratedComments = classStudents.some(s => s.comment);
+
+      if (hasGeneratedComments) {
+        const updatedStudents = students.map(s => {
+          if (s.className === selectedClass) {
+            return { ...s, comment: '', status: null };
+          }
+          return s;
+        });
+        updateStudents(updatedStudents);
+        showStatus('warning', `Class changed to ${selectedClass}. Roster comments reset for regeneration.`);
+      }
+    }
+  }, [selectedClass, prevClass, updateStudents]);
+
+  // Dynamic comment bank hydration based on selected subject
+  useEffect(() => {
+    const loadBank = async () => {
+      setIsLoadingBank(true);
+      try {
+        const subjectKey = SUBJECT_KEYS[subject] || 'Mathematics';
+
+        // 1. Fetch ATL bank (universal)
+        const atlRes = await fetch('/comment_bank/atl.json');
+        if (!atlRes.ok) throw new Error('Failed to fetch ATL bank');
+        const atlData = await atlRes.json();
+
+        // 2. Fetch consolidated comments bank (all subjects in one file)
+        const commentsRes = await fetch('/comment_bank/comments.json');
+        if (!commentsRes.ok) throw new Error('Failed to fetch comments bank');
+        const commentsAll = await commentsRes.json();
+
+        // 3. Extract subject-specific strength & improvement blocks
+        const subjectComments = commentsAll[subjectKey] || commentsAll['Mathematics'] || {};
+
+        // 4. Fetch IB Grade bank (universal with subject divisions)
+        const ibRes = await fetch('/comment_bank/ib_grade.json');
+        if (!ibRes.ok) throw new Error('Failed to fetch IB Grade bank');
+        const ibAllData = await ibRes.json();
+        const ibData = ibAllData[subjectKey] || ibAllData.Mathematics || {};
+
+        const mergedBank = {
+          ib_grade: ibData,
+          atl: atlData,
+          strength: subjectComments.strength || {},
+          improvement: subjectComments.improvement || {}
+        };
+
+        setBank(mergedBank);
+        localStorage.setItem(BANK_STORAGE_KEY, JSON.stringify(mergedBank));
+      } catch (err) {
+        console.warn('Could not load bank from files, falling back to local bank state. Details:', err.message);
+        const saved = localStorage.getItem(BANK_STORAGE_KEY);
+        if (saved) {
+          try { setBank(JSON.parse(saved)); }
+          catch { setBank(DEFAULT_BANK); }
+        } else {
+          setBank(DEFAULT_BANK);
+        }
+      } finally {
+        setIsLoadingBank(false);
+      }
+    };
+
+    loadBank();
+  }, [subject]);
+
+  const critNames = MYP_SUBJECTS[subject] || MYP_SUBJECTS.Mathematics;
+
+  // Filter students to the active class
+  const classStudents = students.filter(s => s.className === selectedClass);
+
+  // Sync subject if defined in database
+  useEffect(() => {
+    if (classStudents.length > 0 && classStudents[0].subject) {
+      const dbSub = classStudents[0].subject;
+      if (MYP_SUBJECTS[dbSub]) {
+        setSubject(dbSub);
+      }
+    }
+  }, [selectedClass]);
+
+  const showStatus = (type, text) => {
+    setStatusMessage({ type, text });
+    setTimeout(() => setStatusMessage(null), 6000);
+  };
+
+  const saveBank = () => {
+    localStorage.setItem(BANK_STORAGE_KEY, JSON.stringify(bank));
+    showStatus('success', 'Comment bank saved to your browser successfully!');
+  };
+
+  const resetBank = () => {
+    if (window.confirm('Reset comment bank to default samples? Your current edits will be lost.')) {
+      setBank(DEFAULT_BANK);
+      localStorage.setItem(BANK_STORAGE_KEY, JSON.stringify(DEFAULT_BANK));
+      showStatus('success', 'Comment bank reset to defaults.');
+    }
+  };
+
+  // ── Comment Assembly ───────────────────────────────────────────────────────
+  const buildComment = (student) => {
+    const ibGradeVal = student.ibGrade ? Number(student.ibGrade) : null;
+    const hasLowCrit = [student.critA, student.critB, student.critC, student.critD].some(v => {
+      if (v === null || v === undefined || v === '') return false;
+      const num = Number(v);
+      return num === 1 || num === 2;
+    });
+    const hasMissingCrit = student.critA === null || student.critA === undefined || student.critA === '' ||
+                           student.critB === null || student.critB === undefined || student.critB === '' ||
+                           student.critC === null || student.critC === undefined || student.critC === '' ||
+                           student.critD === null || student.critD === undefined || student.critD === '';
+
+    if (ibGradeVal === 1 || ibGradeVal === 2) {
+      return `For a performance grade of ${ibGradeVal} in ${subject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
+    }
+
+    if (hasLowCrit) {
+      return `For individual criterion scores of 1 or 2 in ${subject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
+    }
+
+    if (hasMissingCrit) {
+      return '';
+    }
+
+    const critScores = { A: student.critA, B: student.critB, C: student.critC, D: student.critD };
+    const { best, worst, bestScore, worstScore } = getBestAndWorst(critScores);
+
+    const activeSkill = student.selectedAtlSkill || atlSkill;
+    const activeProgress = student.atlProgress || 'Good';
+
+    const data = {
+      forename: student.forename,
+      pronouns: student.pronouns,
+      grade: student.ibGrade || 4,
+      subject,
+      critNames,
+      best,
+      worst,
+      atlSkill: activeSkill,
+      atlProgress: activeProgress,
+    };
+
+    const gradeKey = String(student.ibGrade || 4);
+    const s1 = bank.ib_grade[gradeKey] || bank.ib_grade[4];
+
+    let s2 = '';
+    if (bank.atl && bank.atl[activeSkill]) {
+      s2 = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Good'];
+    } else if (bank.atl) {
+      s2 = bank.atl[activeProgress] || bank.atl['Good'];
+    }
+
+    let s3 = '';
+    if (bank.strength) {
+      s3 = bank.strength[bestScore] || bank.strength[4];
+    }
+
+    let s4 = '';
+    if (bank.improvement) {
+      s4 = bank.improvement[worstScore] || bank.improvement[4];
+    }
+
+    return [s1, s2, s3, s4].map((s) => applyPlaceholders(s, data)).join(' ');
+  };
+
+  const generateAll = () => {
+    if (!classStudents.length) {
+      showStatus('error', 'No student roster connected for this class.');
+      return;
+    }
+
+    setIsGenerating(true);
+    setTimeout(() => {
+      let errors = 0;
+      const updatedStudents = students.map((s) => {
+        if (s.className === selectedClass) {
+          try {
+            const generatedComment = buildComment(s);
+            return { ...s, comment: generatedComment, status: 'success' };
+          } catch (err) {
+            errors++;
+            return { ...s, comment: `Error: ${err.message}`, status: 'error' };
+          }
+        }
+        return s;
+      });
+
+      updateStudents(updatedStudents);
+      setIsGenerating(false);
+      if (errors === 0) {
+        confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+        showStatus('success', `Generated comments for ${classStudents.length} students instantly!`);
+      } else {
+        showStatus('warning', `Generated comments with ${errors} error(s). Review raw student rows.`);
+      }
+    }, 100);
+  };
+
+  const regenerateOne = (student) => {
+    try {
+      const generatedComment = buildComment(student);
+      updateStudent(student.id, { comment: generatedComment, status: 'success' });
+    } catch (err) {
+      updateStudent(student.id, { comment: `Error: ${err.message}`, status: 'error' });
+    }
+  };
+
+  const startEdit = (idx, value) => {
+    setEditingCell(idx);
+    setEditValue(value);
+  };
+
+  const commitEdit = (studentId) => {
+    updateStudent(studentId, { comment: editValue });
+    setEditingCell(null);
+  };
+
+  // Copy to clipboard helper
+  const copyToClipboard = (text, studentName) => {
+    navigator.clipboard.writeText(text);
+    showStatus('success', `Copied comment for ${studentName} to clipboard!`);
+  };
+
+  // ── Export Excel ─────────────────────────────────────────────────────────
+  const exportExcel = () => {
+    if (!classStudents.length) return;
+    const rows = classStudents.map((s) => ({
+      Forename: s.forename,
+      Surname: s.surname,
+      Gender: s.gender,
+      'IB Grade': s.ibGrade,
+      'Crit A': s.critA,
+      'Crit B': s.critB,
+      'Crit C': s.critC,
+      'Crit D': s.critD,
+      'ATL Progress': s.atlProgress,
+      'Generated Comment': s.comment,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    ws['!cols'] = [{ wch: 14 }, { wch: 14 }, { wch: 8 }, { wch: 10 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 18 }, { wch: 80 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Generated Comments');
+    XLSX.writeFile(wb, `sisd_comments_${selectedClass.toLowerCase().replace(/\s+/g, '_')}.xlsx`);
+  };
+
+  // Check which important columns are missing
+  const isAtlMissing = missingColumns.includes('atl');
+  const isCriteriaMissing = missingColumns.includes('critA') || missingColumns.includes('critB') || missingColumns.includes('critC') || missingColumns.includes('critD');
+  const isMegMissing = missingColumns.includes('meg');
+  const hasMissingGrades = classStudents.some(
+    s => s.critA === null || s.critA === undefined || s.critA === '' ||
+         s.critB === null || s.critB === undefined || s.critB === '' ||
+         s.critC === null || s.critC === undefined || s.critC === '' ||
+         s.critD === null || s.critD === undefined || s.critD === ''
+  );
+
+  const BankSection = ({ sectionKey, label, entries, keyLabels }) => {
+    const isOpen = expandedSection === sectionKey;
+    const safeEntries = entries || {};
+    return (
+      <div className="glass-panel" style={{ marginBottom: '0.75rem', overflow: 'hidden' }}>
+        <button
+          onClick={() => setExpandedSection(isOpen ? null : sectionKey)}
+          style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer', fontWeight: '700', fontSize: '0.95rem' }}
+        >
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', display: 'inline-block' }} />
+            {label}
+            {isLoadingBank && sectionKey !== 'atl' && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>(Loading...)</span>}
+          </span>
+          {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </button>
+
+        {isOpen && (
+          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {Object.entries(safeEntries).map(([key, template]) => (
+              <div key={key}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    {keyLabels ? keyLabels[key] : key}
+                  </label>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px', fontWeight: '500' }}>
+                    🔒 Locked Template
+                  </span>
+                </div>
+                <textarea
+                  value={template}
+                  readOnly={true}
+                  rows={3}
+                  style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', fontFamily: 'inherit', fontSize: '0.88rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.55', cursor: 'not-allowed' }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const inputStyle = { background: 'var(--bg-app)', border: '1px solid var(--primary)', borderRadius: '4px', color: 'var(--text-main)', padding: '0.2rem 0.4rem', fontSize: '0.88rem', width: '100%', outline: 'none', fontFamily: 'inherit' };
+
+  return (
+    <div className="animate-fade-in" style={{ paddingBottom: '3rem' }}>
+
+      {/* ══════════════════ VIEW 1: INTRO VIEW ══════════════════ */}
+      {activeView === 'intro' && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '65vh', padding: '1rem 0' }}>
+          <div className="glass-panel animate-fade-in" style={{
+            maxWidth: '650px',
+            width: '100%',
+            padding: '3rem 2.5rem',
+            textAlign: 'center',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-color)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3)'
+          }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              background: 'var(--primary-glow)',
+              color: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem',
+              border: '1px solid var(--border-primary)',
+              boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)'
+            }}>
+              <Sparkles size={38} className="animate-pulse" />
+            </div>
+
+            <h2 style={{ fontSize: '2rem', fontWeight: '800', marginBottom: '0.6rem', color: 'var(--text-main)' }}>
+              IB MYP Comment Assistant
+            </h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '2rem', lineHeight: '1.6', maxWidth: '500px', margin: '0 auto 2rem' }}>
+              Upload your iSAMS file once. Every student comment, ATL description, and criterion strength compiles dynamically on demand.
+            </p>
+
+            {/* Auto-selected information */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid var(--border-color)',
+              borderRadius: 'var(--radius-md)',
+              padding: '1.2rem 1.5rem',
+              marginBottom: '2rem',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+              textAlign: 'left'
+            }}>
+              <div style={{ borderRight: '1px solid var(--border-color)', paddingRight: '1rem' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>Active Class</span>
+                <span style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>
+                  {selectedClass || 'No Class Selected'}
+                </span>
+                <span style={{ fontSize: '0.65rem', color: 'var(--primary)', display: 'block', marginTop: '2px', fontWeight: '500' }}>✓ Auto-selected from nav</span>
+              </div>
+              <div style={{ paddingLeft: '0.5rem' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>Resolved Subject</span>
+                <span style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', display: 'block' }}>
+                  {subject}
+                </span>
+                <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', display: 'block', marginTop: '2px' }}>MYP Criteria Configured</span>
+              </div>
+            </div>
+
+            {/* ATL Skill prompt */}
+            <div style={{ marginBottom: '2.5rem', textAlign: 'left' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                Approaches to Learning (ATL) Skill Focus
+              </label>
+              <select
+                value={atlSkill}
+                onChange={(e) => setAtlSkill(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  background: 'var(--bg-app)',
+                  border: atlSkill ? '1px solid var(--primary)' : '1px dashed var(--border-color-hover)',
+                  borderRadius: 'var(--radius-sm)',
+                  color: atlSkill ? 'var(--text-main)' : 'var(--text-muted)',
+                  fontSize: '0.92rem',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  boxShadow: atlSkill ? '0 0 10px rgba(99, 102, 241, 0.1)' : 'none',
+                  transition: 'all 0.2s'
+                }}
+              >
+                <option value="" disabled>-- Select ATL Skill Category --</option>
+                {ATL_SKILLS.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+              {!atlSkill && (
+                <span style={{ fontSize: '0.72rem', color: 'var(--accent)', marginTop: '0.4rem', display: 'block', fontWeight: '500' }}>
+                  * Please select an ATL skill focus to proceed to workspaces
+                </span>
+              )}
+            </div>
+
+            {/* CTA Buttons */}
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <button
+                className="btn btn-secondary"
+                disabled={!atlSkill}
+                onClick={() => setActiveView('bank')}
+                style={{
+                  padding: '0.75rem 2rem',
+                  fontSize: '0.95rem',
+                  borderRadius: '30px',
+                  fontWeight: '600',
+                  border: '1px solid var(--border-color)',
+                  background: 'transparent',
+                  color: atlSkill ? 'var(--text-main)' : 'var(--text-muted)',
+                  cursor: atlSkill ? 'pointer' : 'not-allowed',
+                  transition: 'all 0.2s'
+                }}
+              >
+                📘 Comment Bank
+              </button>
+
+              <button
+                className="btn btn-primary"
+                disabled={!atlSkill}
+                onClick={() => setActiveView('generator')}
+                style={{
+                  padding: '0.75rem 2rem',
+                  fontSize: '0.95rem',
+                  borderRadius: '30px',
+                  fontWeight: '700',
+                  boxShadow: atlSkill ? '0 4px 15px rgba(99, 102, 241, 0.4)' : 'none',
+                  background: atlSkill ? 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)' : 'rgba(255,255,255,0.02)',
+                  border: 'none',
+                  color: atlSkill ? '#fff' : 'var(--text-muted)',
+                  cursor: atlSkill ? 'pointer' : 'not-allowed',
+                  transform: atlSkill ? 'scale(1.02)' : 'none',
+                  transition: 'all 0.2s'
+                }}
+              >
+                ⚡ Comment Generator
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Sub-view Workspace Navigation Header ── */}
+      {activeView !== 'intro' && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <button
+              onClick={() => setActiveView('intro')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                border: '1px solid var(--border-color)',
+                background: 'rgba(255,255,255,0.02)',
+                borderRadius: '20px',
+                padding: '0.4rem 1rem',
+                fontSize: '0.8rem',
+                color: 'var(--text-muted)',
+                cursor: 'pointer',
+                fontWeight: '500',
+                outline: 'none',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--text-main)';
+                e.currentTarget.style.borderColor = 'var(--border-color-hover)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-muted)';
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+              }}
+            >
+              <ArrowLeft size={13} /> Back to Selection
+            </button>
+            <h2 style={{ fontSize: '1.75rem', marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: '800' }}>
+              {activeView === 'generator' ? <Sparkles style={{ color: 'var(--primary)' }} size={24} /> : <BookOpen style={{ color: 'var(--primary)' }} size={24} />}
+              {activeView === 'generator' ? 'Roster Comment Generator' : 'Comment Bank Editor'}
+            </h2>
+          </div>
+
+          {/* Toggle buttons between sub-views */}
+          <div className="glass-panel" style={{ display: 'flex', padding: '4px', gap: '4px', borderRadius: '30px' }}>
+            <button
+              className="btn"
+              style={{
+                padding: '0.4rem 1.1rem',
+                fontSize: '0.85rem',
+                borderRadius: '20px',
+                background: activeView === 'bank' ? 'var(--primary)' : 'transparent',
+                color: activeView === 'bank' ? '#fff' : 'var(--text-main)',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              onClick={() => setActiveView('bank')}
+            >
+              <BookOpen size={14} /> Comment Bank
+            </button>
+            <button
+              className="btn"
+              style={{
+                padding: '0.4rem 1.1rem',
+                fontSize: '0.85rem',
+                borderRadius: '20px',
+                background: activeView === 'generator' ? 'var(--primary)' : 'transparent',
+                color: activeView === 'generator' ? '#fff' : 'var(--text-main)',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              onClick={() => setActiveView('generator')}
+            >
+              <Sparkles size={14} /> Comment Generator
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Status / Warning Banners ── */}
+      {activeView !== 'intro' && statusMessage && (
+        <div className="glass-panel animate-fade-in" style={{ padding: '0.9rem 1.5rem', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', background: statusMessage.type === 'error' ? 'rgba(239,68,68,0.1)' : statusMessage.type === 'warning' ? 'rgba(245,158,11,0.1)' : 'rgba(16,185,129,0.1)', borderColor: statusMessage.type === 'error' ? 'rgba(239,68,68,0.3)' : statusMessage.type === 'warning' ? 'rgba(245,158,11,0.3)' : 'rgba(16,185,129,0.3)', color: statusMessage.type === 'error' ? '#f87171' : statusMessage.type === 'warning' ? '#fbbf24' : '#34d399', zIndex: 10 }}>
+          {statusMessage.type === 'error' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
+          <span style={{ fontSize: '0.92rem', fontWeight: '500' }}>{statusMessage.text}</span>
+        </div>
+      )}
+
+      {/* Inline Missing Data Warnings */}
+      {activeView !== 'intro' && fileConnected && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem' }}>
+          {hasMissingGrades && (
+            <div className="glass-panel animate-fade-in" style={{ padding: '1.25rem 1.5rem', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid var(--warning)', background: 'var(--warning-bg)', color: 'var(--text-main)', display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.86rem', lineHeight: '1.5' }}>
+              <AlertCircle size={18} style={{ color: 'var(--warning)', flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ fontWeight: '800', color: 'var(--warning-text)' }}>⚠️ ALERT: Missing Student Criterion Grades Detected</strong>
+                <p style={{ marginTop: '0.25rem', color: 'var(--text-main)', opacity: 0.9 }}>
+                  Some students in the active class roster have blank or missing **Criterion Grades (Crit A, B, C, or D)**. 
+                  Note that if you already entered these grades in your iSAMS gradebook, the issue might be that the entries have not been **resynced and saved in the Online Assessment System (OAS)**.
+                </p>
+                <p style={{ marginTop: '0.5rem', fontWeight: '800', color: 'var(--warning-text)' }}>
+                  💡 Solution: Make sure all gradebook marks are published and resynced in OAS first before downloading your iSAMS Excel export.
+                </p>
+              </div>
+            </div>
+          )}
+          {isAtlMissing && (
+            <div className="glass-panel animate-fade-in" style={{ padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid var(--warning)', background: 'rgba(245,158,11,0.04)', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
+              <AlertCircle size={14} style={{ color: 'var(--warning)' }} />
+              <span><strong>ATL data not found in your file:</strong> This paragraph section will default to "Good" descriptors.</span>
+            </div>
+          )}
+          {isCriteriaMissing && (
+            <div className="glass-panel animate-fade-in" style={{ padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid var(--warning)', background: 'rgba(245,158,11,0.04)', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
+              <AlertCircle size={14} style={{ color: 'var(--warning)' }} />
+              <span><strong>Criterion A-D scores not found in your file:</strong> Strength and improvement sentences will fall back to default indicators.</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ══════════════════ VIEW 2: COMMENT BANK EDITOR ══════════════════ */}
+      {activeView === 'bank' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '2rem' }} className="animate-fade-in">
+
+          {/* Left: Preview of Active Class, Subject, and ATL Focus */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="glass-panel" style={{ padding: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.1rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Settings2 size={18} style={{ color: 'var(--primary)' }} /> Repository Info
+              </h2>
+
+              {/* Active Selection Details Preview */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.5rem', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: '600', color: 'var(--text-muted)' }}>Active Class</span>
+                    <span style={{ fontWeight: '700', color: 'var(--text-main)' }}>{selectedClass || 'No Class Selected'}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.5rem', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: '600', color: 'var(--text-muted)' }}>Subject</span>
+                    <span style={{ fontWeight: '700', color: 'var(--text-main)' }}>{subject}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: '600', color: 'var(--text-muted)' }}>ATL Skill Focus</span>
+                    <span style={{ fontWeight: '700', color: 'var(--primary)' }}>{atlSkill || 'None Selected'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Criteria preview */}
+              <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
+                <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
+                {Object.entries(MYP_SUBJECTS[subject] || MYP_SUBJECTS.Mathematics).map(([k, v]) => (
+                  <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
+                    <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
+                    <span style={{ color: 'var(--text-muted)' }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Placeholder guide */}
+            <div className="glass-panel" style={{ padding: '1.25rem' }}>
+              <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '0.85rem' }}>📋 Placeholder Reference</h3>
+              {[['[Name]', 'Student first name'], ['[He/She]', 'he / she / they'], ['[His/Her]', 'his / her / their'], ['[Him/Her]', 'him / her / them'], ['[Grade]', 'IB Grade (1–7)'], ['[Subject]', 'Subject name'], ['[BestCrit]', 'Highest criterion name'], ['[WeakCrit]', 'Lowest criterion name'], ['[CritA]–[CritD]', 'Individual criterion names'], ['[ATL Skill]', 'ATL skill category'], ['[ATL]', 'ATL progress level']].map(([ph, desc]) => (
+                <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem', fontSize: '0.8rem' }}>
+                  <code style={{ color: 'var(--accent)', background: 'rgba(255,255,255,0.04)', padding: '0.1rem 0.35rem', borderRadius: '3px' }}>{ph}</code>
+                  <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Comment Bank Reference */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h2 style={{ fontSize: '1.1rem' }}>Comment Bank Reference</h2>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(255,255,255,0.03)', padding: '0.4rem 0.8rem', borderRadius: '15px', border: '1px solid var(--border-color)' }}>
+                <span>🔒 Official Repository: Read-Only</span>
+              </div>
+            </div>
+
+            <BankSection sectionKey="ib_grade" label="Sentence 1 — IB Grade Comments"
+              entries={bank.ib_grade}
+              keyLabels={{ 7: 'Grade 7 (Outstanding)', 6: 'Grade 6 (Excellent)', 5: 'Grade 5 (Strong)', 4: 'Grade 4 (Adequate)', 3: 'Grade 3 (Basic)', 2: 'Grade 2 (Limited)', 1: 'Grade 1 (Very Limited)' }}
+            />
+            <BankSection sectionKey="atl" label={`Sentence 2 — ATL Progress Comments (${atlSkill || 'Self-Management'})`}
+              entries={bank.atl?.[atlSkill] || bank.atl?.[atlSkill || 'Self-Management'] || bank.atl}
+              keyLabels={{ Excellent: 'Excellent', Good: 'Good', Satisfactory: 'Satisfactory', 'Needs Improvement': 'Needs Improvement' }}
+              isNestedAtl={true}
+            />
+            <BankSection sectionKey="strength" label="Sentence 3 — Strength Comments (by best criterion grade)"
+              entries={bank.strength}
+              keyLabels={{
+                8: 'Grade 8 (Outstanding)',
+                7: 'Grade 7 (Excellent)',
+                6: 'Grade 6 (Very Good)',
+                5: 'Grade 5 (Good)',
+                4: 'Grade 4 (Satisfactory)',
+                3: 'Grade 3 (Basic)',
+                2: 'Grade 2 (Limited)',
+                1: 'Grade 1 (Very Limited)'
+              }}
+            />
+            <BankSection sectionKey="improvement" label="Sentence 4 — Improvement Comments (by weakest criterion grade)"
+              entries={bank.improvement}
+              keyLabels={{
+                8: 'Grade 8 (Outstanding)',
+                7: 'Grade 7 (Excellent)',
+                6: 'Grade 6 (Very Good)',
+                5: 'Grade 5 (Good)',
+                4: 'Grade 4 (Satisfactory)',
+                3: 'Grade 3 (Basic)',
+                2: 'Grade 2 (Limited)',
+                1: 'Grade 1 (Very Limited)'
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════ VIEW 3: COMMENT GENERATOR WORKSPACE ══════════════════ */}
+      {activeView === 'generator' && (
+        <div className="animate-fade-in">
+
+          {/* Prominent Regeneration Option Banner (Empty Roster State) */}
+          {fileConnected && classStudents.length > 0 && !classStudents.some(s => s.comment) && (
+            <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem', textAlign: 'center', marginBottom: '2rem', background: 'rgba(99, 102, 241, 0.03)', borderColor: 'rgba(99, 102, 241, 0.2)', borderStyle: 'dashed', borderRadius: 'var(--radius-md)' }}>
+              <Sparkles size={38} style={{ color: 'var(--primary)', marginBottom: '0.75rem', opacity: 0.8 }} />
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem', fontWeight: '700' }}>Ready to generate report comments?</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '1.5rem', maxWidth: '520px', margin: '0 auto 1.5rem', lineHeight: '1.6' }}>
+                Class roster and academic scores are loaded. Click below to automatically compile four-sentence comments for {selectedClass} using the active <strong>{atlSkill || 'Self-Management'}</strong> ATL templates.
+              </p>
+              <button className="btn btn-primary" onClick={generateAll} style={{ padding: '0.65rem 2.25rem', borderRadius: '30px', fontWeight: '700', fontSize: '0.92rem', boxShadow: '0 4px 15px rgba(99, 102, 241, 0.3)' }}>
+                ⚡ Generate Comments Now
+              </button>
+            </div>
+          )}
+
+          {/* Controls bar */}
+          <div className="glass-panel" style={{ padding: '1.1rem 1.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                Active Class Roster: <strong style={{ color: 'var(--text-main)' }}>{selectedClass || 'No Class Selected'}</strong>
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.6rem' }}>
+              <button
+                className="btn btn-primary"
+                style={{ padding: '0.55rem 1.25rem', fontSize: '0.9rem' }}
+                onClick={generateAll}
+                disabled={isGenerating || !classStudents.length}
+              >
+                {isGenerating ? <><RefreshCw size={15} className="animate-spin" /> Generating...</> : <><Sparkles size={15} /> {classStudents.some(s => s.comment) ? 'Regenerate All Comments' : 'Generate All Comments'}</>}
+              </button>
+              <button
+                className="btn btn-accent"
+                style={{ padding: '0.55rem 1.1rem', fontSize: '0.9rem' }}
+                onClick={exportExcel}
+                disabled={!classStudents.some((s) => s.comment)}
+              >
+                <Download size={15} /> Export Excel
+              </button>
+            </div>
+          </div>
+
+          {/* Empty state */}
+          {!fileConnected && (
+            <div
+              className="glass-panel"
+              style={{ padding: '4.5rem 2rem', textAlign: 'center', border: '2px dashed var(--border-color-hover)' }}
+            >
+              <FileSpreadsheet size={48} style={{ color: 'var(--primary)', marginBottom: '1rem', opacity: 0.6 }} />
+              <h3 style={{ marginBottom: '0.5rem' }}>No student database connected yet</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1.5rem', maxWidth: '480px', margin: '0 auto 1.5rem' }}>
+                Please click the <strong>"⚡ Connect Your Data"</strong> button in the top navigation bar to upload your Swiss International School Dubai iSAMS Excel file.
+              </p>
+            </div>
+          )}
+
+          {/* Student Grid */}
+          {fileConnected && classStudents.length > 0 && (
+            <div className="glass-panel" style={{ overflowX: 'auto', borderRadius: 'var(--radius-md)' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', textAlign: 'left' }}>
+                <thead>
+                  <tr style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid var(--border-color)' }}>
+                    <th style={{ padding: '0.85rem 1rem', width: '40px', color: 'var(--text-muted)' }}>#</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '150px' }}>Student</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '65px', textAlign: 'center' }}>Grade</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>A</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>B</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>C</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>D</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '145px' }}>ATL Skill Focus</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '145px' }}>ATL Progress</th>
+                    <th style={{ padding: '0.85rem 1rem', background: 'rgba(99,102,241,0.04)' }}>Generated Comment</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '80px', textAlign: 'center' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {classStudents.map((s, idx) => {
+                    const scores = [s.critA, s.critB, s.critC, s.critD].filter(v => v !== null);
+                    const max = scores.length > 0 ? Math.max(...scores) : null;
+                    const min = scores.length > 0 ? Math.min(...scores) : null;
+
+                    const cellColor = (v) => {
+                      if (v === null || v === undefined) return {};
+                      if (v === max && scores.length > 1) return { color: '#34d399', fontWeight: '700' };
+                      if (v === min && scores.length > 1) return { color: '#f87171', fontWeight: '700' };
+                      return {};
+                    };
+
+                    const hasLowCrit = [s.critA, s.critB, s.critC, s.critD].some(v => {
+                      if (v === null || v === undefined || v === '') return false;
+                      const num = Number(v);
+                      return num === 1 || num === 2;
+                    });
+                    const hasMissingCrit = s.critA === null || s.critA === undefined || s.critA === '' ||
+                                           s.critB === null || s.critB === undefined || s.critB === '' ||
+                                           s.critC === null || s.critC === undefined || s.critC === '' ||
+                                           s.critD === null || s.critD === undefined || s.critD === '';
+                    const isManualDraft = s.ibGrade === 1 || s.ibGrade === 2 || String(s.ibGrade) === '1' || String(s.ibGrade) === '2' || hasLowCrit || hasMissingCrit;
+
+                    return (
+                      <tr key={s.id} style={{ borderBottom: '1px solid var(--border-color)', background: s.status === 'success' ? 'rgba(16,185,129,0.02)' : s.status === 'error' ? 'rgba(239,68,68,0.03)' : 'transparent', transition: 'background 0.2s' }}>
+                        <td style={{ padding: '0.75rem 1rem', color: 'var(--text-muted)' }}>{idx + 1}</td>
+
+                        <td style={{ padding: '0.75rem 1rem', fontWeight: '600' }}>
+                          {s.name}
+                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: '400', display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '2px' }}>
+                            <span style={{ textTransform: 'capitalize' }}>{s.gender}</span>
+                            {s.tags.map(tag => (
+                              <span key={tag} style={{ background: 'rgba(255,255,255,0.06)', padding: '0px 4px', borderRadius: '3px', fontSize: '0.65rem' }}>{tag}</span>
+                            ))}
+                          </div>
+                        </td>
+
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>
+                          <span style={{ background: 'var(--primary-glow)', color: 'var(--primary)', borderRadius: '6px', padding: '0.15rem 0.5rem', fontWeight: '700', fontSize: '0.9rem' }}>
+                            {s.ibGrade ?? '—'}
+                          </span>
+                        </td>
+
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critA) }}>{s.critA ?? '—'}</td>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critB) }}>{s.critB ?? '—'}</td>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critC) }}>{s.critC ?? '—'}</td>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critD) }}>{s.critD ?? '—'}</td>
+
+                        <td style={{ padding: '0.75rem 1rem', color: 'var(--text-muted)' }}>
+                          {s.selectedAtlSkill || atlSkill || 'Self-Management'}
+                        </td>
+
+                        <td style={{ padding: '0.75rem 1rem' }}>
+                          <span style={{
+                            background: s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.1)' : s.atlProgress === 'Good' ? 'rgba(99,102,241,0.1)' : s.atlProgress === 'Satisfactory' ? 'rgba(245,158,11,0.1)' : 'rgba(239,68,68,0.1)',
+                            border: '1px solid ' + (s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.2)' : s.atlProgress === 'Good' ? 'rgba(99,102,241,0.2)' : s.atlProgress === 'Satisfactory' ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)'),
+                            color: s.atlProgress === 'Excellent' ? '#34d399' : s.atlProgress === 'Good' ? 'var(--primary)' : s.atlProgress === 'Satisfactory' ? '#fbbf24' : '#f87171',
+                            borderRadius: '4px',
+                            padding: '0.2rem 0.5rem',
+                            fontWeight: '600',
+                            fontSize: '0.8rem',
+                            display: 'inline-block'
+                          }}>
+                            {s.atlProgress || 'Good'}
+                          </span>
+                        </td>
+
+                        <td style={{ 
+                          padding: '0.75rem 1rem', 
+                          background: hasMissingCrit
+                            ? 'rgba(239, 68, 68, 0.03)'
+                            : isManualDraft
+                            ? 'rgba(245, 158, 11, 0.04)' 
+                            : 'rgba(99,102,241,0.02)', 
+                          borderLeft: hasMissingCrit
+                            ? '3px solid #ef4444'
+                            : isManualDraft
+                            ? '3px solid #fbbf24' 
+                            : 'none',
+                          maxWidth: '420px' 
+                        }}>
+                          {editingCell === s.id && !isManualDraft ? (
+                            <textarea
+                              value={editValue}
+                              onChange={(e) => setEditValue(e.target.value)}
+                              onBlur={() => commitEdit(s.id)}
+                              autoFocus
+                              rows={4}
+                              style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
+                            />
+                          ) : (
+                            <div
+                              onClick={isManualDraft ? undefined : () => startEdit(s.id, s.comment || '')}
+                              style={{ 
+                                cursor: isManualDraft ? 'default' : 'pointer', 
+                                lineHeight: '1.6', 
+                                color: s.comment ? 'var(--text-main)' : 'var(--text-muted)', 
+                                fontStyle: s.comment ? 'normal' : 'italic', 
+                                fontSize: '0.86rem' 
+                              }}
+                            >
+                              {isManualDraft && (
+                                <div style={{ 
+                                  display: 'inline-flex', 
+                                  alignItems: 'center', 
+                                  gap: '4px', 
+                                  color: hasMissingCrit ? '#ef4444' : '#fbbf24', 
+                                  fontSize: '0.72rem', 
+                                  fontWeight: '700', 
+                                  textTransform: 'uppercase', 
+                                  letterSpacing: '0.05em',
+                                  background: hasMissingCrit ? 'rgba(239, 68, 68, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                                  padding: '2px 6px',
+                                  borderRadius: '4px',
+                                  marginBottom: '6px'
+                                }}>
+                                  ⚠️ {hasMissingCrit ? 'Missing Grades' : 'Manual Draft'}
+                                </div>
+                              )}
+                              <div>
+                                {hasMissingCrit && !s.comment ? (
+                                  <span style={{ color: '#ef4444', fontWeight: '600', fontStyle: 'normal' }}>
+                                    ⚠️ Criterion grades are missing. Comment cannot be generated.
+                                  </span>
+                                ) : (
+                                  s.comment || 'Click Generate Comments Now to create comment…'
+                                )}
+                              </div>
+                              {s.comment && !isManualDraft && <Edit2 size={10} style={{ marginLeft: '6px', opacity: 0.3, display: 'inline-block' }} />}
+                            </div>
+                          )}
+                        </td>
+
+                        <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center' }}>
+                          <div style={{ display: 'flex', gap: '0.25rem', justifyContent: 'center' }}>
+                            {s.comment && !isManualDraft && (
+                              <>
+                                <button
+                                  title="Copy Comment"
+                                  onClick={() => copyToClipboard(s.comment, s.name)}
+                                  style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.35rem' }}
+                                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                                >
+                                  <Copy size={13} />
+                                </button>
+                                <button
+                                  title="Regenerate single comment"
+                                  onClick={() => regenerateOne(s)}
+                                  style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.35rem' }}
+                                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                                >
+                                  <Shuffle size={13} />
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {fileConnected && classStudents.length === 0 && (
+            <div className="glass-panel" style={{ padding: '4.5rem 2rem', textAlign: 'center' }}>
+              <AlertCircle size={40} style={{ color: 'var(--warning)', marginBottom: '1rem', opacity: 0.8 }} />
+              <h3>No students found in the active class</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.5rem' }}>
+                There are no students listed under <strong>"{selectedClass}"</strong> in your Excel file.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
