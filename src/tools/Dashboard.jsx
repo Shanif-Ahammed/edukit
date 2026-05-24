@@ -939,8 +939,8 @@ export default function Dashboard({ setActiveTool }) {
                 <h1 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-0.035em', marginBottom: '0.5rem', color: 'var(--text-main)' }}>
                   Educator Workspace Live
                 </h1>
-                <p style={{ color: 'var(--text-muted)', fontSize: '1.02rem', fontWeight: '500' }}>
-                  Subject: <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>{subject}</strong> · Cohort Instructor: <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>{teacherName}</strong>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', fontWeight: '600', marginTop: '0.25rem' }}>
+                  Welcome back, <strong style={{ color: 'var(--primary)', fontWeight: '850' }}>{teacherName}</strong>! Have a wonderful day teaching your cohort.
                 </p>
               </div>
 
