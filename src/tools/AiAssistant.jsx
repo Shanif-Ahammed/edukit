@@ -252,8 +252,8 @@ export default function AiAssistant() {
   const [rateLimits, setRateLimits] = useState({
     limitRPM: 120,
     remainingRPM: 120,
-    limitRPD: 10000,
-    remainingRPD: 10000,
+    limitRPD: 15000,
+    remainingRPD: 15000,
     resetTime: '60s'
   });
   const [showInfoPanel, setShowInfoPanel] = useState(false);
@@ -538,7 +538,7 @@ export default function AiAssistant() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.25rem', flexShrink: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', position: 'relative' }} ref={infoRef}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-3-Flash-Live</span>
+            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-3.1-Flash-Lite</span>
             <button
               onClick={() => setShowInfoPanel(!showInfoPanel)}
               style={{
@@ -584,11 +584,11 @@ export default function AiAssistant() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Model:</span>
-                    <strong style={{ color: 'var(--text-main)' }}>Gemini 3 Flash Live</strong>
+                    <strong style={{ color: 'var(--text-main)' }}>Gemini 3.1 Flash Lite</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Engine Type:</span>
-                    <strong style={{ color: '#10b981' }}>Low-Latency Real-Time Dialogue</strong>
+                    <strong style={{ color: '#10b981' }}>Ultra-Low-Latency Generation</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>RPM Limit (Minute):</span>
