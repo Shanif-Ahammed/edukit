@@ -250,10 +250,10 @@ export default function AiAssistant() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const [rateLimits, setRateLimits] = useState({
-    limitRPM: 120,
-    remainingRPM: 120,
-    limitRPD: 15000,
-    remainingRPD: 15000,
+    limitRPM: 15,
+    remainingRPM: 15,
+    limitRPD: 500,
+    remainingRPD: 500,
     resetTime: '60s'
   });
   const [showInfoPanel, setShowInfoPanel] = useState(false);
@@ -270,12 +270,12 @@ export default function AiAssistant() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Simulator timer to reset RPM limit to 120 every minute
+  // Simulator timer to reset RPM limit to 15 every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setRateLimits(prev => ({
         ...prev,
-        remainingRPM: 120
+        remainingRPM: 15
       }));
     }, 60000);
     return () => clearInterval(interval);
