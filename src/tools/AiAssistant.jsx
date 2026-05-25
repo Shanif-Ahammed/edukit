@@ -4,7 +4,7 @@ import {
   HelpCircle, AlertTriangle, Layers, Users, BookOpen
 } from 'lucide-react';
 
-const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
 
 const SYSTEM_INSTRUCTION = `You are the SISD EduKit AI Assistant, a helpful AI guide built directly into the Swiss International Scientific School in Dubai (SISD) Teacher Portal.
 Your primary role is to help teachers with any questions they have about using the EduKit web application.
