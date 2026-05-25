@@ -104,68 +104,68 @@ export default function HeaderNav() {
 
     const sampleRows = [
       // ── 7A Mathematics – Ms. Carter (20 students) ────────────────────────
-      mkRow('Liam Henderson',   '7A Mathematics', 'Ms. Carter', 'Male',   7,6,7,6, 6,24, 'Excellent',        false,false,true, false),
-      mkRow('Sophia Patel',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,5, 5,19, 'Good',             true, false,false,false),
-      mkRow('Marcus Vance',     '7A Mathematics', 'Ms. Carter', 'Male',   4,3,4,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Ji-Woo Park',      '7A Mathematics', 'Ms. Carter', 'Male',   8,7,8,7, 7,28, 'Excellent',        false,false,true, false),
-      mkRow('Zara Ahmed',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,5, 5,24, 'Good',             false,false,false,true),
-      mkRow('Fiona Gallagher',  '7A Mathematics', 'Ms. Carter', 'Female', 3,2,3,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Ethan Caldwell',   '7A Mathematics', 'Ms. Carter', 'Male',   5,6,5,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Maya Patel',       '7A Mathematics', 'Ms. Carter', 'Female', 7,7,8,6, 7,24, 'Excellent',        false,false,true, false),
-      mkRow('Oscar Finch',      '7A Mathematics', 'Ms. Carter', 'Male',   4,4,4,4, 4,15, 'Developing',       false,false,false,false),
-      mkRow('Nia Brooks',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,6, 5,19, 'Good',             true, false,false,false),
-      mkRow('Lucas Thorne',     '7A Mathematics', 'Ms. Carter', 'Male',   5,5,5,4, 5,19, 'Good',             false,false,false,false),
-      mkRow('Isabella Rossi',   '7A Mathematics', 'Ms. Carter', 'Female', 3,4,3,4, 3,19, 'Needs Improvement',true, false,false,false),
-      mkRow('Dante Cruz',       '7A Mathematics', 'Ms. Carter', 'Male',   6,6,7,5, 6,19, 'Excellent',        false,false,false,false),
-      mkRow('Emma Watson',      '7A Mathematics', 'Ms. Carter', 'Female', 5,5,5,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Aisha Nasser',     '7A Mathematics', 'Ms. Carter', 'Female', 7,6,7,7, 6,24, 'Excellent',        false,false,false,true),
-      mkRow('Ryan Kowalski',    '7A Mathematics', 'Ms. Carter', 'Male',   4,4,5,4, 4,15, 'Developing',       false,false,false,false),
-      mkRow('Chloe Sterling',   '7A Mathematics', 'Ms. Carter', 'Female', 6,6,6,6, 6,24, 'Good',             false,false,true, false),
-      mkRow('Ben Hargreaves',   '7A Mathematics', 'Ms. Carter', 'Male',   2,3,2,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Priya Sharma',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,4, 5,19, 'Good',             true, false,false,false),
-      mkRow('Tom\u00e1s Rivera',     '7A Mathematics', 'Ms. Carter', 'Male',   7,7,7,7, 7,28, 'Excellent',        false,false,true, false),
+      mkRow('Liam Henderson',   '7A Mathematics', 'Ms. Carter', 'Male',   7,6,7,6, 6,24, 'Expert',            false,false,true, false),
+      mkRow('Sophia Patel',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,5, 5,19, 'Practitioner',      true, false,false,false),
+      mkRow('Marcus Vance',     '7A Mathematics', 'Ms. Carter', 'Male',   4,3,4,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Ji-Woo Park',      '7A Mathematics', 'Ms. Carter', 'Male',   8,7,8,7, 7,28, 'Expert',            false,false,true, false),
+      mkRow('Zara Ahmed',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,5, 5,24, 'Practitioner',      false,false,false,true),
+      mkRow('Fiona Gallagher',  '7A Mathematics', 'Ms. Carter', 'Female', 3,2,3,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Ethan Caldwell',   '7A Mathematics', 'Ms. Carter', 'Male',   5,6,5,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Maya Patel',       '7A Mathematics', 'Ms. Carter', 'Female', 7,7,8,6, 7,24, 'Expert',            false,false,true, false),
+      mkRow('Oscar Finch',      '7A Mathematics', 'Ms. Carter', 'Male',   4,4,4,4, 4,15, 'Beginner',          false,false,false,false),
+      mkRow('Nia Brooks',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,6, 5,19, 'Practitioner',      true, false,false,false),
+      mkRow('Lucas Thorne',     '7A Mathematics', 'Ms. Carter', 'Male',   5,5,5,4, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Isabella Rossi',   '7A Mathematics', 'Ms. Carter', 'Female', 3,4,3,4, 3,19, 'Novice',            true, false,false,false),
+      mkRow('Dante Cruz',       '7A Mathematics', 'Ms. Carter', 'Male',   6,6,7,5, 6,19, 'Expert',            false,false,false,false),
+      mkRow('Emma Watson',      '7A Mathematics', 'Ms. Carter', 'Female', 5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Aisha Nasser',     '7A Mathematics', 'Ms. Carter', 'Female', 7,6,7,7, 6,24, 'Expert',            false,false,false,true),
+      mkRow('Ryan Kowalski',    '7A Mathematics', 'Ms. Carter', 'Male',   4,4,5,4, 4,15, 'Beginner',          false,false,false,false),
+      mkRow('Chloe Sterling',   '7A Mathematics', 'Ms. Carter', 'Female', 6,6,6,6, 6,24, 'Practitioner',      false,false,true, false),
+      mkRow('Ben Hargreaves',   '7A Mathematics', 'Ms. Carter', 'Male',   2,3,2,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Priya Sharma',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,4, 5,19, 'Practitioner',      true, false,false,false),
+      mkRow('Tom\u00e1s Rivera',     '7A Mathematics', 'Ms. Carter', 'Male',   7,7,7,7, 7,28, 'Expert',            false,false,true, false),
       // ── 8B Mathematics – Mr. Thompson (20 students) ──────────────────────
-      mkRow('Alex Mercer',       '8B Mathematics', 'Mr. Thompson', 'Male',   6,5,6,6, 5,24, 'Good',             false,false,false,false),
-      mkRow('Sofia Lin',         '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,8,7, 7,28, 'Excellent',        false,false,true, false),
-      mkRow('Elena Rostova',     '8B Mathematics', 'Mr. Thompson', 'Female', 4,4,4,3, 4,15, 'Developing',       true, false,false,false),
-      mkRow('Tariq Al Mansouri', '8B Mathematics', 'Mr. Thompson', 'Male',   8,7,7,7, 7,24, 'Excellent',        false,false,false,true),
-      mkRow('Chloe Bennett',     '8B Mathematics', 'Mr. Thompson', 'Female', 5,5,6,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Jake Morrison',     '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,4,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Yuki Tanaka',       '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,7,6, 6,24, 'Good',             true, false,false,false),
-      mkRow('Daniel Osei',       '8B Mathematics', 'Mr. Thompson', 'Male',   4,5,4,4, 4,15, 'Developing',       false,false,false,false),
-      mkRow('Amira Hassan',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,7, 6,28, 'Excellent',        false,false,false,true),
-      mkRow('Connor Walsh',      '8B Mathematics', 'Mr. Thompson', 'Male',   5,4,5,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Lily Nakamura',     '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,6,5, 5,24, 'Good',             false,false,true, false),
-      mkRow('Samuel Adeyemi',    '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,3,2, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Hana Al Zaabi',     '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,6,6, 6,24, 'Excellent',        false,false,false,true),
-      mkRow('Ben Fitzgerald',    '8B Mathematics', 'Mr. Thompson', 'Male',   5,5,5,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Nour Khalil',       '8B Mathematics', 'Mr. Thompson', 'Female', 4,3,4,4, 4,15, 'Developing',       true, false,false,false),
-      mkRow('Matteo Ferrari',    '8B Mathematics', 'Mr. Thompson', 'Male',   6,7,6,6, 6,19, 'Excellent',        false,false,false,false),
-      mkRow('Jessica Park',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,6, 6,24, 'Good',             false,false,true, false),
-      mkRow('Khalid Ibrahim',    '8B Mathematics', 'Mr. Thompson', 'Male',   2,3,2,2, 2,15, 'Needs Improvement',false,true, false,true),
-      mkRow('Vivienne Dubois',   '8B Mathematics', 'Mr. Thompson', 'Female', 5,6,5,5, 5,19, 'Good',             true, false,false,false),
-      mkRow('Hamza Qureshi',     '8B Mathematics', 'Mr. Thompson', 'Male',   8,8,7,7, 7,28, 'Excellent',        false,false,true, false),
+      mkRow('Alex Mercer',       '8B Mathematics', 'Mr. Thompson', 'Male',   6,5,6,6, 5,24, 'Practitioner',      false,false,false,false),
+      mkRow('Sofia Lin',         '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,8,7, 7,28, 'Expert',            false,false,true, false),
+      mkRow('Elena Rostova',     '8B Mathematics', 'Mr. Thompson', 'Female', 4,4,4,3, 4,15, 'Beginner',          true, false,false,false),
+      mkRow('Tariq Al Mansouri', '8B Mathematics', 'Mr. Thompson', 'Male',   8,7,7,7, 7,24, 'Expert',            false,false,false,true),
+      mkRow('Chloe Bennett',     '8B Mathematics', 'Mr. Thompson', 'Female', 5,5,6,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Jake Morrison',     '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,4,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Yuki Tanaka',       '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,7,6, 6,24, 'Practitioner',      true, false,false,false),
+      mkRow('Daniel Osei',       '8B Mathematics', 'Mr. Thompson', 'Male',   4,5,4,4, 4,15, 'Beginner',          false,false,false,false),
+      mkRow('Amira Hassan',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,7, 6,28, 'Expert',            false,false,false,true),
+      mkRow('Connor Walsh',      '8B Mathematics', 'Mr. Thompson', 'Male',   5,4,5,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Lily Nakamura',     '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,6,5, 5,24, 'Practitioner',      false,false,true, false),
+      mkRow('Samuel Adeyemi',    '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,3,2, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Hana Al Zaabi',     '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,6,6, 6,24, 'Expert',            false,false,false,true),
+      mkRow('Ben Fitzgerald',    '8B Mathematics', 'Mr. Thompson', 'Male',   5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Nour Khalil',       '8B Mathematics', 'Mr. Thompson', 'Female', 4,3,4,4, 4,15, 'Beginner',          true, false,false,false),
+      mkRow('Matteo Ferrari',    '8B Mathematics', 'Mr. Thompson', 'Male',   6,7,6,6, 6,19, 'Expert',            false,false,false,false),
+      mkRow('Jessica Park',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,6, 6,24, 'Practitioner',      false,false,true, false),
+      mkRow('Khalid Ibrahim',    '8B Mathematics', 'Mr. Thompson', 'Male',   2,3,2,2, 2,15, 'Novice',            false,true, false,true),
+      mkRow('Vivienne Dubois',   '8B Mathematics', 'Mr. Thompson', 'Female', 5,6,5,5, 5,19, 'Practitioner',      true, false,false,false),
+      mkRow('Hamza Qureshi',     '8B Mathematics', 'Mr. Thompson', 'Male',   8,8,7,7, 7,28, 'Expert',            false,false,true, false),
       // ── 9C Mathematics – Ms. Williams (20 students) ──────────────────────
-      mkRow('Charlotte Hughes',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,24, 'Good',             false,false,false,false),
-      mkRow('Ravi Menon',        '9C Mathematics', 'Ms. Williams', 'Male',   7,7,7,6, 6,24, 'Excellent',        false,false,false,false),
-      mkRow('Isabelle Laurent',  '9C Mathematics', 'Ms. Williams', 'Female', 4,4,3,4, 4,15, 'Developing',       true, false,false,false),
-      mkRow('Omar Siddiqui',     '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Grace Kim',         '9C Mathematics', 'Ms. Williams', 'Female', 3,3,4,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Noah Andersson',    '9C Mathematics', 'Ms. Williams', 'Male',   7,6,7,7, 6,28, 'Excellent',        false,false,true, false),
-      mkRow('Fatima Al Rashidi', '9C Mathematics', 'Ms. Williams', 'Female', 6,6,7,6, 6,24, 'Good',             false,false,false,true),
-      mkRow('Jack Sullivan',     '9C Mathematics', 'Ms. Williams', 'Male',   4,5,4,5, 4,19, 'Developing',       false,false,false,false),
-      mkRow('Mei Chen',          '9C Mathematics', 'Ms. Williams', 'Female', 8,7,8,8, 7,28, 'Excellent',        false,false,true, false),
-      mkRow('Aarav Nair',        '9C Mathematics', 'Ms. Williams', 'Male',   5,5,4,5, 5,19, 'Good',             true, false,false,false),
-      mkRow('Leila Moradi',      '9C Mathematics', 'Ms. Williams', 'Female', 3,4,3,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Tyler Evans',       '9C Mathematics', 'Ms. Williams', 'Male',   6,6,6,5, 5,19, 'Good',             false,false,false,false),
-      mkRow('Amelia Scott',      '9C Mathematics', 'Ms. Williams', 'Female', 7,7,6,7, 6,24, 'Excellent',        false,false,false,false),
-      mkRow('Kenji Watanabe',    '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,24, 'Good',             false,false,false,false),
-      mkRow('Layla Al Hammadi',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,19, 'Good',             false,false,false,true),
-      mkRow('Ethan Brooks',      '9C Mathematics', 'Ms. Williams', 'Male',   2,3,2,3, 3,15, 'Needs Improvement',false,true, false,false),
-      mkRow('Sana Hussain',      '9C Mathematics', 'Ms. Williams', 'Female', 7,6,6,7, 6,24, 'Good',             true, false,false,false),
-      mkRow('Luca Bianchi',      '9C Mathematics', 'Ms. Williams', 'Male',   5,5,6,5, 5,19, 'Excellent',        false,false,false,false),
-      mkRow('Aisha Begum',       '9C Mathematics', 'Ms. Williams', 'Female', 4,4,4,4, 4,15, 'Developing',       true, false,false,false),
-      mkRow("James O'Brien",     '9C Mathematics', 'Ms. Williams', 'Male',   6,7,6,6, 6,24, 'Good',             false,false,true, false),
+      mkRow('Charlotte Hughes',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,24, 'Practitioner',      false,false,false,false),
+      mkRow('Ravi Menon',        '9C Mathematics', 'Ms. Williams', 'Male',   7,7,7,6, 6,24, 'Expert',            false,false,false,false),
+      mkRow('Isabelle Laurent',  '9C Mathematics', 'Ms. Williams', 'Female', 4,4,3,4, 4,15, 'Beginner',          true, false,false,false),
+      mkRow('Omar Siddiqui',     '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Grace Kim',         '9C Mathematics', 'Ms. Williams', 'Female', 3,3,4,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Noah Andersson',    '9C Mathematics', 'Ms. Williams', 'Male',   7,6,7,7, 6,28, 'Expert',            false,false,true, false),
+      mkRow('Fatima Al Rashidi', '9C Mathematics', 'Ms. Williams', 'Female', 6,6,7,6, 6,24, 'Practitioner',      false,false,false,true),
+      mkRow('Jack Sullivan',     '9C Mathematics', 'Ms. Williams', 'Male',   4,5,4,5, 4,19, 'Beginner',          false,false,false,false),
+      mkRow('Mei Chen',          '9C Mathematics', 'Ms. Williams', 'Female', 8,7,8,8, 7,28, 'Expert',            false,false,true, false),
+      mkRow('Aarav Nair',        '9C Mathematics', 'Ms. Williams', 'Male',   5,5,4,5, 5,19, 'Practitioner',      true, false,false,false),
+      mkRow('Leila Moradi',      '9C Mathematics', 'Ms. Williams', 'Female', 3,4,3,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Tyler Evans',       '9C Mathematics', 'Ms. Williams', 'Male',   6,6,6,5, 5,19, 'Practitioner',      false,false,false,false),
+      mkRow('Amelia Scott',      '9C Mathematics', 'Ms. Williams', 'Female', 7,7,6,7, 6,24, 'Expert',            false,false,false,false),
+      mkRow('Kenji Watanabe',    '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,24, 'Practitioner',      false,false,false,false),
+      mkRow('Layla Al Hammadi',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,19, 'Practitioner',      false,false,false,true),
+      mkRow('Ethan Brooks',      '9C Mathematics', 'Ms. Williams', 'Male',   2,3,2,3, 3,15, 'Novice',            false,true, false,false),
+      mkRow('Sana Hussain',      '9C Mathematics', 'Ms. Williams', 'Female', 7,6,6,7, 6,24, 'Practitioner',      true, false,false,false),
+      mkRow('Luca Bianchi',      '9C Mathematics', 'Ms. Williams', 'Male',   5,5,6,5, 5,19, 'Expert',            false,false,false,false),
+      mkRow('Aisha Begum',       '9C Mathematics', 'Ms. Williams', 'Female', 4,4,4,4, 4,15, 'Beginner',          true, false,false,false),
+      mkRow("James O'Brien",     '9C Mathematics', 'Ms. Williams', 'Male',   6,7,6,6, 6,24, 'Practitioner',      false,false,true, false),
     ];
 
     const ws = XLSX.utils.json_to_sheet(sampleRows);
@@ -286,26 +286,7 @@ export default function HeaderNav() {
                 </span>
                 <button 
                   onClick={changeFile}
-                  style={{ 
-                    background: 'transparent', 
-                    border: 'none', 
-                    color: 'var(--text-muted)', 
-                    textDecoration: 'none', 
-                    cursor: 'pointer',
-                    fontSize: '0.82rem',
-                    fontWeight: '750',
-                    transition: 'all var(--transition-fast)',
-                    padding: '0.2rem 0.4rem',
-                    borderRadius: '6px'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = 'var(--error)';
-                    e.target.style.background = 'rgba(239, 68, 68, 0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = 'var(--text-muted)';
-                    e.target.style.background = 'transparent';
-                  }}
+                  className="btn-change-file"
                 >
                   Change file
                 </button>
@@ -373,7 +354,18 @@ export default function HeaderNav() {
                       e.target.style.boxShadow = 'none';
                     }}
                   >
-                    {classes.map(c => <option key={c} value={c}>{c}</option>)}
+                    {classes.map(c => (
+                      <option 
+                        key={c} 
+                        value={c} 
+                        style={{ 
+                          backgroundColor: 'var(--bg-app)', 
+                          color: 'var(--text-main)' 
+                        }}
+                      >
+                        {c}
+                      </option>
+                    ))}
                   </select>
                   <ChevronDown 
                     size={13} 

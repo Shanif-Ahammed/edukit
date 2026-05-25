@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Layers, Users, RefreshCw, Copy, CheckCircle2, 
-  Settings2, UserCheck, AlertCircle
+  Settings2, UserCheck, AlertCircle, Clock, Play, Pause, RotateCcw, Settings, X, Check,
+  Maximize2, Minimize2, ZoomIn, ZoomOut, ArrowLeft
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
-export default function GroupMaker() {
+export default function Utilities() {
   const { fileConnected, students, selectedClass, subject } = useData();
-  const [activeSubTab, setActiveSubTab] = useState('maker'); // 'maker' | 'picker'
+  const [activeSubTab, setActiveSubTab] = useState('maker'); // 'maker' | 'picker' | 'timer'
   const [groupSize, setGroupSize] = useState(4);
-  const [groupingCriteria, setGroupingCriteria] = useState('random'); // 'random' | 'mixed_attainment' | 'similar_attainment' | 'atl_strengths' | 'support_balance' | 'gender_balance'
+  const [groupingCriteria, setGroupingCriteria] = useState('random'); // 'random' | 'mixed_attainment' | 'similar_attainment' | 'atl_strengths' | 'support_balance' | 'gender_balance' | 'strong_struggling'
   const [groups, setGroups] = useState([]);
   const [copiedStatus, setCopiedStatus] = useState(false);
 
@@ -37,7 +38,7 @@ export default function GroupMaker() {
 
   const getATLPoints = (s) => {
     // Look at primary override first
-    const primaryATL = s.atlProgress || 'Good';
+    const primaryATL = s.atlProgress || 'Practitioner';
     // Look at overrides across five skills and average them
     let overrideSum = 0;
     let count = 0;
@@ -47,18 +48,19 @@ export default function GroupMaker() {
       const overrideKey = `atl_${sk}`;
       if (s[overrideKey]) {
         count++;
-        if (s[overrideKey] === 'Excellent') overrideSum += 4;
-        else if (s[overrideKey] === 'Good') overrideSum += 3;
-        else if (s[overrideKey] === 'Satisfactory') overrideSum += 2;
-        else if (s[overrideKey] === 'Needs Improvement') overrideSum += 1;
+        const val = s[overrideKey];
+        if (val === 'Expert' || val === 'Excellent') overrideSum += 4;
+        else if (val === 'Practitioner' || val === 'Good') overrideSum += 3;
+        else if (val === 'Beginner' || val === 'Satisfactory' || val === 'Developing') overrideSum += 2;
+        else if (val === 'Novice' || val === 'Needs Improvement') overrideSum += 1;
       }
     });
 
     if (count > 0) return overrideSum / count;
 
-    if (primaryATL === 'Excellent') return 4;
-    if (primaryATL === 'Good') return 3;
-    if (primaryATL === 'Satisfactory') return 2;
+    if (primaryATL === 'Expert' || primaryATL === 'Excellent') return 4;
+    if (primaryATL === 'Practitioner' || primaryATL === 'Good') return 3;
+    if (primaryATL === 'Beginner' || primaryATL === 'Satisfactory' || primaryATL === 'Developing') return 2;
     return 1;
   };
 
@@ -205,6 +207,27 @@ export default function GroupMaker() {
       sortedPool.forEach((student, idx) => {
         formedGroups[idx % numGroups].members.push(student);
       });
+    } else if (groupingCriteria === 'strong_struggling') {
+      // Sort academic grade descending
+      pool.sort((a, b) => getEffectiveGrade(b) - getEffectiveGrade(a));
+      
+      let left = 0;
+      let right = pool.length - 1;
+      let groupIdx = 0;
+      
+      while (left <= right) {
+        // Add the strong student from left
+        if (left <= right) {
+          formedGroups[groupIdx % numGroups].members.push(pool[left]);
+          left++;
+        }
+        // Add the struggling student from right
+        if (left <= right) {
+          formedGroups[groupIdx % numGroups].members.push(pool[right]);
+          right--;
+        }
+        groupIdx++;
+      }
     }
 
     setGroups(formedGroups);
@@ -217,21 +240,19 @@ export default function GroupMaker() {
     }
   }, [selectedClass, groupSize, groupingCriteria, students]);
 
-  // Export Groups to plain text clipboard helper
   const copyGroupsToClipboard = () => {
     if (groups.length === 0) return;
     
     let text = `SISD TEAMS - ${selectedClass.toUpperCase()} - ${subject.toUpperCase()}\n`;
-    text += `Grouping Criteria: ${groupingCriteria.replace('_', ' ').toUpperCase()} &middot; Target Group Size: ${groupSize}\n`;
+    text += `Grouping Criteria: ${groupingCriteria.replace('_', ' ').toUpperCase()} · Target Group Size: ${groupSize}\n`;
     text += `==================================================\n\n`;
 
     groups.forEach(g => {
-      text += `TEAM ${g.id} (Average Grade: ${Math.round(g.members.reduce((acc, m) => acc + getEffectiveGrade(m), 0) / g.members.length * 10) / 10})\n`;
+      text += `TEAM ${g.id}\n`;
       text += `--------------------------------------------------\n`;
       g.members.forEach((m, idx) => {
         const role = idx === 0 && groupingCriteria === 'atl_strengths' ? ' [Team Leader]' : '';
-        const tags = m.tags.length > 0 ? ` (${m.tags.join(', ')})` : '';
-        text += `- ${m.name} &middot; Grade ${getEffectiveGrade(m)} &middot; ATL: ${m.atlProgress}${role}${tags}\n`;
+        text += `- ${m.name}${role}\n`;
       });
       text += `\n`;
     });
@@ -240,47 +261,6 @@ export default function GroupMaker() {
     setCopiedStatus(true);
     setTimeout(() => setCopiedStatus(false), 3000);
   };
-
-  if (!fileConnected) {
-    return (
-      <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
-        <div className="glass-panel" style={{ padding: '5rem 2rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            background: 'var(--primary-glow)',
-            color: 'var(--primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 2rem',
-            border: '1px solid var(--border-primary)'
-          }}>
-            <Layers size={38} className="animate-pulse" />
-          </div>
-          <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>Visual Group Maker</h2>
-          <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', maxWidth: '500px', margin: '0 auto 2rem' }}>
-            Connect your Master Excel iSAMS file at the top of the portal to activate automated collaborative grouping algorithms, visual group card decks, and quick copy/print rosters.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (classStudents.length === 0) {
-    return (
-      <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
-        <div className="glass-panel" style={{ padding: '4.5rem 2rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-          <AlertCircle size={40} style={{ color: 'var(--warning)', marginBottom: '1rem', opacity: 0.8 }} />
-          <h3>No students found in the active class</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-            There are no student records matching class group <strong>"{selectedClass}"</strong> in your Excel sheet.
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="animate-fade-in" style={{ paddingBottom: '3rem' }}>
@@ -315,7 +295,7 @@ export default function GroupMaker() {
             }}
           >
             <Layers size={15} />
-            Group Generator
+            Study Group Matcher
           </button>
           <button
             onClick={() => setActiveSubTab('picker')}
@@ -334,10 +314,62 @@ export default function GroupMaker() {
             <RefreshCw size={15} />
             Student Picker Wheel
           </button>
+          <button
+            onClick={() => setActiveSubTab('timer')}
+            className="btn"
+            style={{
+              padding: '0.6rem 1.6rem',
+              fontSize: '0.88rem',
+              borderRadius: '9px',
+              background: activeSubTab === 'timer' ? 'var(--primary-gradient)' : 'transparent',
+              color: activeSubTab === 'timer' ? '#fff' : 'var(--text-muted)',
+              borderColor: 'transparent',
+              boxShadow: activeSubTab === 'timer' ? '0 4px 15px var(--primary-glow)' : 'none',
+              transition: 'all 0.25s'
+            }}
+          >
+            <Clock size={15} />
+            Classroom Timer
+          </button>
         </div>
       </div>
 
-      {activeSubTab === 'maker' ? (
+      {activeSubTab === 'timer' ? (
+        <TimerDashboard />
+      ) : !fileConnected ? (
+        <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
+          <div className="glass-panel" style={{ padding: '5rem 2rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              background: 'var(--primary-glow)',
+              color: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 2rem',
+              border: '1px solid var(--border-primary)'
+            }}>
+              <Layers size={38} className="animate-pulse" />
+            </div>
+            <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>Visual Study Group Matcher</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', maxWidth: '500px', margin: '0 auto 2rem' }}>
+              Connect your Master Excel iSAMS file at the top of the portal to activate automated collaborative grouping algorithms, visual group card decks, and quick copy/print rosters.
+            </p>
+          </div>
+        </div>
+      ) : classStudents.length === 0 ? (
+        <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
+          <div className="glass-panel" style={{ padding: '4.5rem 2rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            <AlertCircle size={40} style={{ color: 'var(--warning)', marginBottom: '1rem', opacity: 0.8 }} />
+            <h3>No students found in the active class</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+              There are no student records matching class group <strong>"{selectedClass}"</strong> in your Excel sheet.
+            </p>
+          </div>
+        </div>
+      ) : activeSubTab === 'maker' ? (
         <>
           {/* Printable page stylesheet */}
           <style>{`
@@ -480,6 +512,7 @@ export default function GroupMaker() {
                   <option value="atl_strengths">🧠 ATL Strengths (Balanced Leaders)</option>
                   <option value="support_balance">🤝 Inclusion & EAL Support Balancing</option>
                   <option value="gender_balance">🚻 Alternating Gender Balance</option>
+                  <option value="strong_struggling">🤝 Pair Strong & Struggling Students</option>
                 </select>
               </div>
 
@@ -1248,5 +1281,841 @@ function ConfettiOverlay() {
         zIndex: 9999 
       }} 
     />
+  );
+}
+
+/* ==========================================================================
+   CLASSROOM MULTI-SESSION PROTIMER COMPONENT
+   ========================================================================== */
+function TimerDashboard() {
+  const [globalTime, setGlobalTime] = useState(new Date());
+  const [dashboardInitialized, setDashboardInitialized] = useState(false);
+  const [selectedSessionCount, setSelectedSessionCount] = useState(1);
+  const [timers, setTimers] = useState([]);
+  
+  // Modal Edit state
+  const [editingTimer, setEditingTimer] = useState(null);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalDuration, setModalDuration] = useState(25);
+  const [modalAutoStart, setModalAutoStart] = useState("");
+
+  // Zoom and Fullscreen states
+  const [zoomLevel, setZoomLevel] = useState(1.0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const dashboardRef = useRef(null);
+
+  // Sync fullscreen state with document events (e.g. Esc key)
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  // Global ticking interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      setGlobalTime(now);
+
+      const hh = now.getHours().toString().padStart(2, '0');
+      const mm = now.getMinutes().toString().padStart(2, '0');
+      const currentClockStr = `${hh}:${mm}`;
+
+      setTimers(prev => prev.map(t => {
+        let nextTimeLeft = t.timeLeftSeconds;
+        let nextIsRunning = t.isRunning;
+        let nextAutoStartTime = t.autoStartTime;
+
+        // Auto start scheduler trigger
+        if (t.autoStartTime === currentClockStr && !t.isRunning && t.timeLeftSeconds === t.durationMinutes * 60) {
+          nextIsRunning = true;
+          nextAutoStartTime = ""; // Clear so it only triggers once
+        }
+
+        // Ticking countdown logic
+        if (nextIsRunning) {
+          if (nextTimeLeft > 0) {
+            nextTimeLeft--;
+          } else {
+            nextIsRunning = false;
+          }
+        }
+
+        return {
+          ...t,
+          timeLeftSeconds: nextTimeLeft,
+          isRunning: nextIsRunning,
+          autoStartTime: nextAutoStartTime
+        };
+      }));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleInitialize = (count) => {
+    const defaultMins = [25, 120, 5, 75, 15, 60];
+    const defaultLabels = ['Session A', 'Session B', 'Session C', 'Session D', 'Session E', 'Session F'];
+    const initialTimers = Array.from({ length: count }, (_, i) => ({
+      id: i + 1,
+      title: defaultLabels[i] || `Session ${String.fromCharCode(65 + i)}`,
+      durationMinutes: defaultMins[i] || 25,
+      timeLeftSeconds: (defaultMins[i] || 25) * 60,
+      isRunning: false,
+      autoStartTime: ""
+    }));
+    setTimers(initialTimers);
+    setDashboardInitialized(true);
+  };
+
+  const handleStartAll = () => {
+    const isAnyRunning = timers.some(t => t.isRunning);
+    setTimers(prev => prev.map(t => ({
+      ...t,
+      isRunning: !isAnyRunning && t.timeLeftSeconds > 0
+    })));
+  };
+
+  const handleResetAll = () => {
+    setTimers(prev => prev.map(t => ({
+      ...t,
+      isRunning: false,
+      timeLeftSeconds: t.durationMinutes * 60
+    })));
+  };
+
+  const handleToggleTimer = (id) => {
+    setTimers(prev => prev.map(t => {
+      if (t.id === id) {
+        return {
+          ...t,
+          isRunning: !t.isRunning && t.timeLeftSeconds > 0
+        };
+      }
+      return t;
+    }));
+  };
+
+  const handleResetTimer = (id) => {
+    setTimers(prev => prev.map(t => {
+      if (t.id === id) {
+        return {
+          ...t,
+          isRunning: false,
+          timeLeftSeconds: t.durationMinutes * 60
+        };
+      }
+      return t;
+    }));
+  };
+
+  const handleOpenEdit = (t) => {
+    setEditingTimer(t);
+    setModalTitle(t.title);
+    setModalDuration(t.durationMinutes);
+    setModalAutoStart(t.autoStartTime);
+  };
+
+  const handleSaveEdit = () => {
+    setTimers(prev => prev.map(t => {
+      if (t.id === editingTimer.id) {
+        const mins = parseInt(modalDuration) || 1;
+        return {
+          ...t,
+          title: modalTitle.trim() || 'Session',
+          durationMinutes: mins,
+          timeLeftSeconds: mins * 60,
+          isRunning: false,
+          autoStartTime: modalAutoStart
+        };
+      }
+      return t;
+    }));
+    setEditingTimer(null);
+  };
+
+  const handleToggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      if (dashboardRef.current?.requestFullscreen) {
+        dashboardRef.current.requestFullscreen().catch(err => {
+          console.error("Fullscreen request failed:", err);
+        });
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(1.8, Math.round((prev + 0.1) * 10) / 10));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(0.6, Math.round((prev - 0.1) * 10) / 10));
+  };
+
+  const handleResetZoom = () => {
+    setZoomLevel(1.0);
+  };
+
+  const isAnyRunning = timers.some(t => t.isRunning);
+
+  // Time format calculations
+  const hh = globalTime.getHours().toString().padStart(2, '0');
+  const mm = globalTime.getMinutes().toString().padStart(2, '0');
+  const ss = globalTime.getSeconds().toString().padStart(2, '0');
+  const dateStr = globalTime.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+
+  const getMilestoneTime = (baseTime, timeLeftSeconds, milestoneSeconds) => {
+    const diff = Math.max(0, timeLeftSeconds - milestoneSeconds);
+    const targetDate = new Date(baseTime.getTime() + diff * 1000);
+    return targetDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  };
+
+  return (
+    <div className="animate-fade-in" style={{ padding: '1rem 0' }}>
+      <style>{`
+        .mono {
+          font-family: 'JetBrains Mono', monospace, Courier, monospace;
+        }
+        @keyframes pulse-red {
+          0% { box-shadow: 0 0 0 0 rgba(213, 43, 30, 0.5); }
+          70% { box-shadow: 0 0 0 16px rgba(213, 43, 30, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(213, 43, 30, 0); }
+        }
+        .timer-finished-pulse {
+          animation: pulse-red 1.8s infinite;
+          background: #D52B1E !important;
+          border-color: #991b1b !important;
+        }
+        #timer-fullscreen-container:fullscreen {
+          background-color: var(--bg-app) !important;
+          padding: 3rem 2rem !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          overflow-y: auto !important;
+        }
+      `}</style>
+
+      {!dashboardInitialized ? (
+        <div className="glass-panel animate-fade-in" style={{ padding: '4rem 2rem', textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1.5rem',
+            flexShrink: 0
+          }}>
+            <svg 
+              className="sisd-logo-svg"
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="-110 -110 420 420" 
+              style={{ 
+                overflow: 'visible', 
+                isolation: 'isolate', 
+                width: '100%', 
+                height: '100%',
+                filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.25))'
+              }}
+            >
+              <circle className="sisd-ring sisd-ring-1" cx="100" cy="-8" r="90" style={{ strokeWidth: '16px' }} />
+              <circle className="sisd-ring sisd-ring-2" cx="100" cy="208" r="90" style={{ strokeWidth: '16px' }} />
+              <circle className="sisd-ring sisd-ring-3" cx="-8" cy="100" r="90" style={{ strokeWidth: '16px' }} />
+              <circle className="sisd-ring sisd-ring-4" cx="208" cy="100" r="90" style={{ strokeWidth: '16px' }} />
+            </svg>
+          </div>
+          <h2 style={{ fontSize: '1.6rem', fontWeight: '850', marginBottom: '0.5rem', letterSpacing: '-0.03em' }}>ProTimer Dashboard</h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.12em', marginBottom: '2.5rem' }}>
+            Tailored Multiple Session Timer
+          </p>
+
+          <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
+            <label style={{ fontSize: '0.72rem', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '1rem', letterSpacing: '0.04em' }}>
+              How many sessions to track?
+            </label>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              {[1, 2, 3, 4, 5, 6].map(count => (
+                <button
+                  key={count}
+                  onClick={() => setSelectedSessionCount(count)}
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '10px',
+                    border: '1px solid',
+                    borderColor: selectedSessionCount === count ? '#D52B1E' : 'var(--border-color)',
+                    background: selectedSessionCount === count ? 'rgba(213,43,30,0.1)' : 'transparent',
+                    color: selectedSessionCount === count ? '#D52B1E' : 'var(--text-muted)',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  {count}
+                </button>
+              ))}
+            </div>
+            
+            <button
+              onClick={() => handleInitialize(selectedSessionCount)}
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                padding: '0.85rem',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #D52B1E 0%, #b02419 100%)',
+                color: '#fff',
+                borderColor: 'transparent',
+                fontWeight: '700',
+                boxShadow: '0 4px 15px rgba(213,43,30,0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}
+            >
+              Initialize Dashboard
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div 
+          ref={dashboardRef}
+          id="timer-fullscreen-container"
+          className="animate-fade-in"
+          style={{ 
+            padding: isFullscreen ? '3rem 2rem' : '1rem 0',
+            background: isFullscreen ? 'var(--bg-app)' : 'transparent',
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: isFullscreen ? '100vh' : 'auto'
+          }}
+        >
+          {/* Zoom Wrapper */}
+          <div 
+            style={{
+              zoom: zoomLevel,
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'zoom 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          >
+            {/* Dashboard Header: Global Clock */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2.5rem', textAlign: 'center' }}>
+              {/* SISD EduKit brand logo and header */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                <div style={{
+                  width: '50px',
+                  height: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <svg 
+                    className="sisd-logo-svg"
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="-110 -110 420 420" 
+                    style={{ 
+                      overflow: 'visible', 
+                      isolation: 'isolate', 
+                      width: '100%', 
+                      height: '100%',
+                      filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.25))'
+                    }}
+                  >
+                    <circle className="sisd-ring sisd-ring-1" cx="100" cy="-8" r="90" style={{ strokeWidth: '16px' }} />
+                    <circle className="sisd-ring sisd-ring-2" cx="100" cy="208" r="90" style={{ strokeWidth: '16px' }} />
+                    <circle className="sisd-ring sisd-ring-3" cx="-8" cy="100" r="90" style={{ strokeWidth: '16px' }} />
+                    <circle className="sisd-ring sisd-ring-4" cx="208" cy="100" r="90" style={{ strokeWidth: '16px' }} />
+                  </svg>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem' }}>
+                  <h2 style={{ fontSize: '1.5rem', fontWeight: '900', lineHeight: 1, letterSpacing: '-0.04em', margin: 0, color: 'var(--text-main)' }}>SISD EduKit</h2>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: '800', letterSpacing: '0.12em', lineHeight: 1 }}>TEACHER PORTAL</span>
+                </div>
+              </div>
+
+              <div className="mono" style={{ fontSize: '4.5rem', fontWeight: '900', letterSpacing: '-0.04em', color: 'var(--text-main)', lineHeight: 1 }}>
+                {hh}:{mm}:{ss}
+              </div>
+              <div style={{ color: '#D52B1E', fontWeight: '800', tracking: '0.35em', textTransform: 'uppercase', marginTop: '0.75rem', fontSize: '0.72rem', letterSpacing: '0.3em' }}>
+                {dateStr}
+              </div>
+              
+              <div style={{ marginTop: '1.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                <button
+                  onClick={handleStartAll}
+                  className="btn btn-primary"
+                  style={{
+                    padding: '0.65rem 1.6rem',
+                    fontSize: '0.8rem',
+                    borderRadius: '12px',
+                    background: isAnyRunning ? 'var(--warning-gradient)' : 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    borderColor: 'transparent',
+                    fontWeight: '800',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    boxShadow: isAnyRunning ? '0 4px 12px rgba(245,158,11,0.18)' : '0 4px 12px rgba(16,185,129,0.18)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  {isAnyRunning ? <Pause size={14} /> : <Play size={14} />}
+                  {isAnyRunning ? 'Pause All' : 'Start All'}
+                </button>
+                
+                <button
+                  onClick={handleResetAll}
+                  className="btn btn-secondary"
+                  style={{
+                    padding: '0.65rem 1.2rem',
+                    borderRadius: '12px',
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  title="Reset All Timers"
+                >
+                  <RotateCcw size={14} />
+                  Reset All
+                </button>
+
+                <button
+                  onClick={() => setDashboardInitialized(false)}
+                  className="btn btn-secondary"
+                  style={{
+                    padding: '0.65rem 1.2rem',
+                    borderRadius: '12px',
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  title="Back to active session setup"
+                >
+                  <ArrowLeft size={14} />
+                  Setup Page
+                </button>
+
+                <div style={{ width: '1px', height: '24px', background: 'var(--border-color)', margin: '0 4px' }} />
+
+                {/* Zoom Controls */}
+                <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '2px 6px', borderRadius: '12px', borderColor: 'var(--border-color)', background: 'rgba(255,255,255,0.02)' }}>
+                  <button
+                    onClick={handleZoomOut}
+                    className="btn-icon"
+                    style={{ width: '28px', height: '28px', borderRadius: '8px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    title="Zoom Out"
+                  >
+                    <ZoomOut size={13} />
+                  </button>
+                  <span 
+                    onClick={handleResetZoom}
+                    style={{ fontSize: '0.73rem', fontWeight: '800', color: 'var(--text-muted)', minWidth: '40px', textAlign: 'center', cursor: 'pointer', userSelect: 'none' }}
+                    title="Reset Zoom to 100%"
+                  >
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
+                  <button
+                    onClick={handleZoomIn}
+                    className="btn-icon"
+                    style={{ width: '28px', height: '28px', borderRadius: '8px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    title="Zoom In"
+                  >
+                    <ZoomIn size={13} />
+                  </button>
+                </div>
+
+                {/* Fullscreen Controls */}
+                <button
+                  onClick={handleToggleFullscreen}
+                  className="btn btn-secondary"
+                  style={{
+                    padding: '0.65rem 1.2rem',
+                    borderRadius: '12px',
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  title={isFullscreen ? "Exit Fullscreen" : "Fullscreen Mode"}
+                >
+                  {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+                  {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+                </button>
+              </div>
+            </div>
+
+            {/* Centered Responsive Flex Deck of Active Session Timers */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '1.75rem', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                width: '100%',
+                maxWidth: '1200px',
+                margin: '0 auto',
+                padding: '0 1rem'
+              }}
+            >
+              {timers.map(t => {
+                const totalSecs = t.durationMinutes * 60;
+                const elapsed = totalSecs - t.timeLeftSeconds;
+                const isFirstHour = elapsed < 3600;
+                const isLast15 = t.timeLeftSeconds < 900;
+                const statusRed = isFirstHour || isLast15;
+
+                const isFinished = t.timeLeftSeconds === 0;
+                const minutesLeft = Math.floor(t.timeLeftSeconds / 60);
+                const secondsLeft = t.timeLeftSeconds % 60;
+                const displayStr = `${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+
+                // Dynamic text color overrides based on thresholds
+                let displayColor = 'var(--text-main)';
+                if (!isFinished) {
+                  if (t.timeLeftSeconds <= 300) {
+                    displayColor = '#D52B1E';
+                  } else if (t.timeLeftSeconds <= 1800) {
+                    displayColor = '#f59e0b';
+                  }
+                }
+
+                return (
+                  <div
+                    key={t.id}
+                    className={`glass-panel ${isFinished ? 'timer-finished-pulse' : ''}`}
+                    style={{
+                      padding: '1.5rem',
+                      borderRadius: '24px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '1.25rem',
+                      position: 'relative',
+                      borderTop: isFinished ? '8px solid #991b1b' : '8px solid #D52B1E',
+                      textAlign: 'center',
+                      background: 'var(--bg-card)',
+                      transition: 'all 0.3s ease',
+                      width: '300px',
+                      flexShrink: 0
+                    }}
+                  >
+                    {/* Settings gear trigger */}
+                    <button
+                      onClick={() => handleOpenEdit(t)}
+                      style={{
+                        position: 'absolute',
+                        top: '10px',
+                        right: '10px',
+                        background: 'transparent',
+                        border: 'none',
+                        color: isFinished ? 'rgba(255,255,255,0.45)' : 'var(--text-muted)',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = '#D52B1E'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = isFinished ? 'rgba(255,255,255,0.45)' : 'var(--text-muted)'; }}
+                      title="Edit Session Timer"
+                    >
+                      <Settings size={15} />
+                    </button>
+
+                    {/* Status Indicator Dot */}
+                    <div
+                      style={{
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '50%',
+                        background: isFinished ? '#ffffff' : (statusRed ? '#D52B1E' : '#10b981'),
+                        boxShadow: isFinished ? '0 0 8px #fff' : (statusRed ? '0 0 8px rgba(213,43,30,0.5)' : '0 0 8px rgba(16,185,129,0.5)'),
+                        marginTop: '0.25rem'
+                      }}
+                    />
+
+                    {/* Labels */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                      <h3 style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '900',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: isFinished ? '#ffffff' : 'var(--text-main)'
+                      }}>
+                        {t.title}
+                      </h3>
+                      
+                      {t.autoStartTime && (
+                        <span style={{
+                          fontSize: '0.62rem',
+                          fontWeight: '800',
+                          textTransform: 'uppercase',
+                          color: isFinished ? 'rgba(255,255,255,0.8)' : '#D52B1E'
+                        }}>
+                          @ {t.autoStartTime}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Giant countdown text */}
+                    <div
+                      className="mono"
+                      style={{
+                        fontSize: '3.75rem',
+                        fontWeight: '900',
+                        letterSpacing: '-0.04em',
+                        lineHeight: 1,
+                        color: isFinished ? '#ffffff' : displayColor,
+                        transition: 'color 0.3s'
+                      }}
+                    >
+                      {displayStr}
+                    </div>
+
+                    {/* Milestones Panel */}
+                    <div style={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px',
+                      borderTop: '1px solid ' + (isFinished ? 'rgba(255,255,255,0.18)' : 'var(--border-color)'),
+                      borderBottom: '1px solid ' + (isFinished ? 'rgba(255,255,255,0.18)' : 'var(--border-color)'),
+                      padding: '8px 4px',
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: '800', color: isFinished ? 'rgba(255,255,255,0.7)' : 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>30m Mark</span>
+                        <span className="mono" style={{ fontSize: '0.8rem', fontWeight: '700', color: isFinished ? '#ffffff' : 'var(--text-main)' }}>
+                          {totalSecs > 1800 ? getMilestoneTime(globalTime, t.timeLeftSeconds, 1800) : '---'}
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: '800', color: isFinished ? 'rgba(255,255,255,0.7)' : 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>5m Mark</span>
+                        <span className="mono" style={{ fontSize: '0.8rem', fontWeight: '700', color: isFinished ? '#ffffff' : '#D52B1E' }}>
+                          {totalSecs > 300 ? getMilestoneTime(globalTime, t.timeLeftSeconds, 300) : '---'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <button
+                        onClick={() => handleToggleTimer(t.id)}
+                        style={{
+                          padding: '8px 14px',
+                          borderRadius: '10px',
+                          background: isFinished ? '#ffffff' : (t.isRunning ? '#f59e0b' : '#D52B1E'),
+                          color: isFinished ? '#D52B1E' : '#ffffff',
+                          border: 'none',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'transform 0.15s ease',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.08)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                        title={t.isRunning ? "Pause" : "Play"}
+                      >
+                        {t.isRunning ? <Pause size={14} /> : <Play size={14} />}
+                      </button>
+
+                      <button
+                        onClick={() => handleResetTimer(t.id)}
+                        style={{
+                          padding: '8px',
+                          borderRadius: '10px',
+                          background: isFinished ? 'rgba(255,255,255,0.15)' : 'var(--bg-app)',
+                          color: isFinished ? '#ffffff' : 'var(--text-muted)',
+                          border: '1px solid ' + (isFinished ? 'rgba(255,255,255,0.25)' : 'var(--border-color)'),
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'transform 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.08)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                        title="Reset Session Timer"
+                      >
+                        <RotateCcw size={14} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Config Modal Overlay */}
+      {editingTimer && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(3, 7, 18, 0.75)',
+          backdropFilter: 'blur(12px)',
+          zIndex: 100000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1.5rem'
+        }}>
+          <div className="glass-panel animate-fade-in" style={{
+            padding: '2rem',
+            width: '100%',
+            maxWidth: '460px',
+            background: 'var(--bg-card)',
+            boxShadow: 'var(--shadow-xl)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '24px'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem' }}>
+              <h2 style={{ fontSize: '1.3rem', fontWeight: '850', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em' }}>
+                <span style={{ width: '4px', height: '22px', background: '#D52B1E', borderRadius: '4px', display: 'inline-block' }} />
+                Session Configuration
+              </h2>
+              <button
+                onClick={() => setEditingTimer(null)}
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-muted)',
+                  cursor: 'pointer',
+                  padding: '5px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <X size={15} />
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div>
+                <label style={{ fontSize: '0.68rem', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', letterSpacing: '0.04em' }}>Title</label>
+                <input
+                  type="text"
+                  value={modalTitle}
+                  onChange={(e) => setModalTitle(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    background: 'var(--bg-app)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    borderRadius: '10px',
+                    outline: 'none',
+                    fontWeight: '600'
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ fontSize: '0.68rem', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', letterSpacing: '0.04em' }}>Duration (Minutes)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={modalDuration}
+                    onChange={(e) => setModalDuration(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1rem',
+                      background: 'var(--bg-app)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-main)',
+                      borderRadius: '10px',
+                      outline: 'none',
+                      fontWeight: '600'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '0.68rem', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', letterSpacing: '0.04em' }}>Auto-Start Time</label>
+                  <input
+                    type="time"
+                    value={modalAutoStart}
+                    onChange={(e) => setModalAutoStart(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.73rem 1rem',
+                      background: 'var(--bg-app)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-main)',
+                      borderRadius: '10px',
+                      outline: 'none',
+                      fontWeight: '600'
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', marginTop: '1.25rem' }}>
+                <button
+                  onClick={handleSaveEdit}
+                  className="btn btn-primary"
+                  style={{
+                    flexGrow: 2,
+                    padding: '0.85rem',
+                    background: 'linear-gradient(135deg, #D52B1E 0%, #b02419 100%)',
+                    color: '#fff',
+                    borderColor: 'transparent',
+                    fontWeight: '700',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 15px rgba(213,43,30,0.2)'
+                  }}
+                >
+                  Apply Changes
+                </button>
+                <button
+                  onClick={() => setEditingTimer(null)}
+                  className="btn btn-secondary"
+                  style={{
+                    flexGrow: 1,
+                    padding: '0.85rem',
+                    borderRadius: '12px',
+                    color: 'var(--text-muted)',
+                    borderColor: 'var(--border-color)'
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

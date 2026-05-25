@@ -64,7 +64,7 @@ const generateDemoRoster = () => {
     const megOffset = (i % 3) - 1; // -1, 0, 1
     const meg = Math.min(32, Math.max(8, cpt + megOffset * 3));
     
-    const atlOptions = ['Excellent', 'Good', 'Developing', 'Needs Improvement'];
+    const atlOptions = ['Expert', 'Practitioner', 'Beginner', 'Novice'];
     const atl = atlOptions[(i % 4) === 0 ? 0 : (i % 4) === 1 || (i % 4) === 2 ? 1 : 2];
     
     const eal = i % 7 === 0;
@@ -121,6 +121,74 @@ export default function Dashboard({ setActiveTool }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const fileInputRef = useRef(null);
+
+  // ── REUSABLE AI ASSISTANT PROMOTION BANNER ───────────────────────────
+  const renderAiBanner = () => (
+    <div 
+      className="glass-panel animate-fade-in"
+      style={{
+        padding: '2rem 2.5rem',
+        borderRadius: 'var(--radius-lg)',
+        background: 'var(--ai-banner-bg)',
+        border: '1px solid var(--ai-banner-border)',
+        boxShadow: 'var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.05)',
+        marginBottom: '3.5rem',
+        maxWidth: '1280px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1.5rem',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      <div style={{ flex: '1 1 500px', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div style={{
+          width: '48px',
+          height: '48px',
+          borderRadius: '12px',
+          background: 'rgba(99, 102, 241, 0.1)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          boxShadow: '0 0 12px rgba(99, 102, 241, 0.2)'
+        }}>
+          <Sparkles size={22} style={{ color: 'var(--accent)' }} />
+        </div>
+        <div>
+          <h4 style={{ fontSize: '1.2rem', fontWeight: '850', marginBottom: '0.35rem', color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
+            Need help with Data, Exams, or Portal features?
+          </h4>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.94rem', lineHeight: '1.5', margin: 0 }}>
+            Our integrated <strong style={{ color: 'var(--text-main)', fontWeight: '800' }}>EduKit AI Assistant</strong> is ready to answer your questions and guide you in using our productivity features to save you hours of administrative work.
+          </p>
+        </div>
+      </div>
+
+      <button
+        className="btn btn-accent"
+        style={{
+          padding: '0.85rem 1.75rem',
+          fontSize: '0.94rem',
+          borderRadius: '30px',
+          gap: '0.55rem',
+          fontWeight: '800',
+          background: 'var(--accent-gradient)',
+          border: 'none',
+          color: '#fff',
+          boxShadow: '0 4px 15px rgba(99, 102, 241, 0.35)',
+          transition: 'all var(--transition-fast)'
+        }}
+        onClick={() => setActiveTool('ai-assistant')}
+      >
+        ⚡ Chat with EduKit AI
+        <ArrowRight size={16} />
+      </button>
+    </div>
+  );
 
   // ── HANDLERS AND HELPERS ─────────────────────────────────────────────
   const triggerToast = (msg, type = 'success') => {
@@ -581,6 +649,8 @@ export default function Dashboard({ setActiveTool }) {
               </div>
             </div>
 
+            {renderAiBanner()}
+
             {/* DISCONNECTED PREVIEW GRID OF TOOLS */}
             <h2 style={{ fontSize: '1.5rem', fontWeight: '850', marginBottom: '1.75rem', display: 'flex', alignItems: 'center', gap: '0.65rem', letterSpacing: '-0.02em' }}>
               <ClipboardCheck style={{ color: 'var(--primary)' }} size={24} />
@@ -990,6 +1060,8 @@ export default function Dashboard({ setActiveTool }) {
                 </button>
               </div>
             </div>
+
+            {renderAiBanner()}
 
             {/* ACTIVE COHORT METRICS ROW */}
             <div style={{ 
@@ -1522,7 +1594,7 @@ export default function Dashboard({ setActiveTool }) {
                 </div>
               </div>
 
-              {/* Tool Card 5: Group Maker */}
+              {/* Tool Card 5: Teacher Utilities */}
               <div 
                 className="glass-panel glass-panel-hover"
                 style={{ 
@@ -1532,12 +1604,12 @@ export default function Dashboard({ setActiveTool }) {
                   height: '100%', 
                   cursor: 'pointer',
                   borderRadius: '24px',
-                  border: hoveredCard === 'mod-groups' ? '1px solid rgba(236, 72, 153, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'mod-groups' ? 'translateY(-4px)' : 'translateY(0)'
+                  border: hoveredCard === 'mod-utilities' ? '1px solid rgba(236, 72, 153, 0.35)' : '1px solid var(--border-color)',
+                  transform: hoveredCard === 'mod-utilities' ? 'translateY(-4px)' : 'translateY(0)'
                 }}
-                onMouseEnter={() => setHoveredCard('mod-groups')}
+                onMouseEnter={() => setHoveredCard('mod-utilities')}
                 onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setActiveTool('groups')}
+                onClick={() => setActiveTool('utilities')}
               >
                 <div style={{
                   width: '52px',
@@ -1549,19 +1621,19 @@ export default function Dashboard({ setActiveTool }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.75rem',
-                  boxShadow: hoveredCard === 'mod-groups' ? '0 8px 24px rgba(236, 72, 153, 0.35)' : '0 4px 12px rgba(236, 72, 153, 0.15)',
+                  boxShadow: hoveredCard === 'mod-utilities' ? '0 8px 24px rgba(236, 72, 153, 0.35)' : '0 4px 12px rgba(236, 72, 153, 0.15)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <Layers size={25} />
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em' }}>
-                  Group Maker
+                  Teacher Utilities
                   <span style={{ fontSize: '0.75rem', color: '#ec4899', background: 'rgba(236, 72, 153, 0.12)', border: '1px solid rgba(236, 72, 153, 0.18)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Dynamic Teams
+                    Utilities & Timers
                   </span>
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
-                  Create cooperative learning structures mathematically balanced by genders, attainment bands, inclusion requirements, or custom rules.
+                  Create cooperative learning structures, select random students with an HTML5 spin wheel, or launch multiple session classroom timers.
                 </p>
                 <div style={{ 
                   display: 'flex', 
@@ -1571,9 +1643,9 @@ export default function Dashboard({ setActiveTool }) {
                   fontWeight: '800', 
                   fontSize: '0.92rem',
                   transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'mod-groups' ? 'translateX(6px)' : 'translateX(0)'
+                  transform: hoveredCard === 'mod-utilities' ? 'translateX(6px)' : 'translateX(0)'
                 }}>
-                  Launch Group Creator <ArrowRight size={16} />
+                  Launch Utilities Studio <ArrowRight size={16} />
                 </div>
               </div>
 
@@ -1607,7 +1679,7 @@ export default function Dashboard({ setActiveTool }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
                 }}>
                   <span style={{ fontWeight: '800', color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem', fontSize: '1.02rem' }}>🗣️ Language & EAL Provisioning</span>
-                  We identified <strong style={{ color: 'var(--primary)' }}>{ealCount} EAL student(s)</strong> in the class. When using Seating Chart desks, place EAL pupils alongside peers with 'Excellent' or 'Good' ATL communication ratings.
+                  We identified <strong style={{ color: 'var(--primary)' }}>{ealCount} EAL student(s)</strong> in the class. When using Seating Chart desks, place EAL pupils alongside peers with 'Expert' or 'Practitioner' ATL communication ratings.
                 </div>
                 
                 <div style={{ 
@@ -1618,7 +1690,7 @@ export default function Dashboard({ setActiveTool }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
                 }}>
                   <span style={{ fontWeight: '800', color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem', fontSize: '1.02rem' }}>🧠 Gifted & Talented Extension</span>
-                  We identified <strong style={{ color: '#3b82f6' }}>{giftedCount} MAGT student(s)</strong>. Ensure they receive high-level conceptual prompts, and consider using Group Maker's peer-mentoring settings.
+                  We identified <strong style={{ color: '#3b82f6' }}>{giftedCount} MAGT student(s)</strong>. Ensure they receive high-level conceptual prompts, and consider using Study Group Matcher's peer-mentoring settings.
                 </div>
                 
                 <div style={{ 

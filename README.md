@@ -47,5 +47,5 @@ Follow these simple steps to hook your public GitHub Pages deployment up to your
 - **Dashboard**: connects ready-to-go Excel exports directly from iSAMS without manual header renaming.
 - **Comment Gen**: Auto-generates personalized report comments using criteria grades, and intercepts manual drafts for critical grade boundaries (1/2 marks).
 - **Seating Chart (A4 Landscape Studio)**: Interactive canvas drag-and-drop seating arrangement with auto-balance tags (Emirati, EAL, Inclusion) and print override layouts.
-- **Group Maker & Picker**: Group generator with demographic balancing, plus a tactile, high-DPI canvas spin-wheel student picker with particle celebration confetti.
+- **Study Group Matcher & Picker**: Collaborative grouping generator with automatic peer-pairing, plus a tactile, high-DPI canvas spin-wheel student picker with particle celebration confetti.
 - **Teacher Toolkit**: Houses academic conversion charts (Arabic to MOE percentage scales), MYP points boundary calculators, and troubleshooting guides.

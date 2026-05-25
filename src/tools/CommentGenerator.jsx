@@ -61,7 +61,7 @@ const ATL_SKILLS = [
   'Thinking',
 ];
 
-const ATL_LEVELS = ['Excellent', 'Good', 'Satisfactory', 'Needs Improvement'];
+const ATL_LEVELS = ['Expert', 'Practitioner', 'Beginner', 'Novice'];
 
 // Subject key mapping for comments.json lookup (display name → JSON key)
 const SUBJECT_KEYS = {
@@ -87,34 +87,34 @@ const DEFAULT_BANK = {
   },
   atl: {
     Communication: {
-      Excellent: 'Student! consistently demonstrates excellent ATL skills in Communication, expressing ideas clearly and listening actively in all activities.',
-      Good: 'Student! generally demonstrates good ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.',
-      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.',
-      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Communication, as active participation in discussions will support His! overall progress.'
+      Expert: 'Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support His! overall progress.'
     },
     Social: {
-      Excellent: 'Student! consistently demonstrates excellent ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.',
-      Good: 'Student! generally demonstrates good ATL skills in collaboration, working harmoniously with peers to complete group assignments.',
-      Satisfactory: 'Student! demonstrates satisfactory ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.',
-      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL social skills, cooperating more actively with peers to achieve shared targets.'
+      Expert: 'Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in collaboration, working harmoniously with peers to complete group assignments.',
+      Beginner: 'Student! demonstrates beginner ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in collaboration, and is encouraged to cooperate more actively with peers to achieve shared targets.'
     },
     'Self-Management': {
-      Excellent: 'Student! consistently demonstrates excellent ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.',
-      Good: 'Student! generally demonstrates good ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.',
-      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.',
-      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Self-Management, as greater engagement and time-management will support His! overall progress.'
+      Expert: 'Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage His! time more effectively.'
     },
     Research: {
-      Excellent: 'Student! consistently demonstrates excellent ATL skills in Research, showing superb information literacy when gathering and citing source information.',
-      Good: 'Student! generally demonstrates good ATL skills in Research, successfully finding and interpreting relevant data.',
-      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Research, though He! should work on verifying His! source credibility more systematically.',
-      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Research, as stronger investigation habits will support His! academic progress.'
+      Expert: 'Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Research, though He! should work on verifying His! source credibility more systematically.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support His! progress.'
     },
     Thinking: {
-      Excellent: 'Student! consistently demonstrates excellent ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.',
-      Good: 'Student! generally demonstrates good ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.',
-      Satisfactory: 'Student! demonstrates satisfactory ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.',
-      'Needs Improvement': 'Student! is encouraged to focus on developing His! ATL skills in Thinking, practicing how to approach problems from different viewpoints.'
+      Expert: 'Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints.'
     }
   },
   strength: {
@@ -365,7 +365,7 @@ export default function CommentGenerator() {
     const { best, worst, bestScore, worstScore } = getBestAndWorst(critScores);
 
     const activeSkill = student.selectedAtlSkill || atlSkill;
-    const activeProgress = student.atlProgress || 'Good';
+    const activeProgress = student.atlProgress || 'Practitioner';
 
     const data = {
       forename: student.forename,
@@ -384,9 +384,11 @@ export default function CommentGenerator() {
 
     let s2 = '';
     if (bank.atl && bank.atl[activeSkill]) {
-      s2 = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Good'];
+      const val = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Good'];
+      s2 = Array.isArray(val) ? val[student.id % val.length] : (val || '');
     } else if (bank.atl) {
-      s2 = bank.atl[activeProgress] || bank.atl['Good'];
+      const val = bank.atl[activeProgress] || bank.atl['Good'];
+      s2 = Array.isArray(val) ? val[student.id % val.length] : (val || '');
     }
 
     let s3 = '';
@@ -868,7 +870,7 @@ export default function CommentGenerator() {
             />
             <BankSection sectionKey="atl" label={`Sentence 2 — ATL Progress Comments (${atlSkill || 'Self-Management'})`}
               entries={bank.atl?.[atlSkill] || bank.atl?.[atlSkill || 'Self-Management'] || bank.atl}
-              keyLabels={{ Excellent: 'Excellent', Good: 'Good', Satisfactory: 'Satisfactory', 'Needs Improvement': 'Needs Improvement' }}
+              keyLabels={{ Expert: 'Expert', Practitioner: 'Practitioner', Beginner: 'Beginner', Novice: 'Novice' }}
               isNestedAtl={true}
             />
             <BankSection sectionKey="strength" label="Sentence 3 — Strength Comments (by best criterion grade)"
@@ -1035,16 +1037,16 @@ export default function CommentGenerator() {
 
                         <td style={{ padding: '0.75rem 1rem' }}>
                           <span style={{
-                            background: s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.1)' : s.atlProgress === 'Good' ? 'rgba(99,102,241,0.1)' : s.atlProgress === 'Satisfactory' ? 'rgba(245,158,11,0.1)' : 'rgba(239,68,68,0.1)',
-                            border: '1px solid ' + (s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.2)' : s.atlProgress === 'Good' ? 'rgba(99,102,241,0.2)' : s.atlProgress === 'Satisfactory' ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)'),
-                            color: s.atlProgress === 'Excellent' ? '#34d399' : s.atlProgress === 'Good' ? 'var(--primary)' : s.atlProgress === 'Satisfactory' ? '#fbbf24' : '#f87171',
+                            background: s.atlProgress === 'Expert' || s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.1)' : s.atlProgress === 'Practitioner' || s.atlProgress === 'Good' ? 'rgba(99,102,241,0.1)' : s.atlProgress === 'Beginner' || s.atlProgress === 'Satisfactory' || s.atlProgress === 'Developing' ? 'rgba(245,158,11,0.1)' : 'rgba(239,68,68,0.1)',
+                            border: '1px solid ' + (s.atlProgress === 'Expert' || s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.2)' : s.atlProgress === 'Practitioner' || s.atlProgress === 'Good' ? 'rgba(99,102,241,0.2)' : s.atlProgress === 'Beginner' || s.atlProgress === 'Satisfactory' || s.atlProgress === 'Developing' ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)'),
+                            color: s.atlProgress === 'Expert' || s.atlProgress === 'Excellent' ? '#34d399' : s.atlProgress === 'Practitioner' || s.atlProgress === 'Good' ? 'var(--primary)' : s.atlProgress === 'Beginner' || s.atlProgress === 'Satisfactory' || s.atlProgress === 'Developing' ? '#fbbf24' : '#f87171',
                             borderRadius: '4px',
                             padding: '0.2rem 0.5rem',
                             fontWeight: '600',
                             fontSize: '0.8rem',
                             display: 'inline-block'
                           }}>
-                            {s.atlProgress || 'Good'}
+                            {s.atlProgress || 'Practitioner'}
                           </span>
                         </td>
 

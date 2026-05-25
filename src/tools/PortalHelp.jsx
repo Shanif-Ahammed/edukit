@@ -42,7 +42,7 @@ export default function PortalHelp() {
             { id: 'database', label: 'Roster Connection', icon: FileSpreadsheet, color: '#3b82f6' },
             { id: 'comments', label: 'Comment Assistant', icon: Sparkles, color: 'var(--primary)' },
             { id: 'analysis', label: 'Data Analytics', icon: BarChart3, color: '#10b981' },
-            { id: 'planner', label: 'Seating & Groups', icon: Users, color: '#f43f5e' },
+            { id: 'planner', label: 'Seating & Utilities', icon: Users, color: '#f43f5e' },
             { id: 'mistakes', label: 'Common Mistakes', icon: AlertCircle, color: '#f59e0b' },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -271,15 +271,15 @@ export default function PortalHelp() {
             </div>
           )}
 
-          {/* GUIDE: SEATING & GROUPS */}
+          {/* GUIDE: SEATING & UTILITIES */}
           {activeGuideTab === 'planner' && (
             <div className="animate-fade-in">
               <h2 style={{ fontSize: '1.35rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#f43f5e' }}>
-                <Users size={20} /> Seating Planner & Group Maker
+                <Users size={20} /> Seating Planner & Teacher Utilities
               </h2>
 
               <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                Plan classroom layouts and assemble learning cohorts with zero manual drawing or alignment hassles.
+                Plan classroom desk arrangements, assemble dynamic collaborative teams, spin random selection wheels, and track lesson periods with multi-session timers.
               </p>
 
               <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Seating Charts</h3>
@@ -289,10 +289,21 @@ export default function PortalHelp() {
                 <li><strong>Student roster snap:</strong> Auto-assign connected class rosters to the desk layout with a single click. (Emirati, EAL, MAGT, and Inclusion tags will highlight in seat details).</li>
               </ul>
 
-              <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Group Maker & Picker</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6' }}>
-                The Group Maker balances gender distributions, mixes achievement levels, and groups students to ensure collaboration. The Student Picker contains a physical HTML5 wheel spinner to select random students, featuring a pointer tick and falling celebration confetti.
+              <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Study Group Matcher & Picker</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                The Study Group Matcher balances gender distributions, mixes achievement levels, pairs strong and struggling students automatically, and groups students to ensure collaboration. The Student Picker contains a physical HTML5 wheel spinner to select random students, featuring a pointer tick and falling celebration confetti.
               </p>
+
+              <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Classroom Timers (ProTimer Dashboard)</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '0.5rem' }}>
+                A custom multi-session timer tailored for SISD classroom workflows:
+              </p>
+              <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                <li><strong>Dynamic Layout:</strong> Initialize 1 to 6 session countdown timers simultaneously.</li>
+                <li><strong>Tactile Threshold Colors:</strong> Clock text adapts reactively: turns orange when under 30 minutes left, red when under 5 minutes left, and flashes red on expiration.</li>
+                <li><strong>Dubai iSAMS Schedule Trigger:</strong> Input an absolute Auto-Start clock time (e.g. <code>10:45</code>) to automatically trigger the countdown according to your lesson timetable.</li>
+                <li><strong>Milestone Marks:</strong> Displays calculated time-of-day absolute clock milestones when the 30-minute and 5-minute indicators will be reached.</li>
+              </ul>
             </div>
           )}
 

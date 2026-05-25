@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  MessageSquare, Sparkles, Send, Trash2, 
+import {
+  MessageSquare, Sparkles, Send, Trash2,
   HelpCircle, AlertTriangle, Layers, Users, BookOpen
 } from 'lucide-react';
 
-const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
+const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 const SYSTEM_INSTRUCTION = `You are the SISD EduKit AI Assistant, a helpful AI guide built directly into the Swiss International Scientific School in Dubai (SISD) Teacher Portal.
 Your primary role is to help teachers with any questions they have about using the EduKit web application.
@@ -27,7 +27,7 @@ Here is all the technical and operational context about the EduKit application:
   - Allows dragging single desks, square 4-seat tables, round 6-seat tables, entrance doors, and smartboards to construct classroom layouts.
   - Desks support rotating left/right, and clicking "Edit Seats" opens a seat assignment modal with checkboxes to label tags (Emirati, EAL, MAGT, Inclusion, Boarding).
   - Offers a smart auto-assign seating algorithm (automatically placing student seats logically based on their tags or randomly).
-  - Has print style overrides to fit the seating plan cleanly onto a physical A4 landscape sheet.
+  - Has print style overrides to fit the seating plan cleanly onto a physical A4 landscape sheet. The print layout is 100% zoom-independent and robust against browser page-zoom clipping by using fluid parent containers (with width: 100%, max-width: none, and overflow: visible) and an exact 297mm x 210mm A4 landscape canvas.
   - *Dropdown Suggestion Correction*: When no roster is connected, the autocomplete search dropdown for seat assignments is blank to avoid confusing teachers with mock data, but teachers can still type any custom names manually.
 - **Cohort Analysis (Data Analysis)**: 
   - Dynamic analytics dashboard for connected rosters.
@@ -36,10 +36,11 @@ Here is all the technical and operational context about the EduKit application:
 - **Gradebook List (ATL Tracker)**: 
   - A compact list view of the active class roster displaying student grades (Crit A-D), ATL Progress, and educational tags.
   - Extremely useful as a quick reference sheet.
-- **Group Maker & Picker**:
-  - Combined into a single, unified tab with two sub-sections.
-  - *Group Generator*: Generates visual student groupings (e.g. pairs, groups of 3/4/5, or custom numbers of teams) while maintaining demographic balance (balancing gender, EAL, and inclusion status automatically). Note: the "Print Teams" button was removed from the toolbar to keep layouts clean.
-  - *Student Picker Wheel*: A premium, high-DPI HTML5 canvas spin wheel for picking random students. Includes dynamic HSL color wheel sectors, tactile drag/friction physics, pointer tick wiggles on sector boundary crossings, visual overlay modal celebration animations, and falling canvas confetti particles. Features options to "Eliminate Picked Students", instant random pick shortcut, and absent list exclude checkboxes.
+- **Teacher Utilities**:
+  - Combined into a single, unified tab with three sub-sections.
+  - *Study Group Matcher*: Generates visual student groupings (e.g. pairs, groups of 3/4/5, or custom numbers of teams) while maintaining demographic balance and offering smart options like academic peer-pairing. Note: the "Print Teams" button was removed from the toolbar to keep layouts clean.
+  - *Student Picker Wheel*: A premium, high-DPI HTML5 canvas spin wheel for picking random students. Includes HSL sectors, celebration overlays, confetti animation, and absentees exclusion.
+  - *Classroom Timer*: A premium, multi-session ProTimer dashboard designed to track 1 to 6 sessions simultaneously, with dynamic time boundary alarms, custom time setups, and automatic iSAMS auto-start scheduling.
 - **Teacher Toolkit**: 
   - A comprehensive toolkit and reference containing two major sections:
     - *Assessment Guidelines (Academic Framework)*: Features the official school grading rules, including MYP boundaries (Grade 7 = 28-32, Grade 6 = 24-27, Grade 5 = 19-23, Grade 4 = 15-18, Grade 3 = 10-14, Grade 2 = 6-9, Grade 1 = 1-5), DP boundaries, CP/BTEC grading, and OAS resynchronization steps. Includes interactive converters for Arabic MYP/DP to Ministry of Education (MOE) percentages and MYP CPT boundaries. Includes a Quality Assurance checklist filterable by role.
@@ -56,38 +57,142 @@ Here is all the technical and operational context about the EduKit application:
 - Central grade sync refers to **OAS (Online Assessment System)**.
 
 4. OFFICIAL SISD ASSESSMENT TIMELINES & GRADE CALCULATIONS (from the 2025-2026 Academic Framework):
-- **OAS Gradebook Cycle Dates (OAS Timeframes / Page 13 Table)**:
-  - **Assessment Point 3 (AP3 / Term 1 Reports)**: OAS opens on **16/01/2026 (16th January 2026 - provisional)** and closes on **24/01/2026 (24th January 2026)**.
-  - **Assessment Point 4 (AP4 / G12 Mocks)**: OAS opens on **09/05/2026 (9th May 2026)** and closes on **15/05/2026 (15th May 2026)**.
-  - **Assessment Point 5 (AP5 / End of Year Reports)**: OAS opens on **15/06/2026 (15th June 2026)** (assumes teachers have correctly completed gradebooks) and closes on **19/06/2026 (19th June 2026)**.
-- **iSAMS Gradebook Cycles (Cycles Open/Close Dates)**:
-  - **Assessment Point 1 (Targets)**: Automatically inputted. Closes same time as AP2.
-  - **AP2**: Open 10/11/2025 - Close 17/11/2025
-  - **AP3**: Open 09/01/2026 - Close 23/01/2026
-  - **AP4 G12**: Open 08/05/2026 - Close 15/05/2026
-  - **AP5 (Full written report G11)**: Open 11/05/2026 - Close 04/06/2026
-- **IB MYP Grade Boundary Conversions (Page 2 & 6 Table)**:
-  - Criterion Points Total (CPT out of 32 / sum of Criteria A, B, C, D) convert to final IB MYP Grades (1-7) using:
-    - 28-32 -> Grade 7
-    - 24-27 -> Grade 6
-    - 19-23 -> Grade 5 (Exceeds KHDA Expectations)
-    - 15-18 -> Grade 4 (Meets KHDA Expectations)
-    - 10-14 -> Grade 3 (Intervention required to reach Grade 4)
-    - 6-9 -> Grade 2
-    - 1-5 -> Grade 1
-- **Arabic to Ministry of Education (MOE) Percentage Scales (Page 16 & 17 Table)**:
-  - Arabic MYP points (/32) map to Minimum MOE grade percentage:
-    - 12 -> 50% | 13 -> 52% | 14 -> 55% | 15 -> 58% | 16 -> 60% | 17 -> 63% | 18 -> 66% | 19 -> 69% | 20 -> 72% | 21 -> 74% | 22 -> 76% | 23 -> 80% | 24 -> 82% | 25 -> 84% | 26 -> 86% | 27 -> 88% | 28 -> 90% | 29 -> 92% | 30 -> 94% | 31 -> 97% | 32 -> 100%. (New students default to CPT 15).
-  - Arabic DP Grade (1-7) maps to MOE Grade:
-    - 1 -> under 40% (Fail) | 2 -> 40-49% | 3 -> 50-59% | 4 -> 60-69% | 5 -> 70-79% | 6 -> 80-89% | 7 -> 90-100%.
-- **Other MOE mandatory subjects (Islamic, Social, MSC) (Page 18 & 19)**:
-  - Term 1: 35% weight (10% formative, 25% summative end of term exam)
-  - Term 2: 30% weight (10% formative, 20% summative)
-  - Term 3: 35% weight (10% formative, 25% project-based)
-  - Pass marks: G6-8 is 50% | G9 is 60%.
+
+OAS TIMEFRAMES (ONLINE ASSESSMENT SYSTEM)
+- Assessment Point 3: Opens 16/01/2026 (provisional) and closes 24/01/2026.
+- Assessment Point 4 (G12): Opens 09/05/2026 and closes 15/05/2026.
+- Assessment Point 5: Opens 15/06/2026 (assumes teachers have correctly completed gradebook) and closes 19/06/2026.
+
+ISAMS GRADEBOOK CYCLES: MYP
+- Assessment Point 1 (Targets): The automatically inputted MEG and CAT4 'if challenged' grade share the same open and close dates as AP2.
+- AP2: Opens 10/11/2025 and closes 17/11/2025. (Only two criteria scores are entered; the overall MYP grade is not shown).
+- AP3 (Includes G10 mock exam data): Opens 09/01/2026 and closes 23/01/2026. (Scores for all four criteria must be entered).
+- AP4 (Excluding G12): Opens 10/04/2026 and closes 20/04/2026. (Only two criteria scores are entered).
+- AP5 (Full written report): Opens 11/05/2026 and closes 04/06/2026. (Scores for all four criteria must be entered using a 'Best Fit' approach).
+
+ISAMS GRADEBOOK CYCLES: DP (DIPLOMA PROGRAMME)
+- Assessment Point 1 (Targets): Automatically inputted MEG, CEM, and CAT4 'if challenged' grades share the same open and close dates as AP2.
+- AP2: Opens 10/11/2025 and closes 17/11/2025.
+- AP3: Opens 09/01/2026 and closes 23/01/2026.
+- AP4 (G12): Opens 08/05/2026 and closes 15/05/2026.
+- AP5 (Full written report G11): Opens 11/05/2026 and closes 04/06/2026.
+
+ISAMS GRADEBOOK CYCLES: CP (CAREERS-RELATED PROGRAMME)
+- Assessment Point 1 (Targets): Automatically inputted MEG, CEM, and CAT4 'if challenged' grades share the same open and close dates as AP2.
+- AP2: Opens 10/11/2025 and closes 17/11/2025.
+- AP3: Opens 09/01/2026 and closes 24/01/2026.
+- AP4 (G12): Opens 09/05/2026 and closes 15/05/2026.
+- AP5 (Full written report G11): Opens 11/05/2026 and closes 04/06/2026.
+- BTEC Gradebooks: BTEC courses are modular/unit-based; gradebooks remain open all year for ongoing U, Pass, Merit, or Distinction component entries.
+
+ASSESSMENT PRINCIPLES
+- Assessments are valid (testing supposed knowledge/skills) and reliable (trustworthy gauge of attainment).
+- Summative assessments are criterion-based, use valid rubrics, are marked by the subject teacher, and moderated by colleagues.
+- Attainment grades are evidence-based, informed by summative assessments, and utilize a 'Best Fit' approach.
+- The Minimum Expected Grade (MEG) is the minimum expectation against which progress is calculated; it is not the student's target.
+- Teachers should define ambitious targets supported by quality teaching, feedback, and interventions.
+
+LEVELS OF DATA (APPLIES TO MYP, DP, AND CP)
+- Level 1: Granular, criterion/question-specific data recorded by teachers to inform lessons and provide personalized feedback using rubrics and markschemes.
+- Level 2: Holistic assessment data linked to criteria/objectives, recorded in departmental trackers or ManageBac, and used to inform interventions.
+- Level 3: Data entered into ISAMS for specific Assessment Points (APs) or high-validity exams (e.g., mocks) to judge attainment, progress, and strategic improvement priorities.
+- Note for DP/CP: Data needs to be entered into ManageBac gradebooks for a consistent approach so parents and students can access it.
+
+IB MYP ATTAINMENT & GRADE BOUNDARY CONVERSIONS
+- The school calculates Level 3 attainment using the MYP framework and a 'best fit' principle, utilizing recent Level 2 data.
+- Each of the four criteria (A, B, C, D) is assessed on a 0-8 scale.
+- A Cumulative Points Total (CPT) of 28-32 converts to an IB MYP Grade of 7 (Excellent quality).
+- A CPT of 24-27 converts to an IB MYP Grade of 6 (High quality).
+- A CPT of 19-23 converts to an IB MYP Grade of 5 (Generally high quality; KHDA exceeding expectations).
+- A CPT of 15-18 converts to an IB MYP Grade of 4 (Good quality; KHDA meeting expectations).
+- A CPT of 10-14 converts to an IB MYP Grade of 3 (Acceptable quality; intervention required to achieve Grade 4).
+- A CPT of 6-9 converts to an IB MYP Grade of 2 (Limited quality).
+- A CPT of 1-5 converts to an IB MYP Grade of 1 (Very limited quality).
+
+DIPLOMA PROGRAMME (DP) & CP ATTAINMENT
+- Each DP subject conducts three summative assessments per term across DP1 and DP2.
+- Summative assessments use IB grade boundaries plus 5% - 7% additional (at SubCo discretion) for less synoptic assessments.
+- Formal examinations (welcome back, mocks) use the most recent IB boundaries.
+- Teachers assign levels 1-7 applying the 'Best Fit' principle.
+- DP Core: In Grade 11, TOK and EE receive a single A-E scale grade per term. In Grade 12 Term 1, separate grades are given for TOK Exhibition, TOK Essay, and EE.
+- CP Core: Teachers input 'On track' or 'Not on track' for Personal and Professional Skills, Language and Culture Studies, and Community Engagement.
+
+KHDA FRAMEWORK JUDGMENTS (AP5 DATA)
+- The school judges attainment following the KHDA framework using the AP5 data point.
+- Outstanding: 75% of grades at 4 or above, and 75% of grades at 5 or above.
+- Very Good: 75% of grades at 4 or above, and 61% of grades at 5 or above.
+- Good: 75% of grades at 4 or above, and 50% of grades at 5 or above.
+- Acceptable: 75% of grades at 4 or above.
+
+INTERNAL PROGRESS TRACKING (MYP)
+- The school tracks progress by comparing current AP5 data with previous year's AP5 data.
+- Above expected progress (1): One or more MYP points (/32) per academic year.
+- Above expected progress (2): Any student with an MYP Grade of 7 who remains there ('Everest principle').
+- Expected progress: The same MYP points as the previous year.
+- Below expected progress: Less MYP points than the previous year (excluding anyone remaining at MYP Grade 7).
+
+TARGET SETTING: CAT4, CEM, AND MEG
+- MYP Minimum Expected Grade (MEG): For returning students, it is the previous year's AP5 CPT +1. For new students, it is derived from the lowest equivalent points of the CAT4 'if challenged' grade (applied to all G6). If no CAT4, MEG defaults to points equivalent to an MYP 4.
+- MYP CAT4 Subject Mapping: Art/Drama/Music/Visual Arts -> IB MYP Arts; Biology/Chemistry/Physics/Science -> IB MYP Sciences; I&S -> IB MYP Humanities; Design/IT -> IB MYP Technology; PHE -> IB MYP Physical Education; Languages map to their respective IB MYP languages.
+- DP/CP Grade 11: The Centre for Evaluation and Monitoring (CEM) test determines projected grades (MEG). If no CEM, CAT4 'If Challenged' is used for HL or SL.
+- DP/CP Grade 12: MEG is automatically set as the AP5 cumulative grade from DP1 or AP5 +1. Teachers review during AP1; changes require SubCo and SLT approval.
+
+SCIENCE & LATE JOINER SPECIFICS
+- AP3 Double/Triple Science (G9/G10): If a criterion is not assessed summatively for one discipline by AP3, teachers use the criterion score from another discipline.
+- Grade 10 Examinations: The final examination contributes 75% of the final grade; teacher judgment (Best Fit) constitutes 25%. G10 Double/Triple Science exams are averaged to provide a unified score.
+- Late Joiners/Missed Assessments: Teachers use previous summative, formative, or in-class work to form a judgment. CAT4 data can inform judgment. If joined too soon to judge, input N/A for that AP only and do not set a target.
+
+ARABIC TO MINISTRY OF EDUCATION (MOE) PERCENTAGE SCALES
+- Arabic MYP points (out of 32) map to a Minimum MOE Grade: 12=50%, 13=52%, 14=55%, 15=58%, 16=60%, 17=63%, 18=66%, 19=69%, 20=72%, 21=74%, 22=76%, 23=80%, 24=82%, 25=84%, 26=86%, 27=88%, 28=90%, 29=92%, 30=94%, 31=97%, 32=100%.
+- For new Arabic MYP students without a CAT4 target, the MEG is automatically set at 15.
+- Arabic DP Grade to MOE Grade: 1=40-%, 2=40-49%, 3=50-59%, 4=60-69%, 5=70-79%, 6=80-89%, 7=90-100%. Used for local reporting only; does not replace the official IB grade.
+
+OTHER MOE MANDATORY SUBJECTS (ISLAMIC, SOCIAL STUDIES, MSC)
+- MEG for returning students is the previous year's final grade +3%. New students are assigned 60%.
+- Term 1 (AP3): 35% weight (10% formative, 25% summative exam).
+- Term 2 (AP4): 30% weight (10% formative, 20% summative).
+- Term 3 (AP5): 35% weight (10% formative, 25% project-based assessment).
+- Pass marks: G6-8 is 50%; G9 is 60%.
+- Curriculum standards: Meeting expectations G6-8 (54%), Meeting expectations G9-12 (60%), Above expectations G6-12 (70%). If not enough work is completed, automatically given 50%.
+
+APPROACHES TO LEARNING (ATL)
+- Assessed at AP3 and AP5 using a four-point scale across Thinking, Communication, Social, Self-management, and Research skills.
+- Novice (N): Introduced to the skill; observes others.
+- Beginner (B): Begins to use skill by imitating; relies on scaffolding/guidance.
+- Practitioner (P): Applies skill confidently/effectively; uses independently.
+- Expert (E): Full command; can model for others and evaluate effectiveness.
+
+ATTITUDE TO LEARNING
+- Exceeding expectations (EE): Consistently punctual, hardworking, superb home learning effort, well-behaved.
+- Meeting Expectations (ME): Generally punctual, hardworking in most lessons, completes home learning, well-behaved.
+- Approaching Expectations (AE): Sometimes late, inconsistent effort, completes most home learning, occasional negative behavior.
+- Below Expectations (BE): Regularly late, lacks effort, often fails home learning, regularly disrupts.
+- Teachers use a 'Best Fit' approach if behaviors span multiple categories.
+
+ONLINE ASSESSMENT SYSTEM (OAS) & COMMENT GENERATORS
+- Teachers must click 'Resync Gradebook Data' on OAS every time a grade changes in ISAMS; cells turn green when synchronized.
+- Language acquisition teachers input a descriptor: Emergent, Capable, or Proficient.
+- Tutors input Service as Action (SAA) status. AP3: Concern (1 or 0 activities), On track (2 activities), Excellent (2 extended activities). AP5: Completed or Not Completed.
+- AP3 Comment Generator: Homeroom Tutors select descriptors for Character, IB Learner Profile, CAS/SAA, ASA involvement, and Activity. Tutors must replace the word *Activity* with the specific activity.
+- AP5 Comment Generator: Used for all subjects; criteria, grades, ATL, strength, and target automatically populate.
+- Elective Subject Generator: Teachers select three attributes to generate a personalized comment.
+
+QUALITY ASSURANCE (QA) ROLES
+- Data Manager: Checks for grades lower than previous AP (alert SubCo, AP3-5); checks attainment vs KHDA framework (inform Deputy Headteacher, AP3/5).
+- SubCos: Check for missing data, chase teachers; read/amend/test teacher comment banks (AP5).
+- Teachers: Peer check inputted data.
+- Assistant Head, Student Experience: Checks Emirati student data against thanaweya requirements.
+- DP/CP Coordinators: Review predicted/cumulative grades and component targets.
+- Inclusion/MAGT Teams: Spot check specific student group data.
+- SLT: Check cumulative/predicted grades and final spot checks.
+- Deputy Head of pastoral, GLCs, Assistant GLCs: Read/amend/test tutor comment banks (AP3); read and check tutor comments.
+- SLT, SubCos, Assistant SubCos: Read full reports for Homerooms before AP5 release.
+
+FAQ
+- Locked students: Students who appear greyed out in the gradebook have left the school or moved to a different class, preserving historical data.
 
 INSTRUCTIONS:
-- Answer questions in a warm, encouraging, and extremely clear manner.
+- Answer questions in a warm, funny, simple manner.
 - Keep answers concise and structured. Use bullet points or bold text to make answers highly scannable.
 - Reassure teachers that they **do not need to edit, rename, or format** their iSAMS Excel files. The file downloaded directly from iSAMS is completely ready-to-go.
 - If asked about school assessment framework dates, grade boundaries, MOE percentages, or Quality Assurance responsibilities, answer accurately based on the detailed framework guidelines above. Explicitly state the exact dates (e.g. OAS for AP5 opens on June 15th, 2026 and closes on June 19th, 2026).
@@ -95,6 +200,11 @@ INSTRUCTIONS:
 - Under all circumstances, remain professional and focus only on SISD EduKit Teacher Portal and School Assessment Framework questions.`;
 
 const SUGGESTED_PROMPTS = [
+  {
+    icon: <Sparkles size={15} style={{ color: 'var(--primary)' }} />,
+    label: "What can EduKit do?",
+    text: "What are the core features, modules, and capabilities of the SISD EduKit Teacher Portal, and how can it help me?"
+  },
   {
     icon: <AlertTriangle size={15} style={{ color: 'var(--warning)' }} />,
     label: "What are the Common Mistakes?",
@@ -114,11 +224,6 @@ const SUGGESTED_PROMPTS = [
     icon: <HelpCircle size={15} style={{ color: 'var(--primary)' }} />,
     label: "How and where to get the Excel file?",
     text: "How and where do I download the correct Excel gradebook spreadsheet from iSAMS, and do I need to perform any resync steps?"
-  },
-  {
-    icon: <Layers size={15} style={{ color: '#10b981' }} />,
-    label: "What happens if I upload the wrong file?",
-    text: "Since the iSAMS Excel is ready-to-go, what should I do if I accidentally upload an incorrect file (like a lesson plan or a different report) by mistake?"
   }
 ];
 
@@ -135,7 +240,7 @@ export default function AiAssistant() {
     return [
       {
         sender: 'ai',
-        text: "Hello! I am your **EduKit AI Assistant**. Ask me anything about using the SISD Teacher Portal modules (Dashboard, Comment Gen, Seating Chart, Cohort Analysis, or Group Maker & Picker), or troubleshooting common import issues!"
+        text: "Hello! I am your **EduKit AI Assistant**. Ask me anything about using the SISD Teacher Portal modules (Dashboard, Comment Gen, Seating Chart, Cohort Analysis, or Teacher Utilities), or troubleshooting common import issues!"
       }
     ];
   });
@@ -143,7 +248,39 @@ export default function AiAssistant() {
   const [inputVal, setInputVal] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  
+
+  const [rateLimits, setRateLimits] = useState({
+    limitRPM: 15,
+    remainingRPM: 15,
+    limitRPD: 1500,
+    remainingRPD: 1500,
+    resetTime: '60s'
+  });
+  const [showInfoPanel, setShowInfoPanel] = useState(false);
+  const infoRef = useRef(null);
+
+  // Close info panel when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (infoRef.current && !infoRef.current.contains(event.target)) {
+        setShowInfoPanel(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Simulator timer to reset RPM limit to 15 every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRateLimits(prev => ({
+        ...prev,
+        remainingRPM: 15
+      }));
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   const [customApiKey, setCustomApiKey] = useState(() => localStorage.getItem('edukit_gemini_api_key') || '');
   const [apiKeyInput, setApiKeyInput] = useState('');
 
@@ -190,7 +327,7 @@ export default function AiAssistant() {
       const chatHistoryText = messages
         .map(m => `${m.sender === 'user' ? 'User' : 'Assistant'}: ${m.text}`)
         .join('\n');
-      
+
       const payloadPrompt = `${SYSTEM_INSTRUCTION}\n\nChat History:\n${chatHistoryText}\nUser: ${queryText}\nAssistant:`;
 
       let response;
@@ -222,6 +359,20 @@ export default function AiAssistant() {
         }
 
         data = await response.json();
+
+        // Parse rate limits from response headers
+        const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
+        const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
+        const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
+
+        setRateLimits(prev => {
+          const next = { ...prev };
+          if (limitRequests) next.limitRPD = Number(limitRequests);
+          if (remainingRequests) next.remainingRPD = Number(remainingRequests);
+          if (resetRequests) next.resetTime = resetRequests;
+          next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
+          return next;
+        });
       } catch (proxyErr) {
         console.warn("Secure proxy unavailable. Details:", proxyErr.message);
 
@@ -260,8 +411,22 @@ export default function AiAssistant() {
         }
 
         data = await response.json();
+
+        // Parse rate limits from response headers
+        const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
+        const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
+        const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
+
+        setRateLimits(prev => {
+          const next = { ...prev };
+          if (limitRequests) next.limitRPD = Number(limitRequests);
+          if (remainingRequests) next.remainingRPD = Number(remainingRequests);
+          if (resetRequests) next.resetTime = resetRequests;
+          next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
+          return next;
+        });
       }
-      
+
       // Parse content from Gemini API response format
       const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I received an empty response. Please try again.";
 
@@ -271,29 +436,29 @@ export default function AiAssistant() {
       if (err.message === "API_KEY_REQUIRED") {
         setErrorMsg("API Key Required");
         setMessages(prev => [
-          ...prev, 
-          { 
-            sender: 'ai', 
-            text: "⚠️ **Gemini API Key Required**: To secure pupil data and run the AI assistant on public servers (like GitHub Pages), you must enter your personal Gemini API Key. Please enter your key in the **GitHub Pages / API Key** field in the left sidebar, click **Save**, and try again!" 
+          ...prev,
+          {
+            sender: 'ai',
+            text: "⚠️ **Gemini API Key Required**: To secure pupil data and run the AI assistant on public servers (like GitHub Pages), you must enter your personal Gemini API Key. Please enter your key in the **GitHub Pages / API Key** field in the left sidebar, click **Save**, and try again!"
           }
         ]);
       } else if (err.message.startsWith("PROXY_ERROR:")) {
         const errorDetail = err.message.replace("PROXY_ERROR: ", "");
         setErrorMsg("Proxy Error");
         setMessages(prev => [
-          ...prev, 
-          { 
-            sender: 'ai', 
-            text: `⚠️ **Secure Vercel Proxy Error**: The assistant failed to get a response from your Vercel deployment.\n\n**Error Details:** \`${errorDetail}\`\n\n**Common Solutions:**\n1. Make sure you added \`GEMINI_API_KEY\` to your **Environment Variables** in the Vercel Project dashboard.\n2. Ensure your Vercel deployment succeeded and is active.\n3. Make sure Vercel allows CORS requests from your GitHub Pages origin.` 
+          ...prev,
+          {
+            sender: 'ai',
+            text: `⚠️ **Secure Vercel Proxy Error**: The assistant failed to get a response from your Vercel deployment.\n\n**Error Details:** \`${errorDetail}\`\n\n**Common Solutions:**\n1. Make sure you added \`GEMINI_API_KEY\` to your **Environment Variables** in the Vercel Project dashboard.\n2. Ensure your Vercel deployment succeeded and is active.\n3. Make sure Vercel allows CORS requests from your GitHub Pages origin.`
           }
         ]);
       } else {
         setErrorMsg("Failed to get response from Gemini. Please verify your connection.");
         setMessages(prev => [
-          ...prev, 
-          { 
-            sender: 'ai', 
-            text: `⚠️ **Connection Error**: I could not reach the serverless proxy or your personal Gemini session.\n\n**Details:** ${err.message || 'Unknown network error'}\n\nPlease check your internet connection or API settings.` 
+          ...prev,
+          {
+            sender: 'ai',
+            text: `⚠️ **Connection Error**: I could not reach the serverless proxy or your personal Gemini session.\n\n**Details:** ${err.message || 'Unknown network error'}\n\nPlease check your internet connection or API settings.`
           }
         ]);
       }
@@ -399,10 +564,10 @@ export default function AiAssistant() {
   };
 
   return (
-    <div className="glass-panel animate-fade-in" style={{ padding: '2rem', minHeight: 'calc(100vh - 180px)', display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: '2rem', borderRadius: 'var(--radius-lg)' }}>
-      
+    <div className="glass-panel animate-fade-in" style={{ padding: '2rem', height: 'calc(100vh - 200px)', minHeight: '480px', display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: '2rem', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+
       {/* ── LEFT SIDEBAR: GUIDE & SUGGESTIONS ───────────────────────────── */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', borderRight: '1px solid var(--border-color)', paddingRight: '2rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', borderRight: '1px solid var(--border-color)', paddingRight: '2rem', overflowY: 'auto', minHeight: 0 }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: '850', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <Sparkles size={24} style={{ color: 'var(--primary)' }} />
@@ -454,16 +619,7 @@ export default function AiAssistant() {
           ))}
         </div>
 
-        {import.meta.env.VITE_VERCEL_API_URL ? (
-          <div className="glass-panel" style={{ marginTop: 'auto', padding: '1.25rem', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.03)', borderColor: 'rgba(16, 185, 129, 0.2)', marginBottom: '0.75rem', boxShadow: '0 4px 20px rgba(16, 185, 129, 0.05)' }}>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: '850', color: '#10b981', textTransform: 'uppercase', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '6px', letterSpacing: '0.04em' }}>
-              🛡️ Secure Cloud Proxy Active
-            </h4>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: 0, fontWeight: '500' }}>
-              Your inquiries are securely routed through your Vercel cloud deployment. No personal Gemini API Key is required!
-            </p>
-          </div>
-        ) : (
+        {!import.meta.env.VITE_VERCEL_API_URL && (
           <div className="glass-panel" style={{ marginTop: 'auto', padding: '1rem', borderRadius: '10px', background: 'rgba(251, 191, 36, 0.02)', borderColor: 'rgba(251, 191, 36, 0.15)', marginBottom: '0.75rem' }}>
             <h4 style={{ fontSize: '0.78rem', fontWeight: '800', color: '#fbbf24', textTransform: 'uppercase', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
               🔑 GitHub Pages / API Key
@@ -472,7 +628,7 @@ export default function AiAssistant() {
               To use the AI securely on public sites like GitHub Pages without exposing keys, enter your personal Gemini API Key below. Stored locally in your browser cache.
             </p>
             <form onSubmit={handleSaveApiKey} style={{ display: 'flex', gap: '0.5rem' }}>
-              <input 
+              <input
                 type="password"
                 placeholder={customApiKey ? "••••••••••••••••••••" : "AIzaSy..."}
                 value={apiKeyInput}
@@ -508,7 +664,7 @@ export default function AiAssistant() {
           </div>
         )}
 
-        <div className="glass-panel" style={{ padding: '1rem', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.03)', borderColor: 'rgba(16, 185, 129, 0.15)' }}>
+        <div className="glass-panel" style={{ marginTop: import.meta.env.VITE_VERCEL_API_URL ? 'auto' : '0', padding: '1rem', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.03)', borderColor: 'rgba(16, 185, 129, 0.15)' }}>
           <h4 style={{ fontSize: '0.78rem', fontWeight: '800', color: '#10b981', textTransform: 'uppercase', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
             🔒 Local Data Security
           </h4>
@@ -519,14 +675,94 @@ export default function AiAssistant() {
       </div>
 
       {/* ── RIGHT AREA: CHAT SCREEN ────────────────────────────────────── */}
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '520px' }}>
-        
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+
         {/* Chat Header Status */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.25rem', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', position: 'relative' }} ref={infoRef}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-1.5-Flash</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: '600' }}>(Free Tier Session)</span>
+            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-2.0-Flash</span>
+            <button
+              onClick={() => setShowInfoPanel(!showInfoPanel)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: showInfoPanel ? 'var(--primary)' : 'var(--text-muted)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2px',
+                borderRadius: '50%',
+                transition: 'color 0.2s',
+                outline: 'none'
+              }}
+              title="View Model & Rate Limit Info"
+            >
+              <HelpCircle size={14} />
+            </button>
+
+            {/* Premium Glassmorphic Rate Limit Panel */}
+            {showInfoPanel && (
+              <div
+                className="glass-panel"
+                style={{
+                  position: 'absolute',
+                  top: '1.75rem',
+                  left: '0',
+                  width: '280px',
+                  padding: '1.25rem',
+                  borderRadius: '12px',
+                  background: 'var(--bg-card-heavy)',
+                  boxShadow: 'var(--shadow-xl)',
+                  border: '1px solid var(--border-color)',
+                  zIndex: 200,
+                  animation: 'fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                  textAlign: 'left'
+                }}
+              >
+                <h4 style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--text-main)', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  🤖 Active Model Details
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
+                    <span>Model:</span>
+                    <strong style={{ color: 'var(--text-main)' }}>Gemini 2.0 Flash</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
+                    <span>Engine Type:</span>
+                    <strong style={{ color: '#10b981' }}>High-Speed Flash Generation</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
+                    <span>RPM Limit (Minute):</span>
+                    <strong style={{ color: 'var(--text-main)' }}>{rateLimits.remainingRPM} / {rateLimits.limitRPM} left</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
+                    <span>RPD Limit (Daily):</span>
+                    <strong style={{ color: 'var(--text-main)' }}>{rateLimits.remainingRPD.toLocaleString()} / {rateLimits.limitRPD.toLocaleString()} left</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Quota Reset In:</span>
+                    <strong style={{ color: 'var(--warning-text)' }}>{rateLimits.resetTime}</strong>
+                  </div>
+                </div>
+              </div>
+            )}
+            {import.meta.env.VITE_VERCEL_API_URL && (
+              <span style={{
+                fontSize: '0.68rem',
+                background: 'rgba(16, 185, 129, 0.08)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                color: '#10b981',
+                padding: '0.15rem 0.5rem',
+                borderRadius: '4px',
+                fontWeight: '700',
+                letterSpacing: '0.02em',
+                marginLeft: '0.35rem'
+              }}>
+                Secure Cloud Proxy
+              </span>
+            )}
           </div>
           <button
             onClick={clearChat}
@@ -553,7 +789,7 @@ export default function AiAssistant() {
         </div>
 
         {/* Messages Stream Scrollbox */}
-        <div style={{ flexGrow: 1, overflowY: 'auto', paddingRight: '6px', display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '420px', minHeight: '360px', marginBottom: '1.5rem' }}>
+        <div style={{ flexGrow: 1, overflowY: 'auto', paddingRight: '6px', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.25rem', minHeight: 0 }}>
           {messages.map((m, idx) => {
             const isUser = m.sender === 'user';
             return (
@@ -600,7 +836,7 @@ export default function AiAssistant() {
               </div>
             </div>
           )}
-          
+
           <div ref={chatEndRef} />
         </div>
 

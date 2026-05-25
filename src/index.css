@@ -12,6 +12,7 @@
   --bg-sidebar: rgba(8, 12, 26, 0.65);
   --bg-card: rgba(17, 24, 39, 0.5);
   --bg-card-hover: rgba(31, 41, 55, 0.65);
+  --bg-card-heavy: rgba(17, 24, 39, 0.8);
   
   --border-color: rgba(255, 255, 255, 0.05);
   --border-color-hover: rgba(255, 255, 255, 0.12);
@@ -25,6 +26,9 @@
   --workspace-banner-bg: linear-gradient(135deg, rgba(8, 12, 26, 0.75) 0%, rgba(225, 0, 49, 0.04) 100%);
   --workspace-banner-border: rgba(255, 255, 255, 0.07);
   --workspace-banner-inset: rgba(255, 255, 255, 0.06);
+
+  --ai-banner-bg: linear-gradient(135deg, rgba(8, 12, 26, 0.55) 0%, rgba(99, 102, 241, 0.08) 100%);
+  --ai-banner-border: rgba(99, 102, 241, 0.2);
 
   --warning-text: #fbbf24;
   --warning-bg: rgba(245, 158, 11, 0.08);
@@ -44,6 +48,7 @@
   --success: #10b981;
   --success-glow: rgba(16, 185, 129, 0.08);
   --warning: #f59e0b;
+  --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   --error: #ef4444;
 
   /* Depth & Blur Specifications */
@@ -64,6 +69,7 @@
   --bg-sidebar: rgba(255, 255, 255, 0.7);
   --bg-card: rgba(255, 255, 255, 0.6);
   --bg-card-hover: rgba(255, 255, 255, 0.9);
+  --bg-card-heavy: rgba(255, 255, 255, 0.8);
   
   --border-color: rgba(17, 24, 39, 0.06);
   --border-color-hover: rgba(17, 24, 39, 0.12);
@@ -77,6 +83,9 @@
   --workspace-banner-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(225, 0, 49, 0.03) 100%);
   --workspace-banner-border: rgba(17, 24, 39, 0.08);
   --workspace-banner-inset: rgba(255, 255, 255, 0.4);
+
+  --ai-banner-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(99, 102, 241, 0.06) 100%);
+  --ai-banner-border: rgba(99, 102, 241, 0.15);
 
   --warning-text: #b45309;
   --warning-bg: rgba(245, 158, 11, 0.04);
@@ -93,6 +102,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Elegant visibility override for native select dropdown options across all browsers */
+select option {
+  background-color: var(--bg-app) !important;
+  color: var(--text-main) !important;
 }
 
 body {
@@ -187,9 +202,40 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   padding: 2rem 1.35rem;
-  transition: width var(--transition-smooth), transform var(--transition-smooth);
+  transition: width var(--transition-smooth), padding var(--transition-smooth), transform var(--transition-smooth);
   z-index: 100;
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar Toggle Button (protruding circular toggle button) */
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2.3rem;
+  right: -13px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-app);
+  border: 1px solid var(--border-color-hover);
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 210;
+  box-shadow: var(--shadow-lg), 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-fast);
+}
+
+.sidebar-toggle-btn:hover {
+  transform: scale(1.15);
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 12px var(--primary-glow);
+  color: var(--primary);
+}
+
+.sidebar-toggle-btn:active {
+  transform: scale(0.92);
 }
 
 .sidebar nav {
@@ -289,6 +335,35 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-lg);
 }
 
+.btn-change-file {
+  background: rgba(225, 0, 49, 0.12);
+  border: 1px solid rgba(225, 0, 49, 0.3);
+  color: var(--primary);
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-change-file:hover {
+  background: rgba(225, 0, 49, 0.22);
+  border-color: var(--primary);
+  transform: scale(1.04) translateY(-0.5px);
+  box-shadow: 0 0 10px rgba(225, 0, 49, 0.15);
+}
+[data-theme="light"] .btn-change-file {
+  background: rgba(225, 0, 49, 0.06);
+  border-color: rgba(225, 0, 49, 0.2);
+}
+[data-theme="light"] .btn-change-file:hover {
+  background: rgba(225, 0, 49, 0.12);
+  box-shadow: 0 0 10px rgba(225, 0, 49, 0.08);
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(16px); }
@@ -373,17 +448,67 @@ h1, h2, h3, h4, h5, h6 {
   animation-delay: 2.1s; /* Start after the drawing animation is complete */
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - Visible side navigation rail on mobile/portrait screens */
 @media (max-width: 1024px) {
   .sidebar {
     position: fixed;
+    left: 0;
+    top: 0;
     height: 100vh;
-    transform: translateX(-100%);
-  }
-  .sidebar.open {
-    transform: translateX(0);
+    transform: none !important;
+    box-shadow: 6px 0 25px rgba(0, 0, 0, 0.35);
   }
   .main-content {
-    padding: 2rem;
+    padding: 2rem 1rem;
+    margin-left: 80px !important;
+    width: calc(100% - 80px) !important;
+    max-width: none !important;
   }
 }
+
+/* Sleek Premium Glassmorphic Tooltips for Collapsed Sidebar */
+.sidebar-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  margin-left: 16px;
+  background: var(--bg-card-heavy);
+  color: var(--text-main);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color-hover);
+  font-size: 0.78rem;
+  font-weight: 750;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-lg), 0 4px 14px rgba(0, 0, 0, 0.25);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  z-index: 300;
+}
+
+/* Tooltip dynamic pointer indicator */
+.sidebar-tooltip::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--bg-card-heavy);
+  border-left: 1px solid var(--border-color-hover);
+  border-bottom: 1px solid var(--border-color-hover);
+}
+
+/* Hover reveal mechanics */
+.btn:hover .sidebar-tooltip,
+.btn-icon:hover .sidebar-tooltip,
+.glass-panel:hover .sidebar-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+

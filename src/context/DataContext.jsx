@@ -143,7 +143,8 @@ export const DataProvider = ({ children }) => {
       let surname = '';
 
       if (matchedHeaders.surname && row[matchedHeaders.surname]) {
-        forename = String(rawNameValue).trim();
+        const parts = String(rawNameValue).trim().split(/\s+/);
+        forename = parts[0] || '';
         surname = String(row[matchedHeaders.surname]).trim();
       } else {
         // Split student name if single field
@@ -205,7 +206,7 @@ export const DataProvider = ({ children }) => {
         critD,
         cpt,
         ibGrade: row[matchedHeaders.ibGrade] !== undefined ? Number(row[matchedHeaders.ibGrade]) : null,
-        atlProgress: String(row[matchedHeaders.atl] || '').trim() || 'Good',
+        atlProgress: String(row[matchedHeaders.atl] || '').trim() || 'Practitioner',
         eal: ealVal === 'yes' || ealVal === 'y',
         sen: senVal === 'yes' || senVal === 'y',
         gifted: giftedVal === 'yes' || giftedVal === 'y',
@@ -240,11 +241,14 @@ export const DataProvider = ({ children }) => {
       uniqueSubjects.push(finalSubject);
     }
 
+    const defaultClassStudent = parsedStudents.find(s => s.className === defaultClass);
+    const initialSubject = (defaultClassStudent && defaultClassStudent.subject) ? defaultClassStudent.subject : finalSubject;
+
     setStudents(parsedStudents);
     setClasses(uniqueClasses);
     setSelectedClass(defaultClass);
     setFileName(name);
-    setSubject(finalSubject);
+    setSubject(initialSubject);
     setSubjects(uniqueSubjects);
     setTeacherName(finalTeacher);
     setMissingColumns(missing);
@@ -256,7 +260,7 @@ export const DataProvider = ({ children }) => {
     localStorage.setItem('edukit_mis_students', JSON.stringify(parsedStudents));
     localStorage.setItem('edukit_mis_classes', JSON.stringify(uniqueClasses));
     localStorage.setItem('edukit_mis_selected_class', defaultClass);
-    localStorage.setItem('edukit_mis_subject', finalSubject);
+    localStorage.setItem('edukit_mis_subject', initialSubject);
     localStorage.setItem('edukit_mis_teacher', finalTeacher);
     localStorage.setItem('edukit_mis_missing', JSON.stringify(missing));
 
@@ -287,6 +291,13 @@ export const DataProvider = ({ children }) => {
   const handleSetSelectedClass = (clsName) => {
     setSelectedClass(clsName);
     localStorage.setItem('edukit_mis_selected_class', clsName);
+
+    // Dynamically update the active subject based on the selected class
+    const classStudent = students.find(s => s.className === clsName);
+    if (classStudent && classStudent.subject) {
+      setSubject(classStudent.subject);
+      localStorage.setItem('edukit_mis_subject', classStudent.subject);
+    }
   };
 
   return (

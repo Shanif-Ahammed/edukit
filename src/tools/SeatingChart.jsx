@@ -183,12 +183,44 @@ export default function SeatingChart() {
   const [elements, setElements] = useState([]);
   const [selectedElementId, setSelectedElementId] = useState(null);
 
+  const [scale, setScale] = useState(1);
+  const scrollAreaRef = useRef(null);
+
   // Modal Edit States
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [activeEditId, setActiveEditId] = useState(null);
   const [tempNames, setTempNames] = useState([]);
   const [modalError, setModalError] = useState(null);
   const [printWarning, setPrintWarning] = useState(null);
+
+  // Dynamic A4 Page Scaler to fit the workspace perfectly without scrollbars
+  // Uses stable parent container observations to avoid scaled flex feedback loops
+  useEffect(() => {
+    const container = document.querySelector('.sc-container');
+    if (!container) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+
+        // The workspace width is the container width minus the 290px sidebar and padding
+        const workspaceWidth = width - 290 - 48;
+        // The workspace height is the container height minus the top action bar (50px) and padding
+        const workspaceHeight = height - 50 - 48;
+
+        const scaleX = workspaceWidth / 1123;
+        const scaleY = workspaceHeight / 794;
+
+        // Always fit the page, so take the min scale to prevent overflow in both directions
+        const newScale = Math.min(scaleX, scaleY);
+        // Cap the scale at 1.0 so it doesn't get unnaturally huge on large displays
+        setScale(Math.max(0.2, Math.min(newScale, 1.0)));
+      }
+    });
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   // Class and Teacher details local overrides
   const [localClassName, setLocalClassName] = useState("Class 7A");
@@ -380,8 +412,8 @@ export default function SeatingChart() {
     if (!type || !ELEMENT_CONFIGS[type]) return;
 
     const canvasRect = canvasRef.current ? canvasRef.current.getBoundingClientRect() : { left: 0, top: 0 };
-    const mouseX = e.clientX - canvasRect.left;
-    const mouseY = e.clientY - canvasRect.top;
+    const mouseX = (e.clientX - canvasRect.left) / scale;
+    const mouseY = (e.clientY - canvasRect.top) / scale;
 
     const config = ELEMENT_CONFIGS[type];
     const snapped = snapToGridCenter(mouseX, mouseY, config.w, config.h, 0);
@@ -411,8 +443,8 @@ export default function SeatingChart() {
     const startY = el.y;
 
     const handleMouseMove = (moveEvent) => {
-      const dx = moveEvent.clientX - startMouseX;
-      const dy = moveEvent.clientY - startMouseY;
+      const dx = (moveEvent.clientX - startMouseX) / scale;
+      const dy = (moveEvent.clientY - startMouseY) / scale;
 
       const nextX = startX + dx;
       const nextY = startY + dy;
@@ -537,6 +569,7 @@ export default function SeatingChart() {
   };
 
   const totalSeats = elements.reduce((acc, el) => {
+    if (el.type === 'teacher') return acc;
     const config = ELEMENT_CONFIGS[el.type];
     return acc + (config.seats || 0);
   }, 0);
@@ -603,11 +636,12 @@ export default function SeatingChart() {
           flex-direction: column;
           background-color: var(--bg-app);
           position: relative;
+          min-height: 0;
           height: 100%;
         }
 
         .sc-top-action-bar {
-          height: 65px;
+          height: 50px;
           background-color: var(--bg-sidebar);
           border-bottom: 1px solid var(--border-color);
           display: flex;
@@ -621,11 +655,12 @@ export default function SeatingChart() {
 
         .sc-scroll-area {
           flex-grow: 1;
-          overflow: auto;
+          overflow: hidden;
           padding: 1.5rem;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: flex-start;
+          position: relative;
         }
 
         .sc-a4-paper {
@@ -823,12 +858,12 @@ export default function SeatingChart() {
             margin: 0; 
           }
           body, html { 
-            width: 297mm; 
-            height: 210mm; 
+            width: 100% !important; 
+            height: 100% !important; 
             background-color: white !important; 
             margin: 0 !important; 
             padding: 0 !important; 
-            overflow: hidden !important; 
+            overflow: visible !important; 
           }
           .sidebar, aside, header, nav, .print-hidden, .sc-toolbar, .sc-top-action-bar { 
             display: none !important; 
@@ -837,33 +872,43 @@ export default function SeatingChart() {
             display: block !important;
             padding: 0 !important;
             margin: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .main-content {
             display: block !important;
             padding: 0 !important;
             margin: 0 !important;
-            width: 297mm !important;
-            height: 210mm !important;
-            max-width: 100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            overflow: visible !important;
           }
           .sc-container {
             border: none !important;
             background: white !important;
             display: block !important;
-            height: auto !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .sc-main-workspace { 
             display: block !important; 
-            width: 297mm !important; 
-            height: 210mm !important; 
+            width: 100% !important; 
+            height: 100% !important; 
             padding: 0 !important; 
             margin: 0 !important; 
             background: white !important; 
+            overflow: visible !important;
           }
           .sc-scroll-area {
             padding: 0 !important;
             margin: 0 !important;
             display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
           }
           .sc-a4-paper { 
             width: 297mm !important; 
@@ -872,6 +917,10 @@ export default function SeatingChart() {
             border: none !important; 
             margin: 0 !important; 
             transform: none !important; 
+            transform-origin: top left !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
           }
           .sc-canvas-element.selected { box-shadow: none; }
           .sc-canvas-element.selected::after { display: none; }
@@ -910,7 +959,7 @@ export default function SeatingChart() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
 
             <div className="sc-draggable-item" draggable onDragStart={(e) => handleDragStart(e, 'single')}>
-              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifycontent: 'center', position: 'relative' }}>
+              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                 <div style={{ width: '28px', height: '16px', backgroundColor: '#e6b981', border: '1px solid #b47b3b', margin: 'auto' }}></div>
               </div>
               <div>
@@ -920,7 +969,7 @@ export default function SeatingChart() {
             </div>
 
             <div className="sc-draggable-item" draggable onDragStart={(e) => handleDragStart(e, 'square4')}>
-              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifycontent: 'center', position: 'relative' }}>
+              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                 <div style={{ width: '32px', height: '32px', backgroundColor: '#e6b981', border: '1px solid #b47b3b', borderRadius: '2px', margin: 'auto' }}></div>
               </div>
               <div>
@@ -930,7 +979,7 @@ export default function SeatingChart() {
             </div>
 
             <div className="sc-draggable-item" draggable onDragStart={(e) => handleDragStart(e, 'circle6')}>
-              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifycontent: 'center', position: 'relative' }}>
+              <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                 <div style={{ width: '34px', height: '34px', backgroundColor: '#e6b981', border: '1px solid #b47b3b', borderRadius: '50%', margin: 'auto' }}></div>
               </div>
               <div>
@@ -974,87 +1023,102 @@ export default function SeatingChart() {
 
           </div>
 
-          <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.02)', padding: '0.5rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <ShieldCheck size={14} style={{ color: fileConnected ? 'var(--success)' : 'var(--warning)' }} />
-              Roster Link: {fileConnected ? (
-                <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>Active iSAMS Roster</span>
+          {/* Roster Link Status Block at the very bottom of the sidebar */}
+          <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.02)', padding: '0.5rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+              <ShieldCheck size={13} style={{ color: fileConnected ? 'var(--success)' : 'var(--warning)' }} />
+              Roster: {fileConnected ? (
+                <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>Active iSAMS</span>
               ) : (
-                <span style={{ color: 'var(--warning)' }}>Local Mock Roster</span>
+                <span style={{ color: 'var(--warning)' }}>Local Mock</span>
               )}
             </div>
-
-            <button className="btn btn-secondary" style={{ width: '100%', borderColor: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', padding: '0.5rem 1rem', fontSize: '0.85rem' }} onClick={clearCanvas}>
-              <Trash2 size={14} /> Clear Layout
-            </button>
           </div>
         </div>
 
         {/* Right workspace */}
         <div className="sc-main-workspace">
 
-          {/* Top action bar */}
-          <div className="sc-top-action-bar print-hidden" style={{ flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1 }}>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                Drag shapes to board. Select shapes to rotate, assign students, or delete.
+          {/* Top action bar containing Seating Plan controls aligned to the left */}
+          <div className="sc-top-action-bar print-hidden" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0 1.5rem', justifyContent: 'flex-start' }}>
+            
+            {fileConnected && classStudents.length > 0 && (
+              <>
+                <button 
+                  className="btn btn-secondary" 
+                  style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', gap: '0.35rem', borderColor: 'var(--border-primary)', color: 'var(--text-main)' }} 
+                  onClick={() => autoAssignRoster(classStudents, 'smart')}
+                  title="Optimize seating using SISD student profile tags (SEN, Emirati, EAL, MAGT)"
+                >
+                  <Sparkles size={13} style={{ color: 'var(--primary)' }} /> Smart Seat
+                </button>
+                <button 
+                  className="btn btn-secondary" 
+                  style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', gap: '0.35rem' }} 
+                  onClick={() => autoAssignRoster(classStudents, 'random')}
+                  title="Randomize student seat assignments"
+                >
+                  <Shuffle size={13} /> Randomize
+                </button>
+              </>
+            )}
+
+            <div style={{ background: 'rgba(225,0,49,0.07)', padding: '0.4rem 0.75rem', borderRadius: '8px', border: '1px solid rgba(225,0,49,0.25)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <LayoutGrid size={13} style={{ color: '#E10031' }} />
+              <span style={{ fontSize: '0.78rem', color: '#E10031', fontWeight: '700' }}>
+                Seats: {totalSeats}
               </span>
-              {printWarning && (
-                <div style={{
-                  display: 'flex', alignItems: 'center', gap: '0.5rem',
-                  background: 'rgba(225,0,49,0.08)',
-                  border: '1px solid rgba(225,0,49,0.35)',
-                  borderLeft: '4px solid #E10031',
-                  borderRadius: '6px',
-                  padding: '0.4rem 0.75rem',
-                  fontSize: '0.78rem',
-                  fontWeight: '600',
-                  color: '#E10031',
-                  animation: 'fadeIn 0.2s ease'
-                }}>
-                  ⚠️ {printWarning}
-                </div>
-              )}
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              {fileConnected && classStudents.length > 0 && (
-                <>
-                  <button 
-                    className="btn btn-secondary" 
-                    style={{ padding: '0.45rem 0.9rem', fontSize: '0.82rem', gap: '0.35rem', borderColor: 'var(--border-primary)', color: 'var(--text-main)' }} 
-                    onClick={() => autoAssignRoster(classStudents, 'smart')}
-                  >
-                    <Sparkles size={13} style={{ color: 'var(--primary)' }} /> Smart Seating
-                  </button>
-                  <button 
-                    className="btn btn-secondary" 
-                    style={{ padding: '0.45rem 0.9rem', fontSize: '0.82rem', gap: '0.35rem' }} 
-                    onClick={() => autoAssignRoster(classStudents, 'random')}
-                  >
-                    <Shuffle size={13} /> Randomize
-                  </button>
-                </>
-              )}
+            <button 
+              className="btn btn-primary" 
+              style={{ padding: '0.4rem 0.95rem', fontSize: '0.8rem', gap: '0.35rem' }} 
+              onClick={handlePrint}
+              title="Print seating plan in A4 landscape"
+            >
+              <Printer size={13} /> Print Plan
+            </button>
 
-              <div style={{ background: 'rgba(225,0,49,0.07)', padding: '0.45rem 0.85rem', borderRadius: '8px', border: '1px solid rgba(225,0,49,0.25)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <LayoutGrid size={14} style={{ color: '#E10031' }} />
-                <span style={{ fontSize: '0.8rem', color: '#E10031', fontWeight: '700' }}>
-                  Seats: {totalSeats}
-                </span>
+            <button 
+              className="btn btn-secondary" 
+              style={{ borderColor: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '0.4rem 0.8rem', fontSize: '0.8rem', gap: '0.35rem' }} 
+              onClick={clearCanvas}
+              title="Clear all desks from layout"
+            >
+              <Trash2 size={13} /> Clear Plan
+            </button>
+
+            {printWarning && (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                background: 'rgba(225,0,49,0.08)',
+                border: '1px solid rgba(225,0,49,0.35)',
+                borderLeft: '4px solid #E10031',
+                borderRadius: '6px',
+                padding: '0.3rem 0.6rem',
+                fontSize: '0.75rem',
+                fontWeight: '600',
+                color: '#E10031',
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                ⚠️ {printWarning}
               </div>
-
-              <button className="btn btn-primary" style={{ padding: '0.45rem 1rem', fontSize: '0.82rem' }} onClick={handlePrint}>
-                <Printer size={14} /> Print Plan
-              </button>
-            </div>
+            )}
           </div>
 
           {/* Canvas Scroll Area */}
-          <div className="sc-scroll-area">
+          <div className="sc-scroll-area" ref={scrollAreaRef}>
 
             {/* Virtual A4landscape paper */}
-            <div className="sc-a4-paper" id="a4-paper">
+            <div 
+              className="sc-a4-paper" 
+              id="a4-paper"
+              style={{
+                transform: `scale(${scale})`,
+                transformOrigin: 'top left',
+                flexShrink: 0
+              }}
+            >
 
               {/* Paper Header (Printed) */}
               <div className="sc-paper-header" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', paddingBottom: '12px' }}>

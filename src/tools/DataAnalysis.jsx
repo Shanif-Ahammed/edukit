@@ -50,7 +50,6 @@ const CPT_BORDER_THRESHOLD = 2; // pts within a boundary = borderline / at-risk
 export default function DataAnalysis() {
   const { fileConnected, students, selectedClass, subject } = useData();
   const [hoveredBar, setHoveredBar] = useState(null);
-  const [hoveredPoint, setHoveredPoint] = useState(null);
   const [groupingMode, setGroupingMode] = useState('attainment'); // 'attainment' | 'progress'
   const [filterType, setFilterType] = useState('all'); // 'all' | 'exceeding' | 'meeting' | 'below'
   const [atRiskOpen, setAtRiskOpen] = useState(false);
@@ -166,7 +165,20 @@ export default function DataAnalysis() {
 
   const rosterWithProgress = classStudents.map(s => {
     const actualCpt   = (s.cpt !== null && s.cpt !== undefined && s.cpt !== '') ? Number(s.cpt)  : null;
-    const expectedMeg = (s.meg !== null && s.meg !== undefined && s.meg !== '') ? Number(s.meg) : null;
+    const rawMeg      = (s.meg !== null && s.meg !== undefined && s.meg !== '') ? Number(s.meg) : null;
+    let expectedMeg   = rawMeg;
+
+    // If MEG in Excel is a grade (1-7) rather than CPT points (0-32), map it to minimum CPT points of that grade
+    if (expectedMeg !== null && expectedMeg >= 1 && expectedMeg <= 7) {
+      if (expectedMeg === 7) expectedMeg = 28;
+      else if (expectedMeg === 6) expectedMeg = 24;
+      else if (expectedMeg === 5) expectedMeg = 19;
+      else if (expectedMeg === 4) expectedMeg = 15;
+      else if (expectedMeg === 3) expectedMeg = 10;
+      else if (expectedMeg === 2) expectedMeg = 6;
+      else expectedMeg = 0;
+    }
+
     const actual      = getEffectiveGrade(s); // IB 1-7 for display
 
     let status = 'No MEG';
@@ -347,6 +359,146 @@ export default function DataAnalysis() {
   });
   atRiskStudents.sort((a, b) => a.ptsFromDrop - b.ptsFromDrop);
   borderlineStudents.sort((a, b) => a.ptsToNext - b.ptsToNext);
+
+  // --- GRADE DISTRIBUTION & BELL CURVE CALCULATIONS ---
+  const gradeCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+  let totalGradesSum = 0;
+  let totalGradesCount = 0;
+
+  classStudents.forEach(s => {
+    const g = getEffectiveGrade(s);
+    if (g !== null && g >= 1 && g <= 7) {
+      gradeCounts[g] = (gradeCounts[g] || 0) + 1;
+      totalGradesSum += g;
+      totalGradesCount++;
+    }
+  });
+
+  const classAverage = totalGradesCount > 0 ? (totalGradesSum / totalGradesCount) : 0;
+  const maxCount = Math.max(...Object.values(gradeCounts), 1);
+
+  // Map 7 grades to coordinates for Attainment Curve (scaled to half height)
+  const curvePoints = [1, 2, 3, 4, 5, 6, 7].map(g => {
+    const x = 50 + (g - 1) * 100;
+    const count = gradeCounts[g] || 0;
+    const y = 130 - (count / maxCount) * 90; // Baseline at Y=130, Max count goes up to Y=40
+    return { x, y };
+  });
+
+  // Generate Bezier Curve outline path for Attainment curve
+  let curveOutlinePath = '';
+  if (curvePoints.length > 0) {
+    curveOutlinePath = `M ${curvePoints[0].x} ${curvePoints[0].y}`;
+    for (let i = 0; i < curvePoints.length - 1; i++) {
+      const p0 = curvePoints[i];
+      const p1 = curvePoints[i + 1];
+      const cp1x = p0.x + 50;
+      const cp1y = p0.y;
+      const cp2x = p1.x - 50;
+      const cp2y = p1.y;
+      curveOutlinePath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+    }
+  }
+
+  // Closed fill path down to baseline Y=130
+  const curveFillPath = curveOutlinePath 
+    ? `${curveOutlinePath} L ${curvePoints[curvePoints.length - 1].x} 130 L ${curvePoints[0].x} 130 Z`
+    : '';
+
+  // Class Average X-axis coordinate mapping
+  const avgX = classAverage > 0 ? (50 + (classAverage - 1) * 100) : 0;
+
+  // --- TARGET PROGRESS: NATIVE CPT VS EXPECTED MEG COMPARISON (0-32 SCALE) ---
+  let progressCptSum = 0;
+  let progressCptCount = 0;
+  let progressMegSum = 0;
+  let progressMegCount = 0;
+
+  rosterWithProgress.forEach(s => {
+    if (s.actualCpt !== null) {
+      progressCptSum += s.actualCpt;
+      progressCptCount++;
+    }
+    if (s.expectedMeg !== null) {
+      progressMegSum += s.expectedMeg;
+      progressMegCount++;
+    }
+  });
+
+  const progressCptAverage = progressCptCount > 0 ? (progressCptSum / progressCptCount) : 0;
+  const progressMegAverage = progressMegCount > 0 ? (progressMegSum / progressMegCount) : 0;
+
+  // Filter student roster to include only students that have a CPT score or an expected MEG
+  const progressGraphStudents = rosterWithProgress.filter(s => s.actualCpt !== null || s.expectedMeg !== null);
+
+  // Compute curve coordinates for actual CPT and expected MEG points
+  const cptPoints = [];
+  const megPoints = [];
+
+  if (progressGraphStudents.length > 0) {
+    const colWidth = 620 / progressGraphStudents.length;
+    progressGraphStudents.forEach((s, idx) => {
+      const x = 50 + (idx + 0.5) * colWidth;
+      if (s.actualCpt !== null) {
+        cptPoints.push({ x, y: 150 - (s.actualCpt / 32) * 130 });
+      }
+      if (s.expectedMeg !== null) {
+        megPoints.push({ x, y: 150 - (s.expectedMeg / 32) * 130 });
+      }
+    });
+  }
+
+  // Generate Actual CPT curve path
+  let progressCptLinePath = '';
+  if (cptPoints.length > 0) {
+    progressCptLinePath = `M ${cptPoints[0].x} ${cptPoints[0].y}`;
+    for (let i = 0; i < cptPoints.length - 1; i++) {
+      const p0 = cptPoints[i];
+      const p1 = cptPoints[i + 1];
+      const localOffset = (p1.x - p0.x) / 2;
+      progressCptLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+    }
+  }
+
+  // Generate Expected MEG curve path
+  let progressMegLinePath = '';
+  if (megPoints.length > 0) {
+    progressMegLinePath = `M ${megPoints[0].x} ${megPoints[0].y}`;
+    for (let i = 0; i < megPoints.length - 1; i++) {
+      const p0 = megPoints[i];
+      const p1 = megPoints[i + 1];
+      const localOffset = (p1.x - p0.x) / 2;
+      progressMegLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+    }
+  }
+
+  const progressCptAreaPath = progressCptLinePath
+    ? `${progressCptLinePath} L ${cptPoints[cptPoints.length - 1].x} 150 L ${cptPoints[0].x} 150 Z`
+    : '';
+
+  const progressMegAreaPath = progressMegLinePath
+    ? `${progressMegLinePath} L ${megPoints[megPoints.length - 1].x} 150 L ${megPoints[0].x} 150 Z`
+    : '';
+
+  // Collision resolution for right-side average badges
+  const progressCptAvgY = 150 - (progressCptAverage / 32) * 130;
+  const progressMegAvgY = 150 - (progressMegAverage / 32) * 130;
+
+  let badgeCptY = progressCptAvgY - 8;
+  let badgeMegY = progressMegAvgY - 8;
+
+  if (progressCptAverage > 0 && progressMegAverage > 0 && Math.abs(progressCptAvgY - progressMegAvgY) < 18) {
+    if (progressCptAvgY >= progressMegAvgY) {
+      // CPT average is lower on screen (larger Y value)
+      badgeCptY = progressCptAvgY + 2;
+      badgeMegY = progressMegAvgY - 18;
+    } else {
+      // MEG average is lower on screen (larger Y value)
+      badgeCptY = progressCptAvgY - 18;
+      badgeMegY = progressMegAvgY + 2;
+    }
+  }
+
   const hasCptData = classStudents.some(s => s.cpt !== null && s.cpt !== undefined && s.cpt !== '');
 
   return (
@@ -496,7 +648,7 @@ export default function DataAnalysis() {
                 marginBottom: '1.5rem'
               }}>
                 <span style={{ fontSize: '2rem' }}>{khdaDescriptor.icon}</span>
-                <div>
+                <div style={{ flexGrow: 1 }}>
                   <div style={{ fontSize: '0.7rem', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', color: khdaDescriptor.color, marginBottom: '0.2rem' }}>KHDA Class Descriptor</div>
                   <div style={{ fontSize: '1.25rem', fontWeight: '900', color: khdaDescriptor.color, lineHeight: '1.1' }}>
                     {khdaDescriptor.label}
@@ -508,63 +660,65 @@ export default function DataAnalysis() {
               </div>
             )}
 
-            {/* Attainment Bands Map List */}
-            <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              {attainmentBands.map((band, idx) => {
-                const isActive = groupingMode === 'attainment' && filterType === band.key;
-                const isHovered = hoveredBar === idx || isActive;
-                return (
-                  <div 
-                    key={band.key} 
-                    style={{ 
-                      marginBottom: '1.15rem', 
-                      cursor: 'pointer',
-                      background: isActive ? 'rgba(255,255,255,0.01)' : 'transparent',
-                      borderRadius: '8px',
-                      padding: '0.35rem 0.5rem',
-                      border: isActive ? `1px dashed ${band.color}` : '1px solid transparent',
-                      transition: 'all 0.25s ease',
-                    }}
-                    onMouseEnter={() => setHoveredBar(idx)}
-                    onMouseLeave={() => setHoveredBar(null)}
-                    onClick={() => {
-                      setGroupingMode('attainment');
-                      setFilterType(filterType === band.key ? 'all' : band.key);
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem', fontSize: '0.82rem' }}>
-                      <span style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: band.color }} />
-                        {band.label}
-                      </span>
-                      <span style={{ color: 'var(--text-muted)', fontWeight: '700' }}>
-                        {band.count} student{band.count !== 1 ? 's' : ''} &middot; <strong style={{ color: 'var(--text-main)' }}>{band.percentage}%</strong>
-                      </span>
+            {/* Attainment Bands Circular Gauge & Slim Progress Bars */}
+            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', flexGrow: 1 }}>
+              
+              {/* Circular SVG Meter showing Meeting/Exceeding Attainment Percentage */}
+              <div style={{ width: '110px', height: '110px', position: 'relative', flexShrink: 0 }}>
+                <svg viewBox="0 0 100 100" style={{ transform: 'rotate(-90deg)', width: '100%', height: '100%' }}>
+                  {/* Background track circle */}
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--border-color)" strokeWidth="8" />
+                  {/* Progress track circle */}
+                  <circle 
+                    cx="50" cy="50" r="42" 
+                    fill="none" 
+                    stroke="var(--primary)" 
+                    strokeWidth="8" 
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={`${2 * Math.PI * 42 * (1 - pctMeetOrExceed / 100)}`}
+                    strokeLinecap="round"
+                    style={{ transition: 'stroke-dashoffset 1s ease-out' }}
+                  />
+                </svg>
+                {/* Gauge Text Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  textAlign: 'center'
+                }}>
+                  <strong style={{ fontSize: '1.4rem', color: 'var(--text-main)', display: 'block', lineHeight: 1 }}>{pctMeetOrExceed}%</strong>
+                  <span style={{ fontSize: '0.55rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.15rem' }}>Meeting/Exceeding</span>
+                </div>
+              </div>
+
+              {/* Progress bars explanation */}
+              <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {attainmentBands.map((band) => {
+                  const isActive = groupingMode === 'attainment' && filterType === band.key;
+                  return (
+                    <div 
+                      key={band.key} 
+                      style={{ cursor: 'pointer' }} 
+                      onClick={() => {
+                        setGroupingMode('attainment');
+                        setFilterType(filterType === band.key ? 'all' : band.key);
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.2rem' }}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontWeight: isActive ? '700' : '500' }}>
+                          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: band.color }} />
+                          {band.label} ({band.count})
+                        </span>
+                        <strong>{band.percentage}%</strong>
+                      </div>
+                      <div style={{ width: '100%', height: '8px', background: 'rgba(255,255,255,0.03)', borderRadius: '4px', border: isActive ? `1px solid ${band.color}` : 'none' }}>
+                        <div style={{ height: '100%', width: `${band.percentage}%`, background: band.color, borderRadius: '4px', transition: 'width 0.8s ease' }} />
+                      </div>
                     </div>
-                    
-                    {/* Bar Gauge */}
-                    <div style={{
-                      width: '100%',
-                      height: '24px',
-                      borderRadius: '6px',
-                      background: 'rgba(255,255,255,0.02)',
-                      border: '1px solid var(--border-color)',
-                      overflow: 'hidden',
-                      position: 'relative'
-                    }}>
-                      <div style={{
-                        width: `${Math.max(band.percentage, 1)}%`,
-                        height: '100%',
-                        background: band.gradient,
-                        borderRadius: '5px',
-                        transform: isHovered ? 'scaleY(1.08)' : 'scaleY(1)',
-                        transition: 'transform 0.2s ease',
-                        transformOrigin: 'bottom'
-                      }} />
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -732,6 +886,122 @@ export default function DataAnalysis() {
               )}
             </div>
           )}
+          </div>
+
+          {/* GRADE DISTRIBUTION BELL CURVE & AVERAGE CARD */}
+          <div className="glass-panel animate-fade-in" style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <TrendingUp size={20} style={{ color: 'var(--primary)' }} />
+                <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Grade Distribution & Bell Curve</h3>
+              </div>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'var(--primary)', display: 'inline-block' }} />
+                  Grade Curve
+                </div>
+                {classAverage > 0 && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', border: '2px dashed var(--accent)', display: 'inline-block' }} />
+                    Class Average ({classAverage.toFixed(2)})
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {gradedStudentsCount === 0 ? (
+              <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                ⚠️ No grades available in this class to display distribution. Make sure student grades or CPT marks are loaded.
+              </div>
+            ) : (
+              <div style={{ width: '100%', overflowX: 'auto' }}>
+                <div style={{ minWidth: '660px', paddingBottom: '0.25rem' }}>
+                  <svg viewBox="0 0 700 160" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+                    <defs>
+                      <linearGradient id="bellCurveGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Baseline */}
+                    <line x1="40" y1="130" x2="660" y2="130" stroke="var(--border-color-hover)" strokeWidth="1.5" />
+                    
+                    {/* Vertical Grid Ticks & Labels */}
+                    {[1, 2, 3, 4, 5, 6, 7].map(g => {
+                      const x = 50 + (g - 1) * 100;
+                      return (
+                        <g key={g}>
+                          <line x1={x} y1="20" x2={x} y2="130" stroke="var(--border-color)" strokeWidth="1" strokeDasharray="3,5" />
+                          <line x1={x} y1="130" x2={x} y2="135" stroke="var(--border-color-hover)" strokeWidth="1.5" />
+                        </g>
+                      );
+                    })}
+
+                    {/* Smooth Filled Bell Curve Area */}
+                    <path d={curveFillPath} fill="url(#bellCurveGrad)" style={{ transition: 'all 0.5s ease' }} />
+
+                    {/* Smooth Outline Path */}
+                    <path d={curveOutlinePath} fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" style={{ transition: 'all 0.5s ease', filter: 'drop-shadow(0 4px 8px var(--primary-glow))' }} />
+
+                    {/* Interactive Node Circles for each grade point */}
+                    {curvePoints.map((p, idx) => {
+                      const grade = idx + 1;
+                      const count = gradeCounts[grade] || 0;
+                      const percentage = Math.round((count / gradedStudentsCount) * 100);
+                      return (
+                        <g key={grade} style={{ cursor: 'pointer' }}>
+                          <circle cx={p.x} cy={p.y} r="6" fill="var(--bg-app)" stroke="var(--primary)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px var(--primary-glow))' }} />
+                          <circle cx={p.x} cy={p.y} r="2.5" fill="var(--text-main)" />
+                          
+                          {/* Grade Label at bottom */}
+                          <text x={p.x} y="150" textAnchor="middle" fill="var(--text-muted)" fontSize="0.75rem" fontWeight="800" fontFamily="var(--font-header)">
+                            IB {grade}
+                          </text>
+                          
+                          {/* Count Badge overlaying the node */}
+                          <g transform={`translate(${p.x - 22}, ${p.y - 25})`}>
+                            <rect width="44" height="16" rx="4" fill="var(--bg-card-hover)" stroke="var(--border-color-hover)" strokeWidth="1" />
+                            <text x="22" y="11" textAnchor="middle" fill="var(--text-main)" fontSize="0.6rem" fontWeight="850">
+                              {count} ({percentage}%)
+                            </text>
+                          </g>
+                        </g>
+                      );
+                    })}
+
+                    {/* Vertical Class Average Line */}
+                    {classAverage > 0 && (
+                      <g>
+                        <line 
+                          x1={avgX} y1="20" x2={avgX} y2="130" 
+                          stroke="var(--accent)" 
+                          strokeWidth="1.5" 
+                          strokeDasharray="4,4" 
+                          style={{ filter: 'drop-shadow(0 0 4px rgba(99, 102, 241, 0.4))' }}
+                        />
+                        <circle cx={avgX} cy="130" r="3.5" fill="var(--accent)" />
+                        <circle cx={avgX} cy="130" r="7" fill="none" stroke="var(--accent)" strokeWidth="1" opacity="0.4" />
+
+                        {/* Top Indicator flag */}
+                        <g transform={`translate(${avgX - 50}, 0)`}>
+                          <rect 
+                            width="100" height="18" rx="4" 
+                            fill="rgba(99, 102, 241, 0.15)" 
+                            stroke="var(--accent)" 
+                            strokeWidth="1" 
+                            style={{ backdropFilter: 'blur(4px)' }}
+                          />
+                          <text x="50" y="12" textAnchor="middle" fill="var(--text-main)" fontSize="0.6rem" fontWeight="900" fontFamily="var(--font-header)">
+                            AVERAGE: {classAverage.toFixed(2)}
+                          </text>
+                        </g>
+                      </g>
+                    )}
+                  </svg>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* KHDA Pathway Upgrade Guide Card */}
@@ -1299,6 +1569,258 @@ export default function DataAnalysis() {
 
           </div>
 
+          {/* TARGET expected grade (MEG) BELL CURVE & AVERAGE CARD */}
+          <div className="glass-panel animate-fade-in" style={{ padding: '1.5rem 2rem', marginTop: '2rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <TrendingUp size={20} style={{ color: 'var(--accent)' }} />
+                <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Actual CPT vs Expected MEG Distribution</h3>
+              </div>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'var(--primary)', display: 'inline-block' }} />
+                  Actual Distribution (CPT)
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'var(--accent)', display: 'inline-block' }} />
+                  Expected Distribution (MEG)
+                </div>
+              </div>
+            </div>
+
+            {progressMegCount === 0 ? (
+              <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                ⚠️ No Expected Targets (MEGs) loaded in this class. Connect a spreadsheet with target expected grades.
+              </div>
+            ) : (
+              <div style={{ width: '100%', overflowX: 'auto' }}>
+                <div style={{ minWidth: '660px', paddingBottom: '0.25rem' }}>
+                  <svg viewBox="0 0 740 200" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+                    <defs>
+                      <linearGradient id="progressBellCurveGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.18" />
+                        <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.0" />
+                      </linearGradient>
+                      <linearGradient id="actualBellCurveGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.18" />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Baseline */}
+                    <line x1="50" y1="150" x2="670" y2="150" stroke="var(--border-color-hover)" strokeWidth="1.5" />
+                    
+                    {/* Horizontal Grid Ticks & Labels */}
+                    {[0, 8, 16, 24, 32].map(pt => {
+                      const y = 150 - (pt / 32) * 130;
+                      return (
+                        <g key={`pt-tick-${pt}`}>
+                          <line x1="50" y1={y} x2="670" y2={y} stroke="var(--border-color)" strokeWidth="0.8" strokeDasharray="3,5" opacity="0.3" />
+                          <line x1="45" y1={y} x2="50" y2={y} stroke="var(--border-color-hover)" strokeWidth="1.5" />
+                          
+                          {/* Point Label on left */}
+                          <text x="38" y={y + 3} textAnchor="end" fill="var(--text-muted)" fontSize="0.65rem" fontWeight="800">
+                            {pt}
+                          </text>
+                        </g>
+                      );
+                    })}
+
+                    {/* Expected MEG Area Path */}
+                    {progressMegAreaPath && (
+                      <path 
+                        d={progressMegAreaPath} 
+                        fill="url(#progressBellCurveGrad)" 
+                        style={{ transition: 'all 0.5s ease' }} 
+                      />
+                    )}
+
+                    {/* Actual CPT Area Path */}
+                    {progressCptAreaPath && (
+                      <path 
+                        d={progressCptAreaPath} 
+                        fill="url(#actualBellCurveGrad)" 
+                        style={{ transition: 'all 0.5s ease' }} 
+                      />
+                    )}
+
+                    {/* Expected MEG Spline Path */}
+                    {progressMegLinePath && (
+                      <path 
+                        d={progressMegLinePath} 
+                        fill="none" 
+                        stroke="var(--accent)" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        opacity="0.5" 
+                        style={{ transition: 'all 0.5s ease' }} 
+                      />
+                    )}
+
+                    {/* Actual CPT Spline Path */}
+                    {progressCptLinePath && (
+                      <path 
+                        d={progressCptLinePath} 
+                        fill="none" 
+                        stroke="var(--primary)" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        opacity="0.7" 
+                        style={{ transition: 'all 0.5s ease', filter: 'drop-shadow(0 2px 4px var(--primary-glow))' }} 
+                      />
+                    )}
+
+                    {/* Student Bars & Nodes */}
+                    {progressGraphStudents.map((s, idx) => {
+                      const colWidth = 620 / progressGraphStudents.length;
+                      const x = 50 + (idx + 0.5) * colWidth;
+                      const cptY = s.actualCpt !== null ? 150 - (s.actualCpt / 32) * 130 : null;
+                      const megY = s.expectedMeg !== null ? 150 - (s.expectedMeg / 32) * 130 : null;
+                      const displayName = s.forename + (s.surname ? ' ' + s.surname.charAt(0) + '.' : '');
+
+                      return (
+                        <g key={`student-bar-${s.id}`} style={{ cursor: 'pointer' }}>
+                          <title>
+                            {s.name}
+                            {"\n"}Actual CPT: {s.actualCpt !== null ? `${s.actualCpt}/32` : 'No CPT score'}
+                            {"\n"}Expected MEG: {s.expectedMeg !== null ? `${s.expectedMeg}/32` : 'No expected MEG'}
+                            {s.actualCpt !== null && s.expectedMeg !== null ? `\nAttainment Gap: ${s.cptDiff >= 0 ? '+' : ''}${s.cptDiff} points` : ''}
+                          </title>
+
+                          {/* Guide Line */}
+                          <line x1={x} y1="20" x2={x} y2="150" stroke="var(--border-color)" strokeWidth="0.8" strokeDasharray="2,4" opacity="0.2" />
+
+                          {/* Gap Connection Line */}
+                          {cptY !== null && megY !== null && (
+                            <line 
+                              x1={x} y1={megY} x2={x} y2={cptY} 
+                              stroke={s.cptDiff >= 0 ? '#10b981' : '#ef4444'} 
+                              strokeWidth="2.5" 
+                              strokeLinecap="round"
+                              opacity="0.85"
+                            />
+                          )}
+
+                          {/* Expected MEG Node */}
+                          {megY !== null && (
+                            <circle cx={x} cy={megY} r="3.5" fill="var(--bg-app)" stroke="var(--accent)" strokeWidth="1.5" />
+                          )}
+
+                          {/* Actual CPT Node - Color dynamically based on attainment gap */}
+                          {cptY !== null && (
+                            <circle 
+                              cx={x} 
+                              cy={cptY} 
+                              r="4.5" 
+                              fill={s.cptDiff >= 0 ? '#10b981' : '#ef4444'} 
+                              stroke="var(--bg-app)" 
+                              strokeWidth="1.5" 
+                              style={{ filter: `drop-shadow(0 0 3.5px ${s.cptDiff >= 0 ? 'rgba(16,185,129,0.45)' : 'rgba(239,68,68,0.45)'})` }} 
+                            />
+                          )}
+                        </g>
+                      );
+                    })}
+
+                    {/* 5. Horizontal Expected MEG Average Line (Indigo) */}
+                    {progressMegAverage > 0 && (
+                      <g>
+                        <line 
+                          x1="50" y1={progressMegAvgY} x2="670" y2={progressMegAvgY} 
+                          stroke="var(--accent)" 
+                          strokeWidth="1.5" 
+                          strokeDasharray="3,3" 
+                          style={{ filter: 'drop-shadow(0 0 3px var(--accent-glow))' }}
+                        />
+                        
+                        {/* Indicator flag on the right */}
+                        <g transform={`translate(675, ${badgeMegY})`}>
+                          <rect 
+                            width="60" height="16" rx="3" 
+                            fill="rgba(99, 102, 241, 0.15)" 
+                            stroke="var(--accent)" 
+                            strokeWidth="0.8" 
+                            style={{ backdropFilter: 'blur(4px)' }}
+                          />
+                          <text x="30" y="10" textAnchor="middle" fill="var(--text-main)" fontSize="0.55rem" fontWeight="900" fontFamily="var(--font-header)">
+                            MEG: {progressMegAverage.toFixed(1)}
+                          </text>
+                        </g>
+                      </g>
+                    )}
+
+                    {/* 6. Horizontal Actual CPT Average Line (Red) */}
+                    {progressCptAverage > 0 && (
+                      <g>
+                        <line 
+                          x1="50" y1={progressCptAvgY} x2="670" y2={progressCptAvgY} 
+                          stroke="var(--primary)" 
+                          strokeWidth="1.5" 
+                          strokeDasharray="3,3" 
+                          style={{ filter: 'drop-shadow(0 0 3px var(--primary-glow))' }}
+                        />
+                        
+                        {/* Indicator flag on the right */}
+                        <g transform={`translate(675, ${badgeCptY})`}>
+                          <rect 
+                            width="60" height="16" rx="3" 
+                            fill="rgba(225, 0, 49, 0.15)" 
+                            stroke="var(--primary)" 
+                            strokeWidth="0.8" 
+                            style={{ backdropFilter: 'blur(4px)' }}
+                          />
+                          <text x="30" y="10" textAnchor="middle" fill="var(--text-main)" fontSize="0.55rem" fontWeight="900" fontFamily="var(--font-header)">
+                            CPT: {progressCptAverage.toFixed(1)}
+                          </text>
+                        </g>
+                      </g>
+                    )}
+                  </svg>
+                </div>
+
+                {/* Symmetrical comparison summary details */}
+                <div style={{
+                  marginTop: '1.25rem',
+                  padding: '1rem 1.25rem',
+                  background: 'rgba(255, 255, 255, 0.015)',
+                  border: '1px solid var(--border-color)',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '1rem',
+                  alignItems: 'center'
+                }}>
+                  <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                    <div>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Actual CPT Average</span>
+                      <strong style={{ fontSize: '0.92rem', color: 'var(--primary)' }}>
+                        {progressCptAverage.toFixed(1)} / 32
+                      </strong>
+                    </div>
+                    <div style={{ width: '1px', background: 'var(--border-color)' }} />
+                    <div>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Expected MEG Average</span>
+                      <strong style={{ fontSize: '0.92rem', color: 'var(--accent)' }}>
+                        {progressMegAverage.toFixed(1)} / 32
+                      </strong>
+                    </div>
+                    <div style={{ width: '1px', background: 'var(--border-color)' }} />
+                    <div>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Attainment Gap</span>
+                      <strong style={{ fontSize: '0.92rem', color: (progressCptAverage >= progressMegAverage) ? 'var(--success)' : 'var(--error)' }}>
+                        {progressCptAverage >= progressMegAverage ? '+' : ''}{(progressCptAverage - progressMegAverage).toFixed(1)} pts
+                      </strong>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', maxWidth: '420px', margin: 0, lineHeight: '1.4' }}>
+                    💡 <strong>Distribution Overlay:</strong> Comparing the red Actual CPT curve against the blue Expected MEG curve reveals shift directions. Peaks shifted to the right of targets indicate high-value progress gains!
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* KHDA Pathway Progress Upgrade Guide Card */}
           {megConnectedCount > 0 && (
             <div className="glass-panel" style={{ padding: '2rem', marginTop: '2rem', display: 'flex', flexDirection: 'column' }}>
@@ -1594,199 +2116,6 @@ export default function DataAnalysis() {
             </div>
           )}
 
-          {/* Graph Section: Actual vs Expected Grade Comparison (Bespoke Interactive SVG Line Chart) - FULL WIDTH */}
-          {gradedStudentsCount > 0 && megConnectedCount > 0 && (
-            <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <TrendingUp size={20} style={{ color: 'var(--primary)' }} />
-                Roster Competency Trend
-              </h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>
-                Alphabetical breakdown illustrating individual target achievement gaps. Hover nodes for detailed info.
-              </p>
-
-              <div style={{ position: 'relative', width: '100%', height: '200px', overflowX: 'auto', overflowY: 'hidden', flexGrow: 1, marginBottom: '1rem' }}>
-                {/* Custom SVG line plot */}
-                <div style={{ minWidth: `${Math.max(rosterWithProgress.length * 40, 500)}px`, height: '170px', position: 'relative' }}>
-                  <svg width="100%" height="100%" viewBox={`0 0 ${Math.max(rosterWithProgress.length * 40, 500)} 170`} preserveAspectRatio="none">
-                    <defs>
-                      {/* Glowing line gradients */}
-                      <linearGradient id="actualGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
-                      </linearGradient>
-                      <linearGradient id="megGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Horizontal Guide Grid Lines (CPT 0-32 in 8pt steps) */}
-                    {[0, 8, 16, 24, 32].map(g => {
-                      const y = 165 - (g / 32) * 145;
-                      return (
-                        <g key={g}>
-                          <line x1="0" y1={y} x2="100%" y2={y} stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="4 4" />
-                          <text x="5" y={y - 4} fill="var(--text-muted)" fontSize="8" fontWeight="600">{g}pt</text>
-                        </g>
-                      );
-                    })}
-
-                    {/* Draw Areas */}
-                    {(() => {
-                      const width = Math.max(rosterWithProgress.length * 40, 500);
-                      const step = width / (rosterWithProgress.length + 1);
-                      
-                      // Expected Path Points (MEG out of 32)
-                      const megPoints = rosterWithProgress.map((s, i) => {
-                        const x = step * (i + 1);
-                        const megVal = s.expectedMeg !== null && s.expectedMeg !== undefined ? s.expectedMeg : 16;
-                        const y = 165 - (megVal / 32) * 145;
-                        return { x, y };
-                      });
-
-                      // Actual Path Points (CPT out of 32)
-                      const actualPoints = rosterWithProgress.map((s, i) => {
-                        const x = step * (i + 1);
-                        const cptVal = s.actualCpt !== null && s.actualCpt !== undefined ? s.actualCpt : 16;
-                        const y = 165 - (cptVal / 32) * 145;
-                        return { x, y };
-                      });
-
-                      // Build path commands
-                      const megPath = megPoints.length > 0 ? `M ${megPoints[0].x} ${megPoints[0].y} ` + megPoints.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ') : '';
-                      const actualPath = actualPoints.length > 0 ? `M ${actualPoints[0].x} ${actualPoints[0].y} ` + actualPoints.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ') : '';
-
-                      const megArea    = megPoints.length    > 0 ? `${megPath}    L ${megPoints[megPoints.length - 1].x}       155 L ${megPoints[0].x}       155 Z` : '';
-                      const actualArea = actualPoints.length > 0 ? `${actualPath} L ${actualPoints[actualPoints.length - 1].x} 155 L ${actualPoints[0].x} 155 Z` : '';
-
-                      return (
-                        <>
-                          {/* Fill Gradients */}
-                          {megArea && <path d={megArea} fill="url(#megGrad)" />}
-                          {actualArea && <path d={actualArea} fill="url(#actualGrad)" />}
-
-                          {/* Stroke lines */}
-                          {megPath && <path d={megPath} fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.8" />}
-                          {actualPath && <path d={actualPath} fill="none" stroke="var(--primary)" strokeWidth="2.5" />}
-
-                          {/* Interactive Circles / Dots */}
-                          {rosterWithProgress.map((s, i) => {
-                            const actualX = actualPoints[i].x;
-                            const actualY = actualPoints[i].y;
-                            const expectedY = megPoints[i].y;
-                            const isHovered = hoveredPoint === i;
-
-                            return (
-                              <g key={s.id}>
-                                {/* Hover interactive trigger column */}
-                                <rect 
-                                  x={actualX - step/2} 
-                                  y="0" 
-                                  width={step} 
-                                  height="170" 
-                                  fill="transparent" 
-                                  style={{ cursor: 'pointer' }}
-                                  onMouseEnter={() => setHoveredPoint(i)}
-                                  onMouseLeave={() => setHoveredPoint(null)}
-                                />
-
-                                {/* expected Target dot */}
-                                {s.expectedMeg !== null && (
-                                  <circle 
-                                    cx={actualX} cy={expectedY} r="3" 
-                                    fill="var(--bg-app)" stroke="var(--accent)" strokeWidth="1.5" 
-                                  />
-                                )}
-
-                                {/* actual Grade dot */}
-                                {s.actualGrade !== null && (
-                                  <circle 
-                                    cx={actualX} cy={actualY} r={isHovered ? 6 : 4} 
-                                    fill="var(--primary)" 
-                                    stroke="#fff" strokeWidth={isHovered ? 2 : 1}
-                                    style={{ transition: 'r 0.15s ease' }}
-                                    filter={isHovered ? 'drop-shadow(0 0 4px var(--primary))' : 'none'}
-                                  />
-                                )}
-                              </g>
-                            );
-                          })}
-                        </>
-                      );
-                    })()}
-                  </svg>
-                </div>
-                
-                {/* Custom Tooltip overlay */}
-                {(() => {
-                  const student = rosterWithProgress[hoveredPoint];
-                  if (!student) return null;
-                  const width = Math.max(rosterWithProgress.length * 40, 500);
-                  const step = width / (rosterWithProgress.length + 1);
-                  const leftPos = step * (hoveredPoint + 1);
-                  
-                  // Prevent tooltip from flowing off screen
-                  const percentLeft = (leftPos / width) * 100;
-                  const alignRight = percentLeft > 80;
-
-                  return (
-                    <div style={{
-                      position: 'absolute',
-                      top: '10px',
-                      left: alignRight ? `${leftPos - 190}px` : `${leftPos + 10}px`,
-                      zIndex: 10,
-                      width: '180px',
-                      pointerEvents: 'none',
-                      padding: '0.75rem',
-                      fontSize: '0.78rem',
-                      lineHeight: '1.4'
-                    }} className="glass-panel animate-fade-in">
-                      <div style={{ fontWeight: '700', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.25rem', marginBottom: '0.4rem', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                        {student.name}
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.15rem' }}>
-                        <span>CPT Score:</span>
-                        <strong style={{ color: 'var(--primary)' }}>{student.actualCpt !== null ? `${student.actualCpt}/32` : 'No Data'}</strong>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.15rem' }}>
-                        <span>MEG Target:</span>
-                        <strong style={{ color: 'var(--accent)' }}>{student.expectedMeg !== null ? `${student.expectedMeg}/32` : 'No Data'}</strong>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.15rem' }}>
-                        <span>IB Grade:</span>
-                        <strong style={{ color: 'var(--text-main)' }}>{student.actualGrade || '-'}</strong>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.3rem', paddingTop: '0.3rem', borderTop: '1px dashed var(--border-color)' }}>
-                        <span>CPT vs MEG:</span>
-                        <strong style={{ 
-                          color: student.progressStatus === 'Exceeding' ? '#10b981' : 
-                                 student.progressStatus === 'Meeting' ? 'var(--accent)' : 
-                                 student.progressStatus === 'Below' ? '#ef4444' : 'var(--text-muted)'
-                        }}>
-                          {student.cptDiff > 0 ? `+${student.cptDiff} pts` :
-                           student.cptDiff === -1 ? '−1 pt (Meeting)' :
-                           student.cptDiff < -1 ? `${student.cptDiff} pts (Below)` : 'On target'}
-                        </strong>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
-
-              {/* Chart Legends */}
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ width: '12px', height: '3px', background: 'var(--primary)' }} />
-                  Actual CPT Score
-                </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ width: '12px', height: '3px', borderTop: '2px dashed var(--accent)' }} />
-                  MEG Target
-                </span>
-              </div>
-            </div>
-          )}
         </div>
       )}
 
