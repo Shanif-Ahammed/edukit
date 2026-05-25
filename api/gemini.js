@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     }
 
     // Call official Gemini API server-side
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemma-4-31b-it:generateContent", {
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-live-preview:generateContent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
