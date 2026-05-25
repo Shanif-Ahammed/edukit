@@ -4,7 +4,7 @@ import {
   HelpCircle, AlertTriangle, Layers, Users, BookOpen
 } from 'lucide-react';
 
-const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
+
 
 const SYSTEM_INSTRUCTION = `You are the SISD EduKit AI Assistant, a helpful AI guide built directly into the Swiss International Scientific School in Dubai (SISD) Teacher Portal.
 Your primary role is to help teachers with any questions they have about using the EduKit web application.
@@ -250,10 +250,10 @@ export default function AiAssistant() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const [rateLimits, setRateLimits] = useState({
-    limitRPM: 15,
-    remainingRPM: 15,
-    limitRPD: 1500,
-    remainingRPD: 1500,
+    limitRPM: 120,
+    remainingRPM: 120,
+    limitRPD: 10000,
+    remainingRPD: 10000,
     resetTime: '60s'
   });
   const [showInfoPanel, setShowInfoPanel] = useState(false);
@@ -270,39 +270,18 @@ export default function AiAssistant() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Simulator timer to reset RPM limit to 15 every minute
+  // Simulator timer to reset RPM limit to 120 every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setRateLimits(prev => ({
         ...prev,
-        remainingRPM: 15
+        remainingRPM: 120
       }));
     }, 60000);
     return () => clearInterval(interval);
   }, []);
 
-  const [customApiKey, setCustomApiKey] = useState(() => localStorage.getItem('edukit_gemini_api_key') || '');
-  const [apiKeyInput, setApiKeyInput] = useState('');
 
-  const handleSaveApiKey = (e) => {
-    e.preventDefault();
-    if (customApiKey) {
-      localStorage.removeItem('edukit_gemini_api_key');
-      setCustomApiKey('');
-      setApiKeyInput('');
-      alert("Personal API Key cleared successfully!");
-    } else {
-      const key = apiKeyInput.trim();
-      if (!key) {
-        alert("Please enter a valid Gemini API Key first.");
-        return;
-      }
-      localStorage.setItem('edukit_gemini_api_key', key);
-      setCustomApiKey(key);
-      setApiKeyInput('');
-      alert("Personal API Key saved securely in browser cache!");
-    }
-  };
 
   const chatEndRef = useRef(null);
 
@@ -333,99 +312,41 @@ export default function AiAssistant() {
       let response;
       let data;
 
-      try {
-        // 1. First, attempt to query the secure serverless backend proxy
-        let vercelApiUrl = import.meta.env.VITE_VERCEL_API_URL || '';
-        if (vercelApiUrl && !vercelApiUrl.startsWith('http://') && !vercelApiUrl.startsWith('https://')) {
-          vercelApiUrl = `https://${vercelApiUrl}`;
-        }
-        const proxyEndpoint = vercelApiUrl ? `${vercelApiUrl.replace(/\/$/, '')}/api/gemini` : '/api/gemini';
-
-        response = await fetch(proxyEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ prompt: payloadPrompt })
-        });
-
-        if (response.status === 404) {
-          throw new Error("Local environment: Serverless API proxy route not found.");
-        }
-
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error || `Proxy returned ${response.status}`);
-        }
-
-        data = await response.json();
-
-        // Parse rate limits from response headers
-        const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
-        const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
-        const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
-
-        setRateLimits(prev => {
-          const next = { ...prev };
-          if (limitRequests) next.limitRPD = Number(limitRequests);
-          if (remainingRequests) next.remainingRPD = Number(remainingRequests);
-          if (resetRequests) next.resetTime = resetRequests;
-          next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
-          return next;
-        });
-      } catch (proxyErr) {
-        console.warn("Secure proxy unavailable. Details:", proxyErr.message);
-
-        // If the user has explicitly configured VITE_VERCEL_API_URL, do not silently swallow the error.
-        // Instead, raise a proxy error so we can help the user debug why their Vercel serverless function is failing!
-        if (import.meta.env.VITE_VERCEL_API_URL) {
-          throw new Error(`PROXY_ERROR: ${proxyErr.message}`);
-        }
-
-        // 2. Fallback: Direct client-side fetch (requires personal API Key on GitHub Pages)
-        if (!customApiKey) {
-          throw new Error("API_KEY_REQUIRED");
-        }
-
-        response = await fetch(GEMINI_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-goog-api-key': customApiKey
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: payloadPrompt
-                  }
-                ]
-              }
-            ]
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error(`Gemini API returned status ${response.status}`);
-        }
-
-        data = await response.json();
-
-        // Parse rate limits from response headers
-        const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
-        const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
-        const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
-
-        setRateLimits(prev => {
-          const next = { ...prev };
-          if (limitRequests) next.limitRPD = Number(limitRequests);
-          if (remainingRequests) next.remainingRPD = Number(remainingRequests);
-          if (resetRequests) next.resetTime = resetRequests;
-          next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
-          return next;
-        });
+      // Query the secure Vercel serverless proxy
+      let vercelApiUrl = import.meta.env.VITE_VERCEL_API_URL || '';
+      if (vercelApiUrl && !vercelApiUrl.startsWith('http://') && !vercelApiUrl.startsWith('https://')) {
+        vercelApiUrl = `https://${vercelApiUrl}`;
       }
+      const proxyEndpoint = vercelApiUrl ? `${vercelApiUrl.replace(/\/$/, '')}/api/gemini` : '/api/gemini';
+
+      response = await fetch(proxyEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ prompt: payloadPrompt })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Proxy returned ${response.status}`);
+      }
+
+      data = await response.json();
+
+      // Parse rate limits from response headers
+      const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
+      const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
+      const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
+
+      setRateLimits(prev => {
+        const next = { ...prev };
+        if (limitRequests) next.limitRPD = Number(limitRequests);
+        if (remainingRequests) next.remainingRPD = Number(remainingRequests);
+        if (resetRequests) next.resetTime = resetRequests;
+        next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
+        return next;
+      });
 
       // Parse content from Gemini API response format
       const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I received an empty response. Please try again.";
@@ -433,35 +354,14 @@ export default function AiAssistant() {
       setMessages(prev => [...prev, { sender: 'ai', text: generatedText }]);
     } catch (err) {
       console.error("AI Assistant Error:", err);
-      if (err.message === "API_KEY_REQUIRED") {
-        setErrorMsg("API Key Required");
-        setMessages(prev => [
-          ...prev,
-          {
-            sender: 'ai',
-            text: "⚠️ **Gemini API Key Required**: To secure pupil data and run the AI assistant on public servers (like GitHub Pages), you must enter your personal Gemini API Key. Please enter your key in the **GitHub Pages / API Key** field in the left sidebar, click **Save**, and try again!"
-          }
-        ]);
-      } else if (err.message.startsWith("PROXY_ERROR:")) {
-        const errorDetail = err.message.replace("PROXY_ERROR: ", "");
-        setErrorMsg("Proxy Error");
-        setMessages(prev => [
-          ...prev,
-          {
-            sender: 'ai',
-            text: `⚠️ **Secure Vercel Proxy Error**: The assistant failed to get a response from your Vercel deployment.\n\n**Error Details:** \`${errorDetail}\`\n\n**Common Solutions:**\n1. Make sure you added \`GEMINI_API_KEY\` to your **Environment Variables** in the Vercel Project dashboard.\n2. Ensure your Vercel deployment succeeded and is active.\n3. Make sure Vercel allows CORS requests from your GitHub Pages origin.`
-          }
-        ]);
-      } else {
-        setErrorMsg("Failed to get response from Gemini. Please verify your connection.");
-        setMessages(prev => [
-          ...prev,
-          {
-            sender: 'ai',
-            text: `⚠️ **Connection Error**: I could not reach the serverless proxy or your personal Gemini session.\n\n**Details:** ${err.message || 'Unknown network error'}\n\nPlease check your internet connection or API settings.`
-          }
-        ]);
-      }
+      setErrorMsg("Failed to get response. Please try again.");
+      setMessages(prev => [
+        ...prev,
+        {
+          sender: 'ai',
+          text: `⚠️ **Connection Error**: The assistant could not reach the secure cloud proxy.\n\n**Details:** ${err.message || 'Unknown network error'}\n\nPlease check your internet connection and try again. If the issue persists, the service may be temporarily rate-limited — wait a moment and retry.`
+        }
+      ]);
     } finally {
       setLoading(false);
     }
@@ -619,52 +519,9 @@ export default function AiAssistant() {
           ))}
         </div>
 
-        {!import.meta.env.VITE_VERCEL_API_URL && (
-          <div className="glass-panel" style={{ marginTop: 'auto', padding: '1rem', borderRadius: '10px', background: 'rgba(251, 191, 36, 0.02)', borderColor: 'rgba(251, 191, 36, 0.15)', marginBottom: '0.75rem' }}>
-            <h4 style={{ fontSize: '0.78rem', fontWeight: '800', color: '#fbbf24', textTransform: 'uppercase', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              🔑 GitHub Pages / API Key
-            </h4>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: '1.4', marginBottom: '0.75rem' }}>
-              To use the AI securely on public sites like GitHub Pages without exposing keys, enter your personal Gemini API Key below. Stored locally in your browser cache.
-            </p>
-            <form onSubmit={handleSaveApiKey} style={{ display: 'flex', gap: '0.5rem' }}>
-              <input
-                type="password"
-                placeholder={customApiKey ? "••••••••••••••••••••" : "AIzaSy..."}
-                value={apiKeyInput}
-                onChange={(e) => setApiKeyInput(e.target.value)}
-                style={{
-                  flexGrow: 1,
-                  background: 'var(--bg-app)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-main)',
-                  fontSize: '0.78rem',
-                  padding: '0.35rem 0.5rem',
-                  borderRadius: '6px',
-                  outline: 'none'
-                }}
-              />
-              <button
-                type="submit"
-                className="btn"
-                style={{
-                  padding: '0.35rem 0.75rem',
-                  fontSize: '0.75rem',
-                  borderRadius: '6px',
-                  background: customApiKey ? '#ef4444' : 'var(--primary)',
-                  border: 'none',
-                  color: '#fff',
-                  cursor: 'pointer',
-                  fontWeight: '700'
-                }}
-              >
-                {customApiKey ? "Clear" : "Save"}
-              </button>
-            </form>
-          </div>
-        )}
 
-        <div className="glass-panel" style={{ marginTop: import.meta.env.VITE_VERCEL_API_URL ? 'auto' : '0', padding: '1rem', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.03)', borderColor: 'rgba(16, 185, 129, 0.15)' }}>
+
+        <div className="glass-panel" style={{ marginTop: 'auto', padding: '1rem', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.03)', borderColor: 'rgba(16, 185, 129, 0.15)' }}>
           <h4 style={{ fontSize: '0.78rem', fontWeight: '800', color: '#10b981', textTransform: 'uppercase', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
             🔒 Local Data Security
           </h4>
@@ -681,7 +538,7 @@ export default function AiAssistant() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.25rem', flexShrink: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', position: 'relative' }} ref={infoRef}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-1.5-Flash</span>
+            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-3-Flash-Live</span>
             <button
               onClick={() => setShowInfoPanel(!showInfoPanel)}
               style={{
@@ -727,11 +584,11 @@ export default function AiAssistant() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Model:</span>
-                    <strong style={{ color: 'var(--text-main)' }}>Gemini 1.5 Flash</strong>
+                    <strong style={{ color: 'var(--text-main)' }}>Gemini 3 Flash Live</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Engine Type:</span>
-                    <strong style={{ color: '#10b981' }}>High-Speed Flash Generation</strong>
+                    <strong style={{ color: '#10b981' }}>Low-Latency Real-Time Dialogue</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>RPM Limit (Minute):</span>
@@ -748,21 +605,19 @@ export default function AiAssistant() {
                 </div>
               </div>
             )}
-            {import.meta.env.VITE_VERCEL_API_URL && (
-              <span style={{
-                fontSize: '0.68rem',
-                background: 'rgba(16, 185, 129, 0.08)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                color: '#10b981',
-                padding: '0.15rem 0.5rem',
-                borderRadius: '4px',
-                fontWeight: '700',
-                letterSpacing: '0.02em',
-                marginLeft: '0.35rem'
-              }}>
-                Secure Cloud Proxy
-              </span>
-            )}
+            <span style={{
+              fontSize: '0.68rem',
+              background: 'rgba(16, 185, 129, 0.08)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
+              color: '#10b981',
+              padding: '0.15rem 0.5rem',
+              borderRadius: '4px',
+              fontWeight: '700',
+              letterSpacing: '0.02em',
+              marginLeft: '0.35rem'
+            }}>
+              Secure Cloud Proxy
+            </span>
           </div>
           <button
             onClick={clearChat}
