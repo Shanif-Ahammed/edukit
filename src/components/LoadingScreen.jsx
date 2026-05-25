@@ -503,12 +503,12 @@ export default function LoadingScreen({ theme, onComplete }) {
 
       {/* Floating background task cards */}
       <div className="bg-cards">
-        <div className="bg-card done bc1"><span className="bg-card-label">Attendance report — Year 9</span></div>
-        <div className="bg-card doing bc2"><span className="bg-card-label">Syncing pupil data…</span></div>
-        <div className="bg-card todo bc3"><span className="bg-card-label">Progress review — Term 2</span></div>
-        <div className="bg-card done bc4"><span className="bg-card-label">Parent letters exported</span></div>
-        <div className="bg-card todo bc5"><span className="bg-card-label">SEN tracker — update</span></div>
-        <div className="bg-card doing bc6"><span className="bg-card-label">Loading class groups…</span></div>
+        <div className="bg-card done bc1"><span className="bg-card-label">Comment generator — Year 9</span></div>
+        <div className="bg-card doing bc2"><span className="bg-card-label">Importing iSAMS roster…</span></div>
+        <div className="bg-card todo bc3"><span className="bg-card-label">Cohort analysis — Term 2</span></div>
+        <div className="bg-card done bc4"><span className="bg-card-label">Seating plans exported</span></div>
+        <div className="bg-card todo bc5"><span className="bg-card-label">Study Group Matcher — active</span></div>
+        <div className="bg-card doing bc6"><span className="bg-card-label">Preparing classroom timer…</span></div>
 
         {/* Mini bar charts */}
         <div className="bg-chart bch1">
@@ -553,11 +553,11 @@ export default function LoadingScreen({ theme, onComplete }) {
           </div>
           <div className={`check-item visible ${ticked2 ? 'ticked' : ''}`} style={{ animationDelay: '2.1s' }}>
             <div className="check-box"><div className="check-tick"></div></div>
-            <span className="check-label">Loading attendance records</span>
+            <span className="check-label">Structuring gradebook rosters</span>
           </div>
           <div className={`check-item visible ${ticked3 ? 'ticked' : ''}`} style={{ animationDelay: '2.6s' }}>
             <div className="check-box"><div className="check-tick"></div></div>
-            <span className="check-label">Preparing reports</span>
+            <span className="check-label">Preparing report comments</span>
           </div>
           <div className={`check-item visible ${ticked4 ? 'ticked' : ''}`} style={{ animationDelay: '3.1s' }}>
             <div className="check-box"><div className="check-tick"></div></div>
