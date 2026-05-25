@@ -302,12 +302,21 @@ export default function AiAssistant() {
     setErrorMsg('');
 
     try {
-      // Build conversational payload with history context
-      const chatHistoryText = messages
-        .map(m => `${m.sender === 'user' ? 'User' : 'Assistant'}: ${m.text}`)
-        .join('\n');
+      // Format chat history to Gemini's native structured format
+      const nativeContents = messages.map(m => ({
+        role: m.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: m.text }]
+      }));
 
-      const payloadPrompt = `${SYSTEM_INSTRUCTION}\n\nChat History:\n${chatHistoryText}\nUser: ${queryText}\nAssistant:`;
+      // Append active prompt
+      nativeContents.push({
+        role: 'user',
+        parts: [{ text: queryText }]
+      });
+
+      const nativeSystemInstruction = {
+        parts: [{ text: SYSTEM_INSTRUCTION }]
+      };
 
       let response;
       let data;
@@ -324,7 +333,10 @@ export default function AiAssistant() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ prompt: payloadPrompt })
+        body: JSON.stringify({
+          contents: nativeContents,
+          systemInstruction: nativeSystemInstruction
+        })
       });
 
       if (!response.ok) {

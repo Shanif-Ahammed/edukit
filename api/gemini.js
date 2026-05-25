@@ -34,9 +34,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body;
-    if (!prompt) {
-      return res.status(400).json({ error: 'Prompt is required in the request body.' });
+    const { prompt, contents, systemInstruction } = req.body;
+    if (!prompt && !contents) {
+      return res.status(400).json({ error: 'Prompt or contents is required in the request body.' });
     }
 
     // Call official Gemini API server-side
@@ -46,17 +46,21 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
         "X-goog-api-key": apiKey
       },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt
-              }
-            ]
-          }
-        ]
-      })
+      body: JSON.stringify(
+        contents 
+          ? { contents, systemInstruction }
+          : {
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: prompt
+                    }
+                  ]
+                }
+              ]
+            }
+      )
     });
 
     const data = await response.json();
