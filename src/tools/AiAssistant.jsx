@@ -4,7 +4,7 @@ import {
   HelpCircle, AlertTriangle, Layers, Users, BookOpen
 } from 'lucide-react';
 
-const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
 const SYSTEM_INSTRUCTION = `You are the SISD EduKit AI Assistant, a helpful AI guide built directly into the Swiss International Scientific School in Dubai (SISD) Teacher Portal.
 Your primary role is to help teachers with any questions they have about using the EduKit web application.
@@ -681,7 +681,7 @@ export default function AiAssistant() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.25rem', flexShrink: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', position: 'relative' }} ref={infoRef}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-2.0-Flash</span>
+            <span style={{ fontSize: '0.88rem', fontWeight: '800', color: 'var(--text-main)' }}>Gemini-1.5-Flash</span>
             <button
               onClick={() => setShowInfoPanel(!showInfoPanel)}
               style={{
@@ -727,7 +727,7 @@ export default function AiAssistant() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Model:</span>
-                    <strong style={{ color: 'var(--text-main)' }}>Gemini 2.0 Flash</strong>
+                    <strong style={{ color: 'var(--text-main)' }}>Gemini 1.5 Flash</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
                     <span>Engine Type:</span>
