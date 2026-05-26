@@ -174,7 +174,16 @@ ONLINE ASSESSMENT SYSTEM (OAS) & COMMENT GENERATORS
 - Language acquisition teachers input a descriptor: Emergent, Capable, or Proficient.
 - Tutors input Service as Action (SAA) status. AP3: Concern (1 or 0 activities), On track (2 activities), Excellent (2 extended activities). AP5: Completed or Not Completed.
 - AP3 Comment Generator: Homeroom Tutors select descriptors for Character, IB Learner Profile, CAS/SAA, ASA involvement, and Activity. Tutors must replace the word *Activity* with the specific activity.
-- AP5 Comment Generator: Used for all subjects; criteria, grades, ATL, strength, and target automatically populate.
+- AP5 Comment Generator: Used for all subjects to automatically compile comments. 
+  - **Structure of Generated Comment**: Built by joining four distinct segments with a space:
+    1. *Segment 1 (Overall Attainment)*: Statement on overall performance based on final IB Grade (1-7).
+    2. *Segment 2 (ATL Progress)*: Statement on the selected ATL focus skill (Communication, Social, Self-Management, Research, Thinking) and progress level (Expert, Practitioner, Beginner, Novice).
+    3. *Segment 3 (Key Strength)*: Highlights the student's highest-scoring MYP Criterion (Crit A, B, C, or D) with its subject-specific name.
+    4. *Segment 4 (Target for Growth)*: Suggests improvement for the student's lowest-scoring MYP Criterion.
+  - **Placeholders replaced in templates**: Replaces custom tags like 'Student!' (Forename), 'He!'/'he!' (He/She, he/she), 'His!'/'his!' (His/Her, his/her), 'him!' (him/her), 'Subject!' (Subject name), and 'A!', 'B!', 'C!', 'D!', 'BestCrit!', 'WeakCrit!' (resolved with subject-specific criterion names like 'Knowing and Understanding'). Standard tags like '[Name]', '[He/She]', '[he/she]', '[His/Her]', '[his/her]', '[Him/Her]', '[him/her]', '[Grade]', '[Subject]', '[CritA]', '[CritB]', '[CritC]', '[CritD]', '[BestCrit]', '[WeakCrit]', '[ATL Skill]', '[ATL]' are also supported.
+  - **Safety & Lock Rules**:
+    - *Manual Draft Interception*: If overall IB Grade is 1 or 2, or any individual Criterion score is 1 or 2, the generator intercepts and locks generation, labeling the row '⚠️ Manual Draft' and outputting a prompt for the teacher to write a highly customized manual comment.
+    - *Missing Grades Lock*: If any criteria grade (A, B, C, or D) is missing (blank/null), the comment is locked and remains empty ('') because complete data is required.
 - Elective Subject Generator: Teachers select three attributes to generate a personalized comment.
 
 QUALITY ASSURANCE (QA) ROLES
@@ -370,10 +379,10 @@ export default function AiAssistant() {
     } catch (err) {
       console.error("AI Assistant Error:", err);
       setErrorMsg("Failed to get response. Please try again.");
-      
-      const isQuotaOrRateLimit = 
-        err.message?.toLowerCase().includes('quota') || 
-        err.message?.toLowerCase().includes('limit') || 
+
+      const isQuotaOrRateLimit =
+        err.message?.toLowerCase().includes('quota') ||
+        err.message?.toLowerCase().includes('limit') ||
         err.message?.toLowerCase().includes('429') ||
         (typeof response !== 'undefined' && response?.status === 429);
 
@@ -690,11 +699,11 @@ export default function AiAssistant() {
                     </div>
                   )}
                   {m.sender === 'ai' && idx === messages.length - 1 ? (
-                    <TypewriterText 
-                      text={m.text} 
-                      isLast={true} 
-                      renderMessageText={renderMessageText} 
-                      chatEndRef={chatEndRef} 
+                    <TypewriterText
+                      text={m.text}
+                      isLast={true}
+                      renderMessageText={renderMessageText}
+                      chatEndRef={chatEndRef}
                     />
                   ) : (
                     renderMessageText(m.text)
