@@ -616,7 +616,7 @@ export default function DataAnalysis() {
             }}
           >
             <Target size={14} />
-            Target Progress vs MEG
+            Progress Analysis
           </button>
         </div>
       </div>

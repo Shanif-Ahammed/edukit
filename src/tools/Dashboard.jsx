@@ -1679,7 +1679,7 @@ export default function Dashboard({ setActiveTool }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
                 }}>
                   <span style={{ fontWeight: '800', color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem', fontSize: '1.02rem' }}>🗣️ Language & EAL Provisioning</span>
-                  We identified <strong style={{ color: 'var(--primary)' }}>{ealCount} EAL student(s)</strong> in the class. When using Seating Chart desks, place EAL pupils alongside peers with 'Expert' or 'Practitioner' ATL communication ratings.
+                  We identified <strong style={{ color: 'var(--primary)' }}>{ealCount} EAL student(s)</strong> across all classes. When using Seating Chart desks, place EAL pupils alongside peers with 'Expert' or 'Practitioner' ATL communication ratings.
                 </div>
                 
                 <div style={{ 
@@ -1690,7 +1690,7 @@ export default function Dashboard({ setActiveTool }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
                 }}>
                   <span style={{ fontWeight: '800', color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem', fontSize: '1.02rem' }}>🧠 Gifted & Talented Extension</span>
-                  We identified <strong style={{ color: '#3b82f6' }}>{giftedCount} MAGT student(s)</strong>. Ensure they receive high-level conceptual prompts, and consider using Study Group Matcher's peer-mentoring settings.
+                  We identified <strong style={{ color: '#3b82f6' }}>{giftedCount} MAGT student(s)</strong> across all classes. Ensure they receive high-level conceptual prompts, and consider using Study Group Matcher's peer-mentoring settings.
                 </div>
                 
                 <div style={{ 
@@ -1701,7 +1701,7 @@ export default function Dashboard({ setActiveTool }) {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
                 }}>
                   <span style={{ fontWeight: '800', color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem', fontSize: '1.02rem' }}>🤝 Learning Support Accommodation</span>
-                  We identified <strong style={{ color: '#fbbf24' }}>{senCount} Inclusion student(s)</strong>. Ensure individual educational profiles (IEP) are reflected in classroom layout settings and collaborative groupings.
+                  We identified <strong style={{ color: '#fbbf24' }}>{senCount} Inclusion student(s)</strong> across all classes. Ensure individual educational profiles (IEP) are reflected in classroom layout settings and collaborative groupings.
                 </div>
               </div>
             </div>

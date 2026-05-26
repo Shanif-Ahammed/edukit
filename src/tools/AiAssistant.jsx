@@ -43,7 +43,7 @@ Here is all the technical and operational context about the EduKit application:
   - *Classroom Timer*: A premium, multi-session ProTimer dashboard designed to track 1 to 6 sessions simultaneously, with dynamic time boundary alarms, custom time setups, and automatic iSAMS auto-start scheduling.
 - **Teacher Toolkit**: 
   - A comprehensive toolkit and reference containing two major sections:
-    - *Assessment Guidelines (Academic Framework)*: Features the official school grading rules, including MYP boundaries (Grade 7 = 28-32, Grade 6 = 24-27, Grade 5 = 19-23, Grade 4 = 15-18, Grade 3 = 10-14, Grade 2 = 6-9, Grade 1 = 1-5), DP boundaries, CP/BTEC grading, and OAS resynchronization steps. Includes interactive converters for Arabic MYP/DP to Ministry of Education (MOE) percentages and MYP CPT boundaries. Includes a Quality Assurance checklist filterable by role.
+    - *Assessment & Data Guidelines (Academic Data Framework)*: Features the official school grading rules, including MYP boundaries (Grade 7 = 28-32, Grade 6 = 24-27, Grade 5 = 19-23, Grade 4 = 15-18, Grade 3 = 10-14, Grade 2 = 6-9, Grade 1 = 1-5), DP boundaries, CP/BTEC grading, and OAS resynchronization steps. Includes interactive converters for Arabic MYP/DP to Ministry of Education (MOE) percentages and MYP CPT boundaries. Includes a Quality Assurance checklist filterable by role.
     - *EduKit Portal Help (User Guides)*: Step-by-step guides for roster sheets, comment generators, seating plannings, data analytics, and troubleshooting.
   - Features a dedicated "Common Mistakes & Troubleshooting" section detailing:
     - Rule: The Excel file downloaded directly from iSAMS is **completely ready-to-go** out-of-the-box. The creator of this portal is the same person who created the iSAMS data/report template, meaning all column names, sheets, and headers are perfectly aligned without any decorative top banners. Teachers **never** have to rename headers or format the Excel files themselves.
@@ -56,7 +56,7 @@ Here is all the technical and operational context about the EduKit application:
 - We have standardized all MIS references in user strings and documentation to **iSAMS**.
 - Central grade sync refers to **OAS (Online Assessment System)**.
 
-4. OFFICIAL SISD ASSESSMENT TIMELINES & GRADE CALCULATIONS (from the 2025-2026 Academic Framework):
+4. OFFICIAL SISD ASSESSMENT TIMELINES & GRADE CALCULATIONS (from the 2025-2026 Academic Data Framework):
 
 OAS TIMEFRAMES (ONLINE ASSESSMENT SYSTEM)
 - Assessment Point 3: Opens 16/01/2026 (provisional) and closes 24/01/2026.
@@ -195,9 +195,9 @@ INSTRUCTIONS:
 - Answer questions in a warm, funny, simple manner.
 - Keep answers concise and structured. Use bullet points or bold text to make answers highly scannable.
 - Reassure teachers that they **do not need to edit, rename, or format** their iSAMS Excel files. The file downloaded directly from iSAMS is completely ready-to-go.
-- If asked about school assessment framework dates, grade boundaries, MOE percentages, or Quality Assurance responsibilities, answer accurately based on the detailed framework guidelines above. Explicitly state the exact dates (e.g. OAS for AP5 opens on June 15th, 2026 and closes on June 19th, 2026).
+- If asked about school academic data framework dates, grade boundaries, MOE percentages, or Quality Assurance responsibilities, answer accurately based on the detailed framework guidelines above. Explicitly state the exact dates (e.g. OAS for AP5 opens on June 15th, 2026 and closes on June 19th, 2026).
 - If a teacher reports missing student grades in their downloaded Excel sheets, guide them on publishing, resyncing, and saving in iSAMS OAS.
-- Under all circumstances, remain professional and focus only on SISD EduKit Teacher Portal and School Assessment Framework questions.`;
+- Under all circumstances, remain professional and focus only on SISD EduKit Teacher Portal and School Academic Data Framework questions.`;
 
 const SUGGESTED_PROMPTS = [
   {
@@ -227,6 +227,37 @@ const SUGGESTED_PROMPTS = [
   }
 ];
 
+// Premium typewriter/streaming text animator to ease waiting discomfort
+function TypewriterText({ text, isLast, renderMessageText, chatEndRef }) {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    if (!isLast) {
+      setDisplayedText(text || '');
+      return;
+    }
+
+    const words = (text || '').split(' ');
+    let currentWordIndex = 0;
+    setDisplayedText('');
+
+    const interval = setInterval(() => {
+      if (currentWordIndex < words.length) {
+        setDisplayedText((prev) => prev + (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex]);
+        currentWordIndex++;
+        // Keep scroll visible during animation
+        chatEndRef.current?.scrollIntoView({ behavior: 'auto' });
+      } else {
+        clearInterval(interval);
+      }
+    }, 15); // Fast, premium pacing at 15ms per word
+
+    return () => clearInterval(interval);
+  }, [text, isLast, chatEndRef]);
+
+  return renderMessageText(displayedText);
+}
+
 export default function AiAssistant() {
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem('edukit_ai_history');
@@ -249,13 +280,6 @@ export default function AiAssistant() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const [rateLimits, setRateLimits] = useState({
-    limitRPM: 15,
-    remainingRPM: 15,
-    limitRPD: 500,
-    remainingRPD: 500,
-    resetTime: '60s'
-  });
   const [showInfoPanel, setShowInfoPanel] = useState(false);
   const infoRef = useRef(null);
 
@@ -270,16 +294,7 @@ export default function AiAssistant() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Simulator timer to reset RPM limit to 15 every minute
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRateLimits(prev => ({
-        ...prev,
-        remainingRPM: 15
-      }));
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+
 
 
 
@@ -346,19 +361,7 @@ export default function AiAssistant() {
 
       data = await response.json();
 
-      // Parse rate limits from response headers
-      const limitRequests = response.headers.get('x-ratelimit-limit-requests') || response.headers.get('x-rate-limit-limit-requests');
-      const remainingRequests = response.headers.get('x-ratelimit-remaining-requests') || response.headers.get('x-rate-limit-remaining-requests');
-      const resetRequests = response.headers.get('x-ratelimit-reset-requests') || response.headers.get('x-rate-limit-reset-requests');
 
-      setRateLimits(prev => {
-        const next = { ...prev };
-        if (limitRequests) next.limitRPD = Number(limitRequests);
-        if (remainingRequests) next.remainingRPD = Number(remainingRequests);
-        if (resetRequests) next.resetTime = resetRequests;
-        next.remainingRPM = Math.max(0, prev.remainingRPM - 1);
-        return next;
-      });
 
       // Parse content from Gemini API response format
       const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I received an empty response. Please try again.";
@@ -367,11 +370,22 @@ export default function AiAssistant() {
     } catch (err) {
       console.error("AI Assistant Error:", err);
       setErrorMsg("Failed to get response. Please try again.");
+      
+      const isQuotaOrRateLimit = 
+        err.message?.toLowerCase().includes('quota') || 
+        err.message?.toLowerCase().includes('limit') || 
+        err.message?.toLowerCase().includes('429') ||
+        (typeof response !== 'undefined' && response?.status === 429);
+
+      const errorMessageText = isQuotaOrRateLimit
+        ? `The EduKit AI Assistant is currently experiencing a high volume of inquiries. Please try again in a few minutes.\n\nIf you need immediate support with your rosters, seating plans, or comment templates, please reach out directly to **[shanif.ahammed@sisd.ae](mailto:shanif.ahammed@sisd.ae)**, and we will get you sorted right away!`
+        : `⚠️ **Service Temporarily Offline**: We couldn't connect to the assistant. Please check your network connection and try again shortly.\n\nIf you continue to face issues, you can email **[shanif.ahammed@sisd.ae](mailto:shanif.ahammed@sisd.ae)** directly or try again later.`;
+
       setMessages(prev => [
         ...prev,
         {
           sender: 'ai',
-          text: `⚠️ **Connection Error**: The assistant could not reach the secure cloud proxy.\n\n**Details:** ${err.message || 'Unknown network error'}\n\nPlease check your internet connection and try again. If the issue persists, the service may be temporarily rate-limited — wait a moment and retry.`
+          text: errorMessageText
         }
       ]);
     } finally {
@@ -598,21 +612,9 @@ export default function AiAssistant() {
                     <span>Model:</span>
                     <strong style={{ color: 'var(--text-main)' }}>Gemini 3.1 Flash Lite</strong>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span>Engine Type:</span>
                     <strong style={{ color: '#10b981' }}>Ultra-Low-Latency Generation</strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
-                    <span>RPM Limit (Minute):</span>
-                    <strong style={{ color: 'var(--text-main)' }}>{rateLimits.remainingRPM} / {rateLimits.limitRPM} left</strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '0.35rem' }}>
-                    <span>RPD Limit (Daily):</span>
-                    <strong style={{ color: 'var(--text-main)' }}>{rateLimits.remainingRPD.toLocaleString()} / {rateLimits.limitRPD.toLocaleString()} left</strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Quota Reset In:</span>
-                    <strong style={{ color: 'var(--warning-text)' }}>{rateLimits.resetTime}</strong>
                   </div>
                 </div>
               </div>
@@ -687,7 +689,16 @@ export default function AiAssistant() {
                       EduKit Bot
                     </div>
                   )}
-                  {renderMessageText(m.text)}
+                  {m.sender === 'ai' && idx === messages.length - 1 ? (
+                    <TypewriterText 
+                      text={m.text} 
+                      isLast={true} 
+                      renderMessageText={renderMessageText} 
+                      chatEndRef={chatEndRef} 
+                    />
+                  ) : (
+                    renderMessageText(m.text)
+                  )}
                 </div>
               </div>
             );

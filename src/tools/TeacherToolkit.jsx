@@ -142,10 +142,10 @@ export default function TeacherToolkit() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
           <GraduationCap size={26} style={{ color: 'var(--primary)' }} />
-          <h1 style={{ fontSize: '1.85rem', fontWeight: '850', letterSpacing: '-0.04em' }}>SISD Academic Framework Reference</h1>
+          <h1 style={{ fontSize: '1.85rem', fontWeight: '850', letterSpacing: '-0.04em' }}>SISD Academic Data Framework Reference</h1>
         </div>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-          Access official SISD Assessment Guidelines (MYP, DP, CP, MOE) compiled directly from the <strong style={{ fontWeight: '800' }}>2025-2026 Academic Framework</strong>. Utilise interactive converters, calculators, and Quality Assurance roles checker.
+          Access official SISD Assessment Guidelines (MYP, DP, CP, MOE) compiled directly from the <strong style={{ fontWeight: '800' }}>2025-2026 Academic Data Framework</strong>. Utilise interactive converters, calculators, and Quality Assurance roles checker.
         </p>
       </div>
 
@@ -154,7 +154,7 @@ export default function TeacherToolkit() {
         {/* Secondary Sub-Navigation (Assessment Guidelines) */}
         <div className="glass-panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.5rem 0.75rem' }}>
-            Academic Guidelines
+            Assessment & Data Guidelines
           </span>
 
           {[
@@ -202,7 +202,7 @@ export default function TeacherToolkit() {
           {activeAssessSubTab === 'overview' && (
             <div className="animate-fade-in">
               <h2 style={{ fontSize: '1.45rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
-                <GraduationCap size={22} /> SISD Assessment Framework 2025-2026
+                <GraduationCap size={22} /> SISD Academic Data Framework 2025-2026
               </h2>
 
               {/* 📅 IMPORTANT DATES SECTION */}

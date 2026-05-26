@@ -63,15 +63,18 @@ const ATL_SKILLS = [
 
 const ATL_LEVELS = ['Expert', 'Practitioner', 'Beginner', 'Novice'];
 
-// Subject key mapping for comments.json lookup (display name → JSON key)
-const SUBJECT_KEYS = {
-  Mathematics: 'Mathematics',
-  Sciences: 'Sciences',
-  'Language & Literature': 'Language & Literature',
-  'Individuals & Societies': 'Individuals & Societies',
-  Design: 'Design',
-  Arts: 'Arts',
-  'Physical & Health Education': 'Physical & Health Education',
+// Maps specific subject display names to their generic MYP subject group configurations
+const getGenericSubjectGroup = (sub) => {
+  if (!sub) return 'Mathematics';
+  const name = sub.toLowerCase();
+  if (name.includes('math')) return 'Mathematics';
+  if (name.includes('science') || name.includes('biology') || name.includes('physics') || name.includes('chemistry')) return 'Sciences';
+  if (name.includes('literature') || name.includes('additional language') || name.includes('language acquisition')) return 'Language & Literature';
+  if (name.includes('societies') || name.includes('commerce')) return 'Individuals & Societies';
+  if (name.includes('design') || name.includes('technology')) return 'Design';
+  if (name.includes('drama') || name.includes('art') || name.includes('music')) return 'Arts';
+  if (name.includes('physical') || name.includes('health') || name.includes('phe')) return 'Physical & Health Education';
+  return 'Mathematics';
 };
 
 // ─── Default 3-Group Comment Bank (Mathematics & Generic ATL) ────────────────
@@ -117,25 +120,93 @@ const DEFAULT_BANK = {
       Novice: 'Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints.'
     }
   },
-  strength: {
-    8: "Student!'s greatest strength this term has been in BestCrit!, where He! achieved an outstanding Grade 8, demonstrating flawless problem-solving.",
-    7: "Student!'s greatest strength this term has been in BestCrit!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding.",
-    6: "Student! achieved a strong Grade 6 in BestCrit!, proving His! solid capability to solve mathematical models.",
-    5: "Student! achieved a Grade 5 in BestCrit!, showing reliable performance and execution.",
-    4: "Student! achieved a Grade 4 in BestCrit!, which is an adequate outcome for this unit.",
-    3: "Student! achieved a Grade 3 in BestCrit!, highlighting areas where He! has basic capability.",
-    2: "Student! achieved a Grade 2 in BestCrit!, representing a starting point for skills consolidation.",
-    1: "Student! achieved a Grade 1 in BestCrit!, indicating that He! is in the early stages of skills acquisition."
+  A: {
+    strength: {
+      8: "Student!'s greatest strength this term has been in A!, where He! achieved an outstanding Grade 8, demonstrating flawless mathematical knowledge and comprehensive understanding.",
+      7: "Student!'s greatest strength this term has been in A!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in solve mathematical models.",
+      6: "Student! achieved a strong Grade 6 in A!, proving His! solid capability to solve mathematical models and recall key concepts with confidence.",
+      5: "Student! achieved a Grade 5 in A!, showing reliable mathematical knowledge and effective use of appropriate mathematical concepts.",
+      4: "Student! achieved a Grade 4 in A!, which reflects adequate understanding and the ability to apply basic mathematical methods in familiar tasks.",
+      3: "Student! achieved a Grade 3 in A!, representing developing capability in applying basic mathematical methods with some guidance.",
+      2: "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
+      1: "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of mathematical knowledge acquisition."
+    },
+    improvement: {
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in A! to push His! boundaries.",
+      7: "To continue His! progress in A! (Grade 7), Student! should maintain His! focus on challenging problem contexts and advanced applications.",
+      6: "To advance His! progress, Student! should focus on deepening His! skills in A! (Grade 6) through active practice with complex applications.",
+      5: "In A! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in problem contexts.",
+      4: "To support His! progress, Student! should dedicate regular review sessions to A! (Grade 4) topics to solidify His! understanding of mathematical concepts.",
+      3: "Student! is encouraged to address critical gaps in A! (Grade 3) by seeking additional support to consolidate key foundational concepts.",
+      2: "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build His! confidence in foundational concepts.",
+      1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1)."
+    }
   },
-  improvement: {
-    8: "Even at Grade 8, Student! should continue to seek extensions in WeakCrit! to push His! boundaries.",
-    7: "To continue His! progress in WeakCrit! (Grade 7), Student! should maintain His! focus on challenging problem contexts.",
-    6: "To advance His! progress, Student! should focus on deepening His! skills in WeakCrit! (Grade 6) through active practices.",
-    5: "In WeakCrit! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency.",
-    4: "To support His! progress, Student! should dedicate regular review sessions to WeakCrit! (Grade 4) topics.",
-    3: "Student! is encouraged to address critical gaps in WeakCrit! (Grade 3) by seeking additional support.",
-    2: "It is important that Student! seeks targeted support to address gaps in WeakCrit! (Grade 2) to build confidence.",
-    1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in WeakCrit! (Grade 1)."
+  B: {
+    strength: {
+      8: "Student!'s greatest strength this term has been in B!, where He! achieved an outstanding Grade 8, demonstrating flawless pattern analysis and comprehensive understanding.",
+      7: "Student!'s greatest strength this term has been in B!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in investigate patterns systematically.",
+      6: "Student! achieved a strong Grade 6 in B!, proving His! solid capability to investigate patterns systematically and recall key concepts with confidence.",
+      5: "Student! achieved a Grade 5 in B!, showing reliable pattern analysis and effective use of appropriate investigative concepts.",
+      4: "Student! achieved a Grade 4 in B!, which reflects adequate understanding and the ability to apply basic investigation techniques in familiar tasks.",
+      3: "Student! achieved a Grade 3 in B!, representing developing capability in applying basic investigation techniques with some guidance.",
+      2: "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
+      1: "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of pattern analysis acquisition."
+    },
+    improvement: {
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in B! to push His! boundaries.",
+      7: "To continue His! progress in B! (Grade 7), Student! should maintain His! focus on challenging investigations and advanced applications.",
+      6: "To advance His! progress, Student! should focus on deepening His! skills in B! (Grade 6) through active practice with complex patterns.",
+      5: "In B! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in investigations.",
+      4: "To support His! progress, Student! should dedicate regular review sessions to B! (Grade 4) topics to solidify His! understanding of investigative concepts.",
+      3: "Student! is encouraged to address critical gaps in B! (Grade 3) by seeking additional support to consolidate key investigation skills.",
+      2: "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build His! confidence in investigation skills.",
+      1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1)."
+    }
+  },
+  C: {
+    strength: {
+      8: "Student!'s greatest strength this term has been in C!, where He! achieved an outstanding Grade 8, demonstrating flawless mathematical communication and comprehensive understanding.",
+      7: "Student!'s greatest strength this term has been in C!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in present mathematical reasoning clearly.",
+      6: "Student! achieved a strong Grade 6 in C!, proving His! solid capability to present mathematical reasoning clearly and recall key concepts with confidence.",
+      5: "Student! achieved a Grade 5 in C!, showing reliable mathematical communication and effective use of appropriate mathematical language.",
+      4: "Student! achieved a Grade 4 in C!, which reflects adequate understanding and the ability to apply basic notation methods in familiar tasks.",
+      3: "Student! achieved a Grade 3 in C!, representing developing capability in applying basic notation methods with some guidance.",
+      2: "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
+      1: "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of mathematical communication acquisition."
+    },
+    improvement: {
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in C! to push His! boundaries.",
+      7: "To continue His! progress in C! (Grade 7), Student! should maintain His! focus on challenging structured explanations and advanced applications.",
+      6: "To advance His! progress, Student! should focus on deepening His! skills in C! (Grade 6) through active practice with complex explanations.",
+      5: "In C! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in structured explanations.",
+      4: "To support His! progress, Student! should dedicate regular review sessions to C! (Grade 4) topics to solidify His! understanding of mathematical language.",
+      3: "Student! is encouraged to address critical gaps in C! (Grade 3) by seeking additional support to consolidate key notation and clarity.",
+      2: "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build His! confidence in notation and clarity.",
+      1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1)."
+    }
+  },
+  D: {
+    strength: {
+      8: "Student!'s greatest strength this term has been in D!, where He! achieved an outstanding Grade 8, demonstrating flawless real-life application and comprehensive understanding.",
+      7: "Student!'s greatest strength this term has been in D!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in apply mathematics to real-life contexts.",
+      6: "Student! achieved a strong Grade 6 in D!, proving His! solid capability to apply mathematics to real-life contexts and recall key concepts with confidence.",
+      5: "Student! achieved a Grade 5 in D!, showing reliable real-life application and effective use of appropriate applied concepts.",
+      4: "Student! achieved a Grade 4 in D!, which reflects adequate understanding and the ability to apply basic modeling techniques in familiar tasks.",
+      3: "Student! achieved a Grade 3 in D!, representing developing capability in applying basic modeling techniques with some guidance.",
+      2: "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
+      1: "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of real-life application acquisition."
+    },
+    improvement: {
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in D! to push His! boundaries.",
+      7: "To continue His! progress in D! (Grade 7), Student! should maintain His! focus on challenging practical scenarios and advanced applications.",
+      6: "To advance His! progress, Student! should focus on deepening His! skills in D! (Grade 6) through active practice with complex applied problems.",
+      5: "In D! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in practical scenarios.",
+      4: "To support His! progress, Student! should dedicate regular review sessions to D! (Grade 4) topics to solidify His! understanding of applied concepts.",
+      3: "Student! is encouraged to address critical gaps in D! (Grade 3) by seeking additional support to consolidate key practical applications.",
+      2: "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build His! confidence in practical applications.",
+      1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1)."
+    }
   }
 };
 
@@ -256,7 +327,7 @@ export default function CommentGenerator() {
     const loadBank = async () => {
       setIsLoadingBank(true);
       try {
-        const subjectKey = SUBJECT_KEYS[subject] || 'Mathematics';
+        const subjectKey = subject || 'Mathematics';
 
         // 1. Fetch ATL bank (universal)
         const atlRes = await fetch('/comment_bank/atl.json');
@@ -268,7 +339,7 @@ export default function CommentGenerator() {
         if (!commentsRes.ok) throw new Error('Failed to fetch comments bank');
         const commentsAll = await commentsRes.json();
 
-        // 3. Extract subject-specific strength & improvement blocks
+        // 3. Extract subject-specific A, B, C, D criteria blocks
         const subjectComments = commentsAll[subjectKey] || commentsAll['Mathematics'] || {};
 
         // 4. Fetch IB Grade bank (universal with subject divisions)
@@ -280,8 +351,10 @@ export default function CommentGenerator() {
         const mergedBank = {
           ib_grade: ibData,
           atl: atlData,
-          strength: subjectComments.strength || {},
-          improvement: subjectComments.improvement || {}
+          A: subjectComments.A || {},
+          B: subjectComments.B || {},
+          C: subjectComments.C || {},
+          D: subjectComments.D || {}
         };
 
         setBank(mergedBank);
@@ -303,7 +376,7 @@ export default function CommentGenerator() {
     loadBank();
   }, [subject]);
 
-  const critNames = MYP_SUBJECTS[subject] || MYP_SUBJECTS.Mathematics;
+  const critNames = MYP_SUBJECTS[getGenericSubjectGroup(subject)] || MYP_SUBJECTS.Mathematics;
 
   // Filter students to the active class
   const classStudents = students.filter(s => s.className === selectedClass);
@@ -312,7 +385,7 @@ export default function CommentGenerator() {
   useEffect(() => {
     if (classStudents.length > 0 && classStudents[0].subject) {
       const dbSub = classStudents[0].subject;
-      if (MYP_SUBJECTS[dbSub]) {
+      if (MYP_SUBJECTS[getGenericSubjectGroup(dbSub)]) {
         setSubject(dbSub);
       }
     }
@@ -392,13 +465,13 @@ export default function CommentGenerator() {
     }
 
     let s3 = '';
-    if (bank.strength) {
-      s3 = bank.strength[bestScore] || bank.strength[4];
+    if (bank[best] && bank[best].strength) {
+      s3 = bank[best].strength[bestScore] || bank[best].strength[4];
     }
 
     let s4 = '';
-    if (bank.improvement) {
-      s4 = bank.improvement[worstScore] || bank.improvement[4];
+    if (bank[worst] && bank[worst].improvement) {
+      s4 = bank[worst].improvement[worstScore] || bank[worst].improvement[4];
     }
 
     return [s1, s2, s3, s4].map((s) => applyPlaceholders(s, data)).join(' ');
@@ -499,6 +572,8 @@ export default function CommentGenerator() {
   const BankSection = ({ sectionKey, label, entries, keyLabels }) => {
     const isOpen = expandedSection === sectionKey;
     const safeEntries = entries || {};
+    const hasSubdivisions = safeEntries.strength || safeEntries.improvement;
+
     return (
       <div className="glass-panel" style={{ marginBottom: '0.75rem', overflow: 'hidden' }}>
         <button
@@ -514,25 +589,78 @@ export default function CommentGenerator() {
         </button>
 
         {isOpen && (
-          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {Object.entries(safeEntries).map(([key, template]) => (
-              <div key={key}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    {keyLabels ? keyLabels[key] : key}
-                  </label>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px', fontWeight: '500' }}>
-                    🔒 Locked Template
-                  </span>
+          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {hasSubdivisions ? (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                {/* Strength Column */}
+                <div>
+                  <h4 style={{ fontSize: '0.85rem', fontWeight: '800', color: '#34d399', marginBottom: '1rem', borderBottom: '1px solid rgba(52, 211, 153, 0.2)', paddingBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    💪 Strength Templates
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    {Object.entries(safeEntries.strength || {}).map(([key, template]) => (
+                      <div key={key}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                            {keyLabels ? keyLabels[key] : key}
+                          </label>
+                        </div>
+                        <textarea
+                          value={template}
+                          readOnly={true}
+                          rows={2}
+                          style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.5rem 0.75rem', fontFamily: 'inherit', fontSize: '0.82rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.45', cursor: 'not-allowed' }}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <textarea
-                  value={template}
-                  readOnly={true}
-                  rows={3}
-                  style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', fontFamily: 'inherit', fontSize: '0.88rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.55', cursor: 'not-allowed' }}
-                />
+
+                {/* Improvement Column */}
+                <div>
+                  <h4 style={{ fontSize: '0.85rem', fontWeight: '800', color: '#fbbf24', marginBottom: '1rem', borderBottom: '1px solid rgba(251, 191, 36, 0.2)', paddingBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    📈 Improvement Templates
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    {Object.entries(safeEntries.improvement || {}).map(([key, template]) => (
+                      <div key={key}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                            {keyLabels ? keyLabels[key] : key}
+                          </label>
+                        </div>
+                        <textarea
+                          value={template}
+                          readOnly={true}
+                          rows={2}
+                          style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.5rem 0.75rem', fontFamily: 'inherit', fontSize: '0.82rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.45', cursor: 'not-allowed' }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ))}
+            ) : (
+              // Standard flat list (e.g. ib_grade or atl)
+              Object.entries(safeEntries).map(([key, template]) => (
+                <div key={key}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      {keyLabels ? keyLabels[key] : key}
+                    </label>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px', fontWeight: '500' }}>
+                      🔒 Locked Template
+                    </span>
+                  </div>
+                  <textarea
+                    value={template}
+                    readOnly={true}
+                    rows={3}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', fontFamily: 'inherit', fontSize: '0.88rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.55', cursor: 'not-allowed' }}
+                  />
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>
@@ -796,7 +924,7 @@ export default function CommentGenerator() {
           {isCriteriaMissing && (
             <div className="glass-panel animate-fade-in" style={{ padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid var(--warning)', background: 'rgba(245,158,11,0.04)', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
               <AlertCircle size={14} style={{ color: 'var(--warning)' }} />
-              <span><strong>Criterion A-D scores not found in your file:</strong> Strength and improvement sentences will fall back to default indicators.</span>
+              <span><strong>Criterion A-D scores not found in your file:</strong> Criteria-specific sentences will fall back to default indicators.</span>
             </div>
           )}
         </div>
@@ -834,7 +962,7 @@ export default function CommentGenerator() {
               {/* Criteria preview */}
               <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
                 <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
-                {Object.entries(MYP_SUBJECTS[subject] || MYP_SUBJECTS.Mathematics).map(([k, v]) => (
+                {Object.entries(MYP_SUBJECTS[getGenericSubjectGroup(subject)] || MYP_SUBJECTS.Mathematics).map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
                     <span style={{ color: 'var(--text-muted)' }}>{v}</span>
@@ -873,8 +1001,8 @@ export default function CommentGenerator() {
               keyLabels={{ Expert: 'Expert', Practitioner: 'Practitioner', Beginner: 'Beginner', Novice: 'Novice' }}
               isNestedAtl={true}
             />
-            <BankSection sectionKey="strength" label="Sentence 3 — Strength Comments (by best criterion grade)"
-              entries={bank.strength}
+            <BankSection sectionKey="A" label={`Criterion A — ${critNames.A} (Grades 1-8)`}
+              entries={bank.A}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
                 7: 'Grade 7 (Excellent)',
@@ -886,8 +1014,34 @@ export default function CommentGenerator() {
                 1: 'Grade 1 (Very Limited)'
               }}
             />
-            <BankSection sectionKey="improvement" label="Sentence 4 — Improvement Comments (by weakest criterion grade)"
-              entries={bank.improvement}
+            <BankSection sectionKey="B" label={`Criterion B — ${critNames.B} (Grades 1-8)`}
+              entries={bank.B}
+              keyLabels={{
+                8: 'Grade 8 (Outstanding)',
+                7: 'Grade 7 (Excellent)',
+                6: 'Grade 6 (Very Good)',
+                5: 'Grade 5 (Good)',
+                4: 'Grade 4 (Satisfactory)',
+                3: 'Grade 3 (Basic)',
+                2: 'Grade 2 (Limited)',
+                1: 'Grade 1 (Very Limited)'
+              }}
+            />
+            <BankSection sectionKey="C" label={`Criterion C — ${critNames.C} (Grades 1-8)`}
+              entries={bank.C}
+              keyLabels={{
+                8: 'Grade 8 (Outstanding)',
+                7: 'Grade 7 (Excellent)',
+                6: 'Grade 6 (Very Good)',
+                5: 'Grade 5 (Good)',
+                4: 'Grade 4 (Satisfactory)',
+                3: 'Grade 3 (Basic)',
+                2: 'Grade 2 (Limited)',
+                1: 'Grade 1 (Very Limited)'
+              }}
+            />
+            <BankSection sectionKey="D" label={`Criterion D — ${critNames.D} (Grades 1-8)`}
+              entries={bank.D}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
                 7: 'Grade 7 (Excellent)',
