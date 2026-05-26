@@ -8,7 +8,7 @@ import confetti from 'canvas-confetti';
 import { useData } from '../context/DataContext';
 
 // ─── IB MYP Subject Configurations ───────────────────────────────────────────
-const MYP_SUBJECTS = {
+const DEFAULT_MYP_SUBJECTS = {
   Mathematics: {
     A: 'Knowing and Understanding',
     B: 'Investigating Patterns',
@@ -300,6 +300,7 @@ export default function CommentGenerator() {
   const [editingCell, setEditingCell] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [isLoadingBank, setIsLoadingBank] = useState(false);
+  const [mypSubjects, setMypSubjects] = useState(DEFAULT_MYP_SUBJECTS);
 
   // Reset generated comments when switching classes globally from top nav
   useEffect(() => {
@@ -359,6 +360,17 @@ export default function CommentGenerator() {
 
         setBank(mergedBank);
         localStorage.setItem(BANK_STORAGE_KEY, JSON.stringify(mergedBank));
+
+        // 5. Fetch IB MYP Subject configurations (criteria names)
+        try {
+          const criteriaRes = await fetch('/comment_bank/criteria.json');
+          if (criteriaRes.ok) {
+            const criteriaData = await criteriaRes.json();
+            setMypSubjects(criteriaData);
+          }
+        } catch (criteriaErr) {
+          console.warn('Could not load criteria configuration dynamically, using fallbacks:', criteriaErr.message);
+        }
       } catch (err) {
         console.warn('Could not load bank from files, falling back to local bank state. Details:', err.message);
         const saved = localStorage.getItem(BANK_STORAGE_KEY);
@@ -376,7 +388,7 @@ export default function CommentGenerator() {
     loadBank();
   }, [subject]);
 
-  const critNames = MYP_SUBJECTS[getGenericSubjectGroup(subject)] || MYP_SUBJECTS.Mathematics;
+  const critNames = mypSubjects[subject] || mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0] || { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' };
 
   // Filter students to the active class
   const classStudents = students.filter(s => s.className === selectedClass);
@@ -385,11 +397,11 @@ export default function CommentGenerator() {
   useEffect(() => {
     if (classStudents.length > 0 && classStudents[0].subject) {
       const dbSub = classStudents[0].subject;
-      if (MYP_SUBJECTS[getGenericSubjectGroup(dbSub)]) {
+      if (mypSubjects[getGenericSubjectGroup(dbSub)]) {
         setSubject(dbSub);
       }
     }
-  }, [selectedClass]);
+  }, [selectedClass, mypSubjects]);
 
   const showStatus = (type, text) => {
     setStatusMessage({ type, text });
@@ -962,7 +974,7 @@ export default function CommentGenerator() {
               {/* Criteria preview */}
               <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
                 <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
-                {Object.entries(MYP_SUBJECTS[getGenericSubjectGroup(subject)] || MYP_SUBJECTS.Mathematics).map(([k, v]) => (
+                {Object.entries(mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics).map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
                     <span style={{ color: 'var(--text-muted)' }}>{v}</span>
