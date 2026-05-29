@@ -1,57 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   Sparkles, Download, FileSpreadsheet, CheckCircle,
-  AlertCircle, Edit2, RefreshCw, BookOpen, Settings2, ChevronDown, ChevronUp, Save, Shuffle, Copy, ArrowLeft
+  AlertCircle, RefreshCw, BookOpen, Settings2, ChevronDown, ChevronUp, Save, Shuffle, Copy, ArrowLeft
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import confetti from 'canvas-confetti';
 import { useData } from '../context/DataContext';
 
-// ─── IB MYP Subject Configurations ───────────────────────────────────────────
-const DEFAULT_MYP_SUBJECTS = {
-  Mathematics: {
-    A: 'Knowing and Understanding',
-    B: 'Investigating Patterns',
-    C: 'Communicating',
-    D: 'Applying Mathematics in Real-life Contexts',
-  },
-  Sciences: {
-    A: 'Knowing and Understanding',
-    B: 'Inquiring and Designing',
-    C: 'Processing and Evaluating',
-    D: 'Reflecting on the Impacts of Science',
-  },
-  'Language & Literature': {
-    A: 'Analysing',
-    B: 'Organising',
-    C: 'Producing Text',
-    D: 'Using Language',
-  },
-  'Individuals & Societies': {
-    A: 'Knowing and Understanding',
-    B: 'Investigating',
-    C: 'Communicating',
-    D: 'Thinking Critically',
-  },
-  Design: {
-    A: 'Inquiring and Analysing',
-    B: 'Developing Ideas',
-    C: 'Creating the Solution',
-    D: 'Evaluating',
-  },
-  Arts: {
-    A: 'Knowing and Understanding',
-    B: 'Developing Skills',
-    C: 'Thinking Creatively',
-    D: 'Responding',
-  },
-  'Physical & Health Education': {
-    A: 'Knowing and Understanding',
-    B: 'Planning for Performance',
-    C: 'Applying and Performing',
-    D: 'Reflecting and Improving Performance',
-  },
-};
 
 const ATL_SKILLS = [
   'Communication',
@@ -297,10 +252,9 @@ export default function CommentGenerator() {
   const [expandedSection, setExpandedSection] = useState('ib_grade');
   const [statusMessage, setStatusMessage] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [editingCell, setEditingCell] = useState(null);
-  const [editValue, setEditValue] = useState('');
+
   const [isLoadingBank, setIsLoadingBank] = useState(false);
-  const [mypSubjects, setMypSubjects] = useState(DEFAULT_MYP_SUBJECTS);
+  const [mypSubjects, setMypSubjects] = useState({});
 
   // Reset generated comments when switching classes globally from top nav
   useEffect(() => {
@@ -531,15 +485,7 @@ export default function CommentGenerator() {
     }
   };
 
-  const startEdit = (idx, value) => {
-    setEditingCell(idx);
-    setEditValue(value);
-  };
 
-  const commitEdit = (studentId) => {
-    updateStudent(studentId, { comment: editValue });
-    setEditingCell(null);
-  };
 
   // Copy to clipboard helper
   const copyToClipboard = (text, studentName) => {
@@ -550,18 +496,32 @@ export default function CommentGenerator() {
   // ── Export Excel ─────────────────────────────────────────────────────────
   const exportExcel = () => {
     if (!classStudents.length) return;
-    const rows = classStudents.map((s) => ({
-      Forename: s.forename,
-      Surname: s.surname,
-      Gender: s.gender,
-      'IB Grade': s.ibGrade,
-      'Crit A': s.critA,
-      'Crit B': s.critB,
-      'Crit C': s.critC,
-      'Crit D': s.critD,
-      'ATL Progress': s.atlProgress,
-      'Generated Comment': s.comment,
-    }));
+    const rows = classStudents.map((s) => {
+      const ibGradeVal = s.ibGrade ? Number(s.ibGrade) : null;
+      const hasLowCrit = [s.critA, s.critB, s.critC, s.critD].some(v => {
+        if (v === null || v === undefined || v === '') return false;
+        const num = Number(v);
+        return num === 1 || num === 2;
+      });
+      const hasMissingCrit = s.critA === null || s.critA === undefined || s.critA === '' ||
+                             s.critB === null || s.critB === undefined || s.critB === '' ||
+                             s.critC === null || s.critC === undefined || s.critC === '' ||
+                             s.critD === null || s.critD === undefined || s.critD === '';
+      const isManualDraft = ibGradeVal === 1 || ibGradeVal === 2 || hasLowCrit || hasMissingCrit;
+
+      return {
+        Forename: s.forename,
+        Surname: s.surname,
+        Gender: s.gender,
+        'IB Grade': s.ibGrade,
+        'Crit A': s.critA,
+        'Crit B': s.critB,
+        'Crit C': s.critC,
+        'Crit D': s.critD,
+        'ATL Progress': s.atlProgress,
+        'Generated Comment': isManualDraft ? '' : s.comment,
+      };
+    });
 
     const ws = XLSX.utils.json_to_sheet(rows);
     ws['!cols'] = [{ wch: 14 }, { wch: 14 }, { wch: 8 }, { wch: 10 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 18 }, { wch: 80 }];
@@ -654,24 +614,43 @@ export default function CommentGenerator() {
               </div>
             ) : (
               // Standard flat list (e.g. ib_grade or atl)
-              Object.entries(safeEntries).map(([key, template]) => (
-                <div key={key}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {keyLabels ? keyLabels[key] : key}
-                    </label>
-                    <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px', fontWeight: '500' }}>
-                      🔒 Locked Template
-                    </span>
+              Object.entries(safeEntries).map(([key, template]) => {
+                const isArray = Array.isArray(template);
+                return (
+                  <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '1rem', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {keyLabels ? keyLabels[key] : key} {isArray && `(${template.length} Alternate Options)`}
+                      </label>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px', fontWeight: '500' }}>
+                        🔒 Locked Templates
+                      </span>
+                    </div>
+                    {isArray ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                        {template.map((opt, idx) => (
+                          <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: '600' }}>Option {idx + 1}:</span>
+                            <textarea
+                              value={opt}
+                              readOnly={true}
+                              rows={2}
+                              style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.5rem 0.75rem', fontFamily: 'inherit', fontSize: '0.84rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.45', cursor: 'not-allowed' }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <textarea
+                        value={template}
+                        readOnly={true}
+                        rows={3}
+                        style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', fontFamily: 'inherit', fontSize: '0.88rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.55', cursor: 'not-allowed' }}
+                      />
+                    )}
                   </div>
-                  <textarea
-                    value={template}
-                    readOnly={true}
-                    rows={3}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', fontFamily: 'inherit', fontSize: '0.88rem', color: 'var(--text-muted)', resize: 'none', outline: 'none', lineHeight: '1.55', cursor: 'not-allowed' }}
-                  />
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         )}
@@ -974,7 +953,7 @@ export default function CommentGenerator() {
               {/* Criteria preview */}
               <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
                 <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
-                {Object.entries(mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics).map(([k, v]) => (
+                {Object.entries(mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || {}).map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
                     <span style={{ color: 'var(--text-muted)' }}>{v}</span>
@@ -1013,7 +992,7 @@ export default function CommentGenerator() {
               keyLabels={{ Expert: 'Expert', Practitioner: 'Practitioner', Beginner: 'Beginner', Novice: 'Novice' }}
               isNestedAtl={true}
             />
-            <BankSection sectionKey="A" label={`Criterion A — ${critNames.A} (Grades 1-8)`}
+            <BankSection sectionKey="A" label="Criterion A (Sentence 3 Strength & Sentence 4 Improvement)"
               entries={bank.A}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
@@ -1026,7 +1005,7 @@ export default function CommentGenerator() {
                 1: 'Grade 1 (Very Limited)'
               }}
             />
-            <BankSection sectionKey="B" label={`Criterion B — ${critNames.B} (Grades 1-8)`}
+            <BankSection sectionKey="B" label="Criterion B (Sentence 3 Strength & Sentence 4 Improvement)"
               entries={bank.B}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
@@ -1039,7 +1018,7 @@ export default function CommentGenerator() {
                 1: 'Grade 1 (Very Limited)'
               }}
             />
-            <BankSection sectionKey="C" label={`Criterion C — ${critNames.C} (Grades 1-8)`}
+            <BankSection sectionKey="C" label="Criterion C (Sentence 3 Strength & Sentence 4 Improvement)"
               entries={bank.C}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
@@ -1052,7 +1031,7 @@ export default function CommentGenerator() {
                 1: 'Grade 1 (Very Limited)'
               }}
             />
-            <BankSection sectionKey="D" label={`Criterion D — ${critNames.D} (Grades 1-8)`}
+            <BankSection sectionKey="D" label="Criterion D (Sentence 3 Strength & Sentence 4 Improvement)"
               entries={bank.D}
               keyLabels={{
                 8: 'Grade 8 (Outstanding)',
@@ -1230,56 +1209,42 @@ export default function CommentGenerator() {
                             : 'none',
                           maxWidth: '420px' 
                         }}>
-                          {editingCell === s.id && !isManualDraft ? (
-                            <textarea
-                              value={editValue}
-                              onChange={(e) => setEditValue(e.target.value)}
-                              onBlur={() => commitEdit(s.id)}
-                              autoFocus
-                              rows={4}
-                              style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
-                            />
-                          ) : (
-                            <div
-                              onClick={isManualDraft ? undefined : () => startEdit(s.id, s.comment || '')}
-                              style={{ 
-                                cursor: isManualDraft ? 'default' : 'pointer', 
-                                lineHeight: '1.6', 
-                                color: s.comment ? 'var(--text-main)' : 'var(--text-muted)', 
-                                fontStyle: s.comment ? 'normal' : 'italic', 
-                                fontSize: '0.86rem' 
-                              }}
-                            >
-                              {isManualDraft && (
-                                <div style={{ 
-                                  display: 'inline-flex', 
-                                  alignItems: 'center', 
-                                  gap: '4px', 
-                                  color: hasMissingCrit ? '#ef4444' : '#fbbf24', 
-                                  fontSize: '0.72rem', 
-                                  fontWeight: '700', 
-                                  textTransform: 'uppercase', 
-                                  letterSpacing: '0.05em',
-                                  background: hasMissingCrit ? 'rgba(239, 68, 68, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-                                  padding: '2px 6px',
-                                  borderRadius: '4px',
-                                  marginBottom: '6px'
-                                }}>
-                                  ⚠️ {hasMissingCrit ? 'Missing Grades' : 'Manual Draft'}
-                                </div>
-                              )}
-                              <div>
-                                {hasMissingCrit && !s.comment ? (
-                                  <span style={{ color: '#ef4444', fontWeight: '600', fontStyle: 'normal' }}>
-                                    ⚠️ Criterion grades are missing. Comment cannot be generated.
-                                  </span>
-                                ) : (
-                                  s.comment || 'Click Generate Comments Now to create comment…'
-                                )}
+                          <div
+                            style={{ 
+                              lineHeight: '1.6', 
+                              color: s.comment ? 'var(--text-main)' : 'var(--text-muted)', 
+                              fontStyle: s.comment ? 'normal' : 'italic', 
+                              fontSize: '0.86rem' 
+                            }}
+                          >
+                            {isManualDraft && (
+                              <div style={{ 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '4px', 
+                                color: hasMissingCrit ? '#ef4444' : '#fbbf24', 
+                                fontSize: '0.72rem', 
+                                fontWeight: '700', 
+                                textTransform: 'uppercase', 
+                                letterSpacing: '0.05em',
+                                background: hasMissingCrit ? 'rgba(239, 68, 68, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                marginBottom: '6px'
+                              }}>
+                                ⚠️ {hasMissingCrit ? 'Missing Grades' : 'Manual Draft'}
                               </div>
-                              {s.comment && !isManualDraft && <Edit2 size={10} style={{ marginLeft: '6px', opacity: 0.3, display: 'inline-block' }} />}
+                            )}
+                            <div>
+                              {hasMissingCrit && !s.comment ? (
+                                <span style={{ color: '#ef4444', fontWeight: '600', fontStyle: 'normal' }}>
+                                  ⚠️ Criterion grades are missing. Comment cannot be generated.
+                                </span>
+                              ) : (
+                                s.comment || 'Click Generate Comments Now to create comment…'
+                              )}
                             </div>
-                          )}
+                          </div>
                         </td>
 
                         <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center' }}>

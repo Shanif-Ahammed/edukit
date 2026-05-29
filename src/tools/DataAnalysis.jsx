@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   BarChart3, TrendingUp, Award, Target, AlertTriangle, 
   Users, CheckCircle2, ChevronRight, ChevronDown, HelpCircle 
@@ -158,70 +158,86 @@ export default function DataAnalysis() {
   //    Exceeding : CPT >= MEG  OR  IB Grade = 7
   //    Meeting   : CPT == MEG - 1  (exactly 1 pt below)
   //    Below     : CPT <= MEG - 2  (2+ pts below)
-  let progressExceedingCount = 0;
-  let progressMeetingCount   = 0;
-  let progressBelowCount     = 0;
-  let megConnectedCount = 0;
+  const {
+    roster: rosterWithProgress,
+    progressExceedingCount,
+    progressMeetingCount,
+    progressBelowCount,
+    megConnectedCount
+  } = useMemo(() => {
+    let progressExceedingCount = 0;
+    let progressMeetingCount   = 0;
+    let progressBelowCount     = 0;
+    let megConnectedCount = 0;
 
-  const rosterWithProgress = classStudents.map(s => {
-    const actualCpt   = (s.cpt !== null && s.cpt !== undefined && s.cpt !== '') ? Number(s.cpt)  : null;
-    const rawMeg      = (s.meg !== null && s.meg !== undefined && s.meg !== '') ? Number(s.meg) : null;
-    let expectedMeg   = rawMeg;
+    const roster = classStudents.map(s => {
+      const actualCpt   = (s.cpt !== null && s.cpt !== undefined && s.cpt !== '') ? Number(s.cpt)  : null;
+      const rawMeg      = (s.meg !== null && s.meg !== undefined && s.meg !== '') ? Number(s.meg) : null;
+      let expectedMeg   = rawMeg;
 
-    // If MEG in Excel is a grade (1-7) rather than CPT points (0-32), map it to minimum CPT points of that grade
-    if (expectedMeg !== null && expectedMeg >= 1 && expectedMeg <= 7) {
-      if (expectedMeg === 7) expectedMeg = 28;
-      else if (expectedMeg === 6) expectedMeg = 24;
-      else if (expectedMeg === 5) expectedMeg = 19;
-      else if (expectedMeg === 4) expectedMeg = 15;
-      else if (expectedMeg === 3) expectedMeg = 10;
-      else if (expectedMeg === 2) expectedMeg = 6;
-      else expectedMeg = 0;
-    }
-
-    const actual      = getEffectiveGrade(s); // IB 1-7 for display
-
-    let status = 'No MEG';
-    let diff   = 0;
-
-    if (actualCpt !== null && expectedMeg !== null) {
-      megConnectedCount++;
-      diff = actualCpt - expectedMeg;
-
-      // IB 7 override: always Exceeding regardless of MEG
-      if (actual === 7) {
-        progressExceedingCount++;
-        status = 'Exceeding';
-      } else if (diff >= 0) {       // CPT at or above MEG
-        progressExceedingCount++;
-        status = 'Exceeding';
-      } else if (diff === -1) {     // exactly 1 pt below MEG
-        progressMeetingCount++;
-        status = 'Meeting';
-      } else {                      // 2+ pts below MEG
-        progressBelowCount++;
-        status = 'Below';
+      // If MEG in Excel is a grade (1-7) rather than CPT points (0-32), map it to minimum CPT points of that grade
+      if (expectedMeg !== null && expectedMeg >= 1 && expectedMeg <= 7) {
+        if (expectedMeg === 7) expectedMeg = 28;
+        else if (expectedMeg === 6) expectedMeg = 24;
+        else if (expectedMeg === 5) expectedMeg = 19;
+        else if (expectedMeg === 4) expectedMeg = 15;
+        else if (expectedMeg === 3) expectedMeg = 10;
+        else if (expectedMeg === 2) expectedMeg = 6;
+        else expectedMeg = 0;
       }
-    }
 
-    // Resolve attainment status
-    let attainmentStatus = 'No Grade';
-    if (actual !== null) {
-      if (actual >= 5) attainmentStatus = 'Exceeding';
-      else if (actual === 4) attainmentStatus = 'Meeting';
-      else attainmentStatus = 'Below';
-    }
+      const actual      = getEffectiveGrade(s); // IB 1-7 for display
+
+      let status = 'No MEG';
+      let diff   = 0;
+
+      if (actualCpt !== null && expectedMeg !== null) {
+        megConnectedCount++;
+        diff = actualCpt - expectedMeg;
+
+        // IB 7 override: always Exceeding regardless of MEG
+        if (actual === 7) {
+          progressExceedingCount++;
+          status = 'Exceeding';
+        } else if (diff >= 0) {       // CPT at or above MEG
+          progressExceedingCount++;
+          status = 'Exceeding';
+        } else if (diff === -1) {     // exactly 1 pt below MEG
+          progressMeetingCount++;
+          status = 'Meeting';
+        } else {                      // 2+ pts below MEG
+          progressBelowCount++;
+          status = 'Below';
+        }
+      }
+
+      // Resolve attainment status
+      let attainmentStatus = 'No Grade';
+      if (actual !== null) {
+        if (actual >= 5) attainmentStatus = 'Exceeding';
+        else if (actual === 4) attainmentStatus = 'Meeting';
+        else attainmentStatus = 'Below';
+      }
+
+      return {
+        ...s,
+        actualCpt,
+        expectedMeg,
+        actualGrade: actual,
+        progressStatus: status,
+        cptDiff: diff,
+        attainmentStatus
+      };
+    }).sort((a, b) => a.name.localeCompare(b.name));
 
     return {
-      ...s,
-      actualCpt,
-      expectedMeg,
-      actualGrade: actual,
-      progressStatus: status,
-      cptDiff: diff,
-      attainmentStatus
+      roster,
+      progressExceedingCount,
+      progressMeetingCount,
+      progressBelowCount,
+      megConnectedCount
     };
-  }).sort((a, b) => a.name.localeCompare(b.name));
+  }, [classStudents, subject]);
 
   const progressPercentOf = (count) => {
     if (megConnectedCount === 0) return 0;
@@ -361,143 +377,191 @@ export default function DataAnalysis() {
   borderlineStudents.sort((a, b) => a.ptsToNext - b.ptsToNext);
 
   // --- GRADE DISTRIBUTION & BELL CURVE CALCULATIONS ---
-  const gradeCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
-  let totalGradesSum = 0;
-  let totalGradesCount = 0;
+  const {
+    gradeCounts,
+    classAverage,
+    maxCount,
+    curvePoints,
+    curveOutlinePath,
+    curveFillPath,
+    avgX
+  } = useMemo(() => {
+    const gradeCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+    let totalGradesSum = 0;
+    let totalGradesCount = 0;
 
-  classStudents.forEach(s => {
-    const g = getEffectiveGrade(s);
-    if (g !== null && g >= 1 && g <= 7) {
-      gradeCounts[g] = (gradeCounts[g] || 0) + 1;
-      totalGradesSum += g;
-      totalGradesCount++;
-    }
-  });
-
-  const classAverage = totalGradesCount > 0 ? (totalGradesSum / totalGradesCount) : 0;
-  const maxCount = Math.max(...Object.values(gradeCounts), 1);
-
-  // Map 7 grades to coordinates for Attainment Curve (scaled to half height)
-  const curvePoints = [1, 2, 3, 4, 5, 6, 7].map(g => {
-    const x = 50 + (g - 1) * 100;
-    const count = gradeCounts[g] || 0;
-    const y = 130 - (count / maxCount) * 90; // Baseline at Y=130, Max count goes up to Y=40
-    return { x, y };
-  });
-
-  // Generate Bezier Curve outline path for Attainment curve
-  let curveOutlinePath = '';
-  if (curvePoints.length > 0) {
-    curveOutlinePath = `M ${curvePoints[0].x} ${curvePoints[0].y}`;
-    for (let i = 0; i < curvePoints.length - 1; i++) {
-      const p0 = curvePoints[i];
-      const p1 = curvePoints[i + 1];
-      const cp1x = p0.x + 50;
-      const cp1y = p0.y;
-      const cp2x = p1.x - 50;
-      const cp2y = p1.y;
-      curveOutlinePath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
-    }
-  }
-
-  // Closed fill path down to baseline Y=130
-  const curveFillPath = curveOutlinePath 
-    ? `${curveOutlinePath} L ${curvePoints[curvePoints.length - 1].x} 130 L ${curvePoints[0].x} 130 Z`
-    : '';
-
-  // Class Average X-axis coordinate mapping
-  const avgX = classAverage > 0 ? (50 + (classAverage - 1) * 100) : 0;
-
-  // --- TARGET PROGRESS: NATIVE CPT VS EXPECTED MEG COMPARISON (0-32 SCALE) ---
-  let progressCptSum = 0;
-  let progressCptCount = 0;
-  let progressMegSum = 0;
-  let progressMegCount = 0;
-
-  rosterWithProgress.forEach(s => {
-    if (s.actualCpt !== null) {
-      progressCptSum += s.actualCpt;
-      progressCptCount++;
-    }
-    if (s.expectedMeg !== null) {
-      progressMegSum += s.expectedMeg;
-      progressMegCount++;
-    }
-  });
-
-  const progressCptAverage = progressCptCount > 0 ? (progressCptSum / progressCptCount) : 0;
-  const progressMegAverage = progressMegCount > 0 ? (progressMegSum / progressMegCount) : 0;
-
-  // Filter student roster to include only students that have a CPT score or an expected MEG
-  const progressGraphStudents = rosterWithProgress.filter(s => s.actualCpt !== null || s.expectedMeg !== null);
-
-  // Compute curve coordinates for actual CPT and expected MEG points
-  const cptPoints = [];
-  const megPoints = [];
-
-  if (progressGraphStudents.length > 0) {
-    const colWidth = 620 / progressGraphStudents.length;
-    progressGraphStudents.forEach((s, idx) => {
-      const x = 50 + (idx + 0.5) * colWidth;
-      if (s.actualCpt !== null) {
-        cptPoints.push({ x, y: 150 - (s.actualCpt / 32) * 130 });
-      }
-      if (s.expectedMeg !== null) {
-        megPoints.push({ x, y: 150 - (s.expectedMeg / 32) * 130 });
+    classStudents.forEach(s => {
+      const g = getEffectiveGrade(s);
+      if (g !== null && g >= 1 && g <= 7) {
+        gradeCounts[g] = (gradeCounts[g] || 0) + 1;
+        totalGradesSum += g;
+        totalGradesCount++;
       }
     });
-  }
 
-  // Generate Actual CPT curve path
-  let progressCptLinePath = '';
-  if (cptPoints.length > 0) {
-    progressCptLinePath = `M ${cptPoints[0].x} ${cptPoints[0].y}`;
-    for (let i = 0; i < cptPoints.length - 1; i++) {
-      const p0 = cptPoints[i];
-      const p1 = cptPoints[i + 1];
-      const localOffset = (p1.x - p0.x) / 2;
-      progressCptLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+    const classAverage = totalGradesCount > 0 ? (totalGradesSum / totalGradesCount) : 0;
+    const maxCount = Math.max(...Object.values(gradeCounts), 1);
+
+    // Map 7 grades to coordinates for Attainment Curve (scaled to half height)
+    const curvePoints = [1, 2, 3, 4, 5, 6, 7].map(g => {
+      const x = 50 + (g - 1) * 100;
+      const count = gradeCounts[g] || 0;
+      const y = 130 - (count / maxCount) * 90; // Baseline at Y=130, Max count goes up to Y=40
+      return { x, y };
+    });
+
+    // Generate Bezier Curve outline path for Attainment curve
+    let curveOutlinePath = '';
+    if (curvePoints.length > 0) {
+      curveOutlinePath = `M ${curvePoints[0].x} ${curvePoints[0].y}`;
+      for (let i = 0; i < curvePoints.length - 1; i++) {
+        const p0 = curvePoints[i];
+        const p1 = curvePoints[i + 1];
+        const cp1x = p0.x + 50;
+        const cp1y = p0.y;
+        const cp2x = p1.x - 50;
+        const cp2y = p1.y;
+        curveOutlinePath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+      }
     }
-  }
 
-  // Generate Expected MEG curve path
-  let progressMegLinePath = '';
-  if (megPoints.length > 0) {
-    progressMegLinePath = `M ${megPoints[0].x} ${megPoints[0].y}`;
-    for (let i = 0; i < megPoints.length - 1; i++) {
-      const p0 = megPoints[i];
-      const p1 = megPoints[i + 1];
-      const localOffset = (p1.x - p0.x) / 2;
-      progressMegLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+    // Closed fill path down to baseline Y=130
+    const curveFillPath = curveOutlinePath 
+      ? `${curveOutlinePath} L ${curvePoints[curvePoints.length - 1].x} 130 L ${curvePoints[0].x} 130 Z`
+      : '';
+
+    // Class Average X-axis coordinate mapping
+    const avgX = classAverage > 0 ? (50 + (classAverage - 1) * 100) : 0;
+
+    return {
+      gradeCounts,
+      classAverage,
+      maxCount,
+      curvePoints,
+      curveOutlinePath,
+      curveFillPath,
+      avgX
+    };
+  }, [classStudents]);
+
+  // --- TARGET PROGRESS: NATIVE CPT VS EXPECTED MEG COMPARISON (0-32 SCALE) ---
+  const {
+    progressCptAverage,
+    progressMegAverage,
+    progressGraphStudents,
+    cptPoints,
+    megPoints,
+    progressCptLinePath,
+    progressMegLinePath,
+    progressCptAreaPath,
+    progressMegAreaPath,
+    badgeCptY,
+    badgeMegY
+  } = useMemo(() => {
+    let progressCptSum = 0;
+    let progressCptCount = 0;
+    let progressMegSum = 0;
+    let progressMegCount = 0;
+
+    rosterWithProgress.forEach(s => {
+      if (s.actualCpt !== null) {
+        progressCptSum += s.actualCpt;
+        progressCptCount++;
+      }
+      if (s.expectedMeg !== null) {
+        progressMegSum += s.expectedMeg;
+        progressMegCount++;
+      }
+    });
+
+    const progressCptAverage = progressCptCount > 0 ? (progressCptSum / progressCptCount) : 0;
+    const progressMegAverage = progressMegCount > 0 ? (progressMegSum / progressMegCount) : 0;
+
+    // Filter student roster to include only students that have a CPT score or an expected MEG
+    const progressGraphStudents = rosterWithProgress.filter(s => s.actualCpt !== null || s.expectedMeg !== null);
+
+    // Compute curve coordinates for actual CPT and expected MEG points
+    const cptPoints = [];
+    const megPoints = [];
+
+    if (progressGraphStudents.length > 0) {
+      const colWidth = 620 / progressGraphStudents.length;
+      progressGraphStudents.forEach((s, idx) => {
+        const x = 50 + (idx + 0.5) * colWidth;
+        if (s.actualCpt !== null) {
+          cptPoints.push({ x, y: 150 - (s.actualCpt / 32) * 130 });
+        }
+        if (s.expectedMeg !== null) {
+          megPoints.push({ x, y: 150 - (s.expectedMeg / 32) * 130 });
+        }
+      });
     }
-  }
 
-  const progressCptAreaPath = progressCptLinePath
-    ? `${progressCptLinePath} L ${cptPoints[cptPoints.length - 1].x} 150 L ${cptPoints[0].x} 150 Z`
-    : '';
-
-  const progressMegAreaPath = progressMegLinePath
-    ? `${progressMegLinePath} L ${megPoints[megPoints.length - 1].x} 150 L ${megPoints[0].x} 150 Z`
-    : '';
-
-  // Collision resolution for right-side average badges
-  const progressCptAvgY = 150 - (progressCptAverage / 32) * 130;
-  const progressMegAvgY = 150 - (progressMegAverage / 32) * 130;
-
-  let badgeCptY = progressCptAvgY - 8;
-  let badgeMegY = progressMegAvgY - 8;
-
-  if (progressCptAverage > 0 && progressMegAverage > 0 && Math.abs(progressCptAvgY - progressMegAvgY) < 18) {
-    if (progressCptAvgY >= progressMegAvgY) {
-      // CPT average is lower on screen (larger Y value)
-      badgeCptY = progressCptAvgY + 2;
-      badgeMegY = progressMegAvgY - 18;
-    } else {
-      // MEG average is lower on screen (larger Y value)
-      badgeCptY = progressCptAvgY - 18;
-      badgeMegY = progressMegAvgY + 2;
+    // Generate Actual CPT curve path
+    let progressCptLinePath = '';
+    if (cptPoints.length > 0) {
+      progressCptLinePath = `M ${cptPoints[0].x} ${cptPoints[0].y}`;
+      for (let i = 0; i < cptPoints.length - 1; i++) {
+        const p0 = cptPoints[i];
+        const p1 = cptPoints[i + 1];
+        const localOffset = (p1.x - p0.x) / 2;
+        progressCptLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+      }
     }
-  }
+
+    // Generate Expected MEG curve path
+    let progressMegLinePath = '';
+    if (megPoints.length > 0) {
+      progressMegLinePath = `M ${megPoints[0].x} ${megPoints[0].y}`;
+      for (let i = 0; i < megPoints.length - 1; i++) {
+        const p0 = megPoints[i];
+        const p1 = megPoints[i + 1];
+        const localOffset = (p1.x - p0.x) / 2;
+        progressMegLinePath += ` C ${p0.x + localOffset} ${p0.y}, ${p1.x - localOffset} ${p1.y}, ${p1.x} ${p1.y}`;
+      }
+    }
+
+    const progressCptAreaPath = progressCptLinePath
+      ? `${progressCptLinePath} L ${cptPoints[cptPoints.length - 1].x} 150 L ${cptPoints[0].x} 150 Z`
+      : '';
+
+    const progressMegAreaPath = progressMegLinePath
+      ? `${progressMegLinePath} L ${megPoints[megPoints.length - 1].x} 150 L ${megPoints[0].x} 150 Z`
+      : '';
+
+    // Collision resolution for right-side average badges
+    const progressCptAvgY = 150 - (progressCptAverage / 32) * 130;
+    const progressMegAvgY = 150 - (progressMegAverage / 32) * 130;
+
+    let badgeCptY = progressCptAvgY - 8;
+    let badgeMegY = progressMegAvgY - 8;
+
+    if (progressCptAverage > 0 && progressMegAverage > 0 && Math.abs(progressCptAvgY - progressMegAvgY) < 18) {
+      if (progressCptAvgY >= progressMegAvgY) {
+        // CPT average is lower on screen (larger Y value)
+        badgeCptY = progressCptAvgY + 2;
+        badgeMegY = progressMegAvgY - 18;
+      } else {
+        // MEG average is lower on screen (larger Y value)
+        badgeCptY = progressCptAvgY - 18;
+        badgeMegY = progressMegAvgY + 2;
+      }
+    }
+
+    return {
+      progressCptAverage,
+      progressMegAverage,
+      progressGraphStudents,
+      cptPoints,
+      megPoints,
+      progressCptLinePath,
+      progressMegLinePath,
+      progressCptAreaPath,
+      progressMegAreaPath,
+      badgeCptY,
+      badgeMegY
+    };
+  }, [rosterWithProgress]);
 
   const hasCptData = classStudents.some(s => s.cpt !== null && s.cpt !== undefined && s.cpt !== '');
 
