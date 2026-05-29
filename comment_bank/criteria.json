@@ -154,5 +154,29 @@
     "B": "Organising",
     "C": "Producing Text",
     "D": "Using Language"
+  },
+  "Sciences": {
+    "A": "Knowing and Understanding",
+    "B": "Inquiring and Designing",
+    "C": "Processing and Evaluating",
+    "D": "Reflecting on the Impacts of Science"
+  },
+  "Language & Literature": {
+    "A": "Analysing",
+    "B": "Organising",
+    "C": "Producing Text",
+    "D": "Using Language"
+  },
+  "Individuals & Societies": {
+    "A": "Knowing and Understanding",
+    "B": "Investigating",
+    "C": "Communicating",
+    "D": "Thinking Critically"
+  },
+  "Arts": {
+    "A": "Knowing and Understanding",
+    "B": "Developing Skills",
+    "C": "Thinking Creatively",
+    "D": "Responding"
   }
 }
