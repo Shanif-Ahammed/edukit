@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   './icons.svg',
   './comment_bank/atl.json',
   './comment_bank/ib_grade.json',
+  './comment_bank/criteria.json',
   './comment_bank/comments.json'
 ];
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Users, TrendingUp, Sparkles, AlertCircle, Award,
   Activity, Lightbulb, ChevronRight, BarChart3, BookOpen
@@ -55,6 +55,7 @@ const STRATEGY_INSIGHTS = {
 
 export default function ATLTracker() {
   const { fileConnected, students, selectedClass, subject, updateStudent } = useData();
+  const [distributionMode, setDistributionMode] = useState('atl'); // 'atl' | 'grade'
 
   if (!fileConnected) {
     return (
@@ -109,6 +110,9 @@ export default function ATLTracker() {
     Novice: 0
   };
 
+  // Grade counts mapping (1 to 7)
+  const gradeCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+
   let totalIbGrade = 0;
   let gradedCount = 0;
 
@@ -121,8 +125,12 @@ export default function ATLTracker() {
     }
 
     if (s.ibGrade !== null && s.ibGrade !== undefined && !isNaN(Number(s.ibGrade))) {
-      totalIbGrade += Number(s.ibGrade);
+      const gradeVal = Number(s.ibGrade);
+      totalIbGrade += gradeVal;
       gradedCount++;
+      if (gradeVal >= 1 && gradeVal <= 7) {
+        gradeCounts[gradeVal]++;
+      }
     }
   });
 
@@ -152,6 +160,13 @@ export default function ATLTracker() {
   const gap = 35;
   const leftOffset = 45;
   const bottomOffset = 180;
+
+  // Grade chart dimensions
+  const maxGradeCount = Math.max(...Object.values(gradeCounts), 4);
+  const gradeBarWidth = 24;
+  const gradeGap = 16;
+  
+  const currentMax = distributionMode === 'atl' ? maxCount : maxGradeCount;
 
   return (
     <div className="animate-fade-in" style={{ paddingBottom: '3rem' }}>
@@ -392,22 +407,85 @@ export default function ATLTracker() {
             flexDirection: 'column',
             justifyContent: 'space-between'
           }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <TrendingUp size={20} style={{ color: 'var(--primary)' }} />
-              ATL Progress Distribution
-            </h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', gap: '1rem', flexWrap: 'wrap' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+                {distributionMode === 'atl' ? (
+                  <>
+                    <TrendingUp size={20} style={{ color: 'var(--primary)' }} />
+                    ATL Progress Distribution
+                  </>
+                ) : (
+                  <>
+                    <Award size={20} style={{ color: 'var(--accent)' }} />
+                    Grade Distribution
+                  </>
+                )}
+              </h3>
+              
+              {/* Premium Switcher Button Pill */}
+              <div style={{ 
+                display: 'flex', 
+                background: 'rgba(255, 255, 255, 0.02)', 
+                padding: '0.2rem', 
+                borderRadius: '6px', 
+                border: '1px solid var(--border-color)' 
+              }}>
+                <button
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.72rem',
+                    borderRadius: '4px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    background: distributionMode === 'atl' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+                    color: distributionMode === 'atl' ? 'var(--text-main)' : 'var(--text-muted)',
+                    fontWeight: '700',
+                  }}
+                  onClick={() => setDistributionMode('atl')}
+                >
+                  ATL
+                </button>
+                <button
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.72rem',
+                    borderRadius: '4px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    background: distributionMode === 'grade' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+                    color: distributionMode === 'grade' ? 'var(--text-main)' : 'var(--text-muted)',
+                    fontWeight: '700',
+                  }}
+                  onClick={() => setDistributionMode('grade')}
+                >
+                  Grades
+                </button>
+              </div>
+            </div>
 
             {/* SVG Canvas Container */}
             <div style={{ display: 'flex', justifyContent: 'center', background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '1.25rem 0.5rem' }}>
               <svg width={chartWidth} height={chartHeight} style={{ fontFamily: 'inherit', overflow: 'visible' }}>
                 <defs>
-                  {/* Dynamic gradients for bars */}
+                  {/* Dynamic gradients for ATL bars */}
                   {ATL_LEVELS.map(l => (
                     <linearGradient id={`grad-${l.value}`} x1="0" y1="0" x2="0" y2="1" key={l.value}>
                       <stop offset="0%" stopColor={l.gradient[0]} stopOpacity={1} />
                       <stop offset="100%" stopColor={l.gradient[1]} stopOpacity={0.8} />
                     </linearGradient>
                   ))}
+                  {/* Dynamic gradients for Grade bars */}
+                  {[1, 2, 3, 4, 5, 6, 7].map(gVal => {
+                    const baseColor = GRADE_COLORS[gVal] || '#94a3b8';
+                    return (
+                      <linearGradient id={`grad-grade-${gVal}`} x1="0" y1="0" x2="0" y2="1" key={`grade-grad-${gVal}`}>
+                        <stop offset="0%" stopColor={baseColor} stopOpacity={1} />
+                        <stop offset="100%" stopColor={baseColor} stopOpacity={0.6} />
+                      </linearGradient>
+                    );
+                  })}
                   {/* Grid pattern */}
                   <pattern id="grid" width="40" height="30" patternUnits="userSpaceOnUse">
                     <path d="M 40 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
@@ -423,7 +501,7 @@ export default function ATLTracker() {
                 {/* Horizontal Grid Ticks / Y Axis helpers */}
                 {[0.25, 0.5, 0.75, 1].map((val, idx) => {
                   const tickY = bottomOffset - val * (bottomOffset - 10);
-                  const countLabel = Math.round(val * maxCount);
+                  const countLabel = Math.round(val * currentMax);
                   return (
                     <g key={idx}>
                       <line x1={leftOffset} y1={tickY} x2={chartWidth - 10} y2={tickY} stroke="rgba(255,255,255,0.05)" strokeDasharray="3,3" />
@@ -433,53 +511,104 @@ export default function ATLTracker() {
                 })}
 
                 {/* Render Bars */}
-                {ATL_LEVELS.map((l, idx) => {
-                  const count = atlCounts[l.value];
-                  // Calculate dynamic height based on scale
-                  const barHeight = maxCount > 0 ? (count / maxCount) * (bottomOffset - 25) : 0;
-                  const barX = leftOffset + gap + idx * (barWidth + gap) - 10;
-                  const barY = bottomOffset - barHeight;
+                {distributionMode === 'atl' ? (
+                  ATL_LEVELS.map((l, idx) => {
+                    const count = atlCounts[l.value];
+                    // Calculate dynamic height based on scale
+                    const barHeight = currentMax > 0 ? (count / currentMax) * (bottomOffset - 25) : 0;
+                    const barX = leftOffset + gap + idx * (barWidth + gap) - 10;
+                    const barY = bottomOffset - barHeight;
 
-                  return (
-                    <g key={l.value} style={{ transition: 'all 0.3s ease' }}>
-                      {/* Interactive bar with vertical gradient */}
-                      <rect
-                        x={barX}
-                        y={barY}
-                        width={barWidth}
-                        height={Math.max(barHeight, 2)}
-                        rx="4"
-                        ry="4"
-                        fill={`url(#grad-${l.value})`}
-                        style={{ cursor: 'pointer', transition: 'all 0.3s' }}
-                      />
-                      
-                      {/* Floating student count label above the bar */}
-                      <text
-                        x={barX + barWidth / 2}
-                        y={barY - 7}
-                        fill={l.color}
-                        fontWeight="800"
-                        fontSize="11"
-                        textAnchor="middle"
-                      >
-                        {count}
-                      </text>
+                    return (
+                      <g key={l.value} style={{ transition: 'all 0.3s ease' }}>
+                        {/* Interactive bar with vertical gradient */}
+                        <rect
+                          x={barX}
+                          y={barY}
+                          width={barWidth}
+                          height={Math.max(barHeight, 2)}
+                          rx="4"
+                          ry="4"
+                          fill={`url(#grad-${l.value})`}
+                          style={{ cursor: 'pointer', transition: 'all 0.3s' }}
+                        />
+                        
+                        {/* Floating student count label above the bar */}
+                        <text
+                          x={barX + barWidth / 2}
+                          y={barY - 7}
+                          fill={l.color}
+                          fontWeight="800"
+                          fontSize="11"
+                          textAnchor="middle"
+                        >
+                          {count}
+                        </text>
 
-                      {/* X Axis Labels */}
-                      <text
-                        x={barX + barWidth / 2}
-                        y={bottomOffset + 18}
-                        fill="var(--text-muted)"
-                        fontWeight="700"
-                        fontSize="9.5"
-                        textAnchor="middle"
-                      >
-                        {l.value}
-                      </text>
-                    </g>
-                  );
-                })}
+                        {/* X Axis Labels */}
+                        <text
+                          x={barX + barWidth / 2}
+                          y={bottomOffset + 18}
+                          fill="var(--text-muted)"
+                          fontWeight="700"
+                          fontSize="9.5"
+                          textAnchor="middle"
+                        >
+                          {l.value}
+                        </text>
+                      </g>
+                    );
+                  })
+                ) : (
+                  [1, 2, 3, 4, 5, 6, 7].map((gVal, idx) => {
+                    const count = gradeCounts[gVal];
+                    // Calculate dynamic height based on scale
+                    const barHeight = currentMax > 0 ? (count / currentMax) * (bottomOffset - 25) : 0;
+                    const barX = leftOffset + gradeGap + idx * (gradeBarWidth + gradeGap) - 5;
+                    const barY = bottomOffset - barHeight;
+                    const color = GRADE_COLORS[gVal] || 'var(--text-muted)';
+
+                    return (
+                      <g key={gVal} style={{ transition: 'all 0.3s ease' }}>
+                        {/* Interactive bar with vertical gradient */}
+                        <rect
+                          x={barX}
+                          y={barY}
+                          width={gradeBarWidth}
+                          height={Math.max(barHeight, 2)}
+                          rx="3"
+                          ry="3"
+                          fill={`url(#grad-grade-${gVal})`}
+                          style={{ cursor: 'pointer', transition: 'all 0.3s' }}
+                        />
+                        
+                        {/* Floating student count label above the bar */}
+                        <text
+                          x={barX + gradeBarWidth / 2}
+                          y={barY - 7}
+                          fill={color}
+                          fontWeight="800"
+                          fontSize="10.5"
+                          textAnchor="middle"
+                        >
+                          {count}
+                        </text>
+
+                        {/* X Axis Labels */}
+                        <text
+                          x={barX + gradeBarWidth / 2}
+                          y={bottomOffset + 18}
+                          fill="var(--text-muted)"
+                          fontWeight="700"
+                          fontSize="9"
+                          textAnchor="middle"
+                        >
+                          IB-{gVal}
+                        </text>
+                      </g>
+                    );
+                  })
+                )}
               </svg>
             </div>
           </div>

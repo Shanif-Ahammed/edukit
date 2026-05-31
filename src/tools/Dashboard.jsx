@@ -25,74 +25,173 @@ const generateDemoRoster = () => {
     'Jessica Park', 'Vivienne Dubois', 'Charlotte Hughes', 'Isabelle Laurent', 'Grace Kim', 'Fatima Al Rashidi',
     'Mei Chen', 'Leila Moradi', 'Amelia Scott', 'Layla Al Hammadi', 'Sana Hussain', 'Aisha Begum'
   ];
-  
-  const classesList = [
-    { name: '7A Mathematics', teacher: 'Ms. Carter' },
-    { name: '8B Mathematics', teacher: 'Mr. Thompson' },
-    { name: '9C Mathematics', teacher: 'Ms. Williams' }
+
+  const cohorts = [
+    {
+      className: '7A Mathematics',
+      subject: 'Mathematics',
+      teacher: 'Ms. Carter',
+      grade: 'Grade 7',
+      attainmentProfile: 'high', // mostly 5, 6, 7
+      atlProfile: 'high', // Expert / Practitioner
+      demographics: { eal: 0.10, sen: 0.05, gifted: 0.20, emirati: 0.15 }
+    },
+    {
+      className: '8B Mathematics',
+      subject: 'Mathematics',
+      teacher: 'Mr. Thompson',
+      grade: 'Grade 8',
+      attainmentProfile: 'mid-low', // mostly 2, 3, 4, 5
+      atlProfile: 'low', // Beginner / Novice / Practitioner
+      demographics: { eal: 0.25, sen: 0.20, gifted: 0.05, emirati: 0.25 }
+    },
+    {
+      className: '7A Integrated Sciences - English',
+      subject: 'Integrated Sciences - English',
+      teacher: 'Dr. Aris',
+      grade: 'Grade 7',
+      attainmentProfile: 'extreme-high', // mostly 6, 7
+      atlProfile: 'extreme-high', // Expert
+      demographics: { eal: 0.05, sen: 0.05, gifted: 0.35, emirati: 0.10 }
+    },
+    {
+      className: '8B Integrated Sciences - English',
+      subject: 'Integrated Sciences - English',
+      teacher: 'Mr. Faraday',
+      grade: 'Grade 8',
+      attainmentProfile: 'mixed', // 3, 4, 5, 6
+      atlProfile: 'mixed', // Practitioner / Expert / Beginner
+      demographics: { eal: 0.15, sen: 0.10, gifted: 0.15, emirati: 0.20 }
+    },
+    {
+      className: '7A Language and Literature - English',
+      subject: 'Language and Literature - English',
+      teacher: 'Ms. Austen',
+      grade: 'Grade 7',
+      attainmentProfile: 'low', // mostly 3, 4
+      atlProfile: 'low', // Beginner / Novice
+      demographics: { eal: 0.30, sen: 0.25, gifted: 0.0, emirati: 0.30 }
+    },
+    {
+      className: '8B Language and Literature - English',
+      subject: 'Language and Literature - English',
+      teacher: 'Mr. Shakespeare',
+      grade: 'Grade 8',
+      attainmentProfile: 'high-average', // mostly 4, 5, 6, 7
+      atlProfile: 'high-average', // Practitioner / Expert
+      demographics: { eal: 0.12, sen: 0.08, gifted: 0.18, emirati: 0.18 }
+    }
   ];
-  
+
   const rows = [];
-  
-  for (let i = 0; i < 60; i++) {
-    const classObj = classesList[i % 3];
-    const isBoy = i % 2 === 0;
-    const nameList = isBoy ? boysNames : girlsNames;
-    const nameIndex = Math.floor(i / 2) % nameList.length;
-    const name = nameList[nameIndex];
-    const gender = isBoy ? 'Male' : 'Female';
-    
-    // Programmatic but realistic grade distribution
-    const baseVal = (i * 7 + 13) % 6; // 0 to 5
-    const critA = Math.min(8, Math.max(2, baseVal + 3));
-    const critB = Math.min(8, Math.max(2, baseVal + 2));
-    const critC = Math.min(8, Math.max(2, baseVal + 3));
-    const critD = Math.min(8, Math.max(2, baseVal + 2));
-    const cpt = critA + critB + critC + critD;
-    
-    // IB grade from 1 to 7 based on CPT
-    let ibGrade = 4;
-    if (cpt >= 28) ibGrade = 7;
-    else if (cpt >= 24) ibGrade = 6;
-    else if (cpt >= 19) ibGrade = 5;
-    else if (cpt >= 15) ibGrade = 4;
-    else if (cpt >= 10) ibGrade = 3;
-    else if (cpt >= 6) ibGrade = 2;
-    else ibGrade = 1;
-    
-    // MEG (expected CPT out of 32, typically close to cpt +/- 4)
-    const megOffset = (i % 3) - 1; // -1, 0, 1
-    const meg = Math.min(32, Math.max(8, cpt + megOffset * 3));
-    
-    const atlOptions = ['Expert', 'Practitioner', 'Beginner', 'Novice'];
-    const atl = atlOptions[(i % 4) === 0 ? 0 : (i % 4) === 1 || (i % 4) === 2 ? 1 : 2];
-    
-    const eal = i % 7 === 0;
-    const sen = i % 9 === 0;
-    const gifted = i % 8 === 0 && ibGrade >= 6;
-    const emirati = i % 5 === 0;
-    
-    rows.push({
-      'Student Name': name,
-      'Class': classObj.name,
-      'Subject': 'Mathematics',
-      'Teacher Name': classObj.teacher,
-      'Gender': gender,
-      'Crit A': critA,
-      'Crit B': critB,
-      'Crit C': critC,
-      'Crit D': critD,
-      'CPT': cpt,
-      'IB Grade': ibGrade,
-      'MEG': meg,
-      'ATL Progress': atl,
-      'EAL Status': eal ? 'Yes' : 'No',
-      'SEN / Learning Support Flag': sen ? 'Yes' : 'No',
-      'Gifted & Talented Flag': gifted ? 'Yes' : 'No',
-      'Emirati': emirati ? 'Yes' : 'No'
-    });
-  }
-  
+  let studentGlobalIndex = 0;
+
+  cohorts.forEach((cohort) => {
+    // Generate exactly 22 students per cohort (total 132 students)
+    const cohortSize = 22;
+    for (let i = 0; i < cohortSize; i++) {
+      const isBoy = i % 2 === 0;
+      const nameList = isBoy ? boysNames : girlsNames;
+      const name = nameList[studentGlobalIndex % nameList.length];
+      const gender = isBoy ? 'Male' : 'Female';
+
+      // Generate scores based on attainmentProfile
+      let critA, critB, critC, critD;
+      
+      if (cohort.attainmentProfile === 'extreme-high') {
+        critA = Math.min(8, Math.max(6, 6 + (studentGlobalIndex % 3))); // 6, 7, 8
+        critB = Math.min(8, Math.max(6, 6 + ((studentGlobalIndex + 1) % 3)));
+        critC = Math.min(8, Math.max(6, 5 + ((studentGlobalIndex + 2) % 4))); // 5, 6, 7, 8
+        critD = Math.min(8, Math.max(6, 6 + (studentGlobalIndex % 3)));
+      } else if (cohort.attainmentProfile === 'high') {
+        critA = Math.min(8, Math.max(4, 5 + (studentGlobalIndex % 4))); // 5, 6, 7, 8
+        critB = Math.min(8, Math.max(4, 4 + ((studentGlobalIndex + 1) % 4))); // 4, 5, 6, 7
+        critC = Math.min(8, Math.max(4, 5 + ((studentGlobalIndex + 2) % 3))); // 5, 6, 7
+        critD = Math.min(8, Math.max(4, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+      } else if (cohort.attainmentProfile === 'high-average') {
+        critA = Math.min(8, Math.max(3, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+        critB = Math.min(8, Math.max(3, 3 + ((studentGlobalIndex + 1) % 5))); // 3, 4, 5, 6, 7
+        critC = Math.min(8, Math.max(3, 4 + ((studentGlobalIndex + 2) % 3))); // 4, 5, 6
+        critD = Math.min(8, Math.max(3, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+      } else if (cohort.attainmentProfile === 'mixed') {
+        critA = Math.min(8, Math.max(3, 3 + (studentGlobalIndex % 5))); // 3, 4, 5, 6, 7
+        critB = Math.min(8, Math.max(2, 3 + ((studentGlobalIndex + 2) % 4))); // 3, 4, 5, 6
+        critC = Math.min(8, Math.max(3, 2 + ((studentGlobalIndex + 1) % 5))); // 2, 3, 4, 5, 6
+        critD = Math.min(8, Math.max(3, 3 + (studentGlobalIndex % 4))); // 3, 4, 5, 6
+      } else if (cohort.attainmentProfile === 'mid-low') {
+        critA = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 4))); // 2, 3, 4, 5
+        critB = Math.min(8, Math.max(1, 1 + ((studentGlobalIndex + 2) % 4))); // 1, 2, 3, 4
+        critC = Math.min(8, Math.max(1, 2 + ((studentGlobalIndex + 1) % 3))); // 2, 3, 4
+        critD = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 4))); // 2, 3, 4, 5
+      } else { // 'low'
+        critA = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 3))); // 2, 3, 4
+        critB = Math.min(8, Math.max(1, 2 + ((studentGlobalIndex + 1) % 2))); // 2, 3
+        critC = Math.min(8, Math.max(1, 1 + ((studentGlobalIndex + 2) % 4))); // 1, 2, 3, 4
+        critD = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 3))); // 2, 3, 4
+      }
+
+      const cpt = critA + critB + critC + critD;
+
+      // IB Grade mapping based on school boundaries
+      let ibGrade = 4;
+      if (cpt >= 28) ibGrade = 7;
+      else if (cpt >= 24) ibGrade = 6;
+      else if (cpt >= 19) ibGrade = 5;
+      else if (cpt >= 15) ibGrade = 4;
+      else if (cpt >= 10) ibGrade = 3;
+      else if (cpt >= 6) ibGrade = 2;
+      else ibGrade = 1;
+
+      // MEG out of 32 (expected CPT)
+      const megOffset = (studentGlobalIndex % 3) - 1; // -1, 0, 1
+      const meg = Math.min(32, Math.max(8, cpt + megOffset * 3));
+
+      // Generate ATL Progress based on profile
+      let atl = 'Practitioner';
+      const r = studentGlobalIndex % 10;
+      if (cohort.atlProfile === 'extreme-high') {
+        atl = r < 7 ? 'Expert' : 'Practitioner';
+      } else if (cohort.atlProfile === 'high') {
+        atl = r < 4 ? 'Expert' : r < 9 ? 'Practitioner' : 'Beginner';
+      } else if (cohort.atlProfile === 'high-average') {
+        atl = r < 2 ? 'Expert' : r < 7 ? 'Practitioner' : r < 9 ? 'Beginner' : 'Novice';
+      } else if (cohort.atlProfile === 'mixed') {
+        atl = r < 2 ? 'Expert' : r < 6 ? 'Practitioner' : r < 9 ? 'Beginner' : 'Novice';
+      } else if (cohort.atlProfile === 'low') {
+        atl = r < 1 ? 'Practitioner' : r < 6 ? 'Beginner' : 'Novice';
+      }
+
+      // Demographics deterministic thresholds
+      const eal = (i / cohortSize) < cohort.demographics.eal;
+      const sen = ((i + 3) / cohortSize) < cohort.demographics.sen;
+      const gifted = ((i + 7) / cohortSize) < cohort.demographics.gifted && ibGrade >= 5;
+      const emirati = ((i + 13) / cohortSize) < cohort.demographics.emirati;
+
+      rows.push({
+        'Student Name': name,
+        'Class': cohort.className,
+        'Grade': cohort.grade,
+        'Subject': cohort.subject,
+        'Teacher Name': cohort.teacher,
+        'Gender': gender,
+        'Crit A': critA,
+        'Crit B': critB,
+        'Crit C': critC,
+        'Crit D': critD,
+        'CPT': cpt,
+        'IB Grade': ibGrade,
+        'MEG': meg,
+        'ATL Progress': atl,
+        'EAL Status': eal ? 'Yes' : 'No',
+        'SEN / Learning Support Flag': sen ? 'Yes' : 'No',
+        'Gifted & Talented Flag': gifted ? 'Yes' : 'No',
+        'Emirati': emirati ? 'Yes' : 'No'
+      });
+
+      studentGlobalIndex++;
+    }
+  });
+
   return rows;
 };
 
@@ -280,10 +379,10 @@ export default function Dashboard({ setActiveTool }) {
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Roster');
       ws['!cols'] = [
-        { wch: 22 }, { wch: 18 }, { wch: 14 }, { wch: 18 }, { wch: 8 },
-        { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7 },
-        { wch: 10 }, { wch: 7  }, { wch: 16 }, { wch: 10 }, { wch: 28 },
-        { wch: 22 }, { wch: 10 }
+        { wch: 22 }, { wch: 18 }, { wch: 10 }, { wch: 14 }, { wch: 18 },
+        { wch: 8 },  { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7  },
+        { wch: 7 },  { wch: 10 }, { wch: 7  }, { wch: 16 }, { wch: 10 },
+        { wch: 28 }, { wch: 22 }, { wch: 10 }
       ];
       XLSX.writeFile(wb, 'sisd_edukit_sample_roster.xlsx');
       triggerToast("Downloaded template: sisd_edukit_sample_roster.xlsx");

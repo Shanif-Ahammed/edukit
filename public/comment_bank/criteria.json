@@ -1,182 +1,834 @@
 {
   "Individuals & Societies - English": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking Critically"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    }
   },
   "Individuals & Societies - French": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking Critically"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    }
   },
   "Individuals & Societies - German": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking Critically"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    }
   },
   "Language and Literature - English": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "English as an additional language": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Individuals and Societies - Commerce": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking Critically"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating",
+      "C": "Communicating",
+      "D": "Thinking Critically"
+    }
   },
   "Design": {
-    "A": "Inquiring and Analysing",
-    "B": "Developing Ideas",
-    "C": "Creating the Solution",
-    "D": "Evaluating"
+    "Grade 6": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 7": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 8": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 9": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 10": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    }
   },
   "Information Technology": {
-    "A": "Inquiring and Analysing",
-    "B": "Developing Ideas",
-    "C": "Creating the Solution",
-    "D": "Evaluating"
+    "Grade 6": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 7": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 8": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 9": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    },
+    "Grade 10": {
+      "A": "Inquiring and Analysing",
+      "B": "Developing Ideas",
+      "C": "Creating the Solution",
+      "D": "Evaluating"
+    }
   },
   "Drama": {
-    "A": "Knowing and Understanding",
-    "B": "Developing Skills",
-    "C": "Thinking Creatively",
-    "D": "Responding"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    }
   },
   "Visual Arts": {
-    "A": "Knowing and Understanding",
-    "B": "Developing Skills",
-    "C": "Thinking Creatively",
-    "D": "Responding"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    }
   },
   "Music": {
-    "A": "Knowing and Understanding",
-    "B": "Developing Skills",
-    "C": "Thinking Creatively",
-    "D": "Responding"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    }
   },
   "The Arts": {
-    "A": "Knowing and Understanding",
-    "B": "Developing Skills",
-    "C": "Thinking Creatively",
-    "D": "Responding"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Developing Skills",
+      "C": "Thinking Creatively",
+      "D": "Responding"
+    }
   },
   "Physical & Health Education": {
-    "A": "Knowing and Understanding",
-    "B": "Planning for Performance",
-    "C": "Applying and Performing",
-    "D": "Reflecting and Improving Performance"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Planning for Performance",
+      "C": "Applying and Performing",
+      "D": "Reflecting and Improving Performance"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Planning for Performance",
+      "C": "Applying and Performing",
+      "D": "Reflecting and Improving Performance"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Planning for Performance",
+      "C": "Applying and Performing",
+      "D": "Reflecting and Improving Performance"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Planning for Performance",
+      "C": "Applying and Performing",
+      "D": "Reflecting and Improving Performance"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Planning for Performance",
+      "C": "Applying and Performing",
+      "D": "Reflecting and Improving Performance"
+    }
   },
   "Language Acquisition - French": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Language Acquisition - German": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Language Acquisition - Spanish": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Integrated Sciences - English": {
-    "A": "Knowing and Understanding",
-    "B": "Inquiring and Designing",
-    "C": "Processing and Evaluating",
-    "D": "Reflecting on the Impacts of Science"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    }
   },
   "Biology": {
-    "A": "Knowing and Understanding",
-    "B": "Inquiring and Designing",
-    "C": "Processing and Evaluating",
-    "D": "Reflecting on the Impacts of Science"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    }
   },
   "Physics": {
-    "A": "Knowing and Understanding",
-    "B": "Inquiring and Designing",
-    "C": "Processing and Evaluating",
-    "D": "Reflecting on the Impacts of Science"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    }
   },
   "Chemistry": {
-    "A": "Knowing and Understanding",
-    "B": "Inquiring and Designing",
-    "C": "Processing and Evaluating",
-    "D": "Reflecting on the Impacts of Science"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Inquiring and Designing",
+      "C": "Processing and Evaluating",
+      "D": "Reflecting on the Impacts of Science"
+    }
   },
   "Mathematics": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating Patterns",
-    "C": "Communicating",
-    "D": "Applying Mathematics in Real-life Contexts"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    }
   },
   "Mathematics Extended": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating Patterns",
-    "C": "Communicating",
-    "D": "Applying Mathematics in Real-life Contexts"
+    "Grade 6": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 7": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 8": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 9": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    },
+    "Grade 10": {
+      "A": "Knowing and Understanding",
+      "B": "Investigating Patterns",
+      "C": "Communicating",
+      "D": "Applying Mathematics in Real-life Contexts"
+    }
   },
   "Language and Literature - Arabic": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Language Acquisition - Arabic": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Language and Literature - German": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   },
   "Language and Literature - French": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
-  },
-  "Sciences": {
-    "A": "Knowing and Understanding",
-    "B": "Inquiring and Designing",
-    "C": "Processing and Evaluating",
-    "D": "Reflecting on the Impacts of Science"
-  },
-  "Language & Literature": {
-    "A": "Analysing",
-    "B": "Organising",
-    "C": "Producing Text",
-    "D": "Using Language"
-  },
-  "Individuals & Societies": {
-    "A": "Knowing and Understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking Critically"
-  },
-  "Arts": {
-    "A": "Knowing and Understanding",
-    "B": "Developing Skills",
-    "C": "Thinking Creatively",
-    "D": "Responding"
+    "Grade 6": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 7": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 8": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 9": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    },
+    "Grade 10": {
+      "A": "Analysing",
+      "B": "Organising",
+      "C": "Producing Text",
+      "D": "Using Language"
+    }
   }
 }

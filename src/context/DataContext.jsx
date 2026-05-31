@@ -16,7 +16,8 @@ const COLUMN_KEYS = {
   critC: [/crit\s*c/i, /criterion\s*c/i, /critc/i],
   critD: [/crit\s*d/i, /criterion\s*d/i, /critd/i],
   cpt: [/cpt/i, /criterion\s*point\s*total/i, /total\s*points/i, /points/i, /score/i],
-  ibGrade: [/ib\s*grade/i, /^grade$/i, /level/i, /attainment/i],
+  gradeLevel: [/grade\s*level/i, /^grade$/i, /year\s*group/i, /year$/i, /academic\s*year/i],
+  ibGrade: [/ib\s*grade/i, /attainment\s*grade/i, /myp\s*grade/i, /level/i, /attainment/i],
   atl: [/atl/i, /approach\s*to\s*learning/i, /atl\s*progress/i, /atl\s*level/i],
   gender: [/gender/i, /sex/i, /pronoun/i],
   eal: [/eal\s*status/i, /eal/i, /english\s*as\s*additional\s*language/i],
@@ -189,6 +190,12 @@ export const DataProvider = ({ children }) => {
       if (giftedVal === 'yes' || giftedVal === 'y' || giftedVal === 'true' || giftedVal === 'gifted' || giftedVal === 'magt') tags.push('MAGT');
       if (emiratiVal === 'yes' || emiratiVal === 'y' || emiratiVal === 'true' || emiratiVal === 'emirati') tags.push('Emirati');
 
+      let gradeLevel = row[matchedHeaders.gradeLevel] !== undefined ? String(row[matchedHeaders.gradeLevel]).trim() : '';
+      if (!gradeLevel) {
+        const match = className.match(/\d+/);
+        gradeLevel = match ? `Grade ${match[0]}` : '';
+      }
+
       return {
         id: index + 1,
         forename,
@@ -206,6 +213,7 @@ export const DataProvider = ({ children }) => {
         critD,
         cpt,
         ibGrade: row[matchedHeaders.ibGrade] !== undefined ? Number(row[matchedHeaders.ibGrade]) : null,
+        gradeLevel,
         atlProgress: String(row[matchedHeaders.atl] || '').trim() || 'Practitioner',
         eal: ealVal === 'yes' || ealVal === 'y',
         sen: senVal === 'yes' || senVal === 'y',

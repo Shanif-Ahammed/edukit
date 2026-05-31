@@ -177,7 +177,7 @@ ONLINE ASSESSMENT SYSTEM (OAS) & COMMENT GENERATORS
 - AP5 Comment Generator: Used for all subjects to automatically compile comments. 
   - **Structure of Generated Comment**: Built by joining four distinct segments with a space:
     1. *Segment 1 (Overall Attainment)*: Statement on overall performance based on final IB Grade (1-7).
-    2. *Segment 2 (ATL Progress)*: Statement on the selected ATL focus skill (Communication, Social, Self-Management, Research, Thinking) and progress level (Expert, Practitioner, Beginner, Novice).
+    2. *Segment 2 (ATL Progress)*: Statement on the selected ATL focus skill (Communication, Social, Self-Management, Research, Thinking) and progress level (Expert, Practitioner, Beginner, Novice). The generator randomly selects one of several alternative options from the ATL comment bank for the student's category and level to ensure variety and uniqueness across class reports.
     3. *Segment 3 (Key Strength)*: Highlights the student's highest-scoring MYP Criterion (Crit A, B, C, or D) with its subject-specific name.
     4. *Segment 4 (Target for Growth)*: Suggests improvement for the student's lowest-scoring MYP Criterion.
   - **Placeholders replaced in templates**: Replaces custom tags like 'Student!' (Forename), 'He!'/'he!' (He/She, he/she), 'His!'/'his!' (His/Her, his/her), 'him!' (him/her), 'Subject!' (Subject name), and 'A!', 'B!', 'C!', 'D!', 'BestCrit!', 'WeakCrit!' (resolved with subject-specific criterion names like 'Knowing and Understanding'). Standard tags like '[Name]', '[He/She]', '[he/she]', '[His/Her]', '[his/her]', '[Him/Her]', '[him/her]', '[Grade]', '[Subject]', '[CritA]', '[CritB]', '[CritC]', '[CritD]', '[BestCrit]', '[WeakCrit]', '[ATL Skill]', '[ATL]' are also supported.

@@ -41,14 +41,14 @@ const DEFAULT_BANK = {
     4: 'Student! has achieved a grade of 4 in Subject!, demonstrating an adequate understanding of the core concepts covered this term.',
     3: 'Student! has achieved a grade of 3 in Subject!, indicating a basic but developing understanding of the material.',
     2: 'Student! has achieved a grade of 2 in Subject!, suggesting that He! would benefit from additional support to consolidate foundational skills.',
-    1: 'Student! has achieved a grade of 1 in Subject!, and it is important that He! seeks additional support to strengthen His! understanding of the core concepts.',
+    1: 'Student! has achieved a grade of 1 in Subject!, and it is important that He! seeks additional support to strengthen his! understanding of the core concepts.',
   },
   atl: {
     Communication: {
       Expert: 'Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express His! reasoning even more effectively.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen His! confidence when presenting ideas.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support His! overall progress.'
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express his! reasoning even more effectively.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen his! confidence when presenting ideas.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support his! overall progress.'
     },
     Social: {
       Expert: 'Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.',
@@ -58,19 +58,19 @@ const DEFAULT_BANK = {
     },
     'Self-Management': {
       Expert: 'Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Self-Management, managing His! time effectively and preparing well for lessons.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen His! focus and consistency when completing independent tasks.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage His! time more effectively.'
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Self-Management, managing his! time effectively and preparing well for lessons.',
+      Beginner: 'Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen his! focus and consistency when completing independent tasks.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage his! time more effectively.'
     },
     Research: {
       Expert: 'Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.',
       Practitioner: 'Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Research, though He! should work on verifying His! source credibility more systematically.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support His! progress.'
+      Beginner: 'Student! demonstrates beginner ATL skills in Research, though He! should work on verifying his! source credibility more systematically.',
+      Novice: 'Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support his! progress.'
     },
     Thinking: {
       Expert: 'Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on His! learning journey.',
+      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on his! learning journey.',
       Beginner: 'Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.',
       Novice: 'Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints.'
     }
@@ -79,7 +79,7 @@ const DEFAULT_BANK = {
     strength: {
       8: "Student!'s greatest strength this term has been in A!, where He! achieved an outstanding Grade 8, demonstrating flawless mathematical knowledge and comprehensive understanding.",
       7: "Student!'s greatest strength this term has been in A!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in solve mathematical models.",
-      6: "Student! achieved a strong Grade 6 in A!, proving His! solid capability to solve mathematical models and recall key concepts with confidence.",
+      6: "Student! achieved a strong Grade 6 in A!, proving his! solid capability to solve mathematical models and recall key concepts with confidence.",
       5: "Student! achieved a Grade 5 in A!, showing reliable mathematical knowledge and effective use of appropriate mathematical concepts.",
       4: "Student! achieved a Grade 4 in A!, which reflects adequate understanding and the ability to apply basic mathematical methods in familiar tasks.",
       3: "Student! achieved a Grade 3 in A!, representing developing capability in applying basic mathematical methods with some guidance.",
@@ -87,13 +87,13 @@ const DEFAULT_BANK = {
       1: "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of mathematical knowledge acquisition."
     },
     improvement: {
-      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in A! to push His! boundaries.",
-      7: "To continue His! progress in A! (Grade 7), Student! should maintain His! focus on challenging problem contexts and advanced applications.",
-      6: "To advance His! progress, Student! should focus on deepening His! skills in A! (Grade 6) through active practice with complex applications.",
-      5: "In A! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in problem contexts.",
-      4: "To support His! progress, Student! should dedicate regular review sessions to A! (Grade 4) topics to solidify His! understanding of mathematical concepts.",
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in A! to push his! boundaries.",
+      7: "To continue his! progress in A! (Grade 7), Student! should maintain his! focus on challenging problem contexts and advanced applications.",
+      6: "To advance his! progress, Student! should focus on deepening his! skills in A! (Grade 6) through active practice with complex applications.",
+      5: "In A! (Grade 5), Student! is encouraged to consolidate his! knowledge to achieve greater consistency in problem contexts.",
+      4: "To support his! progress, Student! should dedicate regular review sessions to A! (Grade 4) topics to solidify his! understanding of mathematical concepts.",
       3: "Student! is encouraged to address critical gaps in A! (Grade 3) by seeking additional support to consolidate key foundational concepts.",
-      2: "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build His! confidence in foundational concepts.",
+      2: "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in foundational concepts.",
       1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1)."
     }
   },
@@ -101,7 +101,7 @@ const DEFAULT_BANK = {
     strength: {
       8: "Student!'s greatest strength this term has been in B!, where He! achieved an outstanding Grade 8, demonstrating flawless pattern analysis and comprehensive understanding.",
       7: "Student!'s greatest strength this term has been in B!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in investigate patterns systematically.",
-      6: "Student! achieved a strong Grade 6 in B!, proving His! solid capability to investigate patterns systematically and recall key concepts with confidence.",
+      6: "Student! achieved a strong Grade 6 in B!, proving his! solid capability to investigate patterns systematically and recall key concepts with confidence.",
       5: "Student! achieved a Grade 5 in B!, showing reliable pattern analysis and effective use of appropriate investigative concepts.",
       4: "Student! achieved a Grade 4 in B!, which reflects adequate understanding and the ability to apply basic investigation techniques in familiar tasks.",
       3: "Student! achieved a Grade 3 in B!, representing developing capability in applying basic investigation techniques with some guidance.",
@@ -109,13 +109,13 @@ const DEFAULT_BANK = {
       1: "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of pattern analysis acquisition."
     },
     improvement: {
-      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in B! to push His! boundaries.",
-      7: "To continue His! progress in B! (Grade 7), Student! should maintain His! focus on challenging investigations and advanced applications.",
-      6: "To advance His! progress, Student! should focus on deepening His! skills in B! (Grade 6) through active practice with complex patterns.",
-      5: "In B! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in investigations.",
-      4: "To support His! progress, Student! should dedicate regular review sessions to B! (Grade 4) topics to solidify His! understanding of investigative concepts.",
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in B! to push his! boundaries.",
+      7: "To continue his! progress in B! (Grade 7), Student! should maintain his! focus on challenging investigations and advanced applications.",
+      6: "To advance his! progress, Student! should focus on deepening his! skills in B! (Grade 6) through active practice with complex patterns.",
+      5: "In B! (Grade 5), Student! is encouraged to consolidate his! knowledge to achieve greater consistency in investigations.",
+      4: "To support his! progress, Student! should dedicate regular review sessions to B! (Grade 4) topics to solidify his! understanding of investigative concepts.",
       3: "Student! is encouraged to address critical gaps in B! (Grade 3) by seeking additional support to consolidate key investigation skills.",
-      2: "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build His! confidence in investigation skills.",
+      2: "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build his! confidence in investigation skills.",
       1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1)."
     }
   },
@@ -123,7 +123,7 @@ const DEFAULT_BANK = {
     strength: {
       8: "Student!'s greatest strength this term has been in C!, where He! achieved an outstanding Grade 8, demonstrating flawless mathematical communication and comprehensive understanding.",
       7: "Student!'s greatest strength this term has been in C!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in present mathematical reasoning clearly.",
-      6: "Student! achieved a strong Grade 6 in C!, proving His! solid capability to present mathematical reasoning clearly and recall key concepts with confidence.",
+      6: "Student! achieved a strong Grade 6 in C!, proving his! solid capability to present mathematical reasoning clearly and recall key concepts with confidence.",
       5: "Student! achieved a Grade 5 in C!, showing reliable mathematical communication and effective use of appropriate mathematical language.",
       4: "Student! achieved a Grade 4 in C!, which reflects adequate understanding and the ability to apply basic notation methods in familiar tasks.",
       3: "Student! achieved a Grade 3 in C!, representing developing capability in applying basic notation methods with some guidance.",
@@ -131,13 +131,13 @@ const DEFAULT_BANK = {
       1: "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of mathematical communication acquisition."
     },
     improvement: {
-      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in C! to push His! boundaries.",
-      7: "To continue His! progress in C! (Grade 7), Student! should maintain His! focus on challenging structured explanations and advanced applications.",
-      6: "To advance His! progress, Student! should focus on deepening His! skills in C! (Grade 6) through active practice with complex explanations.",
-      5: "In C! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in structured explanations.",
-      4: "To support His! progress, Student! should dedicate regular review sessions to C! (Grade 4) topics to solidify His! understanding of mathematical language.",
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in C! to push his! boundaries.",
+      7: "To continue his! progress in C! (Grade 7), Student! should maintain his! focus on challenging structured explanations and advanced applications.",
+      6: "To advance his! progress, Student! should focus on deepening his! skills in C! (Grade 6) through active practice with complex explanations.",
+      5: "In C! (Grade 5), Student! is encouraged to consolidate his! knowledge to achieve greater consistency in structured explanations.",
+      4: "To support his! progress, Student! should dedicate regular review sessions to C! (Grade 4) topics to solidify his! understanding of mathematical language.",
       3: "Student! is encouraged to address critical gaps in C! (Grade 3) by seeking additional support to consolidate key notation and clarity.",
-      2: "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build His! confidence in notation and clarity.",
+      2: "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build his! confidence in notation and clarity.",
       1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1)."
     }
   },
@@ -145,7 +145,7 @@ const DEFAULT_BANK = {
     strength: {
       8: "Student!'s greatest strength this term has been in D!, where He! achieved an outstanding Grade 8, demonstrating flawless real-life application and comprehensive understanding.",
       7: "Student!'s greatest strength this term has been in D!, where He! achieved an exceptional Grade 7, showing deep conceptual understanding and consistent precision in apply mathematics to real-life contexts.",
-      6: "Student! achieved a strong Grade 6 in D!, proving His! solid capability to apply mathematics to real-life contexts and recall key concepts with confidence.",
+      6: "Student! achieved a strong Grade 6 in D!, proving his! solid capability to apply mathematics to real-life contexts and recall key concepts with confidence.",
       5: "Student! achieved a Grade 5 in D!, showing reliable real-life application and effective use of appropriate applied concepts.",
       4: "Student! achieved a Grade 4 in D!, which reflects adequate understanding and the ability to apply basic modeling techniques in familiar tasks.",
       3: "Student! achieved a Grade 3 in D!, representing developing capability in applying basic modeling techniques with some guidance.",
@@ -153,13 +153,13 @@ const DEFAULT_BANK = {
       1: "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of real-life application acquisition."
     },
     improvement: {
-      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in D! to push His! boundaries.",
-      7: "To continue His! progress in D! (Grade 7), Student! should maintain His! focus on challenging practical scenarios and advanced applications.",
-      6: "To advance His! progress, Student! should focus on deepening His! skills in D! (Grade 6) through active practice with complex applied problems.",
-      5: "In D! (Grade 5), Student! is encouraged to consolidate His! knowledge to achieve greater consistency in practical scenarios.",
-      4: "To support His! progress, Student! should dedicate regular review sessions to D! (Grade 4) topics to solidify His! understanding of applied concepts.",
+      8: "Even at Grade 8, Student! is encouraged to continue to seek advanced extensions in D! to push his! boundaries.",
+      7: "To continue his! progress in D! (Grade 7), Student! should maintain his! focus on challenging practical scenarios and advanced applications.",
+      6: "To advance his! progress, Student! should focus on deepening his! skills in D! (Grade 6) through active practice with complex applied problems.",
+      5: "In D! (Grade 5), Student! is encouraged to consolidate his! knowledge to achieve greater consistency in practical scenarios.",
+      4: "To support his! progress, Student! should dedicate regular review sessions to D! (Grade 4) topics to solidify his! understanding of applied concepts.",
       3: "Student! is encouraged to address critical gaps in D! (Grade 3) by seeking additional support to consolidate key practical applications.",
-      2: "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build His! confidence in practical applications.",
+      2: "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in practical applications.",
       1: "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1)."
     }
   }
@@ -342,10 +342,28 @@ export default function CommentGenerator() {
     loadBank();
   }, [subject]);
 
-  const critNames = mypSubjects[subject] || mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0] || { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' };
-
   // Filter students to the active class
   const classStudents = students.filter(s => s.className === selectedClass);
+
+  const currentGradeGroup = (() => {
+    if (classStudents && classStudents.length > 0 && classStudents[0].gradeLevel) {
+      const g = classStudents[0].gradeLevel;
+      if (/^\d+$/.test(g)) {
+        return `Grade ${g}`;
+      }
+      return g;
+    }
+    const match = String(selectedClass || '').match(/\d+/);
+    return match ? `Grade ${match[0]}` : 'Grade 7';
+  })();
+
+  const subjectCrit = mypSubjects[subject] || mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
+  
+  const critNames = (subjectCrit && subjectCrit[currentGradeGroup])
+    ? subjectCrit[currentGradeGroup]
+    : (subjectCrit && typeof subjectCrit.A === 'string'
+        ? subjectCrit
+        : (subjectCrit ? Object.values(subjectCrit)[0] : { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' }));
 
   // Sync subject if defined in database
   useEffect(() => {
@@ -376,7 +394,7 @@ export default function CommentGenerator() {
   };
 
   // ── Comment Assembly ───────────────────────────────────────────────────────
-  const buildComment = (student) => {
+  const buildComment = (student, overrideAtlIndex = null) => {
     const ibGradeVal = student.ibGrade ? Number(student.ibGrade) : null;
     const hasLowCrit = [student.critA, student.critB, student.critC, student.critD].some(v => {
       if (v === null || v === undefined || v === '') return false;
@@ -424,10 +442,24 @@ export default function CommentGenerator() {
     let s2 = '';
     if (bank.atl && bank.atl[activeSkill]) {
       const val = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Good'];
-      s2 = Array.isArray(val) ? val[student.id % val.length] : (val || '');
+      const totalOptions = Array.isArray(val) ? val.length : 1;
+      let optionIndex = student.selectedAtlIndex !== undefined && student.selectedAtlIndex !== null
+        ? student.selectedAtlIndex
+        : Math.floor(Math.random() * totalOptions);
+      if (overrideAtlIndex !== null) {
+        optionIndex = overrideAtlIndex;
+      }
+      s2 = Array.isArray(val) ? val[optionIndex % totalOptions] : (val || '');
     } else if (bank.atl) {
       const val = bank.atl[activeProgress] || bank.atl['Good'];
-      s2 = Array.isArray(val) ? val[student.id % val.length] : (val || '');
+      const totalOptions = Array.isArray(val) ? val.length : 1;
+      let optionIndex = student.selectedAtlIndex !== undefined && student.selectedAtlIndex !== null
+        ? student.selectedAtlIndex
+        : Math.floor(Math.random() * totalOptions);
+      if (overrideAtlIndex !== null) {
+        optionIndex = overrideAtlIndex;
+      }
+      s2 = Array.isArray(val) ? val[optionIndex % totalOptions] : (val || '');
     }
 
     let s3 = '';
@@ -443,6 +475,38 @@ export default function CommentGenerator() {
     return [s1, s2, s3, s4].map((s) => applyPlaceholders(s, data)).join(' ');
   };
 
+  const cycleAtlOption = (student, direction) => {
+    const activeSkill = student.selectedAtlSkill || atlSkill;
+    const activeProgress = student.atlProgress || 'Practitioner';
+    
+    if (!bank.atl || !bank.atl[activeSkill]) return;
+    const val = bank.atl[activeSkill][activeProgress];
+    if (!Array.isArray(val)) return;
+    
+    const totalOptions = val.length;
+    let currentIndex = student.selectedAtlIndex !== undefined && student.selectedAtlIndex !== null
+      ? student.selectedAtlIndex
+      : Math.floor(Math.random() * totalOptions);
+      
+    let nextIndex;
+    if (direction === 'next') {
+      nextIndex = (currentIndex + 1) % totalOptions;
+    } else {
+      nextIndex = (currentIndex - 1 + totalOptions) % totalOptions;
+    }
+    
+    try {
+      const updatedComment = buildComment(student, nextIndex);
+      updateStudent(student.id, { 
+        selectedAtlIndex: nextIndex,
+        comment: updatedComment, 
+        status: 'success' 
+      });
+    } catch (err) {
+      showStatus('error', `Failed to cycle option: ${err.message}`);
+    }
+  };
+
   const generateAll = () => {
     if (!classStudents.length) {
       showStatus('error', 'No student roster connected for this class.');
@@ -455,8 +519,15 @@ export default function CommentGenerator() {
       const updatedStudents = students.map((s) => {
         if (s.className === selectedClass) {
           try {
-            const generatedComment = buildComment(s);
-            return { ...s, comment: generatedComment, status: 'success' };
+            const activeProgress = s.atlProgress || 'Practitioner';
+            const activeSkill = s.selectedAtlSkill || atlSkill;
+            const val = bank.atl?.[activeSkill]?.[activeProgress];
+            const totalOptions = Array.isArray(val) ? val.length : 1;
+            
+            const selectedAtlIndex = Math.floor(Math.random() * totalOptions);
+
+            const generatedComment = buildComment(s, selectedAtlIndex);
+            return { ...s, selectedAtlIndex, comment: generatedComment, status: 'success' };
           } catch (err) {
             errors++;
             return { ...s, comment: `Error: ${err.message}`, status: 'error' };
@@ -477,12 +548,7 @@ export default function CommentGenerator() {
   };
 
   const regenerateOne = (student) => {
-    try {
-      const generatedComment = buildComment(student);
-      updateStudent(student.id, { comment: generatedComment, status: 'success' });
-    } catch (err) {
-      updateStudent(student.id, { comment: `Error: ${err.message}`, status: 'error' });
-    }
+    cycleAtlOption(student, 'next');
   };
 
 

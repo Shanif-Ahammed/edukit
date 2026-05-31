@@ -80,102 +80,203 @@ export default function HeaderNav() {
     }
   };
 
-  // SheetJS: Generate sample iSAMS Excel — 60 students, 3 classes, MEG out of 32
+  // SheetJS: Generate sample iSAMS Excel — multi-subject, 6 classes, mixed demographics
   const downloadSampleExcel = () => {
-    const mkRow = (name, cls, teacher, gender, critA, critB, critC, critD, ibGrade, meg, atl, eal, sen, gifted, emirati) => ({
-      'Student Name': name,
-      'Class': cls,
-      'Subject': 'Mathematics',
-      'Teacher Name': teacher,
-      'Gender': gender,
-      'Crit A': critA,
-      'Crit B': critB,
-      'Crit C': critC,
-      'Crit D': critD,
-      'CPT': critA + critB + critC + critD,
-      'IB Grade': ibGrade,
-      'MEG': meg,
-      'ATL Progress': atl,
-      'EAL Status': eal ? 'Yes' : 'No',
-      'SEN / Learning Support Flag': sen ? 'Yes' : 'No',
-      'Gifted & Talented Flag': gifted ? 'Yes' : 'No',
-      'Emirati': emirati ? 'Yes' : 'No',
-    });
+    const generateDemoRoster = () => {
+      const boysNames = [
+        'Liam Henderson', 'Marcus Vance', 'Ji-Woo Park', 'Ethan Caldwell', 'Oscar Finch', 'Lucas Thorne',
+        'Dante Cruz', 'Ryan Kowalski', 'Ben Hargreaves', 'Tomás Rivera', 'Alex Mercer', 'Tariq Al Mansouri',
+        'Jake Morrison', 'Daniel Osei', 'Connor Walsh', 'Samuel Adeyemi', 'Ben Fitzgerald', 'Matteo Ferrari',
+        'Khalid Ibrahim', 'Hamza Qureshi', 'Ravi Menon', 'Omar Siddiqui', 'Noah Andersson', 'Jack Sullivan',
+        'Aarav Nair', 'Tyler Evans', 'Kenji Watanabe', 'Ethan Brooks', 'Luca Bianchi', "James O'Brien"
+      ];
+      
+      const girlsNames = [
+        'Sophia Patel', 'Zara Ahmed', 'Fiona Gallagher', 'Maya Patel', 'Nia Brooks', 'Isabella Rossi',
+        'Emma Watson', 'Aisha Nasser', 'Chloe Sterling', 'Priya Sharma', 'Sofia Lin', 'Elena Rostova',
+        'Chloe Bennett', 'Yuki Tanaka', 'Amira Hassan', 'Lily Nakamura', 'Hana Al Zaabi', 'Nour Khalil',
+        'Jessica Park', 'Vivienne Dubois', 'Charlotte Hughes', 'Isabelle Laurent', 'Grace Kim', 'Fatima Al Rashidi',
+        'Mei Chen', 'Leila Moradi', 'Amelia Scott', 'Layla Al Hammadi', 'Sana Hussain', 'Aisha Begum'
+      ];
 
-    const sampleRows = [
-      // ── 7A Mathematics – Ms. Carter (20 students) ────────────────────────
-      mkRow('Liam Henderson',   '7A Mathematics', 'Ms. Carter', 'Male',   7,6,7,6, 6,24, 'Expert',            false,false,true, false),
-      mkRow('Sophia Patel',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,5, 5,19, 'Practitioner',      true, false,false,false),
-      mkRow('Marcus Vance',     '7A Mathematics', 'Ms. Carter', 'Male',   4,3,4,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Ji-Woo Park',      '7A Mathematics', 'Ms. Carter', 'Male',   8,7,8,7, 7,28, 'Expert',            false,false,true, false),
-      mkRow('Zara Ahmed',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,5, 5,24, 'Practitioner',      false,false,false,true),
-      mkRow('Fiona Gallagher',  '7A Mathematics', 'Ms. Carter', 'Female', 3,2,3,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Ethan Caldwell',   '7A Mathematics', 'Ms. Carter', 'Male',   5,6,5,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Maya Patel',       '7A Mathematics', 'Ms. Carter', 'Female', 7,7,8,6, 7,24, 'Expert',            false,false,true, false),
-      mkRow('Oscar Finch',      '7A Mathematics', 'Ms. Carter', 'Male',   4,4,4,4, 4,15, 'Beginner',          false,false,false,false),
-      mkRow('Nia Brooks',       '7A Mathematics', 'Ms. Carter', 'Female', 6,5,6,6, 5,19, 'Practitioner',      true, false,false,false),
-      mkRow('Lucas Thorne',     '7A Mathematics', 'Ms. Carter', 'Male',   5,5,5,4, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Isabella Rossi',   '7A Mathematics', 'Ms. Carter', 'Female', 3,4,3,4, 3,19, 'Novice',            true, false,false,false),
-      mkRow('Dante Cruz',       '7A Mathematics', 'Ms. Carter', 'Male',   6,6,7,5, 6,19, 'Expert',            false,false,false,false),
-      mkRow('Emma Watson',      '7A Mathematics', 'Ms. Carter', 'Female', 5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Aisha Nasser',     '7A Mathematics', 'Ms. Carter', 'Female', 7,6,7,7, 6,24, 'Expert',            false,false,false,true),
-      mkRow('Ryan Kowalski',    '7A Mathematics', 'Ms. Carter', 'Male',   4,4,5,4, 4,15, 'Beginner',          false,false,false,false),
-      mkRow('Chloe Sterling',   '7A Mathematics', 'Ms. Carter', 'Female', 6,6,6,6, 6,24, 'Practitioner',      false,false,true, false),
-      mkRow('Ben Hargreaves',   '7A Mathematics', 'Ms. Carter', 'Male',   2,3,2,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Priya Sharma',     '7A Mathematics', 'Ms. Carter', 'Female', 5,5,6,4, 5,19, 'Practitioner',      true, false,false,false),
-      mkRow('Tom\u00e1s Rivera',     '7A Mathematics', 'Ms. Carter', 'Male',   7,7,7,7, 7,28, 'Expert',            false,false,true, false),
-      // ── 8B Mathematics – Mr. Thompson (20 students) ──────────────────────
-      mkRow('Alex Mercer',       '8B Mathematics', 'Mr. Thompson', 'Male',   6,5,6,6, 5,24, 'Practitioner',      false,false,false,false),
-      mkRow('Sofia Lin',         '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,8,7, 7,28, 'Expert',            false,false,true, false),
-      mkRow('Elena Rostova',     '8B Mathematics', 'Mr. Thompson', 'Female', 4,4,4,3, 4,15, 'Beginner',          true, false,false,false),
-      mkRow('Tariq Al Mansouri', '8B Mathematics', 'Mr. Thompson', 'Male',   8,7,7,7, 7,24, 'Expert',            false,false,false,true),
-      mkRow('Chloe Bennett',     '8B Mathematics', 'Mr. Thompson', 'Female', 5,5,6,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Jake Morrison',     '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,4,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Yuki Tanaka',       '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,7,6, 6,24, 'Practitioner',      true, false,false,false),
-      mkRow('Daniel Osei',       '8B Mathematics', 'Mr. Thompson', 'Male',   4,5,4,4, 4,15, 'Beginner',          false,false,false,false),
-      mkRow('Amira Hassan',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,7, 6,28, 'Expert',            false,false,false,true),
-      mkRow('Connor Walsh',      '8B Mathematics', 'Mr. Thompson', 'Male',   5,4,5,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Lily Nakamura',     '8B Mathematics', 'Mr. Thompson', 'Female', 6,6,6,5, 5,24, 'Practitioner',      false,false,true, false),
-      mkRow('Samuel Adeyemi',    '8B Mathematics', 'Mr. Thompson', 'Male',   3,3,3,2, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Hana Al Zaabi',     '8B Mathematics', 'Mr. Thompson', 'Female', 7,7,6,6, 6,24, 'Expert',            false,false,false,true),
-      mkRow('Ben Fitzgerald',    '8B Mathematics', 'Mr. Thompson', 'Male',   5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Nour Khalil',       '8B Mathematics', 'Mr. Thompson', 'Female', 4,3,4,4, 4,15, 'Beginner',          true, false,false,false),
-      mkRow('Matteo Ferrari',    '8B Mathematics', 'Mr. Thompson', 'Male',   6,7,6,6, 6,19, 'Expert',            false,false,false,false),
-      mkRow('Jessica Park',      '8B Mathematics', 'Mr. Thompson', 'Female', 7,6,7,6, 6,24, 'Practitioner',      false,false,true, false),
-      mkRow('Khalid Ibrahim',    '8B Mathematics', 'Mr. Thompson', 'Male',   2,3,2,2, 2,15, 'Novice',            false,true, false,true),
-      mkRow('Vivienne Dubois',   '8B Mathematics', 'Mr. Thompson', 'Female', 5,6,5,5, 5,19, 'Practitioner',      true, false,false,false),
-      mkRow('Hamza Qureshi',     '8B Mathematics', 'Mr. Thompson', 'Male',   8,8,7,7, 7,28, 'Expert',            false,false,true, false),
-      // ── 9C Mathematics – Ms. Williams (20 students) ──────────────────────
-      mkRow('Charlotte Hughes',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,24, 'Practitioner',      false,false,false,false),
-      mkRow('Ravi Menon',        '9C Mathematics', 'Ms. Williams', 'Male',   7,7,7,6, 6,24, 'Expert',            false,false,false,false),
-      mkRow('Isabelle Laurent',  '9C Mathematics', 'Ms. Williams', 'Female', 4,4,3,4, 4,15, 'Beginner',          true, false,false,false),
-      mkRow('Omar Siddiqui',     '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Grace Kim',         '9C Mathematics', 'Ms. Williams', 'Female', 3,3,4,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Noah Andersson',    '9C Mathematics', 'Ms. Williams', 'Male',   7,6,7,7, 6,28, 'Expert',            false,false,true, false),
-      mkRow('Fatima Al Rashidi', '9C Mathematics', 'Ms. Williams', 'Female', 6,6,7,6, 6,24, 'Practitioner',      false,false,false,true),
-      mkRow('Jack Sullivan',     '9C Mathematics', 'Ms. Williams', 'Male',   4,5,4,5, 4,19, 'Beginner',          false,false,false,false),
-      mkRow('Mei Chen',          '9C Mathematics', 'Ms. Williams', 'Female', 8,7,8,8, 7,28, 'Expert',            false,false,true, false),
-      mkRow('Aarav Nair',        '9C Mathematics', 'Ms. Williams', 'Male',   5,5,4,5, 5,19, 'Practitioner',      true, false,false,false),
-      mkRow('Leila Moradi',      '9C Mathematics', 'Ms. Williams', 'Female', 3,4,3,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Tyler Evans',       '9C Mathematics', 'Ms. Williams', 'Male',   6,6,6,5, 5,19, 'Practitioner',      false,false,false,false),
-      mkRow('Amelia Scott',      '9C Mathematics', 'Ms. Williams', 'Female', 7,7,6,7, 6,24, 'Expert',            false,false,false,false),
-      mkRow('Kenji Watanabe',    '9C Mathematics', 'Ms. Williams', 'Male',   5,5,5,5, 5,24, 'Practitioner',      false,false,false,false),
-      mkRow('Layla Al Hammadi',  '9C Mathematics', 'Ms. Williams', 'Female', 6,5,6,6, 5,19, 'Practitioner',      false,false,false,true),
-      mkRow('Ethan Brooks',      '9C Mathematics', 'Ms. Williams', 'Male',   2,3,2,3, 3,15, 'Novice',            false,true, false,false),
-      mkRow('Sana Hussain',      '9C Mathematics', 'Ms. Williams', 'Female', 7,6,6,7, 6,24, 'Practitioner',      true, false,false,false),
-      mkRow('Luca Bianchi',      '9C Mathematics', 'Ms. Williams', 'Male',   5,5,6,5, 5,19, 'Expert',            false,false,false,false),
-      mkRow('Aisha Begum',       '9C Mathematics', 'Ms. Williams', 'Female', 4,4,4,4, 4,15, 'Beginner',          true, false,false,false),
-      mkRow("James O'Brien",     '9C Mathematics', 'Ms. Williams', 'Male',   6,7,6,6, 6,24, 'Practitioner',      false,false,true, false),
-    ];
+      const cohorts = [
+        {
+          className: '7A Mathematics',
+          subject: 'Mathematics',
+          teacher: 'Ms. Carter',
+          grade: 'Grade 7',
+          attainmentProfile: 'high', // mostly 5, 6, 7
+          atlProfile: 'high', // Expert / Practitioner
+          demographics: { eal: 0.10, sen: 0.05, gifted: 0.20, emirati: 0.15 }
+        },
+        {
+          className: '8B Mathematics',
+          subject: 'Mathematics',
+          teacher: 'Mr. Thompson',
+          grade: 'Grade 8',
+          attainmentProfile: 'mid-low', // mostly 2, 3, 4, 5
+          atlProfile: 'low', // Beginner / Novice / Practitioner
+          demographics: { eal: 0.25, sen: 0.20, gifted: 0.05, emirati: 0.25 }
+        },
+        {
+          className: '7A Integrated Sciences - English',
+          subject: 'Integrated Sciences - English',
+          teacher: 'Dr. Aris',
+          grade: 'Grade 7',
+          attainmentProfile: 'extreme-high', // mostly 6, 7
+          atlProfile: 'extreme-high', // Expert
+          demographics: { eal: 0.05, sen: 0.05, gifted: 0.35, emirati: 0.10 }
+        },
+        {
+          className: '8B Integrated Sciences - English',
+          subject: 'Integrated Sciences - English',
+          teacher: 'Mr. Faraday',
+          grade: 'Grade 8',
+          attainmentProfile: 'mixed', // 3, 4, 5, 6
+          atlProfile: 'mixed', // Practitioner / Expert / Beginner
+          demographics: { eal: 0.15, sen: 0.10, gifted: 0.15, emirati: 0.20 }
+        },
+        {
+          className: '7A Language and Literature - English',
+          subject: 'Language and Literature - English',
+          teacher: 'Ms. Austen',
+          grade: 'Grade 7',
+          attainmentProfile: 'low', // mostly 3, 4
+          atlProfile: 'low', // Beginner / Novice
+          demographics: { eal: 0.30, sen: 0.25, gifted: 0.0, emirati: 0.30 }
+        },
+        {
+          className: '8B Language and Literature - English',
+          subject: 'Language and Literature - English',
+          teacher: 'Mr. Shakespeare',
+          grade: 'Grade 8',
+          attainmentProfile: 'high-average', // mostly 4, 5, 6, 7
+          atlProfile: 'high-average', // Practitioner / Expert
+          demographics: { eal: 0.12, sen: 0.08, gifted: 0.18, emirati: 0.18 }
+        }
+      ];
 
+      const rows = [];
+      let studentGlobalIndex = 0;
+
+      cohorts.forEach((cohort) => {
+        // Generate exactly 22 students per cohort (total 132 students)
+        const cohortSize = 22;
+        for (let i = 0; i < cohortSize; i++) {
+          const isBoy = i % 2 === 0;
+          const nameList = isBoy ? boysNames : girlsNames;
+          const name = nameList[studentGlobalIndex % nameList.length];
+          const gender = isBoy ? 'Male' : 'Female';
+
+          // Generate scores based on attainmentProfile
+          let critA, critB, critC, critD;
+          
+          if (cohort.attainmentProfile === 'extreme-high') {
+            critA = Math.min(8, Math.max(6, 6 + (studentGlobalIndex % 3))); // 6, 7, 8
+            critB = Math.min(8, Math.max(6, 6 + ((studentGlobalIndex + 1) % 3)));
+            critC = Math.min(8, Math.max(6, 5 + ((studentGlobalIndex + 2) % 4))); // 5, 6, 7, 8
+            critD = Math.min(8, Math.max(6, 6 + (studentGlobalIndex % 3)));
+          } else if (cohort.attainmentProfile === 'high') {
+            critA = Math.min(8, Math.max(4, 5 + (studentGlobalIndex % 4))); // 5, 6, 7, 8
+            critB = Math.min(8, Math.max(4, 4 + ((studentGlobalIndex + 1) % 4))); // 4, 5, 6, 7
+            critC = Math.min(8, Math.max(4, 5 + ((studentGlobalIndex + 2) % 3))); // 5, 6, 7
+            critD = Math.min(8, Math.max(4, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+          } else if (cohort.attainmentProfile === 'high-average') {
+            critA = Math.min(8, Math.max(3, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+            critB = Math.min(8, Math.max(3, 3 + ((studentGlobalIndex + 1) % 5))); // 3, 4, 5, 6, 7
+            critC = Math.min(8, Math.max(3, 4 + ((studentGlobalIndex + 2) % 3))); // 4, 5, 6
+            critD = Math.min(8, Math.max(3, 4 + (studentGlobalIndex % 4))); // 4, 5, 6, 7
+          } else if (cohort.attainmentProfile === 'mixed') {
+            critA = Math.min(8, Math.max(3, 3 + (studentGlobalIndex % 5))); // 3, 4, 5, 6, 7
+            critB = Math.min(8, Math.max(2, 3 + ((studentGlobalIndex + 2) % 4))); // 3, 4, 5, 6
+            critC = Math.min(8, Math.max(3, 2 + ((studentGlobalIndex + 1) % 5))); // 2, 3, 4, 5, 6
+            critD = Math.min(8, Math.max(3, 3 + (studentGlobalIndex % 4))); // 3, 4, 5, 6
+          } else if (cohort.attainmentProfile === 'mid-low') {
+            critA = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 4))); // 2, 3, 4, 5
+            critB = Math.min(8, Math.max(1, 1 + ((studentGlobalIndex + 2) % 4))); // 1, 2, 3, 4
+            critC = Math.min(8, Math.max(1, 2 + ((studentGlobalIndex + 1) % 3))); // 2, 3, 4
+            critD = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 4))); // 2, 3, 4, 5
+          } else { // 'low'
+            critA = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 3))); // 2, 3, 4
+            critB = Math.min(8, Math.max(1, 2 + ((studentGlobalIndex + 1) % 2))); // 2, 3
+            critC = Math.min(8, Math.max(1, 1 + ((studentGlobalIndex + 2) % 4))); // 1, 2, 3, 4
+            critD = Math.min(8, Math.max(1, 2 + (studentGlobalIndex % 3))); // 2, 3, 4
+          }
+
+          const cpt = critA + critB + critC + critD;
+
+          // IB Grade mapping based on school boundaries
+          let ibGrade = 4;
+          if (cpt >= 28) ibGrade = 7;
+          else if (cpt >= 24) ibGrade = 6;
+          else if (cpt >= 19) ibGrade = 5;
+          else if (cpt >= 15) ibGrade = 4;
+          else if (cpt >= 10) ibGrade = 3;
+          else if (cpt >= 6) ibGrade = 2;
+          else ibGrade = 1;
+
+          // MEG out of 32 (expected CPT)
+          const megOffset = (studentGlobalIndex % 3) - 1; // -1, 0, 1
+          const meg = Math.min(32, Math.max(8, cpt + megOffset * 3));
+
+          // Generate ATL Progress based on profile
+          let atl = 'Practitioner';
+          const r = studentGlobalIndex % 10;
+          if (cohort.atlProfile === 'extreme-high') {
+            atl = r < 7 ? 'Expert' : 'Practitioner';
+          } else if (cohort.atlProfile === 'high') {
+            atl = r < 4 ? 'Expert' : r < 9 ? 'Practitioner' : 'Beginner';
+          } else if (cohort.atlProfile === 'high-average') {
+            atl = r < 2 ? 'Expert' : r < 7 ? 'Practitioner' : r < 9 ? 'Beginner' : 'Novice';
+          } else if (cohort.atlProfile === 'mixed') {
+            atl = r < 2 ? 'Expert' : r < 6 ? 'Practitioner' : r < 9 ? 'Beginner' : 'Novice';
+          } else if (cohort.atlProfile === 'low') {
+            atl = r < 1 ? 'Practitioner' : r < 6 ? 'Beginner' : 'Novice';
+          }
+
+          // Demographics deterministic thresholds
+          const eal = (i / cohortSize) < cohort.demographics.eal;
+          const sen = ((i + 3) / cohortSize) < cohort.demographics.sen;
+          const gifted = ((i + 7) / cohortSize) < cohort.demographics.gifted && ibGrade >= 5;
+          const emirati = ((i + 13) / cohortSize) < cohort.demographics.emirati;
+
+          rows.push({
+            'Student Name': name,
+            'Class': cohort.className,
+            'Grade': cohort.grade,
+            'Subject': cohort.subject,
+            'Teacher Name': cohort.teacher,
+            'Gender': gender,
+            'Crit A': critA,
+            'Crit B': critB,
+            'Crit C': critC,
+            'Crit D': critD,
+            'CPT': cpt,
+            'IB Grade': ibGrade,
+            'MEG': meg,
+            'ATL Progress': atl,
+            'EAL Status': eal ? 'Yes' : 'No',
+            'SEN / Learning Support Flag': sen ? 'Yes' : 'No',
+            'Gifted & Talented Flag': gifted ? 'Yes' : 'No',
+            'Emirati': emirati ? 'Yes' : 'No'
+          });
+
+          studentGlobalIndex++;
+        }
+      });
+
+      return rows;
+    };
+
+    const sampleRows = generateDemoRoster();
     const ws = XLSX.utils.json_to_sheet(sampleRows);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Roster');
     ws['!cols'] = [
-      { wch: 22 }, { wch: 18 }, { wch: 14 }, { wch: 18 }, { wch: 8 },
-      { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7 },
-      { wch: 10 }, { wch: 7  }, { wch: 16 }, { wch: 10 }, { wch: 28 },
-      { wch: 22 }, { wch: 10 }
+      { wch: 22 }, { wch: 18 }, { wch: 10 }, { wch: 14 }, { wch: 18 },
+      { wch: 8 },  { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7  },
+      { wch: 7 },  { wch: 10 }, { wch: 7  }, { wch: 16 }, { wch: 10 },
+      { wch: 28 }, { wch: 22 }, { wch: 10 }
     ];
     XLSX.writeFile(wb, 'sisd_edukit_sample_roster.xlsx');
   };

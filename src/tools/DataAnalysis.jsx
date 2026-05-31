@@ -456,7 +456,11 @@ export default function DataAnalysis() {
     progressCptAreaPath,
     progressMegAreaPath,
     badgeCptY,
-    badgeMegY
+    badgeMegY,
+    progressCptCount,
+    progressMegCount,
+    progressCptAvgY,
+    progressMegAvgY
   } = useMemo(() => {
     let progressCptSum = 0;
     let progressCptCount = 0;
@@ -559,7 +563,11 @@ export default function DataAnalysis() {
       progressCptAreaPath,
       progressMegAreaPath,
       badgeCptY,
-      badgeMegY
+      badgeMegY,
+      progressCptCount,
+      progressMegCount,
+      progressCptAvgY,
+      progressMegAvgY
     };
   }, [rosterWithProgress]);
 
