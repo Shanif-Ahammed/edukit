@@ -269,20 +269,29 @@ function TypewriterText({ text, isLast, renderMessageText, chatEndRef }) {
 
 export default function AiAssistant() {
   const [messages, setMessages] = useState(() => {
+    const defaultWelcome = [
+      {
+        sender: 'ai',
+        text: "Hello and welcome! 👋 I am your **EduKit AI Assistant**, here to help make your teaching administration as smooth and effortless as possible.\n\nFeel free to ask me anything about:\n• **Dashboard & Class Roster Imports** (Excel files from iSAMS)\n• **Comment Generator** (Personalized MYP grade and ATL comments)\n• **Seating Plan Studio** (Interactive A4 drag-and-drop workspace)\n• **Cohort Analysis & ATL Trackers** (Student performance analytics)\n• **Teacher Utilities** (Classroom timers, student spinners, and groupings)\n\nHow can I help you with your classroom setup or reporting tasks today? 😊"
+      }
+    ];
+
     const saved = localStorage.getItem('edukit_ai_history');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Hot-patch legacy/buggy welcome messages containing undefined or outdated descriptions
+          if (parsed[0] && parsed[0].sender === 'ai' && (parsed[0].text.includes('undefined') || parsed[0].text.includes('troubleshooting common import issues'))) {
+            parsed[0].text = defaultWelcome[0].text;
+          }
+          return parsed;
+        }
       } catch (e) {
         console.error("Failed to load chat history:", e);
       }
     }
-    return [
-      {
-        sender: 'ai',
-        text: "Hello! I am your **EduKit AI Assistant**. Ask me anything about using the SISD Teacher Portal modules (Dashboard, Comment Gen, Seating Chart, Cohort Analysis, or Teacher Utilities), or troubleshooting common import issues!"
-      }
-    ];
+    return defaultWelcome;
   });
 
   const [inputVal, setInputVal] = useState('');
@@ -407,7 +416,7 @@ export default function AiAssistant() {
       const initial = [
         {
           sender: 'ai',
-          text: "Chat cleared! Ask me anything about using the SISD Teacher Portal modules or troubleshooting common import issues!"
+          text: "Chat history cleared! Ask me anything about using the SISD Teacher Portal modules or troubleshooting common import issues. I am ready to help! 😊"
         }
       ];
       setMessages(initial);

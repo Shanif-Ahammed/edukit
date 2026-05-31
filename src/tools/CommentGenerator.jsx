@@ -191,6 +191,25 @@ const getBestAndWorst = (critScores) => {
 
 const applyPlaceholders = (template, data) => {
   if (!template) return '';
+  const names = data.critNames || {};
+  const bestLetter = data.best || 'A';
+  const worstLetter = data.worst || 'D';
+
+  const getCritString = (letter, rawName) => {
+    if (!rawName) return `Crit ${letter}`;
+    if (rawName.trim().toLowerCase() === `crit ${letter.toLowerCase()}`) {
+      return `Crit ${letter}`;
+    }
+    return `Crit ${letter}: ${rawName}`;
+  };
+
+  const critA = getCritString('A', names.A);
+  const critB = getCritString('B', names.B);
+  const critC = getCritString('C', names.C);
+  const critD = getCritString('D', names.D);
+  const critBest = getCritString(bestLetter, names[bestLetter]);
+  const critWorst = getCritString(worstLetter, names[worstLetter]);
+
   return template
     // Standard placeholders
     .replace(/\[Name\]/g, data.forename)
@@ -202,12 +221,12 @@ const applyPlaceholders = (template, data) => {
     .replace(/\[him\/her\]/g, data.pronouns.obj)
     .replace(/\[Grade\]/g, data.grade)
     .replace(/\[Subject\]/g, data.subject)
-    .replace(/\[CritA\]/g, data.critNames.A)
-    .replace(/\[CritB\]/g, data.critNames.B)
-    .replace(/\[CritC\]/g, data.critNames.C)
-    .replace(/\[CritD\]/g, data.critNames.D)
-    .replace(/\[BestCrit\]/g, data.critNames[data.best])
-    .replace(/\[WeakCrit\]/g, data.critNames[data.worst])
+    .replace(/\[CritA\]/g, critA)
+    .replace(/\[CritB\]/g, critB)
+    .replace(/\[CritC\]/g, critC)
+    .replace(/\[CritD\]/g, critD)
+    .replace(/\[BestCrit\]/g, critBest)
+    .replace(/\[WeakCrit\]/g, critWorst)
     .replace(/\[ATL Skill\]/g, data.atlSkill)
     .replace(/\[ATL\]/g, data.atlProgress)
 
@@ -219,12 +238,12 @@ const applyPlaceholders = (template, data) => {
     .replace(/his!/g, data.pronouns.poss)
     .replace(/him!/g, data.pronouns.obj)
     .replace(/Subject!/g, data.subject)
-    .replace(/A!\(?/g, data.critNames.A)
-    .replace(/B!\(?/g, data.critNames.B)
-    .replace(/C!\(?/g, data.critNames.C)
-    .replace(/D!\(?/g, data.critNames.D)
-    .replace(/BestCrit!\(?/g, data.critNames[data.best])
-    .replace(/WeakCrit!\(?/g, data.critNames[data.worst]);
+    .replace(/A!\(?/g, critA)
+    .replace(/B!\(?/g, critB)
+    .replace(/C!\(?/g, critC)
+    .replace(/D!\(?/g, critD)
+    .replace(/BestCrit!\(?/g, critBest)
+    .replace(/WeakCrit!\(?/g, critWorst);
 };
 
 export default function CommentGenerator() {
@@ -1018,8 +1037,8 @@ export default function CommentGenerator() {
 
               {/* Criteria preview */}
               <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
-                <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
-                {Object.entries(mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || {}).map(([k, v]) => (
+                <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names ({currentGradeGroup})</p>
+                {Object.entries(critNames || {}).map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
                     <span style={{ color: 'var(--text-muted)' }}>{v}</span>
@@ -1031,12 +1050,50 @@ export default function CommentGenerator() {
             {/* Placeholder guide */}
             <div className="glass-panel" style={{ padding: '1.25rem' }}>
               <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '0.85rem' }}>📋 Placeholder Reference</h3>
-              {[['[Name]', 'Student first name'], ['[He/She]', 'he / she / they'], ['[His/Her]', 'his / her / their'], ['[Him/Her]', 'him / her / them'], ['[Grade]', 'IB Grade (1–7)'], ['[Subject]', 'Subject name'], ['[BestCrit]', 'Highest criterion name'], ['[WeakCrit]', 'Lowest criterion name'], ['[CritA]–[CritD]', 'Individual criterion names'], ['[ATL Skill]', 'ATL skill category'], ['[ATL]', 'ATL progress level']].map(([ph, desc]) => (
-                <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem', fontSize: '0.8rem' }}>
-                  <code style={{ color: 'var(--accent)', background: 'rgba(255,255,255,0.04)', padding: '0.1rem 0.35rem', borderRadius: '3px' }}>{ph}</code>
-                  <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <div>
+                  <h4 style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>Standard Bracket Tags</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    {[
+                      ['[Name]', 'Student first name'],
+                      ['[He/She] / [he/she]', 'he / she (cased)'],
+                      ['[His/Her] / [his/her]', 'his / her (cased)'],
+                      ['[Him/Her] / [him/her]', 'him / her (cased)'],
+                      ['[Grade]', 'IB Grade (1–7)'],
+                      ['[Subject]', 'Subject name'],
+                      ['[CritA]–[CritD]', 'Crit [Letter]: [Name]'],
+                      ['[BestCrit] / [WeakCrit]', 'Crit [Letter]: [Name] (best/worst)'],
+                      ['[ATL Skill]', 'ATL skill category'],
+                      ['[ATL]', 'ATL progress level']
+                    ].map(([ph, desc]) => (
+                      <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                        <code style={{ color: 'var(--accent)', background: 'rgba(255,255,255,0.04)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.72rem' }}>{ph}</code>
+                        <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.75rem' }}>
+                  <h4 style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>iSAMS Custom Tags</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    {[
+                      ['Student!', 'Student first name'],
+                      ['He! / he!', 'he / she (cased)'],
+                      ['His! / his!', 'his / her (cased)'],
+                      ['him!', 'him / her (lowercase)'],
+                      ['Subject!', 'Subject name'],
+                      ['A!–D!', 'Crit [Letter]: [Name]'],
+                      ['BestCrit! / WeakCrit!', 'Crit [Letter]: [Name] (best/worst)']
+                    ].map(([ph, desc]) => (
+                      <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                        <code style={{ color: 'var(--primary)', background: 'rgba(79, 70, 229, 0.08)', border: '1px solid rgba(79, 70, 229, 0.15)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.72rem' }}>{ph}</code>
+                        <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
