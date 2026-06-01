@@ -45,34 +45,144 @@ const DEFAULT_BANK = {
   },
   atl: {
     Communication: {
-      Expert: 'Student! consistently demonstrates expert ATL skills in Communication, expressing ideas clearly and listening actively in all activities.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Communication, and with continued effort, He! will express his! reasoning even more effectively.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Communication, though there is room to strengthen his! confidence when presenting ideas.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Communication, and is encouraged to participate more actively in discussions to support his! overall progress.'
+      Expert: [
+        "With notable precision, he! adapts communication skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced communication strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated communication processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of communication, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of communication elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in communication, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      Practitioner: [
+        "In most contexts, he! applies communication skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses communication to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of communication, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in communication, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses communication in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in communication, meeting expectations through thoughtful and organized effort."
+      ],
+      Beginner: [
+        "Although developing, his! use of communication shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies communication effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in communication, though application varies depending on context and task complexity.",
+        "His! growing awareness of communication is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      Novice: [
+        "Even with support, his! application of communication remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with communication, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
     },
     Social: {
-      Expert: 'Student! consistently demonstrates expert ATL skills in collaboration, cooperating productively and showing strong leadership in group tasks.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in collaboration, working harmoniously with peers to complete group assignments.',
-      Beginner: 'Student! demonstrates beginner ATL skills in collaboration, though He! should focus on participating more equitably in team discussions.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in collaboration, and is encouraged to cooperate more actively with peers to achieve shared targets.'
+      Expert: [
+        "With notable precision, he! adapts social skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced social strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated social processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of social, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of social elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in social, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      Practitioner: [
+        "In most contexts, he! applies social skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses social to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of social, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in social, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses social in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in social, meeting expectations through thoughtful and organized effort."
+      ],
+      Beginner: [
+        "Although developing, his! use of social shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies social effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in social, though application varies depending on context and task complexity.",
+        "His! growing awareness of social is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      Novice: [
+        "Even with support, his! application of social remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with social, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
     },
     'Self-Management': {
-      Expert: 'Student! consistently demonstrates expert ATL skills in Self-Management, approaching all tasks with strong focus, organization, and a growth mindset.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Self-Management, managing his! time effectively and preparing well for lessons.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Self-Management, though there is room to strengthen his! focus and consistency when completing independent tasks.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Self-Management, and is encouraged to engage and manage his! time more effectively.'
+      Expert: [
+        "With notable precision, he! adapts self-management skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced self-management strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated self-management processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of self-management, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of self-management elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in self-management, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      Practitioner: [
+        "In most contexts, he! applies self-management skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses self-management to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of self-management, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in self-management, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses self-management in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in self-management, meeting expectations through thoughtful and organized effort."
+      ],
+      Beginner: [
+        "Although developing, his! use of self-management shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies self-management effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in self-management, though application varies depending on context and task complexity.",
+        "His! growing awareness of self-management is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      Novice: [
+        "Even with support, his! application of self-management remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with self-management, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
     },
     Research: {
-      Expert: 'Student! consistently demonstrates expert ATL skills in Research, showing superb information literacy when gathering and citing source information.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Research, successfully finding and interpreting relevant data.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Research, though He! should work on verifying his! source credibility more systematically.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Research, and is encouraged to build stronger investigation habits to support his! progress.'
+      Expert: [
+        "With notable precision, he! adapts research skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced research strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated research processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of research, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of research elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in research, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      Practitioner: [
+        "In most contexts, he! applies research skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses research to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of research, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in research, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses research in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in research, meeting expectations through thoughtful and organized effort."
+      ],
+      Beginner: [
+        "Although developing, his! use of research shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies research effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in research, though application varies depending on context and task complexity.",
+        "His! growing awareness of research is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      Novice: [
+        "Even with support, his! application of research remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with research, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
     },
     Thinking: {
-      Expert: 'Student! consistently demonstrates expert ATL skills in Thinking, applying critical analysis and creative problem-solving skills to complex challenges.',
-      Practitioner: 'Student! generally demonstrates practitioner ATL skills in Thinking, analyzing key issues and reflecting thoughtfully on his! learning journey.',
-      Beginner: 'Student! demonstrates beginner ATL skills in Thinking, though He! should strive to apply his! critical reasoning skills more independently.',
-      Novice: 'Student! is currently demonstrating novice ATL skills in Thinking, and is encouraged to practice how to approach problems from different viewpoints.'
+      Expert: [
+        "With notable precision, he! adapts thinking skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced thinking strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated thinking processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of thinking, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of thinking elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in thinking, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      Practitioner: [
+        "In most contexts, he! applies thinking skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses thinking to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of thinking, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in thinking, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses thinking in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in thinking, meeting expectations through thoughtful and organized effort."
+      ],
+      Beginner: [
+        "Although developing, his! use of thinking shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies thinking effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in thinking, though application varies depending on context and task complexity.",
+        "His! growing awareness of thinking is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      Novice: [
+        "Even with support, his! application of thinking remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with thinking, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
     }
   },
   A: {
@@ -264,7 +374,15 @@ export default function CommentGenerator() {
   const [bank, setBank] = useState(() => {
     try {
       const saved = localStorage.getItem(BANK_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : DEFAULT_BANK;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.atl && parsed.atl.Communication && !Array.isArray(parsed.atl.Communication.Expert)) {
+          localStorage.removeItem(BANK_STORAGE_KEY);
+          return DEFAULT_BANK;
+        }
+        return parsed;
+      }
+      return DEFAULT_BANK;
     } catch { return DEFAULT_BANK; }
   });
 
@@ -348,7 +466,14 @@ export default function CommentGenerator() {
         console.warn('Could not load bank from files, falling back to local bank state. Details:', err.message);
         const saved = localStorage.getItem(BANK_STORAGE_KEY);
         if (saved) {
-          try { setBank(JSON.parse(saved)); }
+          try {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.atl && parsed.atl.Communication && !Array.isArray(parsed.atl.Communication.Expert)) {
+              setBank(DEFAULT_BANK);
+            } else {
+              setBank(parsed);
+            }
+          }
           catch { setBank(DEFAULT_BANK); }
         } else {
           setBank(DEFAULT_BANK);
