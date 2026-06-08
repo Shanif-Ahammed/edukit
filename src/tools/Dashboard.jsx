@@ -275,16 +275,16 @@ export default function Dashboard({ setActiveTool }) {
           borderRadius: '30px',
           gap: '0.55rem',
           fontWeight: '800',
-          background: 'var(--accent-gradient)',
-          border: 'none',
-          color: '#fff',
-          boxShadow: '0 4px 15px rgba(99, 102, 241, 0.35)',
+          background: 'transparent',
+          border: '1px solid var(--border-color)',
+          color: 'var(--text-muted)',
+          cursor: 'not-allowed',
+          opacity: 0.65,
           transition: 'all var(--transition-fast)'
         }}
-        onClick={() => setActiveTool('ai-assistant')}
+        disabled
       >
-        ⚡ Chat with EduKit AI
-        <ArrowRight size={16} />
+        ⚡ AI Assistant (Coming Soon)
       </button>
     </div>
   );
@@ -854,65 +854,48 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   flexDirection: 'column', 
                   position: 'relative', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'tool-seating' ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'tool-seating' ? 'translateY(-6px) scale(1.01)' : 'translateY(0) scale(1)',
-                  boxShadow: hoveredCard === 'tool-seating' ? 'var(--shadow-xl), 0 0 20px rgba(59, 130, 246, 0.05)' : 'var(--shadow-lg)'
+                  border: '1px solid var(--border-color)',
+                  boxShadow: 'var(--shadow-lg)'
                 }}
-                onMouseEnter={() => setHoveredCard('tool-seating')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setModalOpen(true)}
               >
-                <div style={{
-                  position: 'absolute',
-                  top: '-20px',
-                  right: '-20px',
-                  width: '100px',
-                  height: '100px',
-                  background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
-                  opacity: hoveredCard === 'tool-seating' ? 0.3 : 0.1,
-                  transition: 'opacity var(--transition-smooth)',
-                  pointerEvents: 'none'
-                }} />
-
                 <span style={{ 
                   position: 'absolute', 
                   top: '20px', 
                   right: '20px', 
                   fontSize: '0.72rem', 
-                  background: 'rgba(255,255,255,0.06)', 
-                  border: '1px solid var(--border-color)',
+                  background: 'rgba(245, 158, 11, 0.1)', 
+                  border: '1px solid rgba(245, 158, 11, 0.25)',
                   padding: '0.3rem 0.65rem', 
                   borderRadius: '30px', 
-                  color: 'var(--text-muted)', 
+                  color: '#fbbf24', 
                   display: 'flex', 
                   alignItems: 'center', 
-                  gap: '4px',
                   fontWeight: '750',
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
                 }}>
-                  <Lock size={11} style={{ opacity: 0.8 }} /> Locked
+                  Coming Soon
                 </span>
 
                 <div style={{ 
                   width: '48px', 
                   height: '48px', 
                   borderRadius: '12px', 
-                  background: 'rgba(59,130,246,0.08)', 
-                  color: '#3b82f6', 
+                  background: 'rgba(255,255,255,0.04)', 
+                  color: 'var(--text-muted)', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
                   marginBottom: '1.5rem',
-                  border: '1px solid rgba(59,130,246,0.15)',
-                  boxShadow: hoveredCard === 'tool-seating' ? '0 8px 20px rgba(59, 130, 246, 0.2)' : 'none',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <Users size={24} />
                 </div>
                 
-                <h3 style={{ fontSize: '1.35rem', marginBottom: '0.65rem', fontWeight: '850', letterSpacing: '-0.02em' }}>Seating Chart & Group Planner</h3>
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '0.65rem', fontWeight: '850', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>Seating Chart & Group Planner</h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.94rem', lineHeight: '1.6', flexGrow: 1, marginBottom: '1.5rem' }}>
                   Arrange classroom desks in grids or clusters. Drag-and-drop live edit with premium layout controls.
                 </p>
@@ -920,13 +903,11 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.45rem', 
-                  color: '#3b82f6', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.88rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'tool-seating' ? 'translateX(4px)' : 'translateX(0)'
+                  fontSize: '0.88rem'
                 }}>
-                  Connect Roster to Open <ChevronRight size={14} />
+                  Module Coming Soon
                 </div>
               </div>
 
@@ -938,65 +919,48 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   flexDirection: 'column', 
                   position: 'relative', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'tool-analysis' ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'tool-analysis' ? 'translateY(-6px) scale(1.01)' : 'translateY(0) scale(1)',
-                  boxShadow: hoveredCard === 'tool-analysis' ? 'var(--shadow-xl), 0 0 20px rgba(245, 158, 11, 0.05)' : 'var(--shadow-lg)'
+                  border: '1px solid var(--border-color)',
+                  boxShadow: 'var(--shadow-lg)'
                 }}
-                onMouseEnter={() => setHoveredCard('tool-analysis')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setModalOpen(true)}
               >
-                <div style={{
-                  position: 'absolute',
-                  top: '-20px',
-                  right: '-20px',
-                  width: '100px',
-                  height: '100px',
-                  background: 'radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%)',
-                  opacity: hoveredCard === 'tool-analysis' ? 0.3 : 0.1,
-                  transition: 'opacity var(--transition-smooth)',
-                  pointerEvents: 'none'
-                }} />
-
                 <span style={{ 
                   position: 'absolute', 
                   top: '20px', 
                   right: '20px', 
                   fontSize: '0.72rem', 
-                  background: 'rgba(255,255,255,0.06)', 
-                  border: '1px solid var(--border-color)',
+                  background: 'rgba(245, 158, 11, 0.1)', 
+                  border: '1px solid rgba(245, 158, 11, 0.25)',
                   padding: '0.3rem 0.65rem', 
                   borderRadius: '30px', 
-                  color: 'var(--text-muted)', 
+                  color: '#fbbf24', 
                   display: 'flex', 
                   alignItems: 'center', 
-                  gap: '4px',
                   fontWeight: '750',
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
                 }}>
-                  <Lock size={11} style={{ opacity: 0.8 }} /> Locked
+                  Coming Soon
                 </span>
 
                 <div style={{ 
                   width: '48px', 
                   height: '48px', 
                   borderRadius: '12px', 
-                  background: 'rgba(245,158,11,0.08)', 
-                  color: '#f59e0b', 
+                  background: 'rgba(255,255,255,0.04)', 
+                  color: 'var(--text-muted)', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
                   marginBottom: '1.5rem',
-                  border: '1px solid rgba(245,158,11,0.15)',
-                  boxShadow: hoveredCard === 'tool-analysis' ? '0 8px 20px rgba(245, 158, 11, 0.2)' : 'none',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <BarChart3 size={24} />
                 </div>
                 
-                <h3 style={{ fontSize: '1.35rem', marginBottom: '0.65rem', fontWeight: '850', letterSpacing: '-0.02em' }}>Cohort Data Analysis</h3>
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '0.65rem', fontWeight: '850', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>Cohort Data Analysis</h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.94rem', lineHeight: '1.6', flexGrow: 1, marginBottom: '1.5rem' }}>
                   Review global attainment, KHDA progress levels, target MEGs, and retrieve automated pedagogical instructions.
                 </p>
@@ -1004,13 +968,11 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.45rem', 
-                  color: '#f59e0b', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.88rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'tool-analysis' ? 'translateX(4px)' : 'translateX(0)'
+                  fontSize: '0.88rem'
                 }}>
-                  Connect Roster to Open <ChevronRight size={14} />
+                  Module Coming Soon
                 </div>
               </div>
             </div>
@@ -1530,40 +1492,37 @@ export default function Dashboard({ setActiveTool }) {
 
               {/* Tool Card 2: Seating Chart */}
               <div 
-                className="glass-panel glass-panel-hover"
+                className="glass-panel"
                 style={{ 
                   padding: '2.25rem', 
                   display: 'flex', 
                   flexDirection: 'column', 
                   height: '100%', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'mod-seating' ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'mod-seating' ? 'translateY(-4px)' : 'translateY(0)'
+                  border: '1px solid var(--border-color)'
                 }}
-                onMouseEnter={() => setHoveredCard('mod-seating')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setActiveTool('seating')}
               >
                 <div style={{
                   width: '52px',
                   height: '52px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%)',
-                  color: '#fff',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.75rem',
-                  boxShadow: hoveredCard === 'mod-seating' ? '0 8px 24px rgba(59, 130, 246, 0.35)' : '0 4px 12px rgba(59, 130, 246, 0.15)',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <Users size={25} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Seating Chart Planner
-                  <span style={{ fontSize: '0.75rem', color: '#3b82f6', background: 'rgba(59, 130, 246, 0.12)', border: '1px solid rgba(59, 130, 246, 0.18)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Interactive Grid
+                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                    Coming Soon
                   </span>
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
@@ -1573,52 +1532,47 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.5rem', 
-                  color: '#3b82f6', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.92rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'mod-seating' ? 'translateX(6px)' : 'translateX(0)'
+                  fontSize: '0.92rem'
                 }}>
-                  Launch Seating Planner <ArrowRight size={16} />
+                  Module Coming Soon
                 </div>
               </div>
 
               {/* Tool Card 3: Data Analysis */}
               <div 
-                className="glass-panel glass-panel-hover"
+                className="glass-panel"
                 style={{ 
                   padding: '2.25rem', 
                   display: 'flex', 
                   flexDirection: 'column', 
                   height: '100%', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'mod-analysis' ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'mod-analysis' ? 'translateY(-4px)' : 'translateY(0)'
+                  border: '1px solid var(--border-color)'
                 }}
-                onMouseEnter={() => setHoveredCard('mod-analysis')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setActiveTool('analysis')}
               >
                 <div style={{
                   width: '52px',
                   height: '52px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
-                  color: '#fff',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.75rem',
-                  boxShadow: hoveredCard === 'mod-analysis' ? '0 8px 24px rgba(217, 119, 6, 0.35)' : '0 4px 12px rgba(217, 119, 6, 0.15)',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <BarChart3 size={25} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Cohort Data Analysis
-                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(251, 191, 36, 0.12)', border: '1px solid rgba(251, 191, 36, 0.18)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    KHDA Descriptor
+                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                    Coming Soon
                   </span>
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
@@ -1628,52 +1582,47 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.5rem', 
-                  color: '#fbbf24', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.92rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'mod-analysis' ? 'translateX(6px)' : 'translateX(0)'
+                  fontSize: '0.92rem'
                 }}>
-                  Launch Cohort Analysis <ArrowRight size={16} />
+                  Module Coming Soon
                 </div>
               </div>
 
               {/* Tool Card 4: Gradebook Preview */}
               <div 
-                className="glass-panel glass-panel-hover"
+                className="glass-panel"
                 style={{ 
                   padding: '2.25rem', 
                   display: 'flex', 
                   flexDirection: 'column', 
                   height: '100%', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'mod-atl' ? '1px solid rgba(13, 148, 136, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'mod-atl' ? 'translateY(-4px)' : 'translateY(0)'
+                  border: '1px solid var(--border-color)'
                 }}
-                onMouseEnter={() => setHoveredCard('mod-atl')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setActiveTool('atl')}
               >
                 <div style={{
                   width: '52px',
                   height: '52px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #0d9488 0%, #0f766e 100%)',
-                  color: '#fff',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.75rem',
-                  boxShadow: hoveredCard === 'mod-atl' ? '0 8px 24px rgba(13, 148, 136, 0.35)' : '0 4px 12px rgba(13, 148, 136, 0.15)',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <Grid size={25} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Gradebook Preview
-                  <span style={{ fontSize: '0.75rem', color: '#14b8a6', background: 'rgba(20, 184, 166, 0.12)', border: '1px solid rgba(20, 184, 166, 0.18)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Quick Matrix
+                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                    Coming Soon
                   </span>
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
@@ -1683,52 +1632,47 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.5rem', 
-                  color: '#14b8a6', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.92rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'mod-atl' ? 'translateX(6px)' : 'translateX(0)'
+                  fontSize: '0.92rem'
                 }}>
-                  Launch Gradebook Preview <ArrowRight size={16} />
+                  Module Coming Soon
                 </div>
               </div>
 
               {/* Tool Card 5: Teacher Utilities */}
               <div 
-                className="glass-panel glass-panel-hover"
+                className="glass-panel"
                 style={{ 
                   padding: '2.25rem', 
                   display: 'flex', 
                   flexDirection: 'column', 
                   height: '100%', 
-                  cursor: 'pointer',
+                  cursor: 'not-allowed',
+                  opacity: 0.65,
                   borderRadius: '24px',
-                  border: hoveredCard === 'mod-utilities' ? '1px solid rgba(236, 72, 153, 0.35)' : '1px solid var(--border-color)',
-                  transform: hoveredCard === 'mod-utilities' ? 'translateY(-4px)' : 'translateY(0)'
+                  border: '1px solid var(--border-color)'
                 }}
-                onMouseEnter={() => setHoveredCard('mod-utilities')}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => setActiveTool('utilities')}
               >
                 <div style={{
                   width: '52px',
                   height: '52px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-                  color: '#fff',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.75rem',
-                  boxShadow: hoveredCard === 'mod-utilities' ? '0 8px 24px rgba(236, 72, 153, 0.35)' : '0 4px 12px rgba(236, 72, 153, 0.15)',
+                  border: '1px solid var(--border-color)',
                   transition: 'all var(--transition-smooth)'
                 }}>
                   <Layers size={25} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Teacher Utilities
-                  <span style={{ fontSize: '0.75rem', color: '#ec4899', background: 'rgba(236, 72, 153, 0.12)', border: '1px solid rgba(236, 72, 153, 0.18)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Utilities & Timers
+                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                    Coming Soon
                   </span>
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
@@ -1738,13 +1682,11 @@ export default function Dashboard({ setActiveTool }) {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '0.5rem', 
-                  color: '#ec4899', 
+                  color: 'var(--text-muted)', 
                   fontWeight: '800', 
-                  fontSize: '0.92rem',
-                  transition: 'transform var(--transition-fast)',
-                  transform: hoveredCard === 'mod-utilities' ? 'translateX(6px)' : 'translateX(0)'
+                  fontSize: '0.92rem'
                 }}>
-                  Launch Utilities Studio <ArrowRight size={16} />
+                  Module Coming Soon
                 </div>
               </div>
 

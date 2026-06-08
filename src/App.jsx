@@ -159,22 +159,22 @@ function AppContent() {
         <nav style={{ overflow: sidebarCollapsed ? 'visible' : 'auto' }}>
           {/* Standout AI Assistant Tab */}
           <button 
-            className={`btn ${activeTool === 'ai-assistant' ? 'glass-panel-active' : ''}`}
+            className="btn"
             style={{ 
               position: 'relative',
               justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              border: activeTool === 'ai-assistant' ? '1px solid #fbbf24' : '1px solid rgba(245, 158, 11, 0.25)', 
-              background: activeTool === 'ai-assistant' ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' : 'rgba(245, 158, 11, 0.04)',
-              color: activeTool === 'ai-assistant' ? '#fff' : '#fbbf24',
+              border: '1px solid var(--border-color)', 
+              background: 'transparent',
+              color: 'var(--text-muted)',
               fontWeight: '800',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.86rem',
               borderRadius: '12px',
               marginBottom: '0.75rem',
-              boxShadow: activeTool === 'ai-assistant' ? '0 6px 16px rgba(245, 158, 11, 0.25)' : 'none',
+              cursor: 'not-allowed',
+              opacity: 0.65,
               transition: 'all var(--transition-fast)'
             }}
-            onClick={() => setActiveTool('ai-assistant')}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
               <MessageSquare size={16} />
@@ -183,15 +183,16 @@ function AppContent() {
             {!sidebarCollapsed && (
               <span style={{ 
                 fontSize: '0.62rem', 
-                background: activeTool === 'ai-assistant' ? 'rgba(0,0,0,0.2)' : 'rgba(245, 158, 11, 0.12)', 
+                background: 'rgba(245, 158, 11, 0.1)', 
                 padding: '0.15rem 0.45rem', 
                 borderRadius: '4px',
-                color: activeTool === 'ai-assistant' ? '#fff' : '#fbbf24'
+                color: '#fbbf24',
+                border: '1px solid rgba(245, 158, 11, 0.25)'
               }}>
-                Core
+                Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">AI Assistant</span>}
+            {sidebarCollapsed && <span className="sidebar-tooltip">AI Assistant (Coming Soon)</span>}
           </button>
           
           {/* Dashboard Tab */}
@@ -256,21 +257,33 @@ function AppContent() {
             style={{ 
               position: 'relative',
               justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: activeTool === 'seating' ? 'var(--bg-card-hover)' : 'transparent',
-              borderColor: activeTool === 'seating' ? 'var(--border-color-hover)' : 'transparent',
-              color: activeTool === 'seating' ? 'var(--text-main)' : 'var(--text-muted)',
+              background: 'transparent',
+              borderColor: 'transparent',
+              color: 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              cursor: 'not-allowed',
+              opacity: 0.65
             }}
-            onClick={() => setActiveTool('seating')}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Users size={16} style={{ color: activeTool === 'seating' ? 'var(--accent)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
+              <Users size={16} style={{ color: 'var(--text-muted)' }} />
               {!sidebarCollapsed && <span>Seating Chart</span>}
             </div>
-            {!sidebarCollapsed && !fileConnected && <Lock size={12} style={{ opacity: 0.5 }} />}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Seating Chart</span>}
+            {!sidebarCollapsed && (
+              <span style={{ 
+                fontSize: '0.62rem', 
+                background: 'rgba(255, 255, 255, 0.05)', 
+                border: '1px solid var(--border-color)',
+                padding: '0.15rem 0.45rem', 
+                borderRadius: '4px', 
+                color: 'var(--text-muted)' 
+              }}>
+                Soon
+              </span>
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">Seating Chart (Coming Soon)</span>}
           </button>
 
           {/* Data Analysis Tab */}
@@ -279,21 +292,33 @@ function AppContent() {
             style={{ 
               position: 'relative',
               justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: activeTool === 'analysis' ? 'var(--bg-card-hover)' : 'transparent',
-              borderColor: activeTool === 'analysis' ? 'var(--border-color-hover)' : 'transparent',
-              color: activeTool === 'analysis' ? 'var(--text-main)' : 'var(--text-muted)',
+              background: 'transparent',
+              borderColor: 'transparent',
+              color: 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              cursor: 'not-allowed',
+              opacity: 0.65
             }}
-            onClick={() => setActiveTool('analysis')}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <BarChart3 size={16} style={{ color: activeTool === 'analysis' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
+              <BarChart3 size={16} style={{ color: 'var(--text-muted)' }} />
               {!sidebarCollapsed && <span>Cohort Analysis</span>}
             </div>
-            {!sidebarCollapsed && !fileConnected && <Lock size={12} style={{ opacity: 0.5 }} />}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Cohort Analysis</span>}
+            {!sidebarCollapsed && (
+              <span style={{ 
+                fontSize: '0.62rem', 
+                background: 'rgba(255, 255, 255, 0.05)', 
+                border: '1px solid var(--border-color)',
+                padding: '0.15rem 0.45rem', 
+                borderRadius: '4px', 
+                color: 'var(--text-muted)' 
+              }}>
+                Soon
+              </span>
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">Cohort Analysis (Coming Soon)</span>}
           </button>
 
           {/* Gradebook Preview Tab */}
@@ -302,21 +327,33 @@ function AppContent() {
             style={{ 
               position: 'relative',
               justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: activeTool === 'atl' ? 'var(--bg-card-hover)' : 'transparent',
-              borderColor: activeTool === 'atl' ? 'var(--border-color-hover)' : 'transparent',
-              color: activeTool === 'atl' ? 'var(--text-main)' : 'var(--text-muted)',
+              background: 'transparent',
+              borderColor: 'transparent',
+              color: 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              cursor: 'not-allowed',
+              opacity: 0.65
             }}
-            onClick={() => setActiveTool('atl')}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Grid size={16} style={{ color: activeTool === 'atl' ? 'var(--accent)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
+              <Grid size={16} style={{ color: 'var(--text-muted)' }} />
               {!sidebarCollapsed && <span>Gradebook List</span>}
             </div>
-            {!sidebarCollapsed && !fileConnected && <Lock size={12} style={{ opacity: 0.5 }} />}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Gradebook List</span>}
+            {!sidebarCollapsed && (
+              <span style={{ 
+                fontSize: '0.62rem', 
+                background: 'rgba(255, 255, 255, 0.05)', 
+                border: '1px solid var(--border-color)',
+                padding: '0.15rem 0.45rem', 
+                borderRadius: '4px', 
+                color: 'var(--text-muted)' 
+              }}>
+                Soon
+              </span>
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">Gradebook List (Coming Soon)</span>}
           </button>
 
           {/* Utilities Tab */}
@@ -325,20 +362,33 @@ function AppContent() {
             style={{ 
               position: 'relative',
               justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: activeTool === 'utilities' ? 'var(--bg-card-hover)' : 'transparent',
-              borderColor: activeTool === 'utilities' ? 'var(--border-color-hover)' : 'transparent',
-              color: activeTool === 'utilities' ? 'var(--text-main)' : 'var(--text-muted)',
+              background: 'transparent',
+              borderColor: 'transparent',
+              color: 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              cursor: 'not-allowed',
+              opacity: 0.65
             }}
-            onClick={() => setActiveTool('utilities')}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Layers size={16} style={{ color: activeTool === 'utilities' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
+              <Layers size={16} style={{ color: 'var(--text-muted)' }} />
               {!sidebarCollapsed && <span>Utilities</span>}
             </div>
-            {sidebarCollapsed && <span className="sidebar-tooltip">Utilities</span>}
+            {!sidebarCollapsed && (
+              <span style={{ 
+                fontSize: '0.62rem', 
+                background: 'rgba(255, 255, 255, 0.05)', 
+                border: '1px solid var(--border-color)',
+                padding: '0.15rem 0.45rem', 
+                borderRadius: '4px', 
+                color: 'var(--text-muted)' 
+              }}>
+                Soon
+              </span>
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">Utilities (Coming Soon)</span>}
           </button>
 
           {/* Teacher Toolkit Tab */}

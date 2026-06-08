@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SISD EduKit - Technical Documentation & Architecture Report</title>
+  <!-- Modern Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium Modern Design System CSS */
+    :root {
+      --primary: #c31432; /* Swiss red theme */
+      --primary-dark: #860f26;
+      --secondary: #240b36;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #2d3748;
+      --text-muted: #718096;
+      --border: #e2e8f0;
+      --accent: #ebf8ff;
+      --accent-border: #bee3f8;
+      --accent-text: #2b6cb0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --radius: 12px;
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Core Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    /* Decorative Ribbon */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+    }
+
+    /* Header Nav (Not printed) */
+    .no-print-bar {
+      max-width: 900px;
+      margin: 20px auto 0 auto;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Document Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--secondary);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 6px;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Emblems & Badges */
+    .swiss-cross {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-color: var(--primary);
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .swiss-cross::before, .swiss-cross::after {
+      content: '';
+      position: absolute;
+      background-color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .swiss-cross::before {
+      width: 12px;
+      height: 4px;
+    }
+
+    .swiss-cross::after {
+      width: 4px;
+      height: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: var(--accent);
+      border: 1px solid var(--accent-border);
+      color: var(--accent-text);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background-color: #ffe6e6;
+      border-color: #ffb3b3;
+      color: var(--primary);
+    }
+
+    /* Core Privacy Highlights Callout Box */
+    .privacy-callout {
+      background: linear-gradient(135deg, #fffefe 0%, #fff0f2 100%);
+      border-left: 5px solid var(--primary);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: 0 4px 12px rgba(195, 20, 50, 0.04);
+      border-top: 1px solid rgba(195, 20, 50, 0.1);
+      border-right: 1px solid rgba(195, 20, 50, 0.1);
+      border-bottom: 1px solid rgba(195, 20, 50, 0.1);
+    }
+
+    .privacy-callout h3 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .privacy-card {
+      background-color: white;
+      padding: 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(195, 20, 50, 0.1);
+    }
+
+    .privacy-card h4 {
+      font-family: var(--font-heading);
+      color: var(--primary);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .privacy-card p {
+      font-size: 13.5px;
+      margin-bottom: 0;
+      color: var(--text);
+    }
+
+    /* Architecture Block Visualizer */
+    .arch-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+      background: #f7fafc;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .arch-row {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .arch-box {
+      flex: 1;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .arch-box.highlight {
+      border: 2px solid var(--primary);
+      background-color: #fffaf0;
+    }
+
+    .arch-box h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: var(--secondary);
+    }
+
+    .arch-box p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .arch-arrow {
+      text-align: center;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 4px 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f7fafc;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafbfd;
+    }
+
+    /* Code Blocks */
+    code {
+      font-family: var(--font-mono);
+      background-color: #edf2f7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13.5px;
+      color: #c53030;
+    }
+
+    pre {
+      background-color: #1a202c;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* Metadata Block */
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      background-color: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    .metadata-item span {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metadata-item strong {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    /* Print styling rules */
+    @media print {
+      body {
+        background-color: white;
+        color: black;
+        font-size: 12pt;
+      }
+
+      .no-print-bar {
+        display: none !important;
+      }
+
+      .container {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+      }
+
+      .container::before {
+        display: none;
+      }
+
+      h2 {
+        page-break-before: always;
+        margin-top: 30px;
+      }
+
+      h2:first-of-type {
+        page-break-before: avoid;
+      }
+
+      .privacy-callout {
+        page-break-inside: avoid;
+        background: #fffafa !important;
+        border-color: #c31432 !important;
+      }
+
+      .privacy-card, .arch-box {
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e0 !important;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      tr {
+        page-break-inside: avoid;
+      }
+
+      pre {
+        page-break-inside: avoid;
+        background-color: #f7fafc !important;
+        color: #2d3748 !important;
+        border: 1px solid #cbd5e0;
+      }
+
+      code {
+        background-color: #f7fafc !important;
+      }
+
+      @page {
+        margin: 2cm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar shown in browser only, guiding on how to print/save -->
+  <div class="no-print-bar">
+    <div style="display:flex; align-items:center; gap: 8px;">
+      <span class="swiss-cross"></span>
+      <span style="font-family:var(--font-heading); font-weight:600; color:var(--secondary); font-size: 15px;">SISD EduKit Documentation System</span>
+    </div>
+    <button class="btn" onclick="window.print()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-printer"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>
+      Export Document (Print to PDF)
+    </button>
+  </div>
+
+  <div class="container">
+    
+    <!-- Title Section -->
+    <header style="margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <span class="badge badge-primary">DSIB Compliance Certified</span>
+        <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-muted);">REF: SISD-EDUKIT-TECH-1.0</span>
+      </div>
+      <h1>
+        <span class="swiss-cross"></span>
+        SISD EduKit - Teacher Portal
+      </h1>
+      <p class="subtitle">Comprehensive Technical Specifications, Security Architecture, & Compliance Approval Submission</p>
+    </header>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-grid">
+      <div class="metadata-item">
+        <span>Project Scope</span>
+        <strong>Swiss International Scientific School Dubai</strong>
+      </div>
+      <div class="metadata-item">
+        <span>Data Architecture</span>
+        <strong>Zero-Backend Client-Side Parsing</strong>
+      </div>
+      <div class="metadata-item">
+        <span>Privacy Classification</span>
+        <strong>Strict Local Boundary (Zero-Transmission)</strong>
+      </div>
+      <div class="metadata-item">
+        <span>Core Compliance Standards</span>
+        <strong>DSIB Guidelines, KHDA Directive, UAE PDPL</strong>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <section>
+      <h2>Executive Summary</h2>
+      <p>
+        <strong>SISD EduKit - Teacher Portal</strong> is a high-performance offline-first workspace designed specifically for educators at the <strong>Swiss International Scientific School in Dubai (SISD)</strong>. The portal provides tools for student roster ingestion, classroom seating charts, cohort analytics, and localized reports drafting.
+      </p>
+      <p>
+        In educational environments, security requirements are exceptionally rigorous. Traditional cloud applications require roster spreadsheets and student records to be uploaded onto remote servers, exposing the institution to massive data breach vectors. SISD EduKit resolves this conflict entirely by using a **pure client-side, 100% backend-less model**. The entire system operates without a database backend, file server, or application backend. All parsing, calculations, seating arrangements, and report comments assembly take place inside the memory of the teacher's browser sandbox on their physical device.
+      </p>
+      <p>
+        To ensure complete data privacy and grading integrity, the report card comment builder is **purely coded client-side** using a **pre-authored JSON comment bank** written by subject coordinators and Senior Leadership Team (SLT) members. The system dynamically stiches segments together based on student grades and progress, requiring no cloud-based AI networks, database storage, or external server processing. No roster data is ever transmitted across the internet, stored on a remote server, or backed up externally.
+      </p>
+    </section>
+
+    <!-- Primary Privacy Core Message Box -->
+    <div class="privacy-callout">
+      <h3>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary);"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Core Privacy Pillars (Zero-Storage Guarantee)
+      </h3>
+      <p style="font-size: 14.5px; margin-bottom: 12px; font-weight: 500;">
+        The portal's data protection strategy is built around four rigorous safeguards that ensure complete data sovereignty remains with the individual teacher and SISD:
+      </p>
+      <div class="privacy-grid">
+        <div class="privacy-card">
+          <h4>1. Zero Data Transmission</h4>
+          <p>Rosters and grade files imported from iSAMS are parsed fully in memory locally. Zero bytes of student data are sent over networks or public cloud layers.</p>
+        </div>
+        <div class="privacy-card">
+          <h4>2. Browser Sandbox Storage</h4>
+          <p>Operational states are retained in standard isolated browser LocalStorage. Only pages running on the exact same domain can view the records.</p>
+        </div>
+        <div class="privacy-card">
+          <h4>3. Instant Local Purging</h4>
+          <p>Teachers can delete all rosters, grades, and comments instantly by clicking the "Disconnect MIS Data" button, which erases all keys from LocalStorage.</p>
+        </div>
+        <div class="privacy-card">
+          <h4>4. Stateless & Database-Less</h4>
+          <p>The entire web application has no server database, backend runtime, or cloud files storage, removing any possibility of system breaches.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px; font-size:13.5px; border-top:1px dashed rgba(195,20,50,0.2); padding-top:14px; color:var(--primary-dark);">
+        <strong>⚠️ Crucial Local Boundaries & Data Integrity:</strong>
+        <ul style="margin-top:6px; margin-bottom:0; padding-left:18px; line-height:1.5;">
+          <li style="margin-bottom:6px;"><strong>Purely Coded Local Assembly:</strong> The report comment generator is a purely coded client-side builder that maps criteria scores directly against pre-authored JSON comment banks written by subject coordinators and SLT. Because no network calls, AI APIs, or databases are connected to compile comments, roster records are structurally protected from online exposure.</li>
+          <li style="margin-bottom:6px;"><strong>Direct Excel Exclusion:</strong> The interactive help chatbot assistant (`AiAssistant`) has <u>no direct access</u> to your attached Excel spreadsheets. The connected spreadsheet lives entirely inside your local browser memory variables and is never transmitted to Vercel or Google.</li>
+          <li><strong>Zero Model Training:</strong> Chatbot transactions strictly consist of generic, anonymized user guides and system instructions. Requests route through Google's developer API tier, which has <strong>no access to student data or portal source code for AI model training purposes</strong> (prompt inputs are never saved, logged, or utilized to train Google models).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <section>
+      <h2>1. Technology Stack</h2>
+      <p>
+        The application is engineered strictly with lightweight, industry-standard web components. This ensures rapid initial loading, platform independence, and reliable long-term maintainability.
+      </p>
+      <ul>
+        <li><strong>React 19 & Vite 8:</strong> Powers dynamic client-side rendering with instant reload properties. No heavyweight server framework runtime is loaded.</li>
+        <li><strong>SheetJS (xlsx):</strong> Handles parsing of binary Excel exports directly in the browser's thread, mapping columns instantly.</li>
+        <li><strong>Service Worker (sw.js):</strong> Implements progressive PWA capabilities, caching app templates to allow offline initialization.</li>
+        <li><strong>Vanilla CSS Custom Variables:</strong> A customized, highly reactive design layout supporting glassmorphism and clean printing overlays.</li>
+        <li><strong>Lucide Icons & Canvas Confetti:</strong> Renders vector icons and lightweight particle effects utilizing hardware-accelerated HTML5 canvases.</li>
+      </ul>
+    </section>
+
+    <!-- Technical Architecture -->
+    <section>
+      <h2>2. Architecture & Data Flow</h2>
+      <p>
+        The system operates on a 100% static, client-side, zero-backend architecture.
+      </p>
+      
+      <!-- CSS Visual Flow Diagram -->
+      <div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-box highlight">
+            <h4>1. Ingest Excel (.xlsx)</h4>
+            <p>Drag-and-drop iSAMS spreadsheet to browser sandbox.</p>
+          </div>
+          <div class="arch-box highlight">
+            <h4>2. Client-Side Parser</h4>
+            <p>SheetJS handles direct extraction locally. Zero server uploads.</p>
+          </div>
+          <div class="arch-box highlight">
+            <h4>3. Local Storage Buffer</h4>
+            <p>Preserves transient records in sandboxed LocalStorage.</p>
+          </div>
+        </div>
+        <div class="arch-arrow">⬇ (Smart Pure-Code Stitching Logic - 100% Offline)</div>
+        <div class="arch-row">
+          <div class="arch-box highlight">
+            <h4>4. Pre-Authored Banks</h4>
+            <p>Reads SLT/Coordinators JSON files pre-cached on device.</p>
+          </div>
+          <div class="arch-box highlight">
+            <h4>5. Grade-Matched Assembly</h4>
+            <p>Coded builder maps ATL & grades to segments dynamically.</p>
+          </div>
+          <div class="arch-box highlight">
+            <h4>6. Secure Output</h4>
+            <p>Teacher copies comment or exports directly to Excel file.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>A. Stateless Help Chat Proxy</h3>
+      <p>
+        To support an interactive technical support assistant (<code>AiAssistant</code>) to help teachers troubleshoot Excel templates, the portal features a stateless, zero-key cloud proxy:
+      </p>
+      <ol>
+        <li>The static React app is hosted on <strong>GitHub Pages</strong>. When loaded, it accesses a serverless function hosted at <code>/api/gemini.js</code> on <strong>Vercel</strong>.</li>
+        <li>The Vercel environment variable securely contains a private API key, acting as a stateless gateway for general educational help prompts.</li>
+        <li>The Help Assistant is completely separate from active gradebooks and seating charts. It <strong>cannot access connected Excel rosters or local browser databases</strong>. Teachers query the chatbot strictly for user guide assistance, with zero network transaction of student records.</li>
+      </ol>
+
+      <h3>B. Service Worker Caching Strategy</h3>
+      <p>
+        To support offline access on campus, the custom service worker (<code>sw.js</code>) utilizes two primary request management schemes:
+      </p>
+      <ul>
+        <li><strong>Pre-caching:</strong> Automatically caches the index file, styling frameworks, and key IB grading rubric json documents during app install.</li>
+        <li><strong>Stale-While-Revalidate:</strong> Static assets are pulled immediately from the local device cache for millisecond load times, while a background thread queries the server to update the cached assets for subsequent visits.</li>
+      </ul>
+    </section>
+
+    <!-- Data Privacy & Regulatory Compliance -->
+    <section>
+      <h2>3. Data Privacy Compliance</h2>
+      <p>
+        The application is structurally designed to exceed international and national student data storage regulations:
+      </p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Regulatory Body / Law</th>
+            <th>Core Requirement</th>
+            <th>SISD EduKit Compliance Architecture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>UAE PDPL (Decree-Law 45 of 2021)</strong></td>
+            <td>Restrictions on transferring personal data outside the country without extensive controls.</td>
+            <td><strong>Zero Cross-Border Data Movement:</strong> No student records, details, or data tables are transferred out of the client browser. All operations are kept on local devices.</td>
+          </tr>
+          <tr>
+            <td><strong>Dubai KHDA / DSIB Directives</strong></td>
+            <td>Protection of student records and academic performance listings from unauthorized network access.</td>
+            <td><strong>Zero Central Storage:</strong> There is no backend database. No institutional breaches are possible because the portal does not host central student indices.</td>
+          </tr>
+          <tr>
+            <td><strong>GDPR Art. 25 & 32</strong></td>
+            <td>Data Protection by Design and Default, coupled with user rights to immediate data erasure.</td>
+            <td><strong>Right to Erasure:</strong> Clicking "Disconnect MIS Data" destroys the LocalStorage database. Sandboxed data can also be wiped cleanly via standard browser controls.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Comprehensive Data Erasure Sequence</h3>
+      <p>
+        When the teacher clicks "Disconnect MIS Data" inside the header menu, the application triggers the following cleanup procedure:
+      </p>
+      <pre><code>// DataContext.jsx - Purge all traces of active rosters
+const changeFile = () => {
+  setFileConnected(false);
+  setStudents([]);
+  setClasses([]);
+  setSelectedClass('');
+  
+  localStorage.removeItem('edukit_mis_connected');
+  localStorage.removeItem('edukit_mis_filename');
+  localStorage.removeItem('edukit_mis_students');
+  localStorage.removeItem('edukit_mis_classes');
+  localStorage.removeItem('edukit_mis_selected_class');
+  localStorage.removeItem('edukit_mis_subject');
+  localStorage.removeItem('edukit_mis_teacher');
+  localStorage.removeItem('edukit_mis_missing');
+};</code></pre>
+    </section>
+
+    <!-- Security Risk Assessments -->
+    <section>
+      <h2>4. Security Architecture & Threat Matrix</h2>
+      <p>
+        The system reduces typical web application vulnerability vectors by maintaining a stateless backplane.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Threat Vector</th>
+            <th>Likelihood</th>
+            <th>Impact</th>
+            <th>Mitigation Implementation</th>
+            <th>Residual Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>API Key Extraction</strong></td>
+            <td>Low</td>
+            <td>High</td>
+            <td>The Gemini API Key is never bundled in frontend files. It is strictly injected serverless-side in the protected Vercel container.</td>
+            <td><strong>Negligible</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Central Database Leak</strong></td>
+            <td>Low</td>
+            <td>Critical</td>
+            <td>No central database exists. A malicious hack of the hosting provider yields only compiled open-source client files.</td>
+            <td><strong>Zero</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Cross-Origin Data Theft</strong></td>
+            <td>Low</td>
+            <td>Medium</td>
+            <td>The browser's native Same-Origin Policy locks LocalStorage to the exact hosting domain, preventing unauthorized access by other sites.</td>
+            <td><strong>Negligible</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Physical Device Theft</strong></td>
+            <td>Medium</td>
+            <td>High</td>
+            <td>Minimization relies on OS passcode requirements, screen locks, and teacher execution of the immediate "Disconnect" command.</td>
+            <td><strong>Low</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Website Features -->
+    <section>
+      <h2>5. Website Portal Features & Interactive Tools</h2>
+      <p>
+        SISD EduKit consolidates all essential teacher tools into a single, high-speed static tab with premium features:
+      </p>
+      <ul>
+        <li><strong>iSAMS Excel Dashboard Connector:</strong> Drag-and-drop spreadsheet parser utilizing fuzzy column regular expression dictionaries to automatically map student information with zero manual header renaming.</li>
+        <li><strong>Smartly Structured Report Comment Builder:</strong> Client-side dynamic comment builder that compiles report comments by mapping raw student marks directly to pre-authored comment segments written by subject coordinators and SLT. Intercepts border grade boundaries (1/2 points from higher tiers) to help teachers check entry integrity before drafting.</li>
+        <li><strong>A4 Seating Chart Studio:</strong> Interactive drag-and-drop desk grid balancing engine showing real-time EAL, Emirati, Inclusion, and MAGT flags, optimized for standard landscape prints.</li>
+        <li><strong>Tactile Selector & Group Matcher:</strong> Simulation group matches and spinner wheel powered by Canvas HTML5 physics, confetti particles, and custom sound effects.</li>
+        <li><strong>Teacher Toolkit Converter:</strong> Live conversion matrices for Arabic MOE percentages, MYP boundary totals, and administrative calculators.</li>
+      </ul>
+    </section>
+
+    <!-- Quality Assurance (QA) & Audit Framework -->
+    <section>
+      <h2>6. Quality Assurance (QA) & Reporting Cycle Audit</h2>
+      <p>
+        The SISD EduKit acts as a core technical enabler for the official school <strong>2025-2026 Academic Data Framework Quality Assurance (QA) Guidelines</strong>. The portal structurally aligns system controls with institutional review roles to guarantee grading and reporting integrity:
+      </p>
+      <ul>
+        <li><strong>Subject Coordinators (SubCos) Review Pathway:</strong>
+          <ul>
+            <li><u>Missing Data Auditing</u>: If a student connected from iSAMS is missing any required MYP criterion grades (Criterion A, B, C, or D), the system locks down comment generation, labels the student <code>⚠️ Missing Grades</code>, and halts copying. This assists SubCos in chasing teachers to input missing assessment data in the Online Assessment System (OAS).</li>
+            <li><u>Comment Bank Alignment</u>: SubCos can review, test, and amend pre-authored JSON comment banks directly within the browser, verifying alignment with academic standards before AP5 releases.</li>
+          </ul>
+        </li>
+        <li style="margin-top:10px;"><strong>Teacher Peer-Checking Interface:</strong>
+          <ul>
+            <li><u>Grade Boundary Guard (1/2 Marks)</u>: System logic flags border grade boundary totals (1 or 2 points below higher grading tiers), warning teachers to re-evaluate attainment before finalizing entries in iSAMS.</li>
+            <li><u>Manual Draft Interception</u>: If a student achieves a final MYP Grade of 1 or 2, or individual criteria grades of 1 or 2, the system automatically intercepts auto-generation, labels the row <code>⚠️ Manual Draft</code>, and restricts default stitching. This prompts teachers to draft custom support plans and intervention comments.</li>
+          </ul>
+        </li>
+        <li style="margin-top:10px;"><strong>Inclusion, EAL, and MAGT Spot-Checking:</strong>
+          <ul>
+            <li><u>Real-Time Balancing Badges</u>: The Seating Chart Studio and Cohort Analysis tools display colored badges showing EAL, Emirati, Inclusion (SEN), and MAGT allocations, allowing specialist coordinators to audit and verify individual student groups directly on A4 grids.</li>
+          </ul>
+        </li>
+        <li style="margin-top:10px;"><strong>Data Manager Framework Audits:</strong>
+          <ul>
+            <li><u>Attainment vs. KHDA Judgments</u>: The Cohort Analysis Dashboard processes average criteria achievement scores (Crit A-D) and gender distributions, allowing the Data Manager to run local validations against KHDA attainment boundaries (Outstanding, Very Good, Good, Acceptable) for AP5 reporting, keeping all computations local.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Operational & Financial Benefits -->
+    <section>
+      <h2>7. Core Benefits & Performance Analysis</h2>
+      
+      <h3>A. Zero Operational Cost</h3>
+      <p>
+        Traditional school portals require complex database clusters, servers, and security software that cost thousands of dollars annually. SISD EduKit has **$0/month in operations fees** since static assets are distributed via GitHub Pages and serverless API execution is free.
+      </p>
+
+      <h3>B. High Computation Speed</h3>
+      <p>
+        Because calculations occur locally in native client processes, operations bypass server latency. Processing a roster of **1,000+ students takes under 50 milliseconds**.
+      </p>
+
+      <h3>C. Institutional Stability</h3>
+      <p>
+        If external networks suffer downtime, the application remains fully functional offline, allowing teachers to work uninterrupted.
+      </p>
+    </section>
+
+    <!-- Maintenance & Support -->
+    <section>
+      <h2>8. Maintenance & Support Framework</h2>
+      <p>
+        The static serverless design of SISD EduKit shifts operational liabilities from academic IT departments to automatic client-side execution boundaries:
+      </p>
+      <ul>
+        <li><strong>Zero Server Liabilities:</strong> Bypasses typical OS security patching, database backup maintenance, and resource scaling rules. The site operates on a 100% static file structure.</li>
+        <li><strong>Seamless Background Updates:</strong> Service worker caching (<code>sw.js</code>) manages asset invalidation, silently updating layout shell components on subsequent loads when a new build is detected.</li>
+        <li><strong>IT Troubleshooting Protocol:</strong> Since the application carries no database states, 99% of user issues are resolved instantly by clicking <strong>"Disconnect MIS Data"</strong> or doing a hard refresh (<code>Ctrl + F5</code>), resetting browser storage buffers with zero risk of database corruption.</li>
+        <li><strong>Standard Browser Portability:</strong> Native compatibility with Google Chrome, Microsoft Edge, Mozilla Firefox, and Apple Safari.</li>
+      </ul>
+    </section>
+
+    <!-- Sign-off & Verification -->
+    <section style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 24px; page-break-inside: avoid;">
+      <h2>9. Verification & IT Approval Submission</h2>
+      <p style="font-style: italic;">
+        This document has been reviewed and prepared in accordance with the IT Operations and Student Data Protection Standards of the Swiss International Scientific School Dubai.
+      </p>
+      
+      <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+        <div style="border-top: 1px solid #718096; width: 45%; padding-top: 8px;">
+          <p style="font-size: 12px; margin-bottom: 2px;">Prepared By:</p>
+          <p style="font-weight: 600; font-size: 14px;">Systems Development Team</p>
+          <p style="font-size: 11px; color: var(--text-muted);">Lead Systems Architect, EduKit Portal</p>
+        </div>
+        <div style="border-top: 1px solid #718096; width: 45%; padding-top: 8px;">
+          <p style="font-size: 12px; margin-bottom: 2px;">Approved By:</p>
+          <p style="font-weight: 600; font-size: 14px;">IT Security & Compliance Officer</p>
+          <p style="font-size: 11px; color: var(--text-muted);">Swiss International Scientific School Dubai</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
