@@ -36,6 +36,46 @@ function AppContent() {
   const [showLoading, setShowLoading] = useState(false);
   const { fileConnected, students, classes, fileName } = useData();
 
+  // Feedback Modal States
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackCategory, setFeedbackCategory] = useState('');
+  const [feedbackToolArea, setFeedbackToolArea] = useState('');
+  const [feedbackGradeLevel, setFeedbackGradeLevel] = useState('');
+  const [feedbackText, setFeedbackText] = useState('');
+
+  // Draft email and open Outlook
+  const handleSendFeedback = (e) => {
+    e.preventDefault();
+    if (!feedbackCategory || !feedbackToolArea || !feedbackGradeLevel || !feedbackText.trim()) return;
+
+    const email = 'shanif.ahammed@sisd.ae';
+    const subject = `[EduKit Feedback] ${feedbackCategory} - ${feedbackToolArea}`;
+    const body = `Dear Developer,
+
+Here is my structured feedback for SISD EduKit:
+
+--------------------------------------------------
+Feedback Category: ${feedbackCategory}
+Target Tool/Area: ${feedbackToolArea}
+Grade Level/Section: ${feedbackGradeLevel}
+--------------------------------------------------
+
+Message:
+${feedbackText}
+
+--------------------------------------------------
+Sent from SISD EduKit Teacher Portal`;
+
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Close modal & reset fields
+    setShowFeedback(false);
+    setFeedbackCategory('');
+    setFeedbackToolArea('');
+    setFeedbackGradeLevel('');
+    setFeedbackText('');
+  };
+
   // Load theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('edukit_theme') || 'dark';
@@ -501,7 +541,7 @@ function AppContent() {
                 background: 'var(--bg-card)',
                 borderColor: 'var(--border-color)'
               }}
-              onClick={() => window.location.href = 'mailto:shanif.ahammed@sisd.ae?subject=FEEDBACK:EduKit'}
+              onClick={() => setShowFeedback(true)}
             >
               <Mail size={16} style={{ color: 'var(--text-main)' }} />
               {sidebarCollapsed && <span className="sidebar-tooltip">Send Feedback</span>}
@@ -528,7 +568,237 @@ function AppContent() {
           {activeTool === 'help' && <PortalHelp />}
         </div>
       </main>
+
+      {/* ── FEEDBACK MODAL OVERLAY ────────────────────────────────────── */}
+      {showFeedback && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            animation: 'fade-in 0.25s ease-out'
+          }}
+          onClick={() => setShowFeedback(false)}
+        >
+          <div 
+            className="glass-panel"
+            style={{
+              width: '520px',
+              maxWidth: '95%',
+              padding: '2rem',
+              background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: '20px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <Mail size={22} style={{ color: 'var(--primary)' }} />
+                <h2 style={{ fontSize: '1.35rem', fontWeight: '850', letterSpacing: '-0.03em', margin: 0, color: 'var(--text-main)' }}>Send Feedback to Developer</h2>
+              </div>
+              <button 
+                onClick={() => setShowFeedback(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-muted)',
+                  cursor: 'pointer',
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
+                  lineHeight: '1',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.15s'
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'var(--text-main)'}
+                onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
+              >
+                &times;
+              </button>
+            </div>
+
+            <form onSubmit={handleSendFeedback} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {/* Category Dropdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Feedback Category
+                </label>
+                <select
+                  required
+                  value={feedbackCategory}
+                  onChange={(e) => setFeedbackCategory(e.target.value)}
+                  style={{
+                    background: 'var(--bg-app)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: '10px',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="" disabled>Select a category...</option>
+                  <option value="Bug Report / Issue">Bug Report / Technical Issue</option>
+                  <option value="Feature Request">Feature Request</option>
+                  <option value="Comment Bank Suggestion">Comment Bank / Template Suggestion</option>
+                  <option value="General Feedback">General Feedback</option>
+                </select>
+              </div>
+
+              {/* Tool Area Dropdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Target Tool / Feature
+                </label>
+                <select
+                  required
+                  value={feedbackToolArea}
+                  onChange={(e) => setFeedbackToolArea(e.target.value)}
+                  style={{
+                    background: 'var(--bg-app)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: '10px',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="" disabled>Select tool/area...</option>
+                  <option value="Comment Generator">Comment Generator</option>
+                  <option value="Roster & CSV Upload">Roster & CSV Upload</option>
+                  <option value="Academic Reference Toolkit">Teacher Reference Toolkit</option>
+                  <option value="Theme / Styling / UI">Theme / Styling / UI</option>
+                  <option value="Other / General App">Other / General Portal</option>
+                </select>
+              </div>
+
+              {/* Grade Level Dropdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Grade Level / Section
+                </label>
+                <select
+                  required
+                  value={feedbackGradeLevel}
+                  onChange={(e) => setFeedbackGradeLevel(e.target.value)}
+                  style={{
+                    background: 'var(--bg-app)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: '10px',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="" disabled>Select grade level...</option>
+                  <option value="Secondary (Grades 6-10)">Secondary (Grades 6-10)</option>
+                  <option value="DP / CP (Grades 11-12)">DP / CP (Grades 11-12)</option>
+                  <option value="Whole School / Multiple">Whole School / Multiple</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              {/* Description Textarea */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: '750', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Your Message
+                </label>
+                <textarea
+                  required
+                  rows="4"
+                  placeholder="Describe your feedback, request, or issue in detail..."
+                  value={feedbackText}
+                  onChange={(e) => setFeedbackText(e.target.value)}
+                  style={{
+                    background: 'var(--bg-app)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-main)',
+                    padding: '0.75rem 0.85rem',
+                    borderRadius: '10px',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.45'
+                  }}
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowFeedback(false)}
+                  className="btn"
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-muted)',
+                    padding: '0.65rem',
+                    borderRadius: '10px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    justifyContent: 'center',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={!feedbackCategory || !feedbackToolArea || !feedbackGradeLevel || !feedbackText.trim()}
+                  style={{
+                    flex: 1,
+                    background: 'var(--primary)',
+                    border: 'none',
+                    color: '#fff',
+                    padding: '0.65rem',
+                    borderRadius: '10px',
+                    fontWeight: '800',
+                    cursor: 'pointer',
+                    opacity: (!feedbackCategory || !feedbackToolArea || !feedbackGradeLevel || !feedbackText.trim()) ? 0.5 : 1,
+                    justifyContent: 'center',
+                    fontSize: '0.9rem',
+                    gap: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Mail size={16} />
+                  Draft in Outlook
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 

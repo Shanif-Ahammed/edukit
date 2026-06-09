@@ -14,6 +14,7 @@ Here is all the technical and operational context about the EduKit application:
 - The website is completely offline and client-side to satisfy Dubai DSIB data security and pupil protection guidelines. No rosters or student grades are sent to any cloud server (except when querying you, the AI, which uses an anonymous proxy/API key).
 - Local storage keys (e.g. 'edukit_mis_...') are used to keep rosters cached in the teacher's browser so they don't have to re-upload files every time.
 - All student data imports must use Excel (.xlsx) files.
+- **FEATURE DEVELOPMENT STATUS (Coming Soon)**: In the user interface, only the **Comment Generator** and **Teacher Toolkit** (Academic Guidelines & Help) are unlocked. The **Seating Chart & Group Planner**, **Cohort Data Analysis**, **Gradebook List (ATL Tracker)**, and **Teacher Utilities** (Study Group Matcher, Picker Wheel, Classroom Timer) are marked as "Coming Soon". However, **you must still fully discuss, explain, and answer questions about all of these features**, guiding teachers on how they work, their setup steps, and their technical architecture, as they will be unlocked in a future update.
 
 2. FEATURES & MODULES:
 - **Dashboard**: The portal landing page. Allows connecting a class database (Excel files from iSAMS) or loading the SISD Demo Class to test the tools.

@@ -1,142 +1,428 @@
 {
-  "Communication": {
-    "Expert": [
-      "With notable precision, he! adapts communication skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
-      "In increasingly complex situations, he! leverages advanced communication strategies, refining approaches independently to extend both understanding and impact.",
-      "Consistently and with purpose, he! applies sophisticated communication processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
-      "Through thoughtful adaptation, he! demonstrates exceptional control of communication, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
-      "Marked by independence and insight, his! use of communication elevates both individual performance and collaborative outcomes in meaningful ways.",
-      "Whether working independently or collaboratively, he! excels in communication, applying strategies flexibly to navigate complexity with confidence and precision."
-    ],
-    "Practitioner": [
-      "In most contexts, he! applies communication skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
-      "With consistency, he! uses communication to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
-      "He! demonstrates a secure grasp of communication, selecting and applying strategies that generally align well with task demands and expectations.",
-      "Across familiar situations, he! engages competently in communication, showing clarity and structure while continuing to build confidence and flexibility.",
-      "By applying learned approaches, he! uses communication in a dependable manner, supporting steady progress and effective task completion.",
-      "While still developing greater adaptability, he! shows consistent capability in communication, meeting expectations through thoughtful and organized effort."
-    ],
-    "Beginner": [
-      "Although developing, his! use of communication shows emerging understanding, with increasing success when strategies are modeled or supported.",
-      "At times, he! applies communication effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
-      "With support, he! begins to engage more purposefully in communication, though application varies depending on context and task complexity.",
-      "His! growing awareness of communication is evident, yet more consistent and independent application is required to meet expectations fully."
-    ],
-    "Novice": [
-      "Even with support, his! application of communication remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
-      "He! finds it challenging to engage with communication, requiring significant guidance to apply even basic skills with consistency and purpose."
-    ]
+  "english": {
+    "Communication": {
+      "Expert": [
+        "With notable precision, he! adapts communication skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced communication strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated communication processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of communication, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of communication elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in communication, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      "Practitioner": [
+        "In most contexts, he! applies communication skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses communication to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of communication, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in communication, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses communication in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in communication, meeting expectations through thoughtful and organized effort."
+      ],
+      "Beginner": [
+        "Although developing, his! use of communication shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies communication effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in communication, though application varies depending on context and task complexity.",
+        "His! growing awareness of communication is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      "Novice": [
+        "Even with support, his! application of communication remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with communication, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
+    },
+    "Social": {
+      "Expert": [
+        "With notable precision, he! adapts social skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced social strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated social processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of social, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of social elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in social, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      "Practitioner": [
+        "In most contexts, he! applies social skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses social to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of social, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in social, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses social in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in social, meeting expectations through thoughtful and organized effort."
+      ],
+      "Beginner": [
+        "Although developing, his! use of social shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies social effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in social, though application varies depending on context and task complexity.",
+        "His! growing awareness of social is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      "Novice": [
+        "Even with support, his! application of social remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with social, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
+    },
+    "Self-Management": {
+      "Expert": [
+        "With notable precision, he! adapts self-management skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced self-management strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated self-management processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of self-management, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of self-management elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in self-management, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      "Practitioner": [
+        "In most contexts, he! applies self-management skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses self-management to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of self-management, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in self-management, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses self-management in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in self-management, meeting expectations through thoughtful and organized effort."
+      ],
+      "Beginner": [
+        "Although developing, his! use of self-management shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies self-management effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in self-management, though application varies depending on context and task complexity.",
+        "His! growing awareness of self-management is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      "Novice": [
+        "Even with support, his! application of self-management remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with self-management, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
+    },
+    "Research": {
+      "Expert": [
+        "With notable precision, he! adapts research skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced research strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated research processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of research, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of research elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in research, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      "Practitioner": [
+        "In most contexts, he! applies research skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses research to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of research, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in research, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses research in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in research, meeting expectations through thoughtful and organized effort."
+      ],
+      "Beginner": [
+        "Although developing, his! use of research shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies research effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in research, though application varies depending on context and task complexity.",
+        "His! growing awareness of research is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      "Novice": [
+        "Even with support, his! application of research remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with research, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
+    },
+    "Thinking": {
+      "Expert": [
+        "With notable precision, he! adapts thinking skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
+        "In increasingly complex situations, he! leverages advanced thinking strategies, refining approaches independently to extend both understanding and impact.",
+        "Consistently and with purpose, he! applies sophisticated thinking processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
+        "Through thoughtful adaptation, he! demonstrates exceptional control of thinking, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
+        "Marked by independence and insight, his! use of thinking elevates both individual performance and collaborative outcomes in meaningful ways.",
+        "Whether working independently or collaboratively, he! excels in thinking, applying strategies flexibly to navigate complexity with confidence and precision."
+      ],
+      "Practitioner": [
+        "In most contexts, he! applies thinking skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
+        "With consistency, he! uses thinking to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
+        "He! demonstrates a secure grasp of thinking, selecting and applying strategies that generally align well with task demands and expectations.",
+        "Across familiar situations, he! engages competently in thinking, showing clarity and structure while continuing to build confidence and flexibility.",
+        "By applying learned approaches, he! uses thinking in a dependable manner, supporting steady progress and effective task completion.",
+        "While still developing greater adaptability, he! shows consistent capability in thinking, meeting expectations through thoughtful and organized effort."
+      ],
+      "Beginner": [
+        "Although developing, his! use of thinking shows emerging understanding, with increasing success when strategies are modeled or supported.",
+        "At times, he! applies thinking effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
+        "With support, he! begins to engage more purposefully in thinking, though application varies depending on context and task complexity.",
+        "His! growing awareness of thinking is evident, yet more consistent and independent application is required to meet expectations fully."
+      ],
+      "Novice": [
+        "Even with support, his! application of thinking remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
+        "He! finds it challenging to engage with thinking, requiring significant guidance to apply even basic skills with consistency and purpose."
+      ]
+    }
   },
-  "Social": {
-    "Expert": [
-      "With notable precision, he! adapts social skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
-      "In increasingly complex situations, he! leverages advanced social strategies, refining approaches independently to extend both understanding and impact.",
-      "Consistently and with purpose, he! applies sophisticated social processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
-      "Through thoughtful adaptation, he! demonstrates exceptional control of social, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
-      "Marked by independence and insight, his! use of social elevates both individual performance and collaborative outcomes in meaningful ways.",
-      "Whether working independently or collaboratively, he! excels in social, applying strategies flexibly to navigate complexity with confidence and precision."
-    ],
-    "Practitioner": [
-      "In most contexts, he! applies social skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
-      "With consistency, he! uses social to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
-      "He! demonstrates a secure grasp of social, selecting and applying strategies that generally align well with task demands and expectations.",
-      "Across familiar situations, he! engages competently in social, showing clarity and structure while continuing to build confidence and flexibility.",
-      "By applying learned approaches, he! uses social in a dependable manner, supporting steady progress and effective task completion.",
-      "While still developing greater adaptability, he! shows consistent capability in social, meeting expectations through thoughtful and organized effort."
-    ],
-    "Beginner": [
-      "Although developing, his! use of social shows emerging understanding, with increasing success when strategies are modeled or supported.",
-      "At times, he! applies social effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
-      "With support, he! begins to engage more purposefully in social, though application varies depending on context and task complexity.",
-      "His! growing awareness of social is evident, yet more consistent and independent application is required to meet expectations fully."
-    ],
-    "Novice": [
-      "Even with support, his! application of social remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
-      "He! finds it challenging to engage with social, requiring significant guidance to apply even basic skills with consistency and purpose."
-    ]
+  "french": {
+    "Communication": {
+      "Expert": [
+        "Avec une précision notable, he! adapte ses compétences de communication dans divers contextes, faisant preuve d'une réflexion approfondie et produisant régulièrement des résultats nuancés et de grande qualité.",
+        "Dans des situations de plus en plus complexes, he! exploite des stratégies de communication avancées, affinant ses approches de manière indépendante pour étendre sa compréhension et son impact.",
+        "Constamment et avec détermination, he! applique des processus de communication sophistiqués, intégrant la réflexion pour améliorer la clarté, l'efficacité et la profondeur de l'apprentissage.",
+        "Grâce à une adaptation réfléchie, he! fait preuve d'une maîtrise exceptionnelle de la communication, transférant ses compétences avec fluidité tout en maintenant la précision et la rigueur intellectuelle.",
+        "Marqué par l'indépendance et la perspicacité, son! utilisation de la communication améliore de manière significative à la fois les performances individuelles et les résultats collaboratifs.",
+        "Qu'he! travaille de manière indépendante ou collaborative, he! excelle dans la communication, appliquant les stratégies de manière flexible pour aborder la complexité avec confiance et précision."
+      ],
+      "Practitioner": [
+        "Dans la plupart des contextes, he! applique efficacement ses compétences de communication, démontrant une compréhension claire et une capacité croissante à adapter ses stratégies avec pertinence.",
+        "Avec régularité, he! utilise la communication pour soutenir son apprentissage, organisant ses idées et ses approches de manière à obtenir des résultats fiables et appropriés.",
+        "He! démontre une maîtrise assurée de la communication, sélectionnant et appliquant des stratégies qui s'alignent généralement bien avec les exigences des tâches et les attentes.",
+        "Dans des situations familières, he! s'engage avec compétence dans la communication, faisant preuve de clarté et de structure tout en continuant à développer sa confiance et sa flexibilité.",
+        "En appliquant les approches apprises, he! utilise la communication de manière fiable, soutenant des progrès réguliers et une réalisation efficace des tâches.",
+        "Tout en développant une plus grande adaptabilité, he! montre une capacité constante en communication, répondant aux attentes grâce à des efforts réfléchis et organisés."
+      ],
+      "Beginner": [
+        "Bien qu'en développement, son! utilisation de la communication montre une compréhension émergente, avec un succès croissant lorsque les stratégies sont modélisées ou soutenues.",
+        "Par moments, he! applique la communication de manière efficace ; cependant, des incohérences subsistent et une pratique guidée est nécessaire pour renforcer son indépendance.",
+        "Avec du soutien, he! commence à s'engager de manière plus ciblée dans la communication, bien que l'application varie en fonction du contexte et de la complexité de la tâche.",
+        "Sa! conscience croissante de la communication est évidente, mais une application plus constante et indépendante est requise pour répondre pleinement aux attentes."
+      ],
+      "Novice": [
+        "Même avec du soutien, son! application de la communication reste limitée, et he! éprouve des difficultés à utiliser les stratégies efficacement dans la plupart des contextes.",
+        "He! trouve difficile de s'engager dans la communication, nécessitant des conseils importants pour appliquer les compétences de base avec constance et pertinence."
+      ]
+    },
+    "Social": {
+      "Expert": [
+        "Avec une précision notable, he! adapte ses compétences sociales dans divers contextes, faisant preuve d'une réflexion approfondie et produisant régulièrement des résultats nuancés et de grande qualité.",
+        "Dans des situations de plus en plus complexes, he! exploite des stratégies sociales avancées, affinant ses approches de manière indépendante pour étendre sa compréhension et son impact.",
+        "Constamment et avec détermination, he! applique des processus sociaux sophistiqués, intégrant la réflexion pour améliorer la clarté, l'efficacité et la profondeur de l'apprentissage.",
+        "Grâce à une adaptation réfléchie, he! fait preuve d'une maîtrise exceptionnelle des compétences sociales, transférant ses compétences avec fluidité tout en maintenant la précision et la rigueur intellectuelle.",
+        "Marqué par l'indépendance et la perspicacité, son! utilisation des compétences sociales améliore de manière significative à la fois les performances individuelles et les résultats collaboratifs.",
+        "Qu'he! travaille de manière indépendante ou collaborative, he! excelle dans les compétences sociales, appliquant les stratégies de manière flexible pour aborder la complexité avec confiance et précision."
+      ],
+      "Practitioner": [
+        "Dans la plupart des contextes, he! applique efficacement ses compétences sociales, démontrant une compréhension claire et une capacité croissante à adapter ses stratégies avec pertinence.",
+        "Avec régularité, he! utilise ses compétences sociales pour soutenir son apprentissage, organisant ses idées et ses approches de manière à obtenir des résultats fiables et appropriés.",
+        "He! démontre une maîtrise assurée des compétences sociales, sélectionnant et appliquant des stratégies qui s'alignent généralement bien avec les exigences des tâches et les attentes.",
+        "Dans des situations familières, he! s'engage avec compétence dans les compétences sociales, faisant preuve de clarté et de structure tout en continuant à développer sa confiance et sa flexibilité.",
+        "En appliquant les approches apprises, he! utilise ses compétences sociales de manière fiable, soutenant des progrès réguliers et une réalisation efficace des tâches.",
+        "Tout en développant une plus grande adaptabilité, he! montre une capacité constante dans les compétences sociales, répondant aux attentes grâce à des efforts réfléchis et organisés."
+      ],
+      "Beginner": [
+        "Bien qu'en développement, son! utilisation des compétences sociales montre une compréhension émergente, avec un succès croissant lorsque les stratégies sont modélisées ou soutenues.",
+        "Par moments, he! applique ses compétences sociales de manière efficace ; cependant, des incohérences subsistent et une pratique guidée est nécessaire pour renforcer son indépendance.",
+        "Avec du soutien, he! commence à s'engager de manière plus ciblée dans les relations sociales, bien que l'application varie en fonction du contexte et de la complexité de la tâche.",
+        "Sa! conscience croissante des compétences sociales est évidente, mais une application plus constante et indépendante est requise pour répondre pleinement aux attentes."
+      ],
+      "Novice": [
+        "Même avec du soutien, son! application des compétences sociales reste limitée, et he! éprouve des difficultés à utiliser les stratégies efficacement dans la plupart des contextes.",
+        "He! trouve difficile de s'engager dans les relations sociales, nécessitant des conseils importants pour appliquer les compétences de base avec constance et pertinence."
+      ]
+    },
+    "Self-Management": {
+      "Expert": [
+        "Avec une précision notable, he! adapte ses compétences d'autonomie dans divers contextes, faisant preuve d'une réflexion approfondie et produisant régulièrement des résultats nuancés et de grande qualité.",
+        "Dans des situations de plus en plus complexes, he! exploite des stratégies d'autogestion avancées, affinant ses approches de manière indépendante pour étendre sa compréhension et son impact.",
+        "Constamment et avec détermination, he! applique des processus d'autogestion sophistiqués, intégrant la réflexion pour améliorer la clarté, l'efficacité et la profondeur de l'apprentissage.",
+        "Grâce à une adaptation réfléchie, he! fait preuve d'une maîtrise exceptionnelle de son autonomie, transférant ses compétences avec fluidité tout en maintenant la précision et la rigueur intellectuelle.",
+        "Marqué par l'indépendance et la perspicacité, son! utilisation de l'autonomie améliore de manière significative à la fois les performances individuelles et les résultats collaboratifs.",
+        "Qu'he! travaille de manière indépendante ou collaborative, he! excelle dans son organisation personnelle, appliquant les stratégies de manière flexible pour aborder la complexité avec confiance et précision."
+      ],
+      "Practitioner": [
+        "Dans la plupart des contextes, he! applique efficacement ses compétences d'autonomie, démontrant une compréhension claire et une capacité croissante à adapter ses stratégies avec pertinence.",
+        "Avec régularité, he! utilise son autonomie pour soutenir son apprentissage, organisant ses idées et ses approches de manière à obtenir des résultats fiables et appropriés.",
+        "He! démontre une maîtrise assurée de ses compétences d'organisation, sélectionnant et appliquant des stratégies qui s'alignent généralement bien avec les exigences des tâches et les attentes.",
+        "Dans des situations familières, he! s'engage avec compétence dans son travail autonome, faisant preuve de clarté et de structure tout en continuant à développer sa confiance et sa flexibilité.",
+        "En appliquant les approches apprises, he! s'organise de manière fiable, soutenant des progrès réguliers et une réalisation efficace des tâches.",
+        "Tout en développant une plus grande adaptabilité, he! montre une capacité constante en autonomie, répondant aux attentes grâce à des efforts réfléchis et organisés."
+      ],
+      "Beginner": [
+        "Bien qu'en développement, son! organisation personnelle montre une compréhension émergente, avec un succès croissant lorsque les stratégies sont modélisées ou soutenues.",
+        "Par moments, he! gère son travail de manière efficace ; cependant, des incohérences subsistent et une pratique guidée est nécessaire pour renforcer son indépendance.",
+        "Avec du soutien, he! commence à s'engager de manière plus autonome, bien que l'application varie en fonction du contexte et de la complexité de la tâche.",
+        "Sa! conscience croissante de l'autonomie est évidente, mais une application plus constante et indépendante est requise pour répondre pleinement aux attentes."
+      ],
+      "Novice": [
+        "Même avec du soutien, son! autonomie reste limitée, et he! éprouve des difficultés à s'organiser efficacement dans la plupart des contextes.",
+        "He! trouve difficile de s'organiser seul, nécessitant des conseils importants pour appliquer les compétences de base avec constance et pertinence."
+      ]
+    },
+    "Research": {
+      "Expert": [
+        "Avec une précision notable, he! adapte ses compétences de recherche dans divers contextes, faisant preuve d'une réflexion approfondie et produisant régulièrement des résultats nuancés et de grande qualité.",
+        "Dans des situations de plus en plus complexes, he! exploite des stratégies de recherche avancées, affinant ses approches de manière indépendante pour étendre sa compréhension et son impact.",
+        "Constamment et avec détermination, he! applique des processus de recherche sophistiqués, intégrant la réflexion pour améliorer la clarté, l'efficacité et la profondeur de l'apprentissage.",
+        "Grâce à une adaptation réfléchie, he! fait preuve d'une maîtrise exceptionnelle des méthodes de recherche, transférant ses compétences avec fluidité tout en maintenant la précision et la rigueur intellectuelle.",
+        "Marqué par l'indépendance et la perspicacité, son! utilisation des méthodes de recherche améliore de manière significative à la fois les performances individuelles et les résultats collaboratifs.",
+        "Qu'he! travaille de manière indépendante ou collaborative, he! excelle dans la recherche, appliquant les stratégies de manière flexible pour aborder la complexité avec confiance et précision."
+      ],
+      "Practitioner": [
+        "Dans la plupart des contextes, he! applique efficacement ses compétences de recherche, démontrant une compréhension claire et une capacité croissante à adapter ses stratégies avec pertinence.",
+        "Avec régularité, he! utilise la recherche pour soutenir son apprentissage, organisant ses idées et ses approches de manière à obtenir des résultats fiables et appropriés.",
+        "He! démontre une maîtrise assurée des compétences de recherche, sélectionnant et appliquant des stratégies qui s'alignent généralement bien avec les exigences des tâches et les attentes.",
+        "Dans des situations familières, he! s'engage avec compétence dans la recherche, faisant preuve de clarté et de structure tout en continuant à développer sa confiance et sa flexibilité.",
+        "En appliquant les approches apprises, he! utilise les méthodes de recherche de manière fiable, soutenant des progrès réguliers et une réalisation efficace des tâches.",
+        "Tout en développant une plus grande adaptabilité, he! montre une capacité constante en recherche, répondant aux attentes grâce à des efforts réfléchis et organisés."
+      ],
+      "Beginner": [
+        "Bien qu'en développement, son! utilisation des méthodes de recherche montre une compréhension émergente, avec un succès croissant lorsque les stratégies sont modélisées ou soutenues.",
+        "Par moments, he! mène ses recherches de manière efficace ; cependant, des incohérences subsistent et une pratique guidée est nécessaire pour renforcer son indépendance.",
+        "Avec du soutien, he! commence à s'engager de manière plus construite dans la recherche, bien que l'application varie en fonction du contexte et de la complexité de la tâche.",
+        "Sa! conscience croissante des compétences de recherche est évidente, mais une application plus constante et indépendante est requise pour répondre pleinement aux attentes."
+      ],
+      "Novice": [
+        "Même avec du soutien, son! application des compétences de recherche reste limitée, et he! éprouve des difficultés à utiliser les stratégies de recherche efficacement dans la plupart des contextes.",
+        "He! trouve difficile de mener des recherches, nécessitant des conseils importants pour appliquer les compétences de base avec constance et pertinence."
+      ]
+    },
+    "Thinking": {
+      "Expert": [
+        "Avec une précision notable, he! adapte ses compétences de réflexion dans divers contextes, faisant preuve d'une réflexion approfondie et produisant régulièrement des résultats nuancés et de grande qualité.",
+        "Dans des situations de plus en plus complexes, he! exploite des stratégies de pensée critique avancées, affinant ses approches de manière indépendante pour étendre sa compréhension et son impact.",
+        "Constamment et avec détermination, he! applique des processus de réflexion sophistiqués, intégrant la réflexion pour améliorer la clarté, l'efficacité et la profondeur de l'apprentissage.",
+        "Grâce à une adaptation réfléchie, he! fait preuve d'une maîtrise exceptionnelle de sa pensée critique, transférant ses compétences avec fluidité tout en maintenant la précision et la rigueur intellectuelle.",
+        "Marqué par l'indépendance et la perspicacité, son! utilisation de la réflexion améliore de manière significative à la fois les performances individuelles et les résultats collaboratifs.",
+        "Qu'he! travaille de manière indépendante ou collaborative, he! excelle dans la réflexion critique, appliquant les stratégies de manière flexible pour aborder la complexité avec confiance et précision."
+      ],
+      "Practitioner": [
+        "Dans la plupart des contextes, he! applique efficacement ses compétences de réflexion, démontrant une compréhension claire et une capacité croissante à adapter ses stratégies avec pertinence.",
+        "Avec régularité, he! utilise la réflexion pour soutenir son apprentissage, organisant ses idées et ses approches de manière à obtenir des résultats fiables et appropriés.",
+        "He! démontre une maîtrise assurée de sa pensée critique, sélectionnant et appliquant des stratégies qui s'alignent généralement bien avec les exigences des tâches et les attentes.",
+        "Dans des situations familières, he! s'engage avec compétence dans la réflexion autonome, faisant preuve de clarté et de structure tout en continuant à développer sa confiance et sa flexibilité.",
+        "En appliquant les approches apprises, he! utilise la réflexion de manière fiable, soutenant des progrès réguliers et une réalisation efficace des tâches.",
+        "Tout en développant une plus grande adaptabilité, he! montre une capacité constante en réflexion, répondant aux attentes grâce à des efforts réfléchis et organisés."
+      ],
+      "Beginner": [
+        "Bien qu'en développement, son! esprit critique montre une compréhension émergente, avec un succès croissant lorsque les stratégies sont modélisées ou soutenues.",
+        "Par moments, he! réfléchit de manière efficace ; cependant, des incohérences subsistent et une pratique guidée est nécessaire pour renforcer son indépendance.",
+        "Avec du soutien, he! commence à développer une réflexion plus approfondie, bien que l'application varie en fonction du contexte et de la complexité de la tâche.",
+        "Sa! conscience croissante des compétences de réflexion est évidente, mais une application mais constante et indépendante est requise pour répondre pleinement aux attentes."
+      ],
+      "Novice": [
+        "Même avec du soutien, son! application de la réflexion reste limitée, et he! éprouve des difficultés à penser de manière critique et autonome dans la plupart des contextes.",
+        "He! trouve difficile d'appliquer sa réflexion critique, nécessitant des conseils importants pour appliquer les compétences de base avec constance et pertinence."
+      ]
+    }
   },
-  "Self-Management": {
-    "Expert": [
-      "With notable precision, he! adapts self-management skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
-      "In increasingly complex situations, he! leverages advanced self-management strategies, refining approaches independently to extend both understanding and impact.",
-      "Consistently and with purpose, he! applies sophisticated self-management processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
-      "Through thoughtful adaptation, he! demonstrates exceptional control of self-management, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
-      "Marked by independence and insight, his! use of self-management elevates both individual performance and collaborative outcomes in meaningful ways.",
-      "Whether working independently or collaboratively, he! excels in self-management, applying strategies flexibly to navigate complexity with confidence and precision."
-    ],
-    "Practitioner": [
-      "In most contexts, he! applies self-management skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
-      "With consistency, he! uses self-management to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
-      "He! demonstrates a secure grasp of self-management, selecting and applying strategies that generally align well with task demands and expectations.",
-      "Across familiar situations, he! engages competently in self-management, showing clarity and structure while continuing to build confidence and flexibility.",
-      "By applying learned approaches, he! uses self-management in a dependable manner, supporting steady progress and effective task completion.",
-      "While still developing greater adaptability, he! shows consistent capability in self-management, meeting expectations through thoughtful and organized effort."
-    ],
-    "Beginner": [
-      "Although developing, his! use of self-management shows emerging understanding, with increasing success when strategies are modeled or supported.",
-      "At times, he! applies self-management effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
-      "With support, he! begins to engage more purposefully in self-management, though application varies depending on context and task complexity.",
-      "His! growing awareness of self-management is evident, yet more consistent and independent application is required to meet expectations fully."
-    ],
-    "Novice": [
-      "Even with support, his! application of self-management remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
-      "He! finds it challenging to engage with self-management, requiring significant guidance to apply even basic skills with consistency and purpose."
-    ]
-  },
-  "Research": {
-    "Expert": [
-      "With notable precision, he! adapts research skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
-      "In increasingly complex situations, he! leverages advanced research strategies, refining approaches independently to extend both understanding and impact.",
-      "Consistently and with purpose, he! applies sophisticated research processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
-      "Through thoughtful adaptation, he! demonstrates exceptional control of research, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
-      "Marked by independence and insight, his! use of research elevates both individual performance and collaborative outcomes in meaningful ways.",
-      "Whether working independently or collaboratively, he! excels in research, applying strategies flexibly to navigate complexity with confidence and precision."
-    ],
-    "Practitioner": [
-      "In most contexts, he! applies research skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
-      "With consistency, he! uses research to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
-      "He! demonstrates a secure grasp of research, selecting and applying strategies that generally align well with task demands and expectations.",
-      "Across familiar situations, he! engages competently in research, showing clarity and structure while continuing to build confidence and flexibility.",
-      "By applying learned approaches, he! uses research in a dependable manner, supporting steady progress and effective task completion.",
-      "While still developing greater adaptability, he! shows consistent capability in research, meeting expectations through thoughtful and organized effort."
-    ],
-    "Beginner": [
-      "Although developing, his! use of research shows emerging understanding, with increasing success when strategies are modeled or supported.",
-      "At times, he! applies research effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
-      "With support, he! begins to engage more purposefully in research, though application varies depending on context and task complexity.",
-      "His! growing awareness of research is evident, yet more consistent and independent application is required to meet expectations fully."
-    ],
-    "Novice": [
-      "Even with support, his! application of research remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
-      "He! finds it challenging to engage with research, requiring significant guidance to apply even basic skills with consistency and purpose."
-    ]
-  },
-  "Thinking": {
-    "Expert": [
-      "With notable precision, he! adapts thinking skills across contexts, demonstrating reflective insight and consistently producing nuanced, high-quality outcomes.",
-      "In increasingly complex situations, he! leverages advanced thinking strategies, refining approaches independently to extend both understanding and impact.",
-      "Consistently and with purpose, he! applies sophisticated thinking processes, integrating reflection to enhance clarity, effectiveness, and depth of learning.",
-      "Through thoughtful adaptation, he! demonstrates exceptional control of thinking, transferring skills fluidly while maintaining accuracy and intellectual rigor.",
-      "Marked by independence and insight, his! use of thinking elevates both individual performance and collaborative outcomes in meaningful ways.",
-      "Whether working independently or collaboratively, he! excels in thinking, applying strategies flexibly to navigate complexity with confidence and precision."
-    ],
-    "Practitioner": [
-      "In most contexts, he! applies thinking skills effectively, demonstrating clear understanding and a growing ability to adapt strategies with purpose.",
-      "With consistency, he! uses thinking to support learning, organizing ideas and approaches in ways that lead to reliable and appropriate outcomes.",
-      "He! demonstrates a secure grasp of thinking, selecting and applying strategies that generally align well with task demands and expectations.",
-      "Across familiar situations, he! engages competently in thinking, showing clarity and structure while continuing to build confidence and flexibility.",
-      "By applying learned approaches, he! uses thinking in a dependable manner, supporting steady progress and effective task completion.",
-      "While still developing greater adaptability, he! shows consistent capability in thinking, meeting expectations through thoughtful and organized effort."
-    ],
-    "Beginner": [
-      "Although developing, his! use of thinking shows emerging understanding, with increasing success when strategies are modeled or supported.",
-      "At times, he! applies thinking effectively; however, inconsistency remains, and guided practice is needed to strengthen independence.",
-      "With support, he! begins to engage more purposefully in thinking, though application varies depending on context and task complexity.",
-      "His! growing awareness of thinking is evident, yet more consistent and independent application is required to meet expectations fully."
-    ],
-    "Novice": [
-      "Even with support, his! application of thinking remains limited, and he! experiences difficulty using strategies effectively in most contexts.",
-      "He! finds it challenging to engage with thinking, requiring significant guidance to apply even basic skills with consistency and purpose."
-    ]
+  "german": {
+    "Communication": {
+      "Expert": [
+        "Mit bemerkenswerter Präzision passt he! his! Kommunikationsfähigkeit an verschiedene Kontexte an, zeigt reflektierte Einsichten und erzielt konsistent nuancierte, qualitativ hochwertige Ergebnisse.",
+        "In zunehmend komplexen Situationen nutzt he! fortgeschrittene Kommunikationsstrategien und verfeinert seine Ansätze selbstständig, um sowohl das Verständnis als auch die Wirkung zu steigern.",
+        "Konsistent und zielgerichtet wendet he! anspruchsvolle Kommunikationsprozesse an und integriert Reflexion, um Klarheit, Effektivität und Tiefe des Lernens zu verbessern.",
+        "Durch durchdachte Anpassung beweist he! eine außergewöhnliche Kontrolle über seine Kommunikationsfähigkeit und wendet diese flexibel an, während he! Präzision und intellektuelle Strenge beibehält.",
+        "Geprägt von Unabhängigkeit und Einsicht hebt his! Einsatz von Kommunikationsfähigkeiten sowohl die individuelle Leistung als auch die gemeinsamen Ergebnisse in sinnvoller Weise an.",
+        "Egal ob he! unabhängig oder kollaborativ arbeitet, he! zeichnet sich durch hervorragende Kommunikation aus und wendet Strategien flexibel an, um Komplexität mit Vertrauen und Präzision zu meistern."
+      ],
+      "Practitioner": [
+        "In den meisten Kontexten wendet he! his! Kommunikationsfähigkeit effektiv an, zeigt ein klares Verständnis und eine wachsende Fähigkeit, Strategien zielgerichtet anzupassen.",
+        "Mit Beständigkeit nutzt he! Kommunikation zur Unterstützung des Lernens und organisiert Ideen und Ansätze so, dass sie zu zuverlässigen und angemessenen Ergebnissen führen.",
+        "He! zeigt ein sicheres Verständnis von Kommunikation und wählt Strategien aus, die im Allgemeinen gut mit den Aufgabenanforderungen und Erwartungen übereinstimmen.",
+        "In vertrauten Situationen kommuniziert he! kompetent und zeigt Klarheit und Struktur, während he! weiter Vertrauen und Flexibilität aufbaut.",
+        "Durch die Anwendung erlernter Ansätze nutzt he! Kommunikation zuverlässig, was einen stetigen Fortschritt und eine effektive Aufgabenerfüllung unterstützt.",
+        "Während he! noch größere Anpassungsfähigkeit entwickelt, zeigt he! eine konstante Fähigkeit zur Kommunikation und erfüllt die Erwartungen durch durchdachte und organisierte Anstrengung."
+      ],
+      "Beginner": [
+        "Obwohl im Aufbau begriffen, zeigt his! Einsatz von Kommunikation ein beginnendes Verständnis mit wachsendem Erfolg, wenn Strategien vorgegeben oder unterstützt werden.",
+        "Gelegentlich wendet he! Kommunikation effektiv an; es bestehen jedoch weiterhin Unbeständigkeiten, und angeleitetes Üben ist erforderlich, um die Unabhängigkeit zu stärken.",
+        "Mit Unterstützung beginnt he! zielgerichteter zu kommunizieren, wobei die Anwendung je nach Kontext und Aufgabenkomplexität variiert.",
+        "His! wachsendes Bewusstsein für Kommunikation ist offensichtlich, jedoch ist eine beständigere und unabhängigere Anwendung erforderlich, um die Erwartungen vollständig zu erfüllen."
+      ],
+      "Novice": [
+        "Selbst mit Unterstützung bleibt his! Anwendung von Kommunikation begrenzt, und he! hat Schwierigkeiten, Strategien in den meisten Kontexten effektiv zu nutzen.",
+        "He! findet es schwierig, sich auf Kommunikation einzulassen, und benötigt erhebliche Anleitung, um selbst grundlegende Fähigkeiten beständig und zielgerichtet anzuwenden."
+      ]
+    },
+    "Social": {
+      "Expert": [
+        "Mit bemerkenswerter Präzision passt he! his! soziale Kompetenz an verschiedene Kontexte an, zeigt reflektierte Einsichten und erzielt konsistent nuancierte, qualitativ hochwertige Ergebnisse.",
+        "In zunehmend komplexen Situationen nutzt he! fortgeschrittene soziale Strategien und verfeinert seine Ansätze selbstständig, um sowohl das Verständnis als auch die Wirkung zu steigern.",
+        "Konsistent und zielgerichtet wendet he! anspruchsvolle soziale Prozesse an und integriert Reflexion, um Klarheit, Effektivität und Tiefe des Lernens zu verbessern.",
+        "Durch durchdachte Anpassung beweist he! eine außergewöhnliche Kontrolle über seine sozialen Fähigkeiten und wendet diese flexibel an, während he! Präzision und intellektuelle Strenge beibehält.",
+        "Geprägt von Unabhängigkeit und Einsicht hebt his! Einsatz von sozialen Kompetenzen sowohl die individuelle Leistung als auch die gemeinsamen Ergebnisse in sinnvoller Weise an.",
+        "Egal ob he! unabhängig oder kollaborativ arbeitet, he! zeichnet sich durch hervorragende soziale Kompetenzen aus und wendet Strategien flexibel an, um Komplexität mit Vertrauen und Präzision zu meistern."
+      ],
+      "Practitioner": [
+        "In den meisten Kontexten wendet he! his! soziale Kompetenz effektiv an, zeigt ein klares Verständnis und eine wachsende Fähigkeit, Strategien zielgerichtet anzupassen.",
+        "Mit Beständigkeit nutzt he! soziale Kompetenzen zur Unterstützung des Lernens und organisiert Ideen und Ansätze so, dass sie zu zuverlässigen und angemessenen Ergebnissen führen.",
+        "He! zeigt ein sicheres Verständnis von sozialen Beziehungen und wählt Strategien aus, die im Allgemeinen gut mit den Aufgabenanforderungen und Erwartungen übereinstimmen.",
+        "In vertrauten Situationen agiert he! sozial kompetent und zeigt Klarheit und Struktur, während he! weiter Vertrauen und Flexibilität aufbaut.",
+        "Durch die Anwendung erlernter Ansätze nutzt he! soziale Kompetenzen zuverlässig, was einen stetigen Fortschritt und eine effektive Aufgabenerfüllung unterstützt.",
+        "Während he! noch größere Anpassungsfähigkeit entwickelt, zeigt he! eine konstante Fähigkeit im sozialen Bereich und erfüllt die Erwartungen durch durchdachte und organisierte Anstrengung."
+      ],
+      "Beginner": [
+        "Obwohl im Aufbau begriffen, zeigt his! Einsatz von sozialen Kompetenzen ein beginnendes Verständnis mit wachsendem Erfolg, wenn Strategien vorgegeben oder unterstützt werden.",
+        "Gelegentlich wendet he! soziale Fähigkeiten effektiv an; es bestehen jedoch weiterhin Unbeständigkeiten, und angeleitetes Üben ist erforderlich, um die Unabhängigkeit zu stärken.",
+        "Mit Unterstützung beginnt he! sich besser in die Gemeinschaft einzubringen, wobei die Anwendung je nach Kontext und Aufgabenkomplexität variiert.",
+        "His! wachsendes Bewusstsein für soziale Kompetenzen ist offensichtlich, jedoch ist eine beständigere und unabhängigere Anwendung erforderlich, um die Erwartungen vollständig zu erfüllen."
+      ],
+      "Novice": [
+        "Selbst mit Unterstützung bleibt his! Anwendung von sozialen Fähigkeiten begrenzt, und he! hat Schwierigkeiten, Strategien in den meisten Kontexten effektiv zu nutzen.",
+        "He! findet es schwierig, sich auf soziale Interaktionen einzulassen, und benötigt erhebliche Anleitung, um selbst grundlegende Fähigkeiten beständig und zielgerichtet anzuwenden."
+      ]
+    },
+    "Self-Management": {
+      "Expert": [
+        "Mit bemerkenswerter Präzision passt he! his! Selbstmanagement an verschiedene Kontexte an, zeigt reflektierte Einsichten und erzielt konsistent nuancierte, qualitativ hochwertige Ergebnisse.",
+        "In zunehmend komplexen Situationen nutzt he! fortgeschrittene Selbstmanagement-Strategien und verfeinert seine Ansätze selbstständig, um sowohl das Verständnis als auch die Wirkung zu steigern.",
+        "Konsistent und zielgerichtet wendet he! anspruchsvolle Selbstmanagement-Prozesse an und integriert Reflexion, um Klarheit, Effektivität und Tiefe des Lernens zu verbessern.",
+        "Durch durchdachte Anpassung beweist he! eine außergewöhnliche Kontrolle über sein Selbstmanagement und wendet dieses flexibel an, während he! Präzision und intellektuelle Strenge beibehält.",
+        "Geprägt von Unabhängigkeit und Einsicht hebt his! Einsatz von Selbstmanagement-Fähigkeiten sowohl die individuelle Leistung als auch die gemeinsamen Ergebnisse in sinnvoller Weise an.",
+        "Egal ob he! unabhängig oder kollaborativ arbeitet, he! zeichnet sich durch hervorragende Selbstorganisation aus und wendet Strategien flexibel an, um Komplexität mit Vertrauen und Präzision zu meistern."
+      ],
+      "Practitioner": [
+        "In den meisten Kontexten wendet he! his! Selbstmanagement-Fähigkeiten effektiv an, zeigt ein klares Verständnis und eine wachsende Fähigkeit, Strategien zielgerichtet anzupassen.",
+        "Mit Beständigkeit nutzt he! Selbstmanagement zur Unterstützung des Lernens und organisiert Ideen und Ansätze so, dass sie zu zuverlässigen und angemessenen Ergebnissen führen.",
+        "He! zeigt ein sicheres Verständnis von Selbstorganisation und wählt Strategien aus, die im Allgemeinen gut mit den Aufgabenanforderungen und Erwartungen übereinstimmen.",
+        "In vertrauten Situationen agiert he! selbstständig und zeigt Klarheit und Struktur, während he! weiter Vertrauen und Flexibilität aufbaut.",
+        "Durch die Anwendung erlernter Ansätze arbeitet he! selbstständig und zuverlässig, was einen stetigen Fortschritt und eine effektive Aufgabenerfüllung unterstützt.",
+        "Während he! noch größere Anpassungsfähigkeit entwickelt, zeigt he! eine konstante Fähigkeit zur Selbstorganisation und erfüllt die Erwartungen durch durchdachte und organisierte Anstrengung."
+      ],
+      "Beginner": [
+        "Obwohl im Aufbau begriffen, zeigt his! Einsatz von Selbstmanagement ein beginnendes Verständnis mit wachsendem Erfolg, wenn Strategien vorgegeben oder unterstützt werden.",
+        "Gelegentlich arbeitet he! gut selbstständig; es bestehen jedoch weiterhin Unbeständigkeiten, und angeleitetes Üben ist erforderlich, um die Unabhängigkeit zu stärken.",
+        "Mit Unterstützung beginnt he! sich besser selbst zu organisieren, wobei die Anwendung je nach Kontext und Aufgabenkomplexität variiert.",
+        "His! wachsendes Bewusstsein für Selbstmanagement ist offensichtlich, jedoch ist eine beständigere und unabhängigere Anwendung erforderlich, um die Erwartungen vollständig zu erfüllen."
+      ],
+      "Novice": [
+        "Selbst mit Unterstützung bleibt his! Fähigkeit zur Selbstorganisation begrenzt, und he! hat Schwierigkeiten, sich in den meisten Kontexten effektiv zu organisieren.",
+        "He! findet es schwierig, sich selbst zu verwalten, und benötigt erhebliche Anleitung, um selbst grundlegende Fähigkeiten beständig und zielgerichtet anzuwenden."
+      ]
+    },
+    "Research": {
+      "Expert": [
+        "Mit bemerkenswerter Präzision passt he! his! Recherchefähigkeiten an verschiedene Kontexte an, zeigt reflektierte Einsichten und erzielt konsistent nuancierte, qualitativ hochwertige Ergebnisse.",
+        "In zunehmend komplexen Situationen nutzt he! fortgeschrittene Recherchestrategien und verfeinert seine Ansätze selbstständig, um sowohl das Verständnis als auch die Wirkung zu steigern.",
+        "Konsistent und zielgerichtet wendet he! anspruchsvolle Rechercheprozesse an und integriert Reflexion, um Klarheit, Effektivität und Tiefe des Lernens zu verbessern.",
+        "Durch durchdachte Anpassung beweist he! eine außergewöhnliche Kontrolle über seine Recherchefähigkeiten und wendet diese flexibel an, während he! Präzision und intellektuelle Strenge beibehält.",
+        "Geprägt von Unabhängigkeit und Einsicht hebt his! Einsatz von Recherchefähigkeiten sowohl die individuelle Leistung als auch die gemeinsamen Ergebnisse in sinnvoller Weise an.",
+        "Egal ob he! unabhängig oder kollaborativ arbeitet, he! zeichnet sich durch hervorragende Recherchefähigkeiten aus und wendet Strategien flexibel an, um Komplexität mit Vertrauen und Präzision zu meistern."
+      ],
+      "Practitioner": [
+        "In den meisten Kontexten wendet he! his! Recherchefähigkeiten effektiv an, zeigt ein klares Verständnis und eine wachsende Fähigkeit, Strategien zielgerichtet anzupassen.",
+        "Mit Beständigkeit nutzt he! Recherchefähigkeiten zur Unterstützung des Lernens und organisiert Ideen und Ansätze so, dass sie zu zuverlässigen und angemessenen Ergebnissen führen.",
+        "He! zeigt ein sicheres Verständnis von Recherchearbeiten und wählt Strategien aus, die im Allgemeinen gut mit den Aufgabenanforderungen und Erwartungen übereinstimmen.",
+        "In vertrauten Situationen recherchiert he! kompetent und zeigt Klarheit und Struktur, während he! weiter Vertrauen und Flexibilität aufbaut.",
+        "Durch die Anwendung erlernter Ansätze nutzt he! Recherchefähigkeiten zuverlässig, was einen stetigen Fortschritt und eine effektive Aufgabenerfüllung unterstützt.",
+        "Während he! noch größere Anpassungsfähigkeit entwickelt, zeigt he! eine konstante Fähigkeit bei Recherchen und erfüllt die Erwartungen durch durchdachte und organisierte Anstrengung."
+      ],
+      "Beginner": [
+        "Obwohl im Aufbau begriffen, zeigt his! Einsatz von Recherchefähigkeiten ein beginnendes Verständnis mit wachsendem Erfolg, wenn Strategien vorgegeben oder unterstützt werden.",
+        "Gelegentlich führt he! Recherchen effektiv durch; es bestehen jedoch weiterhin Unbeständigkeiten, und angeleitetes Üben ist erforderlich, um die Unabhängigkeit zu stärken.",
+        "Mit Unterstützung beginnt he! strukturierter zu recherchieren, wobei die Anwendung je nach Kontext und Aufgabenkomplexität variiert.",
+        "His! wachsendes Bewusstsein für Recherchefähigkeiten ist offensichtlich, jedoch ist eine beständigere und unabhängigere Anwendung erforderlich, um die Erwartungen vollständig zu erfüllen."
+      ],
+      "Novice": [
+        "Selbst mit Unterstützung bleibt his! Anwendung von Recherchefähigkeiten begrenzt, und he! hat Schwierigkeiten, Recherchestrategien in den meisten Kontexten effektiv zu nutzen.",
+        "He! findet es schwierig, Recherchen durchzuführen, und benötigt erhebliche Anleitung, um selbst grundlegende Fähigkeiten beständig und zielgerichtet anzuwenden."
+      ]
+    },
+    "Thinking": {
+      "Expert": [
+        "Mit bemerkenswerter Präzision passt he! his! Denkfähigkeit an verschiedene Kontexte an, zeigt reflektierte Einsichten und erzielt konsistent nuancierte, qualitativ hochwertige Ergebnisse.",
+        "In zunehmend komplexen Situationen nutzt he! fortgeschrittene Denkstrategien und verfeinert seine Ansätze selbstständig, um sowohl das Verständnis als auch die Wirkung zu steigern.",
+        "Konsistent und zielgerichtet wendet he! anspruchsvolle Denkprozesse an und integriert Reflexion, um Klarheit, Effektivität und Tiefe des Lernens zu verbessern.",
+        "Durch durchdachte Anpassung beweist he! eine außergewöhnliche Kontrolle über seine Denkfähigkeit und wendet diese flexibel an, während he! Präzision und intellektuelle Strenge beibehält.",
+        "Geprägt von Unabhängigkeit und Einsicht hebt his! Einsatz von Denkfähigkeiten sowohl die individuelle Leistung als auch die gemeinsamen Ergebnisse in sinnvoller Weise an.",
+        "Egal ob he! unabhängig oder kollaborativ arbeitet, he! zeichnet sich durch hervorragendes kritisches Denken aus und wendet Strategien flexibel an, um Komplexität mit Vertrauen und Präzision zu meistern."
+      ],
+      "Practitioner": [
+        "In den meisten Kontexten wendet he! his! Denkfähigkeit effektiv an, zeigt ein klares Verständnis und eine wachsende Fähigkeit, Strategien zielgerichtet anzupassen.",
+        "Mit Beständigkeit nutzt he! Denkfähigkeiten zur Unterstützung des Lernens und organisiert Ideen und Ansätze so, dass sie zu zuverlässigen und angemessenen Ergebnissen führen.",
+        "He! zeigt ein sicheres Verständnis von kritischem Denken und wählt Strategien aus, die im Allgemeinen gut mit den Aufgabenanforderungen und Erwartungen übereinstimmen.",
+        "In vertrauten Situationen denkt he! selbstständig und zeigt Klarheit und Struktur, während he! weiter Vertrauen und Flexibilität aufbaut.",
+        "Durch die Anwendung erlernter Ansätze denkt he! selbstständig und zuverlässig, was einen stetigen Fortschritt und eine effektive Aufgabenerfüllung unterstützt.",
+        "Während he! noch größere Anpassungsfähigkeit entwickelt, zeigt he! eine konstante Fähigkeit im logischen Denken und erfüllt die Erwartungen durch durchdachte und organisierte Anstrengung."
+      ],
+      "Beginner": [
+        "Obwohl im Aufbau begriffen, zeigt his! kritisches Denken ein beginnendes Verständnis mit wachsendem Erfolg, wenn Strategien vorgegeben oder unterstützt werden.",
+        "Gelegentlich denkt he! effektiv nach; es bestehen jedoch weiterhin Unbeständigkeiten, und angeleitetes Üben ist erforderlich, um die Unabhängigkeit zu stärken.",
+        "Mit Unterstützung beginnt he! tiefer nachzudenken, wobei die Anwendung je nach Kontext und Aufgabenkomplexität variiert.",
+        "His! wachsendes Bewusstsein für Denkfähigkeiten ist offensichtlich, jedoch ist eine beständigere und unabhängigere Anwendung erforderlich, um die Erwartungen vollständig zu erfüllen."
+      ],
+      "Novice": [
+        "Selbst mit Unterstützung bleibt his! Anwendung von Denkfähigkeiten begrenzt, und he! hat Schwierigkeiten, in den meisten Kontexten kritisch und selbstständig zu denken.",
+        "He! findet es schwierig, kritisches Denken anzuwenden, und benötigt erhebliche Anleitung, um selbst grundlegende Fähigkeiten beständig und zielgerichtet anzuwenden."
+      ]
+    }
   }
 }

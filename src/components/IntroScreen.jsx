@@ -5,7 +5,6 @@ import {
 } from 'lucide-react';
 
 export default function IntroScreen({ onEnter, theme, toggleTheme }) {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [hoveredBadge, setHoveredBadge] = useState(null);
@@ -14,14 +13,6 @@ export default function IntroScreen({ onEnter, theme, toggleTheme }) {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setCoords({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
 
   const handleEnterClick = () => {
     setExiting(true);
@@ -32,7 +23,6 @@ export default function IntroScreen({ onEnter, theme, toggleTheme }) {
 
   return (
     <div 
-      onMouseMove={handleMouseMove}
       style={{
         position: 'fixed',
         inset: 0,
@@ -50,15 +40,14 @@ export default function IntroScreen({ onEnter, theme, toggleTheme }) {
         padding: '2rem'
       }}
     >
-      {/* ── INTERACTIVE MOUSE GRADIENT SPOTLIGHT ───────────────────────── */}
+      {/* ── PREMIUM STATIC GLOW SPOTLIGHT ───────────────────────── */}
       <div 
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(circle 500px at ${coords.x}px ${coords.y}px, rgba(225, 0, 49, 0.08) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%)`,
+          background: 'radial-gradient(circle at 50% 50%, rgba(225, 0, 49, 0.05) 0%, rgba(99, 102, 241, 0.02) 60%, transparent 100%)',
           pointerEvents: 'none',
-          zIndex: 1,
-          transition: 'background 0.05s linear'
+          zIndex: 1
         }}
       />
 

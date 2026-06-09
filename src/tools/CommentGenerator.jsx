@@ -320,15 +320,40 @@ const applyPlaceholders = (template, data) => {
   const critBest = getCritString(bestLetter, names[bestLetter]);
   const critWorst = getCritString(worstLetter, names[worstLetter]);
 
+  // Determine target language based on subject name
+  const subjectName = (data.subject || '').trim().toLowerCase();
+  const isFrench = subjectName === 'language and literature - french';
+  const isGerman = subjectName === 'language and literature - german';
+
+  // Resolve pronouns based on subject language and student gender/pronouns
+  // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
+  let resolvedPronouns = { ...data.pronouns };
+  const isMale = data.pronouns.subj === 'he';
+  const isFemale = data.pronouns.subj === 'she';
+
+  if (isFrench) {
+    resolvedPronouns = {
+      subj: isMale ? 'il' : (isFemale ? 'elle' : 'iel'),
+      obj: 'lui', // default indirect object in French
+      poss: isMale ? 'son' : (isFemale ? 'sa' : 'leur') // default singular possessive adjectives
+    };
+  } else if (isGerman) {
+    resolvedPronouns = {
+      subj: isMale ? 'er' : (isFemale ? 'sie' : 'es'),
+      obj: isMale ? 'ihn' : (isFemale ? 'sie' : 'es'), // accusative
+      poss: isMale ? 'sein' : (isFemale ? 'ihr' : 'sein')
+    };
+  }
+
   return template
     // Standard placeholders
     .replace(/\[Name\]/g, data.forename)
-    .replace(/\[He\/She\]/g, data.pronouns.subj.charAt(0).toUpperCase() + data.pronouns.subj.slice(1))
-    .replace(/\[he\/she\]/g, data.pronouns.subj)
-    .replace(/\[His\/Her\]/g, data.pronouns.poss.charAt(0).toUpperCase() + data.pronouns.poss.slice(1))
-    .replace(/\[his\/her\]/g, data.pronouns.poss)
-    .replace(/\[Him\/Her\]/g, data.pronouns.obj.charAt(0).toUpperCase() + data.pronouns.obj.slice(1))
-    .replace(/\[him\/her\]/g, data.pronouns.obj)
+    .replace(/\[He\/She\]/g, resolvedPronouns.subj.charAt(0).toUpperCase() + resolvedPronouns.subj.slice(1))
+    .replace(/\[he\/she\]/g, resolvedPronouns.subj)
+    .replace(/\[His\/Her\]/g, resolvedPronouns.poss.charAt(0).toUpperCase() + resolvedPronouns.poss.slice(1))
+    .replace(/\[his\/her\]/g, resolvedPronouns.poss)
+    .replace(/\[Him\/Her\]/g, resolvedPronouns.obj.charAt(0).toUpperCase() + resolvedPronouns.obj.slice(1))
+    .replace(/\[him\/her\]/g, resolvedPronouns.obj)
     .replace(/\[Grade\]/g, data.grade)
     .replace(/\[Subject\]/g, data.subject)
     .replace(/\[CritA\]/g, critA)
@@ -342,11 +367,11 @@ const applyPlaceholders = (template, data) => {
 
     // Custom iSAMS placeholders
     .replace(/Student!/g, data.forename)
-    .replace(/He!/g, data.pronouns.subj.charAt(0).toUpperCase() + data.pronouns.subj.slice(1))
-    .replace(/he!/g, data.pronouns.subj)
-    .replace(/His!/g, data.pronouns.poss.charAt(0).toUpperCase() + data.pronouns.poss.slice(1))
-    .replace(/his!/g, data.pronouns.poss)
-    .replace(/him!/g, data.pronouns.obj)
+    .replace(/He!/g, resolvedPronouns.subj.charAt(0).toUpperCase() + resolvedPronouns.subj.slice(1))
+    .replace(/he!/g, resolvedPronouns.subj)
+    .replace(/His!/g, resolvedPronouns.poss.charAt(0).toUpperCase() + resolvedPronouns.poss.slice(1))
+    .replace(/his!/g, resolvedPronouns.poss)
+    .replace(/him!/g, resolvedPronouns.obj)
     .replace(/Subject!/g, data.subject)
     .replace(/A!\(?/g, critA)
     .replace(/B!\(?/g, critB)
@@ -421,10 +446,19 @@ export default function CommentGenerator() {
       try {
         const subjectKey = subject || 'Mathematics';
 
-        // 1. Fetch ATL bank (universal)
+        // 1. Fetch ATL bank (universal with English, French, and German language support)
         const atlRes = await fetch('/comment_bank/atl.json');
         if (!atlRes.ok) throw new Error('Failed to fetch ATL bank');
-        const atlData = await atlRes.json();
+        const atlAllData = await atlRes.json();
+
+        // Detect language based on active subject
+        const subjectName = subjectKey.trim().toLowerCase();
+        const isFrench = subjectName === 'language and literature - french';
+        const isGerman = subjectName === 'language and literature - german';
+        const langKey = isFrench ? 'french' : (isGerman ? 'german' : 'english');
+
+        // Extract language-specific ATL data
+        const atlData = atlAllData[langKey] || atlAllData['english'] || atlAllData;
 
         // 2. Fetch consolidated comments bank (all subjects in one file)
         const commentsRes = await fetch('/comment_bank/comments.json');
@@ -503,11 +537,9 @@ export default function CommentGenerator() {
 
   const subjectCrit = mypSubjects[subject] || mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
   
-  const critNames = (subjectCrit && subjectCrit[currentGradeGroup])
-    ? subjectCrit[currentGradeGroup]
-    : (subjectCrit && typeof subjectCrit.A === 'string'
-        ? subjectCrit
-        : (subjectCrit ? Object.values(subjectCrit)[0] : { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' }));
+  const critNames = (subjectCrit && typeof subjectCrit.A === 'string')
+    ? subjectCrit
+    : { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' };
 
   // Sync subject if defined in database
   useEffect(() => {
@@ -1162,7 +1194,7 @@ export default function CommentGenerator() {
 
               {/* Criteria preview */}
               <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', padding: '1rem' }}>
-                <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names ({currentGradeGroup})</p>
+                <p style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Auto-loaded Criterion Names</p>
                 {Object.entries(critNames || {}).map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.85rem' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: '700', minWidth: '60px' }}>Crit {k}</span>
