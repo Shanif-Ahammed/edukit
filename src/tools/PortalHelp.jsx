@@ -144,7 +144,7 @@ export default function PortalHelp() {
                   lineHeight: '1.5'
                 }}
               >
-                💡 <strong>Pro Tip:</strong> We highly recommend downloading this file after completing your term gradebook, ensuring all grades are published, and resyncing/saving in the <strong>Online Assessment System (OAS)</strong> first.
+                💡 <strong>Pro Tip:</strong> If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file from iSAMS.
               </div>
 
               <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Excel Layout Guidelines</h3>
@@ -363,13 +363,13 @@ export default function PortalHelp() {
                     marginBottom: '0.5rem',
                     letterSpacing: '0.04em'
                   }}>
-                    Mistake 2: Missing Criterion Grades in Exported Sheets
+                    Mistake 2: Missing Student Data or Grades in Exported Sheets
                   </span>
                   <h4 style={{ fontSize: '0.92rem', fontWeight: '750', color: 'var(--text-main)', marginBottom: '0.4rem' }}>
-                    "I entered student criterion grades in my gradebook in iSAMS, but why are they blank in the Excel sheet?"
+                    "Why is student data or a student's score/grades missing in the Excel sheet?"
                   </h4>
                   <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: '1.45' }}>
-                    <strong>The Reason:</strong> The Excel exporter pulls grades directly from the central <strong style={{ fontWeight: '800' }}>OAS (Online Assessment System)</strong> database. Ensure that you <strong style={{ fontWeight: '800' }}>publish, resync, and save all criterion grade entries in OAS first</strong> before triggering the Excel download, then upload the updated sheet.
+                    <strong>The Reason:</strong> If student data is missing, or if there is any update done in the gradebook, make sure to download the latest roster file. If a student score/grade is missing, make sure to download the latest file from iSAMS and re-upload it inside the Dashboard database connect tab.
                   </p>
                 </div>
 

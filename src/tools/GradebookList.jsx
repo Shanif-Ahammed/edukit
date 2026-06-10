@@ -53,7 +53,7 @@ const STRATEGY_INSIGHTS = {
   }
 };
 
-export default function ATLTracker() {
+export default function GradebookList() {
   const { fileConnected, students, selectedClass, subject, updateStudent } = useData();
   const [distributionMode, setDistributionMode] = useState('atl'); // 'atl' | 'grade'
 

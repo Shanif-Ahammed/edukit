@@ -1139,11 +1139,11 @@ export default function CommentGenerator() {
               <div>
                 <strong style={{ fontWeight: '800', color: 'var(--warning-text)' }}>⚠️ ALERT: Missing Student Criterion Grades Detected</strong>
                 <p style={{ marginTop: '0.25rem', color: 'var(--text-main)', opacity: 0.9 }}>
-                  Some students in the active class roster have blank or missing **Criterion Grades (Crit A, B, C, or D)**. 
-                  Note that if you already entered these grades in your iSAMS gradebook, the issue might be that the entries have not been **resynced and saved in the Online Assessment System (OAS)**.
+                  Some students in the active class roster have blank or missing **Criterion Grades (Crit A, B, C, or D)**.
+                  If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file from iSAMS.
                 </p>
                 <p style={{ marginTop: '0.5rem', fontWeight: '800', color: 'var(--warning-text)' }}>
-                  💡 Solution: Make sure all gradebook marks are published and resynced in OAS first before downloading your iSAMS Excel export.
+                  💡 Solution: Make sure to download the latest file from iSAMS and re-upload it inside the Dashboard database connect tab.
                 </p>
               </div>
             </div>
@@ -1401,8 +1401,7 @@ export default function CommentGenerator() {
                     <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>B</th>
                     <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>C</th>
                     <th style={{ padding: '0.85rem 1rem', width: '45px', textAlign: 'center' }}>D</th>
-                    <th style={{ padding: '0.85rem 1rem', width: '145px' }}>ATL Skill Focus</th>
-                    <th style={{ padding: '0.85rem 1rem', width: '145px' }}>ATL Progress</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '150px' }}>ATL Skill / Progress</th>
                     <th style={{ padding: '0.85rem 1rem', background: 'rgba(99,102,241,0.04)' }}>Generated Comment</th>
                     <th style={{ padding: '0.85rem 1rem', width: '80px', textAlign: 'center' }}>Actions</th>
                   </tr>
@@ -1456,11 +1455,10 @@ export default function CommentGenerator() {
                         <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critC) }}>{s.critC ?? '—'}</td>
                         <td style={{ padding: '0.75rem 1rem', textAlign: 'center', ...cellColor(s.critD) }}>{s.critD ?? '—'}</td>
 
-                        <td style={{ padding: '0.75rem 1rem', color: 'var(--text-muted)' }}>
-                          {s.selectedAtlSkill || atlSkill || 'Self-Management'}
-                        </td>
-
                         <td style={{ padding: '0.75rem 1rem' }}>
+                          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '5px' }}>
+                            {s.selectedAtlSkill || atlSkill || 'Self-Management'}
+                          </div>
                           <span style={{
                             background: s.atlProgress === 'Expert' || s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.1)' : s.atlProgress === 'Practitioner' || s.atlProgress === 'Good' ? 'rgba(99,102,241,0.1)' : s.atlProgress === 'Beginner' || s.atlProgress === 'Satisfactory' || s.atlProgress === 'Developing' ? 'rgba(245,158,11,0.1)' : 'rgba(239,68,68,0.1)',
                             border: '1px solid ' + (s.atlProgress === 'Expert' || s.atlProgress === 'Excellent' ? 'rgba(16,185,129,0.2)' : s.atlProgress === 'Practitioner' || s.atlProgress === 'Good' ? 'rgba(99,102,241,0.2)' : s.atlProgress === 'Beginner' || s.atlProgress === 'Satisfactory' || s.atlProgress === 'Developing' ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)'),
@@ -1485,9 +1483,8 @@ export default function CommentGenerator() {
                           borderLeft: hasMissingCrit
                             ? '3px solid #ef4444'
                             : isManualDraft
-                            ? '3px solid #fbbf24' 
-                            : 'none',
-                          maxWidth: '420px' 
+                            ? '3px solid #fbbf24'
+                            : 'none'
                         }}>
                           <div
                             style={{ 

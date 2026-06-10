@@ -27,6 +27,44 @@ const COLUMN_KEYS = {
   emirati: [/emirati/i, /uae\s*national/i, /nationality/i]
 };
 
+const PERSIST_PREFIX = 'edukit_mis_';
+
+const STORAGE_FULL_WARNING = "This file is too large to save on this device, so your data is loaded for this session only. For a faster, saveable setup, filter the export down to just your classes.";
+
+const clearPersistedData = () => {
+  Object.keys(localStorage)
+    .filter((key) => key.startsWith(PERSIST_PREFIX))
+    .forEach((key) => localStorage.removeItem(key));
+};
+
+// Writes all entries to localStorage; if any write throws (e.g. QuotaExceededError
+// on a large roster), rolls back every edukit_mis_* key so we never leave
+// half-written state, and returns false.
+const safePersist = (entries) => {
+  try {
+    Object.entries(entries).forEach(([key, value]) => localStorage.setItem(key, value));
+    return true;
+  } catch (e) {
+    console.warn('localStorage persistence failed, rolling back saved data:', e);
+    try {
+      clearPersistedData();
+    } catch (cleanupErr) {
+      console.warn('Failed to roll back saved data:', cleanupErr);
+    }
+    return false;
+  }
+};
+
+// Best-effort single-key write for incremental updates — an edit must never
+// crash just because storage is full.
+const tryPersist = (key, value) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn(`localStorage write failed for ${key}:`, e);
+  }
+};
+
 // Resolve pronouns based on gender string
 const resolvePronouns = (gender) => {
   const g = (gender || '').trim().toLowerCase();
@@ -93,19 +131,11 @@ export const DataProvider = ({ children }) => {
     setSubjects([]);
     setTeacherName('');
     
-    localStorage.removeItem('edukit_mis_connected');
-    localStorage.removeItem('edukit_mis_filename');
-    localStorage.removeItem('edukit_mis_students');
-    localStorage.removeItem('edukit_mis_classes');
-    localStorage.removeItem('edukit_mis_selected_class');
-    localStorage.removeItem('edukit_mis_subject');
-    localStorage.removeItem('edukit_mis_subjects');
-    localStorage.removeItem('edukit_mis_teacher');
-    localStorage.removeItem('edukit_mis_missing');
+    clearPersistedData();
   };
 
   const connectData = (name, rawRows) => {
-    if (!rawRows || rawRows.length === 0) return { success: false, error: "No records found in Excel sheet." };
+    if (!rawRows || rawRows.length === 0) return { success: false, error: "No records found in the uploaded file." };
 
     // Get the headers from the first row
     const firstRowKeys = Object.keys(rawRows[0]);
@@ -130,7 +160,7 @@ export const DataProvider = ({ children }) => {
     if (!matchedHeaders.name) {
       return { 
         success: false, 
-        error: "Could not identify Student Name or Name column in Excel file. Please review column headers." 
+        error: "Could not identify Student Name or Name column in the uploaded file. Please review column headers."
       };
     }
 
@@ -262,15 +292,22 @@ export const DataProvider = ({ children }) => {
     setMissingColumns(missing);
     setFileConnected(true);
 
-    // Save persistence
-    localStorage.setItem('edukit_mis_connected', 'true');
-    localStorage.setItem('edukit_mis_filename', name);
-    localStorage.setItem('edukit_mis_students', JSON.stringify(parsedStudents));
-    localStorage.setItem('edukit_mis_classes', JSON.stringify(uniqueClasses));
-    localStorage.setItem('edukit_mis_selected_class', defaultClass);
-    localStorage.setItem('edukit_mis_subject', initialSubject);
-    localStorage.setItem('edukit_mis_teacher', finalTeacher);
-    localStorage.setItem('edukit_mis_missing', JSON.stringify(missing));
+    // Save persistence — data stays loaded in React state for this session
+    // even if the roster is too large to fit in localStorage.
+    const persisted = safePersist({
+      edukit_mis_connected: 'true',
+      edukit_mis_filename: name,
+      edukit_mis_students: JSON.stringify(parsedStudents),
+      edukit_mis_classes: JSON.stringify(uniqueClasses),
+      edukit_mis_selected_class: defaultClass,
+      edukit_mis_subject: initialSubject,
+      edukit_mis_teacher: finalTeacher,
+      edukit_mis_missing: JSON.stringify(missing)
+    });
+
+    if (!persisted) {
+      return { success: true, warning: STORAGE_FULL_WARNING };
+    }
 
     return { success: true };
   };
@@ -288,23 +325,23 @@ export const DataProvider = ({ children }) => {
       return s;
     });
     setStudents(updated);
-    localStorage.setItem('edukit_mis_students', JSON.stringify(updated));
+    tryPersist('edukit_mis_students', JSON.stringify(updated));
   };
 
   const updateStudents = (updatedList) => {
     setStudents(updatedList);
-    localStorage.setItem('edukit_mis_students', JSON.stringify(updatedList));
+    tryPersist('edukit_mis_students', JSON.stringify(updatedList));
   };
 
   const handleSetSelectedClass = (clsName) => {
     setSelectedClass(clsName);
-    localStorage.setItem('edukit_mis_selected_class', clsName);
+    tryPersist('edukit_mis_selected_class', clsName);
 
     // Dynamically update the active subject based on the selected class
     const classStudent = students.find(s => s.className === clsName);
     if (classStudent && classStudent.subject) {
       setSubject(classStudent.subject);
-      localStorage.setItem('edukit_mis_subject', classStudent.subject);
+      tryPersist('edukit_mis_subject', classStudent.subject);
     }
   };
 

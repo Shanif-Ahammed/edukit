@@ -103,8 +103,8 @@ export default function TeacherToolkit() {
   const qaMatrix = [
     { role: "Secondary Data and Exams Officer", task: "Check for grades that are lower than the previous AP and alert relevant SubCos.", ap: "AP3 - AP5" },
     { role: "Secondary Data and Exams Officer", task: "Check overall attainment benchmarks against the KHDA inspection framework and inform Deputy Headteacher Academics.", ap: "AP3 & AP5" },
-    { role: "SubCos", task: "Check for missing data (obtain spreadsheet from Secondary Data and Exams Officer) and chase up teachers, providing a strict 2 days to rectify.", ap: "All APs" },
-    { role: "Teachers", task: "Coordinated by SubCo, peer-check inputted data in gradebooks, and query with partner. Alert SubCo if any issues are identified.", ap: "AP3 & AP5" },
+    { role: "SubCos", task: "Check for missing data (obtain spreadsheet from Secondary Data and Exams Officer) and chase up teachers. If student data is missing or gradebook updates are made, instruct teachers to download the latest roster/score file.", ap: "All APs" },
+    { role: "Teachers", task: "Coordinated by SubCo, peer-check inputted data in gradebooks. If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.", ap: "AP3 & AP5" },
     { role: "Assistant Head, Student Experience", task: "Check all Emirati student data and alert Deputy Headteacher Academics if any Emirati student is in danger of failing to meet the Thanaweya requirements.", ap: "AP3 & AP5" },
     { role: "DP Coordinator", task: "Review student predicted grades and ensure comprehensive DP cohort alignment.", ap: "AP4 & AP5" },
     { role: "CP Coordinator", task: "Conduct checking of all CP Component and Unit grades against school targets.", ap: "All APs" },
@@ -161,7 +161,7 @@ export default function TeacherToolkit() {
             { id: 'overview', label: 'Framework Overview', icon: Info },
             { id: 'myp', label: 'MYP Gradebook & CPT', icon: Calculator },
             { id: 'dp_cp', label: 'DP & CP Frameworks', icon: Calendar },
-            { id: 'oas', label: 'OAS Resync & Descriptors', icon: RefreshCw },
+            { id: 'oas', label: 'Roster Updates & Descriptors', icon: RefreshCw },
             { id: 'atl_attitude', label: 'ATL & Attitude Rubrics', icon: Sparkles },
             { id: 'moe', label: 'MOE Subjects & Arabic', icon: ShieldAlert },
             { id: 'qa', label: 'Quality Assurance Matrix', icon: UserCheck },
@@ -220,7 +220,7 @@ export default function TeacherToolkit() {
                   <Calendar size={18} /> Important Assessment Cycle Dates (2025-2026)
                 </h3>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.4', margin: '0 0 1rem 0' }}>
-                  Official gradebook entry deadlines and Online Assessment System (OAS) resynchronization timeframes. Please ensure all marks are published and peer-moderated by closing dates.
+                  Official gradebook entry deadlines and iSAMS roster download guidelines. If any updates are made, download the latest roster file.
                 </p>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -532,7 +532,7 @@ export default function TeacherToolkit() {
           {activeAssessSubTab === 'oas' && (
             <div className="animate-fade-in">
               <h2 style={{ fontSize: '1.45rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
-                <RefreshCw size={22} /> Online Assessment System (OAS) Gradebook Sync
+                <RefreshCw size={22} /> Gradebook Roster Updates & iSAMS Sync
               </h2>
 
               <div
@@ -552,9 +552,9 @@ export default function TeacherToolkit() {
               >
                 <CheckCircle2 size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
-                  <strong style={{ fontWeight: '700' }}>OAS Gradebook Resync Rule</strong>
+                  <strong style={{ fontWeight: '700' }}>Gradebook Roster Update Rule</strong>
                   <p style={{ marginTop: '0.25rem', color: 'var(--text-main)', opacity: 0.9 }}>
-                    Every time you modify student criteria grades in your offline Excel gradebook or ManageBac sheets, you <strong style={{ fontWeight: '800' }}>must resync with OAS</strong> so that final report cards populate accurately. Click "Resync Gradebook Data" inside each class portal on OAS. Cells will turn green once successfully synchronized!
+                    If student data is missing or if there is any update done in your iSAMS gradebook, make sure to download the latest roster file. If a student score/grade is missing, make sure to download the latest Excel file from iSAMS and reconnect it on the dashboard.
                   </p>
                 </div>
               </div>
@@ -994,12 +994,12 @@ export default function TeacherToolkit() {
                       cursor: 'pointer'
                     }}
                   >
-                    <span>Q: I entered student grades in iSAMS but the Excel export columns are blank. Why?</span>
+                    <span>Q: Why is student data or a student's score/grades missing in the Excel sheet?</span>
                     <ChevronDown size={16} style={{ transform: faqOpen.emptyGrades ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
                   </button>
                   {faqOpen.emptyGrades && (
                     <div style={{ padding: '0 1.25rem 1rem 1.25rem', fontSize: '0.82rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', lineHeight: '1.5' }}>
-                      The official Excel gradebooks export data directly from the central <strong style={{ fontWeight: '800' }}>OAS (Online Assessment System)</strong> rather than pulling active entries from your offline, local spreadsheet copy. This occurs when grades have been recorded in your local planner but not yet published, synchronized, or saved on the OAS server. Ensure you click "Resync Gradebook Data" and "Save" in OAS before triggering Excel downloads.
+                      This happens when the local portal data is not up to date with the latest gradebook. If there is any update done in the gradebook, make sure to download the latest roster file. If a student score or grade is missing, make sure to download the latest file from iSAMS and re-upload/re-connect it on the Dashboard.
                     </div>
                   )}
                 </div>

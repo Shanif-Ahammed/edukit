@@ -6,12 +6,14 @@ import {
   BookOpen, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { DataProvider, useData } from './context/DataContext';
+import { FEATURES } from './config/features';
 import HeaderNav from './components/HeaderNav';
+import ErrorBoundary from './components/ErrorBoundary';
 import Dashboard from './tools/Dashboard';
 import CommentGenerator from './tools/CommentGenerator';
 import SeatingChart from './tools/SeatingChart';
 import DataAnalysis from './tools/DataAnalysis';
-import ATLTracker from './tools/ATLTracker';
+import GradebookList from './tools/GradebookList';
 import Utilities from './tools/Utilities';
 import AiAssistant from './tools/AiAssistant';
 import TeacherToolkit from './tools/TeacherToolkit';
@@ -22,9 +24,11 @@ import './App.css';
 
 export default function App() {
   return (
-    <DataProvider>
-      <AppContent />
-    </DataProvider>
+    <ErrorBoundary>
+      <DataProvider>
+        <AppContent />
+      </DataProvider>
+    </ErrorBoundary>
   );
 }
 
@@ -198,33 +202,34 @@ Sent from SISD EduKit Teacher Portal`;
         {/* Navigation Items */}
         <nav style={{ overflow: sidebarCollapsed ? 'visible' : 'auto' }}>
           {/* Standout AI Assistant Tab */}
-          <button 
+          <button
             className="btn"
-            style={{ 
+            style={{
               position: 'relative',
-              justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              border: '1px solid var(--border-color)', 
-              background: 'transparent',
-              color: 'var(--text-muted)',
+              justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+              border: activeTool === 'ai-assistant' ? '1px solid var(--border-color-hover)' : '1px solid var(--border-color)',
+              background: activeTool === 'ai-assistant' ? 'var(--bg-card-hover)' : 'transparent',
+              color: activeTool === 'ai-assistant' ? 'var(--text-main)' : 'var(--text-muted)',
               fontWeight: '800',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.86rem',
               borderRadius: '12px',
               marginBottom: '0.75rem',
-              cursor: 'not-allowed',
-              opacity: 0.65,
+              cursor: FEATURES.aiAssistant ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.aiAssistant ? 1 : 0.65,
               transition: 'all var(--transition-fast)'
             }}
+            onClick={FEATURES.aiAssistant ? () => setActiveTool('ai-assistant') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <MessageSquare size={16} />
+              <MessageSquare size={16} style={{ color: activeTool === 'ai-assistant' ? 'var(--primary)' : undefined }} />
               {!sidebarCollapsed && <span>AI Assistant</span>}
             </div>
-            {!sidebarCollapsed && (
-              <span style={{ 
-                fontSize: '0.62rem', 
-                background: 'rgba(245, 158, 11, 0.1)', 
-                padding: '0.15rem 0.45rem', 
+            {!sidebarCollapsed && !FEATURES.aiAssistant && (
+              <span style={{
+                fontSize: '0.62rem',
+                background: 'rgba(245, 158, 11, 0.1)',
+                padding: '0.15rem 0.45rem',
                 borderRadius: '4px',
                 color: '#fbbf24',
                 border: '1px solid rgba(245, 158, 11, 0.25)'
@@ -232,7 +237,10 @@ Sent from SISD EduKit Teacher Portal`;
                 Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">AI Assistant (Coming Soon)</span>}
+            {!sidebarCollapsed && FEATURES.aiAssistant && activeTool === 'ai-assistant' && (
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.aiAssistant ? 'AI Assistant' : 'AI Assistant (Coming Soon)'}</span>}
           </button>
           
           {/* Dashboard Tab */}
@@ -292,143 +300,159 @@ Sent from SISD EduKit Teacher Portal`;
           </button>
 
           {/* Seating Planner Tab */}
-          <button 
+          <button
             className="btn"
-            style={{ 
+            style={{
               position: 'relative',
-              justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: 'transparent',
-              borderColor: 'transparent',
-              color: 'var(--text-muted)',
+              justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+              background: activeTool === 'seating' ? 'var(--bg-card-hover)' : 'transparent',
+              borderColor: activeTool === 'seating' ? 'var(--border-color-hover)' : 'transparent',
+              color: activeTool === 'seating' ? 'var(--text-main)' : 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.88rem',
-              cursor: 'not-allowed',
-              opacity: 0.65
+              cursor: FEATURES.seatingChart ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.seatingChart ? 1 : 0.65
             }}
+            onClick={FEATURES.seatingChart ? () => setActiveTool('seating') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Users size={16} style={{ color: 'var(--text-muted)' }} />
+              <Users size={16} style={{ color: activeTool === 'seating' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
               {!sidebarCollapsed && <span>Seating Chart</span>}
             </div>
-            {!sidebarCollapsed && (
-              <span style={{ 
-                fontSize: '0.62rem', 
-                background: 'rgba(255, 255, 255, 0.05)', 
+            {!sidebarCollapsed && !FEATURES.seatingChart && (
+              <span style={{
+                fontSize: '0.62rem',
+                background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--border-color)',
-                padding: '0.15rem 0.45rem', 
-                borderRadius: '4px', 
-                color: 'var(--text-muted)' 
+                padding: '0.15rem 0.45rem',
+                borderRadius: '4px',
+                color: 'var(--text-muted)'
               }}>
                 Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Seating Chart (Coming Soon)</span>}
+            {!sidebarCollapsed && FEATURES.seatingChart && activeTool === 'seating' && (
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.seatingChart ? 'Seating Chart' : 'Seating Chart (Coming Soon)'}</span>}
           </button>
 
           {/* Data Analysis Tab */}
-          <button 
+          <button
             className="btn"
-            style={{ 
+            style={{
               position: 'relative',
-              justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: 'transparent',
-              borderColor: 'transparent',
-              color: 'var(--text-muted)',
+              justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+              background: activeTool === 'analysis' ? 'var(--bg-card-hover)' : 'transparent',
+              borderColor: activeTool === 'analysis' ? 'var(--border-color-hover)' : 'transparent',
+              color: activeTool === 'analysis' ? 'var(--text-main)' : 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.88rem',
-              cursor: 'not-allowed',
-              opacity: 0.65
+              cursor: FEATURES.cohortAnalysis ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.cohortAnalysis ? 1 : 0.65
             }}
+            onClick={FEATURES.cohortAnalysis ? () => setActiveTool('analysis') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <BarChart3 size={16} style={{ color: 'var(--text-muted)' }} />
+              <BarChart3 size={16} style={{ color: activeTool === 'analysis' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
               {!sidebarCollapsed && <span>Cohort Analysis</span>}
             </div>
-            {!sidebarCollapsed && (
-              <span style={{ 
-                fontSize: '0.62rem', 
-                background: 'rgba(255, 255, 255, 0.05)', 
+            {!sidebarCollapsed && !FEATURES.cohortAnalysis && (
+              <span style={{
+                fontSize: '0.62rem',
+                background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--border-color)',
-                padding: '0.15rem 0.45rem', 
-                borderRadius: '4px', 
-                color: 'var(--text-muted)' 
+                padding: '0.15rem 0.45rem',
+                borderRadius: '4px',
+                color: 'var(--text-muted)'
               }}>
                 Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Cohort Analysis (Coming Soon)</span>}
+            {!sidebarCollapsed && FEATURES.cohortAnalysis && activeTool === 'analysis' && (
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.cohortAnalysis ? 'Cohort Analysis' : 'Cohort Analysis (Coming Soon)'}</span>}
           </button>
 
           {/* Gradebook Preview Tab */}
-          <button 
+          <button
             className="btn"
-            style={{ 
+            style={{
               position: 'relative',
-              justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: 'transparent',
-              borderColor: 'transparent',
-              color: 'var(--text-muted)',
+              justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+              background: activeTool === 'gradebook' ? 'var(--bg-card-hover)' : 'transparent',
+              borderColor: activeTool === 'gradebook' ? 'var(--border-color-hover)' : 'transparent',
+              color: activeTool === 'gradebook' ? 'var(--text-main)' : 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.88rem',
-              cursor: 'not-allowed',
-              opacity: 0.65
+              cursor: FEATURES.gradebookList ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.gradebookList ? 1 : 0.65
             }}
+            onClick={FEATURES.gradebookList ? () => setActiveTool('gradebook') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Grid size={16} style={{ color: 'var(--text-muted)' }} />
+              <Grid size={16} style={{ color: activeTool === 'gradebook' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
               {!sidebarCollapsed && <span>Gradebook List</span>}
             </div>
-            {!sidebarCollapsed && (
-              <span style={{ 
-                fontSize: '0.62rem', 
-                background: 'rgba(255, 255, 255, 0.05)', 
+            {!sidebarCollapsed && !FEATURES.gradebookList && (
+              <span style={{
+                fontSize: '0.62rem',
+                background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--border-color)',
-                padding: '0.15rem 0.45rem', 
-                borderRadius: '4px', 
-                color: 'var(--text-muted)' 
+                padding: '0.15rem 0.45rem',
+                borderRadius: '4px',
+                color: 'var(--text-muted)'
               }}>
                 Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Gradebook List (Coming Soon)</span>}
+            {!sidebarCollapsed && FEATURES.gradebookList && activeTool === 'gradebook' && (
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.gradebookList ? 'Gradebook List' : 'Gradebook List (Coming Soon)'}</span>}
           </button>
 
           {/* Utilities Tab */}
-          <button 
+          <button
             className="btn"
-            style={{ 
+            style={{
               position: 'relative',
-              justifyContent: sidebarCollapsed ? 'center' : 'space-between', 
-              background: 'transparent',
-              borderColor: 'transparent',
-              color: 'var(--text-muted)',
+              justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+              background: activeTool === 'utilities' ? 'var(--bg-card-hover)' : 'transparent',
+              borderColor: activeTool === 'utilities' ? 'var(--border-color-hover)' : 'transparent',
+              color: activeTool === 'utilities' ? 'var(--text-main)' : 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
               fontSize: '0.88rem',
-              cursor: 'not-allowed',
-              opacity: 0.65
+              cursor: FEATURES.utilities ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.utilities ? 1 : 0.65
             }}
+            onClick={FEATURES.utilities ? () => setActiveTool('utilities') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
-              <Layers size={16} style={{ color: 'var(--text-muted)' }} />
+              <Layers size={16} style={{ color: activeTool === 'utilities' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
               {!sidebarCollapsed && <span>Utilities</span>}
             </div>
-            {!sidebarCollapsed && (
-              <span style={{ 
-                fontSize: '0.62rem', 
-                background: 'rgba(255, 255, 255, 0.05)', 
+            {!sidebarCollapsed && !FEATURES.utilities && (
+              <span style={{
+                fontSize: '0.62rem',
+                background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--border-color)',
-                padding: '0.15rem 0.45rem', 
-                borderRadius: '4px', 
-                color: 'var(--text-muted)' 
+                padding: '0.15rem 0.45rem',
+                borderRadius: '4px',
+                color: 'var(--text-muted)'
               }}>
                 Soon
               </span>
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Utilities (Coming Soon)</span>}
+            {!sidebarCollapsed && FEATURES.utilities && activeTool === 'utilities' && (
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
+            )}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.utilities ? 'Utilities' : 'Utilities (Coming Soon)'}</span>}
           </button>
 
           {/* Teacher Toolkit Tab */}
@@ -561,7 +585,7 @@ Sent from SISD EduKit Teacher Portal`;
           {activeTool === 'comment' && <CommentGenerator />}
           {activeTool === 'seating' && <SeatingChart />}
           {activeTool === 'analysis' && <DataAnalysis />}
-          {activeTool === 'atl' && <ATLTracker />}
+          {activeTool === 'gradebook' && <GradebookList />}
           {activeTool === 'utilities' && <Utilities />}
           {activeTool === 'ai-assistant' && <AiAssistant />}
           {activeTool === 'toolkit' && <TeacherToolkit />}

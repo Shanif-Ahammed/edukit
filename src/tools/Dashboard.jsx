@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { useData } from '../context/DataContext';
+import { parseRosterFile, isSupportedRosterFile, ACCEPT_ATTRIBUTE } from '../utils/parseRosterFile';
+import { FEATURES } from '../config/features';
 
 // ── PROGRAMMATIC REALISTIC SISD DEMO DATA GENERATOR ───────────────────
 const generateDemoRoster = () => {
@@ -275,66 +277,62 @@ export default function Dashboard({ setActiveTool }) {
           borderRadius: '30px',
           gap: '0.55rem',
           fontWeight: '800',
-          background: 'transparent',
-          border: '1px solid var(--border-color)',
-          color: 'var(--text-muted)',
-          cursor: 'not-allowed',
-          opacity: 0.65,
+          background: FEATURES.aiAssistant ? undefined : 'transparent',
+          border: FEATURES.aiAssistant ? undefined : '1px solid var(--border-color)',
+          color: FEATURES.aiAssistant ? undefined : 'var(--text-muted)',
+          cursor: FEATURES.aiAssistant ? 'pointer' : 'not-allowed',
+          opacity: FEATURES.aiAssistant ? 1 : 0.65,
           transition: 'all var(--transition-fast)'
         }}
-        disabled
+        disabled={!FEATURES.aiAssistant}
+        onClick={FEATURES.aiAssistant ? () => setActiveTool('ai-assistant') : undefined}
       >
-        ⚡ AI Assistant (Coming Soon)
+        {FEATURES.aiAssistant ? '⚡ Open AI Assistant' : '⚡ AI Assistant (Coming Soon)'}
       </button>
     </div>
   );
 
   // ── HANDLERS AND HELPERS ─────────────────────────────────────────────
-  const triggerToast = (msg, type = 'success') => {
+  const triggerToast = (msg, type = 'success', duration = 4000) => {
     setToastMsg(msg);
     setToastType(type);
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 4000);
+    }, duration);
   };
 
-  const handleFile = (file) => {
+  const handleFile = async (file) => {
     if (!file) return;
     const name = file.name;
-    const ext = name.split('.').pop().toLowerCase();
-    
-    if (ext !== 'xlsx' && ext !== 'xls') {
-      setErrorMsg("Unsupported file format. Please upload a .xlsx or .xls file.");
+
+    if (!isSupportedRosterFile(name)) {
+      setErrorMsg("Unsupported file format. Please upload a .xlsx, .xls, or .csv file.");
       triggerToast("Unsupported file format.", "error");
       return;
     }
 
     setErrorMsg(null);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = e.target.result;
-        const workbook = XLSX.read(data, { type: 'binary' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const rows = XLSX.utils.sheet_to_json(sheet);
-        
-        const result = connectData(name, rows);
-        if (result.success) {
-          triggerToast(`Successfully connected: ${name}`);
-          setModalOpen(false);
+    try {
+      const rows = await parseRosterFile(file);
+      const result = connectData(name, rows);
+      if (result.success) {
+        if (result.warning) {
+          // Longer duration so the persistence warning is actually read
+          triggerToast(result.warning, "warning", 10000);
         } else {
-          setErrorMsg(result.error);
-          triggerToast(result.error, "error");
+          triggerToast(`Successfully connected: ${name}`);
         }
-      } catch (err) {
-        console.error("SheetJS parsing error:", err);
-        setErrorMsg("Failed to read the Excel file. Make sure it is not corrupted.");
-        triggerToast("Failed to parse the Excel file.", "error");
+        setModalOpen(false);
+      } else {
+        setErrorMsg(result.error);
+        triggerToast(result.error, "error");
       }
-    };
-    reader.readAsBinaryString(file);
+    } catch (err) {
+      console.error("Roster parsing error:", err);
+      setErrorMsg("Failed to read the file. Make sure it is not corrupted.");
+      triggerToast("Failed to parse the file.", "error");
+    }
   };
 
   const handleDrag = (e) => {
@@ -434,7 +432,8 @@ export default function Dashboard({ setActiveTool }) {
           zIndex: 1100,
           background: 'var(--bg-sidebar)',
           backdropFilter: 'blur(20px)',
-          border: toastType === 'success' ? '1px solid rgba(16, 185, 129, 0.35)' : '1px solid rgba(239, 68, 68, 0.35)',
+          border: toastType === 'success' ? '1px solid rgba(16, 185, 129, 0.35)' : toastType === 'warning' ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid rgba(239, 68, 68, 0.35)',
+          maxWidth: '420px',
           boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
           padding: '1rem 1.75rem',
           borderRadius: '16px',
@@ -446,6 +445,8 @@ export default function Dashboard({ setActiveTool }) {
         }}>
           {toastType === 'success' ? (
             <Check size={18} style={{ color: '#10b981', filter: 'drop-shadow(0 0 4px rgba(16, 185, 129, 0.4))' }} />
+          ) : toastType === 'warning' ? (
+            <AlertCircle size={18} style={{ color: '#fbbf24', filter: 'drop-shadow(0 0 4px rgba(245, 158, 11, 0.4))', flexShrink: 0 }} />
           ) : (
             <AlertCircle size={18} style={{ color: '#ef4444', filter: 'drop-shadow(0 0 4px rgba(239, 68, 68, 0.4))' }} />
           )}
@@ -1491,18 +1492,19 @@ export default function Dashboard({ setActiveTool }) {
               </div>
 
               {/* Tool Card 2: Seating Chart */}
-              <div 
-                className="glass-panel"
-                style={{ 
-                  padding: '2.25rem', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  height: '100%', 
-                  cursor: 'not-allowed',
-                  opacity: 0.65,
+              <div
+                className={FEATURES.seatingChart ? 'glass-panel glass-panel-hover' : 'glass-panel'}
+                style={{
+                  padding: '2.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  cursor: FEATURES.seatingChart ? 'pointer' : 'not-allowed',
+                  opacity: FEATURES.seatingChart ? 1 : 0.65,
                   borderRadius: '24px',
                   border: '1px solid var(--border-color)'
                 }}
+                onClick={FEATURES.seatingChart ? () => setActiveTool('seating') : undefined}
               >
                 <div style={{
                   width: '52px',
@@ -1521,38 +1523,41 @@ export default function Dashboard({ setActiveTool }) {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Seating Chart Planner
-                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Coming Soon
-                  </span>
+                  {!FEATURES.seatingChart && (
+                    <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                      Coming Soon
+                    </span>
+                  )}
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
                   Design physical desk arrangements. Live drag-and-drop layout options (rows, clusters, circular configuration) mapping student tags.
                 </p>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.5rem', 
-                  color: 'var(--text-muted)', 
-                  fontWeight: '800', 
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: FEATURES.seatingChart ? 'var(--primary)' : 'var(--text-muted)',
+                  fontWeight: '800',
                   fontSize: '0.92rem'
                 }}>
-                  Module Coming Soon
+                  {FEATURES.seatingChart ? <>Launch Seating Planner <ArrowRight size={16} /></> : 'Module Coming Soon'}
                 </div>
               </div>
 
               {/* Tool Card 3: Data Analysis */}
-              <div 
-                className="glass-panel"
-                style={{ 
-                  padding: '2.25rem', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  height: '100%', 
-                  cursor: 'not-allowed',
-                  opacity: 0.65,
+              <div
+                className={FEATURES.cohortAnalysis ? 'glass-panel glass-panel-hover' : 'glass-panel'}
+                style={{
+                  padding: '2.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  cursor: FEATURES.cohortAnalysis ? 'pointer' : 'not-allowed',
+                  opacity: FEATURES.cohortAnalysis ? 1 : 0.65,
                   borderRadius: '24px',
                   border: '1px solid var(--border-color)'
                 }}
+                onClick={FEATURES.cohortAnalysis ? () => setActiveTool('analysis') : undefined}
               >
                 <div style={{
                   width: '52px',
@@ -1571,38 +1576,41 @@ export default function Dashboard({ setActiveTool }) {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Cohort Data Analysis
-                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Coming Soon
-                  </span>
+                  {!FEATURES.cohortAnalysis && (
+                    <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                      Coming Soon
+                    </span>
+                  )}
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
                   Track criteria trends, KHDA progress descriptors, target MEGs comparison, and generate automated classroom intervention remarks.
                 </p>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.5rem', 
-                  color: 'var(--text-muted)', 
-                  fontWeight: '800', 
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: FEATURES.cohortAnalysis ? 'var(--primary)' : 'var(--text-muted)',
+                  fontWeight: '800',
                   fontSize: '0.92rem'
                 }}>
-                  Module Coming Soon
+                  {FEATURES.cohortAnalysis ? <>Launch Cohort Analysis <ArrowRight size={16} /></> : 'Module Coming Soon'}
                 </div>
               </div>
 
               {/* Tool Card 4: Gradebook Preview */}
-              <div 
-                className="glass-panel"
-                style={{ 
-                  padding: '2.25rem', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  height: '100%', 
-                  cursor: 'not-allowed',
-                  opacity: 0.65,
+              <div
+                className={FEATURES.gradebookList ? 'glass-panel glass-panel-hover' : 'glass-panel'}
+                style={{
+                  padding: '2.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  cursor: FEATURES.gradebookList ? 'pointer' : 'not-allowed',
+                  opacity: FEATURES.gradebookList ? 1 : 0.65,
                   borderRadius: '24px',
                   border: '1px solid var(--border-color)'
                 }}
+                onClick={FEATURES.gradebookList ? () => setActiveTool('gradebook') : undefined}
               >
                 <div style={{
                   width: '52px',
@@ -1621,38 +1629,41 @@ export default function Dashboard({ setActiveTool }) {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Gradebook Preview
-                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Coming Soon
-                  </span>
+                  {!FEATURES.gradebookList && (
+                    <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                      Coming Soon
+                    </span>
+                  )}
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
                   Preview class lists in grid format, inspect criteria A, B, C, D details, tag assignments, and safely edit individual records.
                 </p>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.5rem', 
-                  color: 'var(--text-muted)', 
-                  fontWeight: '800', 
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: FEATURES.gradebookList ? 'var(--primary)' : 'var(--text-muted)',
+                  fontWeight: '800',
                   fontSize: '0.92rem'
                 }}>
-                  Module Coming Soon
+                  {FEATURES.gradebookList ? <>Launch Gradebook <ArrowRight size={16} /></> : 'Module Coming Soon'}
                 </div>
               </div>
 
               {/* Tool Card 5: Teacher Utilities */}
-              <div 
-                className="glass-panel"
-                style={{ 
-                  padding: '2.25rem', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  height: '100%', 
-                  cursor: 'not-allowed',
-                  opacity: 0.65,
+              <div
+                className={FEATURES.utilities ? 'glass-panel glass-panel-hover' : 'glass-panel'}
+                style={{
+                  padding: '2.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  cursor: FEATURES.utilities ? 'pointer' : 'not-allowed',
+                  opacity: FEATURES.utilities ? 1 : 0.65,
                   borderRadius: '24px',
                   border: '1px solid var(--border-color)'
                 }}
+                onClick={FEATURES.utilities ? () => setActiveTool('utilities') : undefined}
               >
                 <div style={{
                   width: '52px',
@@ -1671,22 +1682,24 @@ export default function Dashboard({ setActiveTool }) {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.85rem', fontWeight: '850', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>
                   Teacher Utilities
-                  <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
-                    Coming Soon
-                  </span>
+                  {!FEATURES.utilities && (
+                    <span style={{ fontSize: '0.75rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '0.25rem 0.65rem', borderRadius: '30px', fontWeight: '800' }}>
+                      Coming Soon
+                    </span>
+                  )}
                 </h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', flexGrow: 1, marginBottom: '1.75rem' }}>
                   Create cooperative learning structures, select random students with an HTML5 spin wheel, or launch multiple session classroom timers.
                 </p>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.5rem', 
-                  color: 'var(--text-muted)', 
-                  fontWeight: '800', 
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: FEATURES.utilities ? 'var(--primary)' : 'var(--text-muted)',
+                  fontWeight: '800',
                   fontSize: '0.92rem'
                 }}>
-                  Module Coming Soon
+                  {FEATURES.utilities ? <>Launch Utilities <ArrowRight size={16} /></> : 'Module Coming Soon'}
                 </div>
               </div>
 
@@ -1880,7 +1893,7 @@ export default function Dashboard({ setActiveTool }) {
                 <li>Once it opens, select your name in the <strong>Select User</strong> dropdown (this creates the Excel file with all your assigned classes and student data).</li>
               </ol>
               <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700' }}>
-                💡 We recommend downloading this file after completing your gradebook and resyncing/saving the grades in OAS.
+                💡 If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
               </div>
             </div>
 
@@ -1911,7 +1924,7 @@ export default function Dashboard({ setActiveTool }) {
                 type="file" 
                 ref={fileInputRef} 
                 onChange={(e) => handleFile(e.target.files?.[0])}
-                accept=".xlsx,.xls" 
+                accept={ACCEPT_ATTRIBUTE}
                 style={{ display: 'none' }} 
               />
               
@@ -1920,7 +1933,7 @@ export default function Dashboard({ setActiveTool }) {
                 Drag and drop your iSAMS Excel here
               </h4>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.84rem', marginBottom: '1.5rem' }}>
-                Accepted format: <strong>.xlsx only</strong>. One row per student.
+                Accepted formats: <strong>.xlsx, .xls, or .csv</strong>. One row per student.
               </p>
               
               <button className="btn btn-secondary" style={{ pointerEvents: 'none', padding: '0.55rem 1.5rem', fontSize: '0.8rem', borderRadius: '10px' }}>

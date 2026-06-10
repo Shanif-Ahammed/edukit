@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { useData } from '../context/DataContext';
+import { parseRosterFile, isSupportedRosterFile, ACCEPT_ATTRIBUTE } from '../utils/parseRosterFile';
 
 export default function HeaderNav() {
   const { 
@@ -24,41 +25,38 @@ export default function HeaderNav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [warningMsg, setWarningMsg] = useState(null);
   const fileInputRef = useRef(null);
 
-  // Parse Excel file on upload
-  const handleFile = (file) => {
+  // Parse roster file (.xlsx, .xls, or .csv) on upload
+  const handleFile = async (file) => {
     if (!file) return;
     const name = file.name;
-    const ext = name.split('.').pop().toLowerCase();
-    
-    if (ext !== 'xlsx' && ext !== 'xls') {
-      setErrorMsg("Unsupported file format. Please upload a .xlsx or .xls file.");
+
+    if (!isSupportedRosterFile(name)) {
+      setErrorMsg("Unsupported file format. Please upload a .xlsx, .xls, or .csv file.");
       return;
     }
 
     setErrorMsg(null);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = e.target.result;
-        const workbook = XLSX.read(data, { type: 'binary' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const rows = XLSX.utils.sheet_to_json(sheet);
-        
-        const result = connectData(name, rows);
-        if (result.success) {
-          setModalOpen(false);
+    setWarningMsg(null);
+    try {
+      const rows = await parseRosterFile(file);
+      const result = connectData(name, rows);
+      if (result.success) {
+        if (result.warning) {
+          // Keep the modal open so the persistence warning is actually seen
+          setWarningMsg(result.warning);
         } else {
-          setErrorMsg(result.error);
+          setModalOpen(false);
         }
-      } catch (err) {
-        console.error("SheetJS parsing error:", err);
-        setErrorMsg("Failed to read the Excel file. Make sure it is not corrupted.");
+      } else {
+        setErrorMsg(result.error);
       }
-    };
-    reader.readAsBinaryString(file);
+    } catch (err) {
+      console.error("Roster parsing error:", err);
+      setErrorMsg("Failed to read the file. Make sure it is not corrupted.");
+    }
   };
 
   const handleDrag = (e) => {
@@ -405,7 +403,7 @@ export default function HeaderNav() {
                   gap: '0.45rem',
                   boxShadow: '0 6px 18px rgba(225, 0, 49, 0.3)' 
                 }}
-                onClick={() => setModalOpen(true)}
+                onClick={() => { setErrorMsg(null); setWarningMsg(null); setModalOpen(true); }}
               >
                 ⚡ Connect Your Data
               </button>
@@ -607,6 +605,28 @@ export default function HeaderNav() {
               </div>
             )}
 
+            {/* Persistence Warning Notification */}
+            {warningMsg && (
+              <div
+                style={{
+                  background: 'rgba(245, 158, 11, 0.08)',
+                  border: '1px solid rgba(245, 158, 11, 0.25)',
+                  color: '#fbbf24',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '10px',
+                  fontSize: '0.85rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  marginBottom: '1rem',
+                  fontWeight: '600'
+                }}
+              >
+                <AlertCircle size={16} style={{ flexShrink: 0 }} />
+                <span>{warningMsg}</span>
+              </div>
+            )}
+
             {/* Static Data Disclaimer */}
             <div 
               style={{ 
@@ -650,7 +670,7 @@ export default function HeaderNav() {
                 <li>Once it opens, select your name in the <strong>Select User</strong> dropdown (this creates the Excel file with all your assigned classes and student data).</li>
               </ol>
               <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700' }}>
-                💡 We recommend downloading this file after completing your gradebook and resyncing/saving the grades in OAS.
+                💡 If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
               </div>
             </div>
 
@@ -681,7 +701,7 @@ export default function HeaderNav() {
                 type="file" 
                 ref={fileInputRef} 
                 onChange={(e) => handleFile(e.target.files?.[0])}
-                accept=".xlsx,.xls" 
+                accept={ACCEPT_ATTRIBUTE}
                 style={{ display: 'none' }} 
               />
               
@@ -690,7 +710,7 @@ export default function HeaderNav() {
                 Drag and drop your iSAMS Excel here
               </h4>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '1.5rem' }}>
-                Accepted format: <strong>.xlsx only</strong>. One row per student.
+                Accepted formats: <strong>.xlsx, .xls, or .csv</strong>. One row per student.
               </p>
               
               <button className="btn btn-secondary" style={{ pointerEvents: 'none', padding: '0.5rem 1.5rem', fontSize: '0.8rem', borderRadius: '8px' }}>

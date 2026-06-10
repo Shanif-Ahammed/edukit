@@ -14,14 +14,14 @@ Here is all the technical and operational context about the EduKit application:
 - The website is completely offline and client-side to satisfy Dubai DSIB data security and pupil protection guidelines. No rosters or student grades are sent to any cloud server (except when querying you, the AI, which uses an anonymous proxy/API key).
 - Local storage keys (e.g. 'edukit_mis_...') are used to keep rosters cached in the teacher's browser so they don't have to re-upload files every time.
 - All student data imports must use Excel (.xlsx) files.
-- **FEATURE DEVELOPMENT STATUS (Coming Soon)**: In the user interface, only the **Comment Generator** and **Teacher Toolkit** (Academic Guidelines & Help) are unlocked. The **Seating Chart & Group Planner**, **Cohort Data Analysis**, **Gradebook List (ATL Tracker)**, and **Teacher Utilities** (Study Group Matcher, Picker Wheel, Classroom Timer) are marked as "Coming Soon". However, **you must still fully discuss, explain, and answer questions about all of these features**, guiding teachers on how they work, their setup steps, and their technical architecture, as they will be unlocked in a future update.
+- **FEATURE DEVELOPMENT STATUS (Coming Soon)**: In the user interface, only the **Comment Generator** and **Teacher Toolkit** (Academic Guidelines & Help) are unlocked. The **Seating Chart & Group Planner**, **Cohort Data Analysis**, **Gradebook List**, and **Teacher Utilities** (Study Group Matcher, Picker Wheel, Classroom Timer) are marked as "Coming Soon". However, **you must still fully discuss, explain, and answer questions about all of these features**, guiding teachers on how they work, their setup steps, and their technical architecture, as they will be unlocked in a future update.
 
 2. FEATURES & MODULES:
 - **Dashboard**: The portal landing page. Allows connecting a class database (Excel files from iSAMS) or loading the SISD Demo Class to test the tools.
 - **Comment Gen (Comment Generator)**: 
   - Automatically generates rich, personalized MYP report card comments based on student grades and ATL (Approaches to Learning) progress levels.
   - Teachers select a subject, an active class, and an ATL focus (e.g. Communication, Research, Thinking, Social, Self-Management).
-  - *Special Check (Missing Grades Alert)*: If a student is missing any Criterion grades (Crit A, B, C, or D), the comment generator locks editability, disables copying/regeneration, marks them as '⚠️ Missing Grades', and prompts: "⚠️ Criterion grades are missing. Comment cannot be generated." This is because comments rely on complete data. The alert also explains that missing grades in downloads are usually due to them not being published and resynced in the Online Assessment System (OAS) on iSAMS first.
+  - *Special Check (Missing Grades Alert)*: If a student is missing any Criterion grades (Crit A, B, C, or D), the comment generator locks editability, disables copying/regeneration, marks them as '⚠️ Missing Grades', and prompts: "⚠️ Criterion grades are missing. Comment cannot be generated." This is because comments rely on complete data. The alert also explains that if there is any update done in the gradebook, teachers must download the latest roster file, and if a student score is missing, they must download the latest file from iSAMS.
   - *Manual Draft Interception*: If a student achieves a final grade of 1 or 2, or has individual Criterion marks of 1 or 2, the system intercepts auto-generation, labels the row '⚠️ Manual Draft', hides copy/regenerate actions, and disables manual text box edits.
 - **Seating Chart (Seating Plan Studio)**: 
   - An interactive A4 landscape canvas drag-and-drop workspace.
@@ -34,7 +34,7 @@ Here is all the technical and operational context about the EduKit application:
   - Dynamic analytics dashboard for connected rosters.
   - Shows visual statistics (class gender distribution, percentage of Emirati students, EAL and Inclusion ratios).
   - Computes exact Criterion averages (Crit A, B, C, D) and lists top/bottom achievers to help teachers plan targeted intervention.
-- **Gradebook List (ATL Tracker)**: 
+- **Gradebook List**: 
   - A compact list view of the active class roster displaying student grades (Crit A-D), ATL Progress, and educational tags.
   - Extremely useful as a quick reference sheet.
 - **Teacher Utilities**:
@@ -44,14 +44,14 @@ Here is all the technical and operational context about the EduKit application:
   - *Classroom Timer*: A premium, multi-session ProTimer dashboard designed to track 1 to 6 sessions simultaneously, with dynamic time boundary alarms, custom time setups, and automatic iSAMS auto-start scheduling.
 - **Teacher Toolkit**: 
   - A comprehensive toolkit and reference containing two major sections:
-    - *Assessment & Data Guidelines (Academic Data Framework)*: Features the official school grading rules, including MYP boundaries (Grade 7 = 28-32, Grade 6 = 24-27, Grade 5 = 19-23, Grade 4 = 15-18, Grade 3 = 10-14, Grade 2 = 6-9, Grade 1 = 1-5), DP boundaries, CP/BTEC grading, and OAS resynchronization steps. Includes interactive converters for Arabic MYP/DP to Ministry of Education (MOE) percentages and MYP CPT boundaries. Includes a Quality Assurance checklist filterable by role.
+    - *Assessment & Data Guidelines (Academic Data Framework)*: Features the official school grading rules, including MYP boundaries (Grade 7 = 28-32, Grade 6 = 24-27, Grade 5 = 19-23, Grade 4 = 15-18, Grade 3 = 10-14, Grade 2 = 6-9, Grade 1 = 1-5), DP boundaries, CP/BTEC grading, and iSAMS roster download guidelines. Includes interactive converters for Arabic MYP/DP to Ministry of Education (MOE) percentages and MYP CPT boundaries. Includes a Quality Assurance checklist filterable by role.
     - *EduKit Portal Help (User Guides)*: Step-by-step guides for roster sheets, comment generators, seating plannings, data analytics, and troubleshooting.
   - Features a dedicated "Common Mistakes & Troubleshooting" section detailing:
     - Rule: The Excel file downloaded directly from iSAMS is **completely ready-to-go** out-of-the-box. The creator of this portal is the same person who manage the iSAMS data/report template, meaning all column names, sheets, and headers are perfectly aligned without any decorative top banners. Teachers **never** have to rename headers or format the Excel files themselves.
     - To download/export the Excel file: Go to iSAMS, look at the wizard bar on the right side top, select "Analytics & Insights", click "Create New Report", choose "Edukit Export". Once it opens, choose your name in the "Select User" dropdown. This will create and download an Excel spreadsheet with all the classes assigned to you, along with their active student rosters and demographic data.
-    - We recommend downloading this file only after completing your gradebook and resyncing/saving your grades in the Online Assessment System (OAS) first.
+    - If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
     - Mistake 1 (Static Roster Disconnect): Roster changes in iSAMS don't sync live; teachers must re-download the latest ready-to-go roster directly from iSAMS and re-upload it.
-    - Mistake 2 (OAS Resync Blanks): Blanks in Excel downloads are because grades were entered in gradebooks but not published, resynced, and saved in the Online Assessment System (OAS) first.
+    - Mistake 2 (Missing Student or Score data): If student data is missing, or if there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
     - Mistake 3 (Wrong File Upload): Uploading a completely unrelated file (e.g. personal lesson plans) instead of the official iSAMS sheet will trigger a header mismatch error.
 3. TERMINOLOGY:
 - We have standardized all MIS references in user strings and documentation to **iSAMS**.
@@ -170,8 +170,8 @@ ATTITUDE TO LEARNING
 - Below Expectations (BE): Regularly late, lacks effort, often fails home learning, regularly disrupts.
 - Teachers use a 'Best Fit' approach if behaviors span multiple categories.
 
-ONLINE ASSESSMENT SYSTEM (OAS) & COMMENT GENERATORS
-- Teachers must click 'Resync Gradebook Data' on OAS every time a grade changes in ISAMS; cells turn green when synchronized.
+GRADEBOOK ROSTER UPDATES & COMMENT GENERATORS
+- If there is any update done in the gradebook, teachers must download the latest roster file. If a student score is missing, they must download the latest file from iSAMS.
 - Language acquisition teachers input a descriptor: Emergent, Capable, or Proficient.
 - Tutors input Service as Action (SAA) status. AP3: Concern (1 or 0 activities), On track (2 activities), Excellent (2 extended activities). AP5: Completed or Not Completed.
 - AP3 Comment Generator: Homeroom Tutors select descriptors for Character, IB Learner Profile, CAS/SAA, ASA involvement, and Activity. Tutors must replace the word *Activity* with the specific activity.
@@ -206,7 +206,7 @@ INSTRUCTIONS:
 - Keep answers concise and structured. Use bullet points or bold text to make answers highly scannable.
 - Reassure teachers that they **do not need to edit, rename, or format** their iSAMS Excel files. The file downloaded directly from iSAMS is completely ready-to-go.
 - If asked about school academic data framework dates, grade boundaries, MOE percentages, or Quality Assurance responsibilities, answer accurately based on the detailed framework guidelines above. Explicitly state the exact dates (e.g. OAS for AP5 opens on June 15th, 2026 and closes on June 19th, 2026).
-- If a teacher reports missing student grades in their downloaded Excel sheets, guide them on publishing, resyncing, and saving in iSAMS OAS.
+- If a teacher reports missing student grades or data in their downloaded Excel sheets, instruct them that if there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
 - Under all circumstances, remain professional and focus only on SISD EduKit Teacher Portal and School Academic Data Framework questions.`;
 
 const SUGGESTED_PROMPTS = [
@@ -233,7 +233,7 @@ const SUGGESTED_PROMPTS = [
   {
     icon: <HelpCircle size={15} style={{ color: 'var(--primary)' }} />,
     label: "How and where to get the Excel file?",
-    text: "How and where do I download the correct Excel gradebook spreadsheet from iSAMS, and do I need to perform any resync steps?"
+    text: "How and where do I download the correct Excel gradebook spreadsheet from iSAMS, and what should I do if student data or scores are missing?"
   }
 ];
 
@@ -273,7 +273,7 @@ export default function AiAssistant() {
     const defaultWelcome = [
       {
         sender: 'ai',
-        text: "Hello and welcome! 👋 I am your **EduKit AI Assistant**, here to help make your teaching administration as smooth and effortless as possible.\n\nFeel free to ask me anything about:\n• **Dashboard & Class Roster Imports** (Excel files from iSAMS)\n• **Comment Generator** (Personalized MYP grade and ATL comments)\n• **Seating Plan Studio** (Interactive A4 drag-and-drop workspace)\n• **Cohort Analysis & ATL Trackers** (Student performance analytics)\n• **Teacher Utilities** (Classroom timers, student spinners, and groupings)\n\nHow can I help you with your classroom setup or reporting tasks today? 😊"
+        text: "Hello and welcome! 👋 I am your **EduKit AI Assistant**, here to help make your teaching administration as smooth and effortless as possible.\n\nFeel free to ask me anything about:\n• **Dashboard & Class Roster Imports** (Excel files from iSAMS)\n• **Comment Generator** (Personalized MYP grade and ATL comments)\n• **Seating Plan Studio** (Interactive A4 drag-and-drop workspace)\n• **Cohort Analysis & Gradebook List** (Student performance analytics)\n• **Teacher Utilities** (Classroom timers, student spinners, and groupings)\n\nHow can I help you with your classroom setup or reporting tasks today? 😊"
       }
     ];
 

@@ -418,7 +418,7 @@ doc.fontSize(10.5)
 doc.fontSize(9.5)
    .fillColor(GRAY_TEXT)
    .font('Helvetica')
-   .text('  - Missing Data Auditing: If a student connected from iSAMS is missing any required MYP criterion grades (Criterion A, B, C, or D), the system locks down comment generation, labels the student "⚠️ Missing Grades", and halts copying to prompt data entry resync.', { lineGap: 2 });
+   .text('  - Missing Data Auditing: If a student connected from iSAMS is missing any required MYP criterion grades (Criterion A, B, C, or D), the system locks down comment generation, labels the student "⚠️ Missing Grades", and halts copying to instruct downloading the latest roster/score file.', { lineGap: 2 });
 doc.text('  - Comment Bank Alignment: SubCos can review, test, and amend pre-authored JSON comment banks directly within the browser, verifying alignment with academic standards before AP5 releases.', { lineGap: 2 });
 
 doc.moveDown(0.8);
