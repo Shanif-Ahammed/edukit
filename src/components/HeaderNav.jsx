@@ -8,18 +8,15 @@ import { useData } from '../context/DataContext';
 import { parseRosterFile, isSupportedRosterFile, ACCEPT_ATTRIBUTE } from '../utils/parseRosterFile';
 
 export default function HeaderNav() {
-  const { 
-    fileConnected, 
-    fileName, 
-    students, 
-    classes, 
-    selectedClass, 
-    setSelectedClass, 
-    subject, 
-    subjects = [], 
-    schoolName, 
-    connectData, 
-    changeFile 
+  const {
+    fileConnected,
+    fileName,
+    classes,
+    selectedClass,
+    setSelectedClass,
+    schoolName,
+    connectData,
+    changeFile
   } = useData();
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -328,29 +325,12 @@ export default function HeaderNav() {
                 <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {schoolName}
                 </span>
-                <span style={{ color: 'var(--border-color-hover)' }}>·</span>
-                <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
-                  {students.length} students
-                </span>
-                <span style={{ color: 'var(--border-color-hover)' }}>·</span>
-                 <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
-                  {classes.length} {classes.length > 1 ? 'classes' : 'class'}
-                </span>
-                {subjects && subjects.length > 0 && (
-                  <>
-                    <span style={{ color: 'var(--border-color-hover)' }}>·</span>
-                    <span style={{ fontSize: '0.88rem', color: 'var(--text-main)', fontWeight: '750', letterSpacing: '-0.02em' }}>
-                      {subjects.length} {subjects.length > 1 ? 'subjects' : 'subject'}
-                    </span>
-                  </>
-                )}
-                <span style={{ color: 'var(--border-color-hover)' }}>·</span>
-                <span style={{ 
-                  fontSize: '0.78rem', 
-                  color: '#10b981', 
-                  background: 'rgba(16, 185, 129, 0.1)', 
-                  padding: '0.2rem 0.65rem', 
-                  borderRadius: '30px', 
+                <span style={{
+                  fontSize: '0.78rem',
+                  color: '#10b981',
+                  background: 'rgba(16, 185, 129, 0.1)',
+                  padding: '0.2rem 0.65rem',
+                  borderRadius: '30px',
                   fontWeight: '800',
                   display: 'flex',
                   alignItems: 'center',
