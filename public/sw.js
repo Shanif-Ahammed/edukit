@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sisd-edukit-v1';
+const CACHE_NAME = 'sisd-edukit-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
