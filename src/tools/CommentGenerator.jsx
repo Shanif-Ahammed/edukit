@@ -1215,10 +1215,10 @@ export default function CommentGenerator() {
                 <strong style={{ fontWeight: '800', color: 'var(--warning-text)' }}>⚠️ ALERT: Missing Student Criterion Grades Detected</strong>
                 <p style={{ marginTop: '0.25rem', color: 'var(--text-main)', opacity: 0.9 }}>
                   Some students in the active class roster have blank or missing **Criterion Grades (Crit A, B, C, or D)**.
-                  If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file from iSAMS.
+                  If you recently entered or changed these grades, please verify that your <strong>OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED</strong> before downloading the Excel file. (Most teachers forget to resync the OAS after making changes, which leaves grades blank in the exported roster sheet).
                 </p>
                 <p style={{ marginTop: '0.5rem', fontWeight: '800', color: 'var(--warning-text)' }}>
-                  💡 Solution: Make sure to download the latest file from iSAMS and re-upload it inside the Dashboard database connect tab.
+                  💡 Solution: Once OAS is synced and saved, download the latest Excel roster file from iSAMS and re-upload/re-connect it inside the Dashboard tab.
                 </p>
               </div>
             </div>
@@ -1630,8 +1630,11 @@ export default function CommentGenerator() {
                             )}
                             <div>
                               {hasMissingCrit && !s.comment ? (
-                                <span style={{ color: '#ef4444', fontWeight: '600', fontStyle: 'normal' }}>
-                                  ⚠️ Criterion grades are missing. Comment cannot be generated.
+                                <span 
+                                  style={{ color: '#ef4444', fontWeight: '600', fontStyle: 'normal', cursor: 'help' }} 
+                                  title="Please verify that your OAS (Online Assessment System) gradebook is complete, synced, and saved. Most teachers forget to resync the OAS after making changes, which results in incorrect or blank grades in downloaded sheets. Once resynced, download the latest Excel file from iSAMS and re-upload."
+                                >
+                                  ⚠️ Criterion grades are missing. Comment cannot be generated. (Verify OAS Sync & Re-upload)
                                 </span>
                               ) : (
                                 s.comment || 'Click Generate Comments Now to create comment…'

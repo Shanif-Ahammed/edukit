@@ -144,7 +144,7 @@ export default function PortalHelp() {
                   lineHeight: '1.5'
                 }}
               >
-                💡 <strong>Pro Tip:</strong> If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file from iSAMS.
+                💡 <strong>Pro Tip:</strong> If there is any update done in the gradebook, make sure to download the latest roster file. If a student score/grade is missing, make sure to verify that your <strong>OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED</strong>, and download the latest file from iSAMS. (Many teachers forget to resync the OAS after changing the gradebook, which results in blank grades in downloaded sheets).
               </div>
 
               <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Excel Layout Guidelines</h3>
@@ -369,7 +369,7 @@ export default function PortalHelp() {
                     "Why is student data or a student's score/grades missing in the Excel sheet?"
                   </h4>
                   <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: '1.45' }}>
-                    <strong>The Reason:</strong> If student data is missing, or if there is any update done in the gradebook, make sure to download the latest roster file. If a student score/grade is missing, make sure to download the latest file from iSAMS and re-upload it inside the Dashboard database connect tab.
+                    <strong>The Reason:</strong> If student data is missing, or if there is any update done in the gradebook, make sure to download the latest roster file. If a student score/grade is missing, please verify that your <strong>OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED</strong> before downloading the Excel file. (Most teachers forget to resync the OAS after making changes in the gradebook, which results in incorrect or blank grades in the exported roster sheet). Once synced, download the latest file from iSAMS and re-upload it inside the Dashboard database connect tab.
                   </p>
                 </div>
 

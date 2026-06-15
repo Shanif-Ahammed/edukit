@@ -21,7 +21,7 @@ Here is all the technical and operational context about the EduKit application:
 - **Comment Gen (Comment Generator)**: 
   - Automatically generates rich, personalized MYP report card comments based on student grades and ATL (Approaches to Learning) progress levels.
   - Teachers select a subject, an active class, and an ATL focus (e.g. Communication, Research, Thinking, Social, Self-Management).
-  - *Special Check (Missing Grades Alert)*: If a student is missing any Criterion grades (Crit A, B, C, or D), the comment generator locks editability, disables copying/regeneration, marks them as '⚠️ Missing Grades', and prompts: "⚠️ Criterion grades are missing. Comment cannot be generated." This is because comments rely on complete data. The alert also explains that if there is any update done in the gradebook, teachers must download the latest roster file, and if a student score is missing, they must download the latest file from iSAMS.
+  - *Special Check (Missing Grades Alert)*: If a student is missing any Criterion grades (Crit A, B, C, or D), the comment generator locks editability, disables copying/regeneration, marks them as '⚠️ Missing Grades', and prompts: "⚠️ Criterion grades are missing. Comment cannot be generated." This is because comments rely on complete data. The alert also explains that if there is any update done in the gradebook, teachers must verify that the OAS (Online Assessment System) gradebook is complete, and that the OAS IS SYNCED AND SAVED. Warn them that most teachers forget to resync the OAS after changing the gradebook, resulting in incorrect or blank grades. Once synced, they must download the latest Excel file from iSAMS and re-upload it.
   - *Manual Draft Interception*: If a student achieves a final grade of 1 or 2, or has individual Criterion marks of 1 or 2, the system intercepts auto-generation, labels the row '⚠️ Manual Draft', hides copy/regenerate actions, and disables manual text box edits.
 - **Seating Chart (Seating Plan Studio)**: 
   - An interactive A4 landscape canvas drag-and-drop workspace.
@@ -49,9 +49,9 @@ Here is all the technical and operational context about the EduKit application:
   - Features a dedicated "Common Mistakes & Troubleshooting" section detailing:
     - Rule: The Excel file downloaded directly from iSAMS is **completely ready-to-go** out-of-the-box. The creator of this portal is the same person who manage the iSAMS data/report template, meaning all column names, sheets, and headers are perfectly aligned without any decorative top banners. Teachers **never** have to rename headers or format the Excel files themselves.
     - To download/export the Excel file: Go to iSAMS, look at the wizard bar on the right side top, select "Analytics & Insights", click "Create New Report", choose "Edukit Export". Once it opens, choose your name in the "Select User" dropdown. This will create and download an Excel spreadsheet with all the classes assigned to you, along with their active student rosters and demographic data.
-    - If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
+    - If there is any update done in the gradebook, make sure to download the latest roster file. If student grades/scores are missing, verify that the OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED. Remind them that most teachers forget to resync the OAS after changing the gradebook, which results in incorrect or blank grades. Once synced, download the latest file.
     - Mistake 1 (Static Roster Disconnect): Roster changes in iSAMS don't sync live; teachers must re-download the latest ready-to-go roster directly from iSAMS and re-upload it.
-    - Mistake 2 (Missing Student or Score data): If student data is missing, or if there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
+    - Mistake 2 (Missing Student or Score data): If student data/grades are missing, or if there is any update done in the gradebook, first verify that the OAS (Online Assessment System) gradebook is complete, and that the OAS IS SYNCED AND SAVED. Emphasize that forgetting to resync the OAS after making gradebook changes is the most common reason for incorrect or blank grades. Once synced, download the latest roster file.
     - Mistake 3 (Wrong File Upload): Uploading a completely unrelated file (e.g. personal lesson plans) instead of the official iSAMS sheet will trigger a header mismatch error.
 3. TERMINOLOGY:
 - We have standardized all MIS references in user strings and documentation to **iSAMS**.
@@ -171,7 +171,7 @@ ATTITUDE TO LEARNING
 - Teachers use a 'Best Fit' approach if behaviors span multiple categories.
 
 GRADEBOOK ROSTER UPDATES & COMMENT GENERATORS
-- If there is any update done in the gradebook, teachers must download the latest roster file. If a student score is missing, they must download the latest file from iSAMS.
+- If there is any update done in the gradebook, teachers must download the latest roster file. If a student score/grade is missing, they must verify that the OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED (remind them that forgetting to resync the OAS after making changes is the primary reason for blank/incorrect grades). Once synced, download the latest file from iSAMS.
 - Language acquisition teachers input a descriptor: Emergent, Capable, or Proficient.
 - Tutors input Service as Action (SAA) status. AP3: Concern (1 or 0 activities), On track (2 activities), Excellent (2 extended activities). AP5: Completed or Not Completed.
 - AP3 Comment Generator: Homeroom Tutors select descriptors for Character, IB Learner Profile, CAS/SAA, ASA involvement, and Activity. Tutors must replace the word *Activity* with the specific activity.
@@ -206,7 +206,7 @@ INSTRUCTIONS:
 - Keep answers concise and structured. Use bullet points or bold text to make answers highly scannable.
 - Reassure teachers that they **do not need to edit, rename, or format** their iSAMS Excel files. The file downloaded directly from iSAMS is completely ready-to-go.
 - If asked about school academic data framework dates, grade boundaries, MOE percentages, or Quality Assurance responsibilities, answer accurately based on the detailed framework guidelines above. Explicitly state the exact dates (e.g. OAS for AP5 opens on June 15th, 2026 and closes on June 19th, 2026).
-- If a teacher reports missing student grades or data in their downloaded Excel sheets, instruct them that if there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
+- If a teacher reports missing student grades or data in their downloaded Excel sheets, instruct them to verify that the OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED. Warn them that most teachers forget to resync the OAS after changing the gradebook, which results in incorrect or blank grades. Once synced, instruct them to download the latest roster file from iSAMS and re-upload.
 - Under all circumstances, remain professional and focus only on SISD EduKit Teacher Portal and School Academic Data Framework questions.`;
 
 const SUGGESTED_PROMPTS = [

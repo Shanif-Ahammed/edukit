@@ -103,8 +103,8 @@ export default function TeacherToolkit() {
   const qaMatrix = [
     { role: "Secondary Data and Exams Officer", task: "Check for grades that are lower than the previous AP and alert relevant SubCos.", ap: "AP3 - AP5" },
     { role: "Secondary Data and Exams Officer", task: "Check overall attainment benchmarks against the KHDA inspection framework and inform Deputy Headteacher Academics.", ap: "AP3 & AP5" },
-    { role: "SubCos", task: "Check for missing data (obtain spreadsheet from Secondary Data and Exams Officer) and chase up teachers. If student data is missing or gradebook updates are made, instruct teachers to download the latest roster/score file.", ap: "All APs" },
-    { role: "Teachers", task: "Coordinated by SubCo, peer-check inputted data in gradebooks. If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.", ap: "AP3 & AP5" },
+    { role: "SubCos", task: "Check for missing data (obtain spreadsheet from Secondary Data and Exams Officer) and chase up teachers. If student data/grades are missing, remind teachers to verify that their OAS (Online Assessment System) gradebook is complete, synced, and saved, and then download the latest roster file.", ap: "All APs" },
+    { role: "Teachers", task: "Coordinated by SubCo, peer-check inputted data in gradebooks. If there is any update or if grades are missing, verify that your OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED (do not forget to resync the OAS after changes, or grades will export as blank), then download the latest roster file.", ap: "AP3 & AP5" },
     { role: "Assistant Head, Student Experience", task: "Check all Emirati student data and alert Deputy Headteacher Academics if any Emirati student is in danger of failing to meet the Thanaweya requirements.", ap: "AP3 & AP5" },
     { role: "DP Coordinator", task: "Review student predicted grades and ensure comprehensive DP cohort alignment.", ap: "AP4 & AP5" },
     { role: "CP Coordinator", task: "Conduct checking of all CP Component and Unit grades against school targets.", ap: "All APs" },
@@ -554,7 +554,7 @@ export default function TeacherToolkit() {
                 <div>
                   <strong style={{ fontWeight: '700' }}>Gradebook Roster Update Rule</strong>
                   <p style={{ marginTop: '0.25rem', color: 'var(--text-main)', opacity: 0.9 }}>
-                    If student data is missing or if there is any update done in your iSAMS gradebook, make sure to download the latest roster file. If a student score/grade is missing, make sure to download the latest Excel file from iSAMS and reconnect it on the dashboard.
+                    If student data is missing or if there is any update done in your iSAMS gradebook, make sure to download the latest roster file. If a student score/grade is missing, please verify that your OAS (Online Assessment System) gradebook is complete, and that the OAS IS SYNCED AND SAVED (forgetting to resync the OAS after gradebook changes is the most common cause of incorrect or blank grades). Once synced, download the latest Excel file from iSAMS and reconnect it on the dashboard.
                   </p>
                 </div>
               </div>
@@ -1000,6 +1000,8 @@ export default function TeacherToolkit() {
                   {faqOpen.emptyGrades && (
                     <div style={{ padding: '0 1.25rem 1rem 1.25rem', fontSize: '0.82rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', lineHeight: '1.5' }}>
                       This happens when the local portal data is not up to date with the latest gradebook. If there is any update done in the gradebook, make sure to download the latest roster file. If a student score or grade is missing, make sure to download the latest file from iSAMS and re-upload/re-connect it on the Dashboard.
+                      <br /><br />
+                      <strong>⚠️ Critical Sync Action Required:</strong> Please verify that your <strong>OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED</strong>. Most teachers forget to resync the OAS after changing the gradebook, which results in incorrect or blank grades pulling into the downloaded Excel sheet.
                     </div>
                   )}
                 </div>

@@ -944,9 +944,10 @@ export default function Dashboard({ setActiveTool }) {
                 <li>Choose <strong>Edukit Export</strong>.</li>
                 <li>Once it opens, select your name in the <strong>Select User</strong> dropdown (this creates the Excel file with all your assigned classes and student data).</li>
               </ol>
-              <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700' }}>
-                💡 If there is any update done in the gradebook, make sure to download the latest roster file. If a student score is missing, make sure to download the latest file.
+              <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700', lineHeight: '1.4' }}>
+                💡 If there is any update done in the gradebook, make sure to download the latest roster file. If a student score/grade is missing, please verify that your <strong>OAS (Online Assessment System) gradebook is complete, OAS IS SYNCED AND SAVED</strong> before downloading the Excel file. (Most teachers forget to resync the OAS after changing the gradebook, which results in incorrect or blank grades).
               </div>
+
             </div>
 
             {/* Drag & Drop Container inside Modal */}
