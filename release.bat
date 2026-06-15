@@ -91,8 +91,8 @@ if %ERRORLEVEL% neq 0 (
 echo.
 echo [2/3] Choose the release target:
 echo.
-echo    [1] main      - Commit and push the source code to the main branch
-echo    [2] gh-pages  - Build the site and deploy it to GitHub Pages
+echo    [1] main & dev - Commit and push the source code to the main and dev branches
+echo    [2] gh-pages   - Build the site and deploy it to GitHub Pages
 echo.
 set /p "TARGET=Enter your choice (1 or 2): "
 if "%TARGET%"=="1" goto :PUSH_MAIN
@@ -103,11 +103,11 @@ goto :EOF_ERROR
 
 
 :: ==================================================
-::  OPTION 1: PUSH SOURCE CODE TO MAIN
+::  OPTION 1: PUSH SOURCE CODE TO MAIN & DEV
 :: ==================================================
 :PUSH_MAIN
 echo.
-echo [3/3] Releasing to the MAIN branch...
+echo [3/3] Releasing to the MAIN and DEV branches...
 echo.
 echo [ACTION] Running production build verification...
 call npm run build
@@ -155,18 +155,41 @@ if %ERRORLEVEL% neq 0 (
     echo [WARNING] Push to origin main failed, attempting standard upstream push...
     git push
     if !ERRORLEVEL! neq 0 (
-        echo [ERROR] Git push failed! Please check your network or repository rights.
+        echo [ERROR] Git push failed on main! Please check your network or repository rights.
         goto :EOF_ERROR
     )
 )
 
 echo.
+echo [ACTION] Syncing and pushing changes to dev branch...
+git checkout dev 2>nul
+if %ERRORLEVEL% neq 0 (
+    echo [ACTION] dev branch not found locally. Creating dev branch...
+    git checkout -b dev
+)
+git merge main -m "merge: sync dev with main (automated release)"
+if %ERRORLEVEL% neq 0 (
+    echo [ERROR] Failed to merge main into dev!
+    git checkout main
+    goto :EOF_ERROR
+)
+
+git push origin dev
+if %ERRORLEVEL% neq 0 (
+    echo [ERROR] Failed to push dev branch!
+    git checkout main
+    goto :EOF_ERROR
+)
+
+git checkout main
+echo.
 echo ==================================================
-echo   SUCCESS: SOURCE CODE PUSHED TO MAIN BRANCH!
+echo   SUCCESS: SOURCE CODE PUSHED TO MAIN & DEV BRANCHES!
 echo ==================================================
 echo.
 pause
 exit /b 0
+
 
 
 :: ==================================================
