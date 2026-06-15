@@ -18,6 +18,16 @@ const ATL_SKILLS = [
 
 const ATL_LEVELS = ['Expert', 'Practitioner', 'Beginner', 'Novice'];
 
+// Maps various school ATL levels (from rosters) to the standard keys in atl.json
+const getNormalizedAtlProgress = (progress) => {
+  const p = String(progress || '').trim().toLowerCase();
+  if (p === 'expert' || p === 'excellent') return 'Expert';
+  if (p === 'practitioner' || p === 'good') return 'Practitioner';
+  if (p === 'beginner' || p === 'satisfactory' || p === 'developing') return 'Beginner';
+  if (p === 'novice' || p === 'needs improvement') return 'Novice';
+  return 'Practitioner'; // Default fallback
+};
+
 // Maps specific subject display names to their generic MYP subject group configurations
 const getGenericSubjectGroup = (sub) => {
   if (!sub) return 'Mathematics';
@@ -673,7 +683,7 @@ export default function CommentGenerator() {
     const { best, worst, bestScore, worstScore } = getBestAndWorst(critScores);
 
     const activeSkill = student.selectedAtlSkill || atlSkill;
-    const activeProgress = student.atlProgress || 'Practitioner';
+    const activeProgress = getNormalizedAtlProgress(student.atlProgress || 'Practitioner');
 
     const data = {
       forename: student.forename,
@@ -692,7 +702,7 @@ export default function CommentGenerator() {
 
     let s2 = '';
     if (bank.atl && bank.atl[activeSkill]) {
-      const val = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Good'];
+      const val = bank.atl[activeSkill][activeProgress] || bank.atl[activeSkill]['Practitioner'];
       const totalOptions = Array.isArray(val) ? val.length : 1;
       let optionIndex = student.selectedAtlIndex !== undefined && student.selectedAtlIndex !== null
         ? student.selectedAtlIndex
@@ -702,7 +712,7 @@ export default function CommentGenerator() {
       }
       s2 = Array.isArray(val) ? val[optionIndex % totalOptions] : (val || '');
     } else if (bank.atl) {
-      const val = bank.atl[activeProgress] || bank.atl['Good'];
+      const val = bank.atl[activeProgress] || bank.atl['Practitioner'];
       const totalOptions = Array.isArray(val) ? val.length : 1;
       let optionIndex = student.selectedAtlIndex !== undefined && student.selectedAtlIndex !== null
         ? student.selectedAtlIndex
@@ -728,7 +738,7 @@ export default function CommentGenerator() {
 
   const cycleAtlOption = (student, direction) => {
     const activeSkill = student.selectedAtlSkill || atlSkill;
-    const activeProgress = student.atlProgress || 'Practitioner';
+    const activeProgress = getNormalizedAtlProgress(student.atlProgress || 'Practitioner');
     
     if (!bank.atl || !bank.atl[activeSkill]) return;
     const val = bank.atl[activeSkill][activeProgress];
@@ -770,7 +780,7 @@ export default function CommentGenerator() {
       const updatedStudents = students.map((s) => {
         if (s.className === selectedClass) {
           try {
-            const activeProgress = s.atlProgress || 'Practitioner';
+            const activeProgress = getNormalizedAtlProgress(s.atlProgress || 'Practitioner');
             const activeSkill = s.selectedAtlSkill || atlSkill;
             const val = bank.atl?.[activeSkill]?.[activeProgress];
             const totalOptions = Array.isArray(val) ? val.length : 1;
