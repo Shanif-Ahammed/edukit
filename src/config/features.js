@@ -3,8 +3,8 @@
 // module cards), or `false` to lock it with a "Coming Soon" badge.
 export const FEATURES = {
   aiAssistant: true,
-  seatingChart: true,
-  cohortAnalysis: true,
-  gradebookList: true,
-  utilities: true,
+  seatingChart: false,
+  cohortAnalysis: false,
+  gradebookList: false,
+  utilities: false,
 };
