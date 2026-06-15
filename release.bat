@@ -1,13 +1,13 @@
 @echo off
 setlocal enabledelayedexpansion
-title SISD EduKit - GitHub Pages Deployer
+title SISD EduKit - Release Manager
 echo ==================================================
-echo       SISD EduKit - GitHub Pages Deployer
+echo          SISD EduKit - Release Manager
 echo ==================================================
 echo.
 
 :: Step 1: Verification
-echo [1/5] Verifying environment...
+echo [1/3] Verifying environment...
 
 :: Search for Git in common install directories and temporarily add to PATH
 where git >nul 2>nul
@@ -79,9 +79,6 @@ if not exist "package.json" (
     goto :EOF_ERROR
 )
 
-:: Step 2: Fetch Git Remote URL
-echo.
-echo [2/5] Detecting Git Remote configuration...
 :: Verify if this is a Git repository
 git rev-parse --is-inside-work-tree >nul 2>nul
 if %ERRORLEVEL% neq 0 (
@@ -89,6 +86,85 @@ if %ERRORLEVEL% neq 0 (
     echo [ACTION] Initializing local Git repository...
     git init
 )
+
+:: Step 2: Choose the release target branch
+echo.
+echo [2/3] Choose the release target:
+echo.
+echo    [1] main      - Commit and push the source code to the main branch
+echo    [2] gh-pages  - Build the site and deploy it to GitHub Pages
+echo.
+set /p "TARGET=Enter your choice (1 or 2): "
+if "%TARGET%"=="1" goto :PUSH_MAIN
+if "%TARGET%"=="2" goto :DEPLOY_PAGES
+echo.
+echo [ERROR] Invalid choice "%TARGET%". Please run again and enter 1 or 2.
+goto :EOF_ERROR
+
+
+:: ==================================================
+::  OPTION 1: PUSH SOURCE CODE TO MAIN
+:: ==================================================
+:PUSH_MAIN
+echo.
+echo [3/3] Releasing to the MAIN branch...
+echo.
+echo [ACTION] Running production build verification...
+call npm run build
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [ERROR] Production build failed!
+    echo [ERROR] Commit and push aborted to maintain branch stability.
+    goto :EOF_ERROR
+)
+echo [SUCCESS] Build verified.
+
+echo.
+echo [ACTION] Staging all modified files...
+git add -A
+if %ERRORLEVEL% neq 0 (
+    echo [ERROR] Staging failed!
+    goto :EOF_ERROR
+)
+
+echo.
+set /p "COMMIT_MSG=Enter a commit message (leave blank for default): "
+if "!COMMIT_MSG!"=="" set "COMMIT_MSG=chore: update SISD EduKit source"
+
+git commit -m "!COMMIT_MSG!"
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [NOTE] Nothing to commit or commit failed. Continuing to push...
+)
+
+echo.
+echo [ACTION] Pushing changes to remote main branch...
+git push origin main
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [WARNING] Push to origin main failed, attempting standard upstream push...
+    git push
+    if !ERRORLEVEL! neq 0 (
+        echo [ERROR] Git push failed! Please check your network or repository rights.
+        goto :EOF_ERROR
+    )
+)
+
+echo.
+echo ==================================================
+echo   SUCCESS: SOURCE CODE PUSHED TO MAIN BRANCH!
+echo ==================================================
+echo.
+pause
+exit /b 0
+
+
+:: ==================================================
+::  OPTION 2: BUILD AND DEPLOY TO GH-PAGES
+:: ==================================================
+:DEPLOY_PAGES
+echo.
+echo [3/3] Releasing to the GH-PAGES branch...
 
 :: Get remote URL
 for /f "tokens=*" %%i in ('git config --get remote.origin.url') do set REMOTE_URL=%%i
@@ -106,9 +182,9 @@ if "%REMOTE_URL%"=="" (
 
 echo [SUCCESS] Remote URL set to: %REMOTE_URL%
 
-:: Step 3: Run the production build
+:: Run the production build
 echo.
-echo [3/5] Building React project...
+echo [ACTION] Building React project...
 call npm run build
 if %ERRORLEVEL% neq 0 (
     echo [ERROR] Build failed! Please resolve compilation errors.
@@ -116,9 +192,9 @@ if %ERRORLEVEL% neq 0 (
 )
 echo [SUCCESS] Build completed successfully.
 
-:: Step 4: Prepare the release directory
+:: Prepare the release directory
 echo.
-echo [4/5] Preparing the release folder (dist)...
+echo [ACTION] Preparing the release folder (dist)...
 if not exist "dist" (
     echo [ERROR] Output 'dist' directory not found. Build may have failed silently.
     goto :EOF_ERROR
@@ -132,14 +208,14 @@ echo [SUCCESS] Created .nojekyll bypass file.
 copy /y dist\index.html dist\404.html >nul
 echo [SUCCESS] Created 404.html SPA router fallback file.
 
-:: Step 5: Publish build to gh-pages branch
+:: Publish build to gh-pages branch
 echo.
-echo [5/5] Deploying build directory to GitHub Pages...
+echo [ACTION] Deploying build directory to GitHub Pages...
 cd dist
 
 :: Initialize a temp repo in the build folder
 git init
-git checkout -b gh-pages
+git checkout -B gh-pages
 git add -A
 git commit -m "Deploy to GitHub Pages (automated release script)"
 
@@ -164,7 +240,7 @@ exit /b 0
 :EOF_ERROR
 echo.
 echo ==================================================
-echo             DEPLOYMENT FAILED
+echo                RELEASE FAILED
 echo ==================================================
 echo.
 pause

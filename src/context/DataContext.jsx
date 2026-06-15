@@ -1,30 +1,33 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
+import { StudentRowSchema } from '../utils/rosterSchema';
 
 const DataContext = createContext();
 
 // Exact iSAMS Column Mappings & Fallbacks (Stable & Resilient)
 const COLUMN_KEYS = {
-  name: [/student\s*name/i, /full\s*name/i, /^name$/i, /student/i, /forename/i, /first\s*name/i],
-  surname: [/surname/i, /last\s*name/i],
-  class: [/class/i, /form\s*group/i, /group/i, /section/i],
-  subject: [/subject/i, /course/i, /discipline/i],
-  teacherName: [/teacher\s*name/i, /teacher/i, /tutor/i, /instructor/i],
+  name: [/student\s*name/i, /full\s*name/i, /^name$/i, /student/i],
+  forename: [/^forename$/i, /first\s*name/i],
+  surname: [/^surname$/i, /last\s*name/i],
+  class: [/^class$/i, /form\s*group/i, /group/i, /section/i],
+  subject: [/^subject$/i, /course/i, /discipline/i],
+  teacherName: [/^teacher\s*name$/i, /teacher/i, /tutor/i, /instructor/i],
   meg: [/meg/i, /minimum\s*expected\s*grade/i, /target\s*grade/i, /expected\s*grade/i, /expected/i],
-  critA: [/crit\s*a/i, /criterion\s*a/i, /crita/i],
-  critB: [/crit\s*b/i, /criterion\s*b/i, /critb/i],
-  critC: [/crit\s*c/i, /criterion\s*c/i, /critc/i],
-  critD: [/crit\s*d/i, /criterion\s*d/i, /critd/i],
-  cpt: [/cpt/i, /criterion\s*point\s*total/i, /total\s*points/i, /points/i, /score/i],
-  gradeLevel: [/grade\s*level/i, /^grade$/i, /year\s*group/i, /year$/i, /academic\s*year/i],
-  ibGrade: [/ib\s*grade/i, /attainment\s*grade/i, /myp\s*grade/i, /level/i, /attainment/i],
-  atl: [/atl/i, /approach\s*to\s*learning/i, /atl\s*progress/i, /atl\s*level/i],
-  gender: [/gender/i, /sex/i, /pronoun/i],
-  eal: [/eal\s*status/i, /eal/i, /english\s*as\s*additional\s*language/i],
-  sen: [/sen\s*\/\s*learning\s*support\s*flag/i, /sen/i, /learning\s*support/i, /inclusion/i, /support\s*flag/i],
-  gifted: [/gifted\s*&\s*talented\s*flag/i, /gifted/i, /g\s*&\s*t/i, /magt/i, /talented/i],
+  critA: [/^criterion\s*a$/i, /crit\s*a/i, /crita/i],
+  critB: [/^criterion\s*b$/i, /crit\s*b/i, /critb/i],
+  critC: [/^criterion\s*c$/i, /crit\s*c/i, /critc/i],
+  critD: [/^criterion\s*d$/i, /crit\s*d/i, /critd/i],
+  cpt: [/^cpt$/i, /criterion\s*point\s*total/i, /total\s*points/i, /points/i, /score/i],
+  gradeLevel: [/^grade$/i, /grade\s*level/i, /year\s*group/i, /year$/i, /academic\s*year/i],
+  ibGrade: [/^ib\s*grade$/i, /attainment\s*grade/i, /myp\s*grade/i, /level/i, /attainment/i],
+  atl: [/^approaches$/i, /atl/i, /approach\s*to\s*learning/i, /atl\s*progress/i, /atl\s*level/i],
+  attitude: [/^attitude$/i],
+  gender: [/^gender$/i, /sex/i, /pronoun/i],
+  eal: [/^eal$/i, /eal\s*status/i, /english\s*as\s*additional\s*language/i],
+  sen: [/^sen$/i, /sen\s*\/\s*learning\s*support\s*flag/i, /learning\s*support/i, /inclusion/i, /support\s*flag/i],
+  gifted: [/^ma\s*gt$/i, /gifted\s*&\s*talented\s*flag/i, /gifted/i, /g\s*&\s*t/i, /magt/i, /talented/i],
   formGroup: [/form\s*group/i, /form/i, /registration\s*group/i, /advisor/i],
-  emirati: [/emirati/i, /uae\s*national/i, /nationality/i]
+  emirati: [/^emirati$/i, /uae\s*national/i, /nationality/i]
 };
 
 const PERSIST_PREFIX = 'edukit_mis_';
@@ -151,110 +154,156 @@ export const DataProvider = ({ children }) => {
       if (match !== undefined) {
         matchedHeaders[standardKey] = match;
       } else {
-        // Mark missing fields
-        missing.push(standardKey);
+        // Mark missing fields (ignoring non-critical optional columns in the missing lists)
+        if (standardKey !== 'meg' && standardKey !== 'formGroup' && standardKey !== 'attitude' && standardKey !== 'surname' && standardKey !== 'forename') {
+          missing.push(standardKey);
+        }
       }
     });
 
-    // Check if name is present. Surname could be split or integrated inside full name.
-    if (!matchedHeaders.name) {
+    // Check if name or forename/surname are present
+    if (!matchedHeaders.forename && !matchedHeaders.name) {
       return { 
         success: false, 
-        error: "Could not identify Student Name or Name column in the uploaded file. Please review column headers."
+        error: "Could not identify student name columns (either separate 'Forename' or a single 'Student Name' column) in the uploaded file. Please review column headers."
       };
     }
 
-    // Process and enrich each row
+    // Process, validate, and enrich each row
     let detectedSubject = '';
     let detectedTeacher = '';
-    const parsedStudents = rawRows.map((row, index) => {
+    const validationErrors = [];
+    const parsedStudents = [];
+
+    rawRows.forEach((row, index) => {
       // Get student names
-      const rawNameValue = row[matchedHeaders.name] || '';
-      let forename = '';
-      let surname = '';
-
-      if (matchedHeaders.surname && row[matchedHeaders.surname]) {
+      let rawForename = '';
+      let rawSurname = '';
+      if (matchedHeaders.forename) {
+        rawForename = String(row[matchedHeaders.forename] || '').trim();
+      }
+      if (matchedHeaders.surname) {
+        rawSurname = String(row[matchedHeaders.surname] || '').trim();
+      }
+      if (!rawForename && matchedHeaders.name) {
+        const rawNameValue = row[matchedHeaders.name] || '';
         const parts = String(rawNameValue).trim().split(/\s+/);
-        forename = parts[0] || '';
-        surname = String(row[matchedHeaders.surname]).trim();
-      } else {
-        // Split student name if single field
-        const parts = String(rawNameValue).trim().split(/\s+/);
-        forename = parts[0] || '';
-        surname = parts.slice(1).join(' ') || '';
+        rawForename = parts[0] || '';
+        if (!rawSurname) {
+          rawSurname = parts.slice(1).join(' ') || '';
+        }
       }
 
-      // Read values safely
-      const className = String(row[matchedHeaders.class] || 'Class Unknown').trim();
-      const studentSubject = String(row[matchedHeaders.subject] || '').trim();
-      const teacher = String(row[matchedHeaders.teacherName] || '').trim();
-      
-      if (studentSubject && !detectedSubject) detectedSubject = studentSubject;
-      if (teacher && !detectedTeacher) detectedTeacher = teacher;
-
-      const critA = row[matchedHeaders.critA] !== undefined ? Number(row[matchedHeaders.critA]) : null;
-      const critB = row[matchedHeaders.critB] !== undefined ? Number(row[matchedHeaders.critB]) : null;
-      const critC = row[matchedHeaders.critC] !== undefined ? Number(row[matchedHeaders.critC]) : null;
-      const critD = row[matchedHeaders.critD] !== undefined ? Number(row[matchedHeaders.critD]) : null;
-
-      // CPT is sum of A+B+C+D
-      let cpt = null;
-      if (row[matchedHeaders.cpt] !== undefined) {
-        cpt = Number(row[matchedHeaders.cpt]);
-      } else if (critA !== null || critB !== null || critC !== null || critD !== null) {
-        cpt = (critA || 0) + (critB || 0) + (critC || 0) + (critD || 0);
+      // Check if CPT should be calculated dynamically if it's missing in row but criteria are present
+      let rawCpt = row[matchedHeaders.cpt];
+      if (rawCpt === undefined || rawCpt === null || rawCpt === '') {
+        const cA = row[matchedHeaders.critA];
+        const cB = row[matchedHeaders.critB];
+        const cC = row[matchedHeaders.critC];
+        const cD = row[matchedHeaders.critD];
+        if (cA !== undefined || cB !== undefined || cC !== undefined || cD !== undefined) {
+          const nA = cA !== undefined && cA !== '' && !isNaN(Number(cA)) ? Number(cA) : 0;
+          const nB = cB !== undefined && cB !== '' && !isNaN(Number(cB)) ? Number(cB) : 0;
+          const nC = cC !== undefined && cC !== '' && !isNaN(Number(cC)) ? Number(cC) : 0;
+          const nD = cD !== undefined && cD !== '' && !isNaN(Number(cD)) ? Number(cD) : 0;
+          rawCpt = nA + nB + nC + nD;
+        }
       }
 
-      const rawGender = String(row[matchedHeaders.gender] || '').trim();
-      const pronouns = resolvePronouns(rawGender);
-
-      // Parse tags
-      const tags = [];
-      const ealVal = String(row[matchedHeaders.eal] || '').trim().toLowerCase();
-      const senVal = String(row[matchedHeaders.sen] || '').trim().toLowerCase();
-      const giftedVal = String(row[matchedHeaders.gifted] || '').trim().toLowerCase();
-      const emiratiVal = String(row[matchedHeaders.emirati] || '').trim().toLowerCase();
-
-      if (ealVal === 'yes' || ealVal === 'y' || ealVal === 'true' || ealVal === 'eal') tags.push('EAL');
-      if (senVal === 'yes' || senVal === 'y' || senVal === 'true' || senVal === 'sen' || senVal === 'support') tags.push('Inclusion');
-      if (giftedVal === 'yes' || giftedVal === 'y' || giftedVal === 'true' || giftedVal === 'gifted' || giftedVal === 'magt') tags.push('MAGT');
-      if (emiratiVal === 'yes' || emiratiVal === 'y' || emiratiVal === 'true' || emiratiVal === 'emirati') tags.push('Emirati');
-
-      let gradeLevel = row[matchedHeaders.gradeLevel] !== undefined ? String(row[matchedHeaders.gradeLevel]).trim() : '';
-      if (!gradeLevel) {
+      // Derive grade level fallback
+      let rawGradeLevel = row[matchedHeaders.gradeLevel] !== undefined ? String(row[matchedHeaders.gradeLevel]).trim() : '';
+      if (!rawGradeLevel) {
+        const className = String(row[matchedHeaders.class] || '').trim();
         const match = className.match(/\d+/);
-        gradeLevel = match ? `Grade ${match[0]}` : '';
+        rawGradeLevel = match ? `G${match[0]}` : '';
       }
 
-      return {
-        id: index + 1,
-        forename,
-        surname,
-        name: `${forename} ${surname}`.trim(),
-        gender: rawGender || 'other',
-        pronouns,
-        className,
-        subject: studentSubject,
-        teacherName: teacher,
-        meg: row[matchedHeaders.meg] !== undefined ? Number(row[matchedHeaders.meg]) : null,
-        critA,
-        critB,
-        critC,
-        critD,
-        cpt,
-        ibGrade: row[matchedHeaders.ibGrade] !== undefined ? Number(row[matchedHeaders.ibGrade]) : null,
-        gradeLevel,
-        atlProgress: String(row[matchedHeaders.atl] || '').trim() || 'Practitioner',
-        eal: ealVal === 'yes' || ealVal === 'y',
-        sen: senVal === 'yes' || senVal === 'y',
-        gifted: giftedVal === 'yes' || giftedVal === 'y',
-        emirati: emiratiVal === 'yes' || emiratiVal === 'y',
-        formGroup: String(row[matchedHeaders.formGroup] || className).trim(),
-        tags,
-        comment: '',
-        status: 'idle'
+      const mappedData = {
+        forename: rawForename,
+        surname: rawSurname,
+        className: row[matchedHeaders.class] !== undefined ? String(row[matchedHeaders.class]).trim() : undefined,
+        gradeLevel: rawGradeLevel,
+        subject: row[matchedHeaders.subject] !== undefined ? String(row[matchedHeaders.subject]).trim() : undefined,
+        teacherName: row[matchedHeaders.teacherName] !== undefined ? String(row[matchedHeaders.teacherName]).trim() : undefined,
+        gender: row[matchedHeaders.gender] !== undefined ? String(row[matchedHeaders.gender]).trim() : undefined,
+        eal: row[matchedHeaders.eal],
+        sen: row[matchedHeaders.sen],
+        gifted: row[matchedHeaders.gifted],
+        emirati: row[matchedHeaders.emirati],
+        atlProgress: row[matchedHeaders.atl] !== undefined ? String(row[matchedHeaders.atl]).trim() : undefined,
+        attitude: row[matchedHeaders.attitude] !== undefined ? String(row[matchedHeaders.attitude]).trim() : undefined,
+        cpt: rawCpt,
+        critA: row[matchedHeaders.critA],
+        critB: row[matchedHeaders.critB],
+        critC: row[matchedHeaders.critC],
+        critD: row[matchedHeaders.critD],
+        ibGrade: row[matchedHeaders.ibGrade],
+        meg: row[matchedHeaders.meg],
+        formGroup: row[matchedHeaders.formGroup]
       };
+
+      // Zod Validation & Transformation
+      const result = StudentRowSchema.safeParse(mappedData);
+      if (!result.success) {
+        const rowNum = index + 2; // Row index is 0-based, first data is Row 2 (row 1 is headers)
+        const issues = result.error.issues.map(iss => `${iss.path.join('.')}: ${iss.message}`).join(', ');
+        validationErrors.push(`Row ${rowNum} (${rawForename || 'Unknown Student'}): ${issues}`);
+      } else {
+        const data = result.data;
+        
+        if (data.subject && !detectedSubject) detectedSubject = data.subject;
+        if (data.teacherName && !detectedTeacher) detectedTeacher = data.teacherName;
+
+        const pronouns = resolvePronouns(data.gender);
+        
+        const tags = [];
+        if (data.eal) tags.push('EAL');
+        if (data.sen) tags.push('Inclusion');
+        if (data.gifted) tags.push('MAGT');
+        if (data.emirati) tags.push('Emirati');
+
+        parsedStudents.push({
+          id: index + 1,
+          forename: data.forename,
+          surname: data.surname,
+          name: `${data.forename} ${data.surname}`.trim(),
+          gender: data.gender === 'M' ? 'Male' : 'Female',
+          pronouns,
+          className: data.className,
+          subject: data.subject,
+          teacherName: data.teacherName,
+          meg: data.meg,
+          critA: data.critA,
+          critB: data.critB,
+          critC: data.critC,
+          critD: data.critD,
+          cpt: data.cpt,
+          ibGrade: data.ibGrade,
+          gradeLevel: data.gradeLevel,
+          atlProgress: data.atlProgress,
+          attitude: data.attitude,
+          eal: data.eal,
+          sen: data.sen,
+          gifted: data.gifted,
+          emirati: data.emirati,
+          formGroup: data.formGroup || data.className,
+          tags,
+          comment: '',
+          status: 'idle'
+        });
+      }
     });
+
+    if (validationErrors.length > 0) {
+      const limit = 10;
+      const list = validationErrors.slice(0, limit).join('\n');
+      const total = validationErrors.length;
+      const suffix = total > limit ? `\n...and ${total - limit} more errors.` : '';
+      return {
+        success: false,
+        error: `Roster file validation failed. Please check the spreadsheet data:\n\n${list}${suffix}`
+      };
+    }
 
     // Extract unique classes
     const uniqueClasses = Array.from(new Set(parsedStudents.map(s => s.className)))

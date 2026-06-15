@@ -169,25 +169,37 @@ const generateDemoRoster = () => {
       const gifted = ((i + 7) / cohortSize) < cohort.demographics.gifted && ibGrade >= 5;
       const emirati = ((i + 13) / cohortSize) < cohort.demographics.emirati;
 
+      // Split name into Forename and Surname
+      const nameParts = name.split(/\s+/);
+      const forename = nameParts[0] || '';
+      const surname = nameParts.slice(1).join(' ') || '';
+
+      // Attitude choices (alternating AE and ME)
+      const attitude = studentGlobalIndex % 4 === 0 ? 'AE' : 'ME';
+
+      // Grade formatting (G7, G8 etc)
+      const gradeCode = cohort.grade === 'Grade 7' ? 'G7' : cohort.grade === 'Grade 8' ? 'G8' : cohort.grade;
+
       rows.push({
-        'Student Name': name,
+        'Forename': forename,
+        'Surname': surname,
         'Class': cohort.className,
-        'Grade': cohort.grade,
+        'Grade': gradeCode,
         'Subject': cohort.subject,
         'Teacher Name': cohort.teacher,
-        'Gender': gender,
-        'Crit A': critA,
-        'Crit B': critB,
-        'Crit C': critC,
-        'Crit D': critD,
+        'Gender': gender === 'Male' ? 'M' : 'F',
+        'EAL': eal ? 'Yes' : 'No',
+        'SEN': sen ? 'Yes' : 'No',
+        'Ma GT': gifted ? 'Yes' : 'No',
+        'Emirati': emirati ? 'Yes' : 'No',
+        'Approaches': atl,
+        'Attitude': attitude,
         'CPT': cpt,
-        'IB Grade': ibGrade,
-        'MEG': meg,
-        'ATL Progress': atl,
-        'EAL Status': eal ? 'Yes' : 'No',
-        'SEN / Learning Support Flag': sen ? 'Yes' : 'No',
-        'Gifted & Talented Flag': gifted ? 'Yes' : 'No',
-        'Emirati': emirati ? 'Yes' : 'No'
+        'Criterion A': critA,
+        'Criterion B': critB,
+        'Criterion C': critC,
+        'Criterion D': critD,
+        'IB Grade': ibGrade
       });
 
       studentGlobalIndex++;
@@ -376,10 +388,10 @@ export default function Dashboard({ setActiveTool }) {
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Roster');
       ws['!cols'] = [
-        { wch: 22 }, { wch: 18 }, { wch: 10 }, { wch: 14 }, { wch: 18 },
-        { wch: 8 },  { wch: 7  }, { wch: 7  }, { wch: 7  }, { wch: 7  },
-        { wch: 7 },  { wch: 10 }, { wch: 7  }, { wch: 16 }, { wch: 10 },
-        { wch: 28 }, { wch: 22 }, { wch: 10 }
+        { wch: 15 }, { wch: 15 }, { wch: 18 }, { wch: 8 },  { wch: 22 },
+        { wch: 18 }, { wch: 8 },  { wch: 7  }, { wch: 7  }, { wch: 7  },
+        { wch: 7 },  { wch: 14 }, { wch: 10 }, { wch: 7  }, { wch: 12 },
+        { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 10 }
       ];
       XLSX.writeFile(wb, 'sisd_edukit_sample_roster.xlsx');
       triggerToast("Downloaded template: sisd_edukit_sample_roster.xlsx");

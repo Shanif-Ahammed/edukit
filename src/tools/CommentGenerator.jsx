@@ -322,8 +322,8 @@ const applyPlaceholders = (template, data) => {
 
   // Determine target language based on subject name
   const subjectName = (data.subject || '').trim().toLowerCase();
-  const isFrench = subjectName === 'language and literature - french';
-  const isGerman = subjectName === 'language and literature - german';
+  const isFrench = subjectName.includes('french');
+  const isGerman = subjectName.includes('german');
 
   // Resolve pronouns based on subject language and student gender/pronouns
   // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
@@ -345,8 +345,10 @@ const applyPlaceholders = (template, data) => {
     };
   }
 
-  return template
-    // Standard placeholders
+  let resolvedText = template || '';
+
+  // 1. Standard bracket placeholders
+  resolvedText = resolvedText
     .replace(/\[Name\]/g, data.forename)
     .replace(/\[He\/She\]/g, resolvedPronouns.subj.charAt(0).toUpperCase() + resolvedPronouns.subj.slice(1))
     .replace(/\[he\/she\]/g, resolvedPronouns.subj)
@@ -363,9 +365,39 @@ const applyPlaceholders = (template, data) => {
     .replace(/\[BestCrit\]/g, critBest)
     .replace(/\[WeakCrit\]/g, critWorst)
     .replace(/\[ATL Skill\]/g, data.atlSkill)
-    .replace(/\[ATL\]/g, data.atlProgress)
+    .replace(/\[ATL\]/g, data.atlProgress);
 
-    // Custom iSAMS placeholders
+  // 2. Language-specific pronoun replacements
+  if (isFrench) {
+    resolvedText = resolvedText
+      .replace(/\bil!\b/g, isMale ? 'il' : 'elle')
+      .replace(/\bIl!\b/g, isMale ? 'Il' : 'Elle')
+      .replace(/\belle!\b/g, isMale ? 'il' : 'elle')
+      .replace(/\bElle!\b/g, isMale ? 'Il' : 'Elle')
+      .replace(/\bqu'il!\b/g, isMale ? "qu'il" : "qu'elle")
+      .replace(/\bqu'elle!\b/g, isMale ? "qu'il" : "qu'elle")
+      .replace(/\bQu'il!\b/g, isMale ? "Qu'il" : "Qu'elle")
+      .replace(/\bQu'elle!\b/g, isMale ? "Qu'il" : "Qu'elle")
+      .replace(/\bélève!\b/g, data.forename)
+      .replace(/\bÉlève!\b/g, data.forename);
+  } else if (isGerman) {
+    resolvedText = resolvedText
+      .replace(/\ber!\b/g, isMale ? 'er' : 'sie')
+      .replace(/\bEr!\b/g, isMale ? 'Er' : 'Sie')
+      .replace(/\bsie!\b/g, isMale ? 'er' : 'sie')
+      .replace(/\bSie!\b/g, isMale ? 'Er' : 'Sie')
+      .replace(/\bihn!\b/g, isMale ? 'ihn' : 'sie')
+      .replace(/\bIhn!\b/g, isMale ? 'Ihn' : 'Sie')
+      .replace(/\bseine!\b/g, isMale ? 'seine' : 'ihre')
+      .replace(/\bSeine!\b/g, isMale ? 'Seine' : 'Ihre')
+      .replace(/\bseiner!\b/g, isMale ? 'seiner' : 'ihrer')
+      .replace(/\bSeiner!\b/g, isMale ? 'Seiner' : 'Ihrer')
+      .replace(/\bsein!\b/g, isMale ? 'sein' : 'ihr')
+      .replace(/\bSein!\b/g, isMale ? 'Sein' : 'Ihr');
+  }
+
+  // 3. Custom iSAMS English/generic placeholders
+  resolvedText = resolvedText
     .replace(/Student!/g, data.forename)
     .replace(/He!/g, resolvedPronouns.subj.charAt(0).toUpperCase() + resolvedPronouns.subj.slice(1))
     .replace(/he!/g, resolvedPronouns.subj)
@@ -379,6 +411,8 @@ const applyPlaceholders = (template, data) => {
     .replace(/D!\(?/g, critD)
     .replace(/BestCrit!\(?/g, critBest)
     .replace(/WeakCrit!\(?/g, critWorst);
+
+  return resolvedText;
 };
 
 export default function CommentGenerator() {
@@ -453,8 +487,8 @@ export default function CommentGenerator() {
 
         // Detect language based on active subject
         const subjectName = subjectKey.trim().toLowerCase();
-        const isFrench = subjectName === 'language and literature - french';
-        const isGerman = subjectName === 'language and literature - german';
+        const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals & societies - french';
+        const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals & societies - german';
         const langKey = isFrench ? 'french' : (isGerman ? 'german' : 'english');
 
         // Extract language-specific ATL data
@@ -1250,6 +1284,47 @@ export default function CommentGenerator() {
                     ))}
                   </div>
                 </div>
+
+                {(subject || '').toLowerCase().includes('french') && (
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.75rem' }}>
+                    <h4 style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>French Custom Tags</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                      {[
+                        ['il! / elle!', 'il / elle (subject pronoun)'],
+                        ['Il! / Elle!', 'Il / Elle (capitalized)'],
+                        ['qu\'il! / qu\'elle!', 'qu\'il / qu\'elle'],
+                        ['Qu\'il! / Qu\'elle!', 'Qu\'il / Qu\'elle'],
+                        ['élève! / Élève!', 'Student first name']
+                      ].map(([ph, desc]) => (
+                        <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                          <code style={{ color: '#10B981', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.15)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.72rem' }}>{ph}</code>
+                          <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {(subject || '').toLowerCase().includes('german') && (
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.75rem' }}>
+                    <h4 style={{ fontSize: '0.75rem', color: '#3B82F6', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>German Custom Tags</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                      {[
+                        ['er! / sie!', 'er / sie (subject pronoun)'],
+                        ['Er! / Sie!', 'Er / Sie (capitalized)'],
+                        ['ihn! / Ihn!', 'ihn / sie (accusative pronoun)'],
+                        ['sein! / Sein!', 'sein / ihr (possessive pronoun)'],
+                        ['seine! / Seine!', 'seine / ihre (feminine/plural possessive)'],
+                        ['seiner! / Seiner!', 'seiner / ihrer (genitive possessive)']
+                      ].map(([ph, desc]) => (
+                        <div key={ph} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                          <code style={{ color: '#3B82F6', background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.15)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.72rem' }}>{ph}</code>
+                          <span style={{ color: 'var(--text-muted)' }}>{desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
