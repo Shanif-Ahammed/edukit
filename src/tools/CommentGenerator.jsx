@@ -579,11 +579,9 @@ export default function CommentGenerator() {
   useEffect(() => {
     if (classStudents.length > 0 && classStudents[0].subject) {
       const dbSub = classStudents[0].subject;
-      if (mypSubjects[getGenericSubjectGroup(dbSub)]) {
-        setSubject(dbSub);
-      }
+      setSubject(dbSub);
     }
-  }, [selectedClass, mypSubjects]);
+  }, [selectedClass]);
 
   const showStatus = (type, text) => {
     setStatusMessage({ type, text });
