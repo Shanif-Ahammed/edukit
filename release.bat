@@ -138,6 +138,16 @@ if %ERRORLEVEL% neq 0 (
 )
 
 echo.
+echo [ACTION] Pulling latest changes from remote main to stay up to date...
+git pull --rebase origin main
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [ERROR] Pull failed! This could be due to network issues or merge conflicts.
+    echo Please resolve manually (e.g. run 'git pull --rebase origin main') and try again.
+    goto :EOF_ERROR
+)
+
+echo.
 echo [ACTION] Pushing changes to remote main branch...
 git push origin main
 if %ERRORLEVEL% neq 0 (
