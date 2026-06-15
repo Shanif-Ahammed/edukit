@@ -32,6 +32,38 @@ const getGenericSubjectGroup = (sub) => {
   return 'Mathematics';
 };
 
+/**
+ * Resolves 'Double Science' and 'Triple Science' to the actual science subject
+ * by inspecting the class name column.
+ *
+ * Double Science class name patterns:  (Bio) | (Phy) | (Chem)
+ * Triple Science class name patterns:  -Bio  | -Phy  | -Chem  (case-insensitive)
+ *
+ * If the class name does not contain a recognisable science marker the function
+ * falls back to 'Integrated Sciences - English' so comments are never left blank.
+ *
+ * Returns the original subjectName unchanged for all other subjects.
+ */
+const resolveScience = (subjectName, className) => {
+  if (!subjectName) return subjectName;
+  const cl = (className || '').toLowerCase();
+  if (subjectName === 'Double Science') {
+    if (cl.includes('(bio)')) return 'Biology';
+    if (cl.includes('(phy)')) return 'Physics';
+    if (cl.includes('(chem)')) return 'Chemistry';
+    // Class name pattern unrecognised — use general science bank as fallback
+    return 'Integrated Sciences - English';
+  }
+  if (subjectName === 'Triple Science') {
+    if (cl.includes('-bio')) return 'Biology';
+    if (cl.includes('-phy')) return 'Physics';
+    if (cl.includes('-chem')) return 'Chemistry';
+    // Class name pattern unrecognised — use general science bank as fallback
+    return 'Integrated Sciences - English';
+  }
+  return subjectName;
+};
+
 // ─── Default 3-Group Comment Bank (Mathematics & Generic ATL) ────────────────
 const DEFAULT_BANK = {
   ib_grade: {
@@ -320,10 +352,12 @@ const applyPlaceholders = (template, data) => {
   const critBest = getCritString(bestLetter, names[bestLetter]);
   const critWorst = getCritString(worstLetter, names[worstLetter]);
 
-  // Determine target language based on subject name
-  const subjectName = (data.subject || '').trim().toLowerCase();
-  const isFrench = subjectName.includes('french') && !subjectName.includes('acquisition');
-  const isGerman = subjectName.includes('german') && !subjectName.includes('acquisition');
+  // Determine target language based on exact subject name
+  // Only the two subjects per language carry non-English ATL comments
+  // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
+  const subjectName = (data.subject || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals & societies - french';
+  const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals & societies - german';
 
   // Resolve pronouns based on subject language and student gender/pronouns
   // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
@@ -474,11 +508,14 @@ export default function CommentGenerator() {
   }, [selectedClass, prevClass, updateStudents]);
 
   // Dynamic comment bank hydration based on selected subject
+  // Re-runs when selectedClass changes so that Double/Triple Science resolves correctly
   useEffect(() => {
     const loadBank = async () => {
       setIsLoadingBank(true);
       try {
-        const subjectKey = subject || 'Mathematics';
+        // Resolve Double/Triple Science to the real science subject via the class name
+        const rawSubject = subject || 'Mathematics';
+        const subjectKey = resolveScience(rawSubject, selectedClass);
 
         // 1. Fetch ATL bank (universal with English, French, and German language support)
         const atlRes = await fetch('/comment_bank/atl.json');
@@ -486,7 +523,8 @@ export default function CommentGenerator() {
         const atlAllData = await atlRes.json();
 
         // Detect language based on active subject
-        const subjectName = subjectKey.trim().toLowerCase();
+        // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
+        const subjectName = subjectKey.trim().toLowerCase().replace(/\s+/g, ' ');
         const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals & societies - french';
         const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals & societies - german';
         const langKey = isFrench ? 'french' : (isGerman ? 'german' : 'english');
@@ -552,7 +590,7 @@ export default function CommentGenerator() {
     };
 
     loadBank();
-  }, [subject]);
+  }, [subject, selectedClass]);
 
   // Filter students to the active class
   const classStudents = students.filter(s => s.className === selectedClass);
@@ -569,7 +607,9 @@ export default function CommentGenerator() {
     return match ? `Grade ${match[0]}` : 'Grade 7';
   })();
 
-  const subjectCrit = mypSubjects[subject] || mypSubjects[getGenericSubjectGroup(subject)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
+  // Resolve Double/Triple Science for criteria name lookup too
+  const resolvedSubjectForCrit = resolveScience(subject, selectedClass);
+  const subjectCrit = mypSubjects[resolvedSubjectForCrit] || mypSubjects[getGenericSubjectGroup(resolvedSubjectForCrit)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
   
   const critNames = (subjectCrit && typeof subjectCrit.A === 'string')
     ? subjectCrit
@@ -603,6 +643,9 @@ export default function CommentGenerator() {
 
   // ── Comment Assembly ───────────────────────────────────────────────────────
   const buildComment = (student, overrideAtlIndex = null) => {
+    // Resolve Double/Triple Science to the real subject using the student's own class name
+    const effectiveSubject = resolveScience(subject, student.className || selectedClass);
+
     const ibGradeVal = student.ibGrade ? Number(student.ibGrade) : null;
     const hasLowCrit = [student.critA, student.critB, student.critC, student.critD].some(v => {
       if (v === null || v === undefined || v === '') return false;
@@ -615,11 +658,11 @@ export default function CommentGenerator() {
                            student.critD === null || student.critD === undefined || student.critD === '';
 
     if (ibGradeVal === 1 || ibGradeVal === 2) {
-      return `For a performance grade of ${ibGradeVal} in ${subject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
+      return `For a performance grade of ${ibGradeVal} in ${effectiveSubject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
     }
 
     if (hasLowCrit) {
-      return `For individual criterion scores of 1 or 2 in ${subject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
+      return `For individual criterion scores of 1 or 2 in ${effectiveSubject}, a standard comment has not been generated. The teacher should draft this comment manually to address highly customized support plans and specific academic goals.`;
     }
 
     if (hasMissingCrit) {
@@ -636,7 +679,7 @@ export default function CommentGenerator() {
       forename: student.forename,
       pronouns: student.pronouns,
       grade: student.ibGrade || 4,
-      subject,
+      subject: effectiveSubject,   // resolved subject used for Subject! placeholder
       critNames,
       best,
       worst,

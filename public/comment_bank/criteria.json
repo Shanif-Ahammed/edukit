@@ -154,5 +154,17 @@
     "B": "Inquiring and designing",
     "C": "Processing and evaluating",
     "D": "Reflecting on the impacts of science"
+  },
+  "Computer Science": {
+    "A": "Inquiring and analyzing",
+    "B": "Developing ideas",
+    "C": "Creating the solution",
+    "D": "Evaluating"
+  },
+  "PHP (Portfolio)": {
+    "A": "Knowing and understanding",
+    "B": "Planning for performance",
+    "C": "Applying and performing",
+    "D": "Reflecting and improving performance"
   }
 }

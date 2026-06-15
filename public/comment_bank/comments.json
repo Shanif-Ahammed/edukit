@@ -2338,5 +2338,185 @@
         "8": "Avec des résultats aussi régulièrement élevés, Student! doit continuer à fournir les efforts maintenus cette année, et il! connaîtra de futurs succès."
       }
     }
+  },
+  "Computer Science": {
+    "A": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of computational research acquisition.",
+        "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In A!, he! outlined the problem scenario and identified some relevant computer science concepts. He! explored an existing digital tool and created a basic problem definition.",
+        "4": "In A!, he! explained the problem scenario clearly and included relevant knowledge of computing concepts to support ideas. His! problem definition showed an appropriate understanding of the task.",
+        "5": "In A!, he! clearly explained the problem context and identified relevant computing concepts, using appropriate primary and secondary research sources effectively.",
+        "6": "In A!, he! explained the problem scenario in detail and used a well-structured analysis of computing concepts. His! problem definition reflected research findings successfully.",
+        "7": "In A!, he! thoroughly explained the problem context and independently developed a detailed and effective analysis of relevant computing concepts and existing digital systems.",
+        "8": "In A!, he! demonstrated excellent knowledge of computing concepts through detailed research, insightful analysis of digital systems and a highly effective, well-justified problem definition."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in research methods.",
+        "3": "Student! should analyse existing digital systems in more detail and explain how research findings influenced the development of the problem definition in A!.",
+        "4": "Student! should provide more detailed analysis of computing research and explain stronger links between findings and the proposed solution in A!.",
+        "5": "Student! should strengthen the justification for the chosen solution and include deeper analysis of similar tools and existing computer systems in A!.",
+        "6": "Student! should develop more critical analysis of research findings and explain more clearly how knowledge of computing systems shaped final design decisions in A!.",
+        "7": "Student! should continue refining comparisons between digital systems and include deeper evaluation of how research informed the final solution in A!.",
+        "8": "Student! should further develop sophisticated evaluation of research sources and explore more innovative approaches to the proposed digital solution in A!."
+      }
+    },
+    "B": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of solution design acquisition.",
+        "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In B!, he! developed a basic design plan with some relevant ideas. He! included limited success criteria and a simple visual representation.",
+        "4": "In B!, he! developed a design plan with some relevant ideas and included basic success criteria aligned to the brief. His! design showed some consideration of client needs.",
+        "5": "In B!, he! developed a clear design plan with relevant ideas and appropriate success criteria. He! demonstrated good understanding of client and user requirements.",
+        "6": "In B!, he! developed a detailed design plan with well-justified ideas and clear success criteria. His! design reflected a strong understanding of client and user needs.",
+        "7": "In B!, he! developed a comprehensive design plan with fully justified ideas, detailed success criteria, and thorough consideration of client needs and technical constraints.",
+        "8": "In B!, he! produced an exceptional design plan with innovative, fully justified ideas, precise success criteria, and deep consideration of client, user, and technical requirements."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build his! confidence in design planning.",
+        "3": "Student! should develop more detailed design ideas and include clearer success criteria linked to the problem definition in B!.",
+        "4": "Student! should provide more detail in design justifications and strengthen the link between designs and client requirements in B!.",
+        "5": "Student! should ensure all design ideas are thoroughly justified and success criteria are precise and measurable in B!.",
+        "6": "Student! should develop more comprehensive testing plans and explain more clearly how design decisions address client and user requirements in B!.",
+        "7": "Student! should continue refining design justifications and include deeper exploration of alternative design approaches in B!.",
+        "8": "Student! should further develop innovative design approaches and produce more rigorous evaluation of design options against success criteria in B!."
+      }
+    },
+    "C": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of solution creation acquisition.",
+        "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In C!, he! created a basic digital product that addresses part of the task. He! demonstrated limited technical skill and the solution required significant further development.",
+        "4": "In C!, he! created a functional digital product that partially addresses the design brief. He! demonstrated basic technical skills with some areas requiring further refinement.",
+        "5": "In C!, he! created a functional digital product that generally addresses the design brief. He! demonstrated competent technical skills and followed design plans with reasonable accuracy.",
+        "6": "In C!, he! created a well-developed digital product that effectively addresses the design brief. He! demonstrated strong technical skills and followed design plans accurately.",
+        "7": "In C!, he! created a sophisticated digital product that fully addresses the design brief. He! demonstrated advanced technical skills and produced a solution that closely matches design plans.",
+        "8": "In C!, he! created an outstanding digital product that fully and innovatively addresses the design brief. He! demonstrated exceptional technical skills and produced a polished, complete solution."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build his! confidence in technical creation.",
+        "3": "Student! should focus on developing a more complete and functional digital product, addressing all aspects of the design brief in C!.",
+        "4": "Student! should refine technical skills and ensure the digital product more fully addresses client requirements in C!.",
+        "5": "Student! should improve precision in following design plans and refine the product to better meet success criteria in C!.",
+        "6": "Student! should develop more advanced technical features and ensure the product fully aligns with all design specifications in C!.",
+        "7": "Student! should continue refining technical precision and push for greater innovation in the final digital product in C!.",
+        "8": "Student! should further develop the sophistication and originality of the digital solution, pushing the boundaries of technical skill in C!."
+      }
+    },
+    "D": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of evaluation acquisition.",
+        "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In D!, he! provided a basic evaluation of the digital product. He! tested limited aspects and made simple recommendations with little connection to success criteria.",
+        "4": "In D!, he! evaluated some aspects of the digital product against success criteria and gathered basic feedback. He! suggested some improvements with limited justification.",
+        "5": "In D!, he! evaluated the digital product against success criteria and gathered user feedback. He! identified relevant improvements and provided some justification for changes.",
+        "6": "In D!, he! evaluated the digital product thoroughly against success criteria and used user feedback effectively. He! proposed justified improvements and demonstrated reflective thinking.",
+        "7": "In D!, he! conducted a detailed evaluation of the digital product against success criteria, using comprehensive user feedback to propose well-justified and specific improvements.",
+        "8": "In D!, he! conducted an exceptional evaluation of the digital product, systematically testing against all success criteria, using detailed user feedback to propose insightful and innovative improvements."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in evaluation.",
+        "3": "Student! should test the digital product more thoroughly and relate evaluation comments more clearly to success criteria in D!.",
+        "4": "Student! should gather more detailed user feedback and provide stronger justification for proposed improvements in D!.",
+        "5": "Student! should ensure all success criteria are evaluated and that proposed improvements are specific and clearly justified in D!.",
+        "6": "Student! should develop more detailed testing procedures and provide more in-depth evaluation of user feedback in D!.",
+        "7": "Student! should refine evaluation by more systematically linking user feedback to specific improvements and further developing reflection in D!.",
+        "8": "Student! should further develop sophisticated evaluation techniques and explore more innovative recommendations for future development in D!."
+      }
+    }
+  },
+  "PHP (Portfolio)": {
+    "A": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of acquiring knowledge and understanding in Subject!.",
+        "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In A!, he! demonstrates a basic awareness of health, physical and personal development concepts, with limited application of relevant terminology.",
+        "4": "In A!, he! demonstrates foundational knowledge of health and physical development concepts and uses some relevant terminology with partial accuracy.",
+        "5": "In A!, he! demonstrates adequate understanding of health and physical development concepts and generally applies relevant terminology correctly.",
+        "6": "In A!, he! demonstrates secure understanding of health and physical development concepts and consistently uses relevant terminology with accuracy.",
+        "7": "In A!, he! demonstrates strong and detailed understanding of health and physical development concepts, applying terminology precisely across a range of contexts.",
+        "8": "In A!, he! demonstrates exceptional and comprehensive understanding of health and physical development concepts, applying precise terminology with confidence and depth."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! foundational knowledge.",
+        "3": "Student! should work on developing a broader knowledge base and applying subject-specific terminology more consistently in A!.",
+        "4": "Student! should deepen understanding of key concepts and practise applying terminology more accurately across different contexts in A!.",
+        "5": "Student! should strengthen understanding of more complex concepts and develop greater precision in the application of subject-specific language in A!.",
+        "6": "Student! should refine conceptual understanding and work on applying knowledge to less familiar contexts with greater accuracy in A!.",
+        "7": "Student! should continue to extend knowledge into more nuanced areas and develop even greater precision in concept application in A!.",
+        "8": "Student! should push towards exploring advanced and interconnected concepts, building further on his! already exceptional knowledge base in A!."
+      }
+    },
+    "B": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of performance planning acquisition.",
+        "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In B!, he! sets basic personal goals with limited connection to performance data and outlines a simple action plan with minimal detail.",
+        "4": "In B!, he! identifies personal goals using some performance data and outlines a basic action plan with limited strategies.",
+        "5": "In B!, he! sets appropriate goals informed by performance data and develops a reasonable action plan outlining relevant strategies for improvement.",
+        "6": "In B!, he! sets clear and realistic goals informed by performance data and develops a structured action plan with relevant and justified strategies.",
+        "7": "In B!, he! sets precise and measurable goals firmly grounded in performance data and produces a detailed, well-justified action plan with targeted strategies.",
+        "8": "In B!, he! sets sophisticated, fully measurable goals informed by comprehensive performance analysis and produces an exemplary, strategically detailed action plan."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build his! ability to plan for performance.",
+        "3": "Student! should develop clearer personal goals and begin connecting them more directly to specific performance evidence in B!.",
+        "4": "Student! should set more specific goals and develop more detailed action plans with clearer strategies linked to performance data in B!.",
+        "5": "Student! should ensure goals are measurable and that action plans include more specific and justified strategies for improvement in B!.",
+        "6": "Student! should refine goal-setting by grounding plans more deeply in performance evidence and developing more precise improvement strategies in B!.",
+        "7": "Student! should push for greater sophistication in planning, including more detailed analysis of performance data and more innovative strategies in B!.",
+        "8": "Student! should continue to develop exemplary planning skills and explore advanced, evidence-informed strategies for sustained performance improvement in B!."
+      }
+    },
+    "C": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of applied performance acquisition.",
+        "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In C!, he! demonstrates basic physical performance with limited consistency. He! applies some health-related practices with occasional success.",
+        "4": "In C!, he! demonstrates foundational performance skills and applies health-related strategies with some consistency across familiar contexts.",
+        "5": "In C!, he! demonstrates adequate performance and applies health-related strategies with reasonable consistency, showing a developing ability to self-regulate.",
+        "6": "In C!, he! demonstrates competent performance and consistently applies health-related strategies, showing a growing ability to adapt and self-regulate effectively.",
+        "7": "In C!, he! demonstrates strong performance and consistently applies health-related strategies with clear skill and purposeful self-regulation across a range of contexts.",
+        "8": "In C!, he! demonstrates exceptional performance and applies health-related strategies with outstanding consistency, precision, and purposeful self-regulation."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build his! applied performance skills.",
+        "3": "Student! should work on applying health-related strategies with greater consistency and focus on developing more reliable performance habits in C!.",
+        "4": "Student! should develop greater consistency in applying performance strategies and work towards more purposeful self-regulation in C!.",
+        "5": "Student! should refine the application of strategies and develop stronger self-regulation skills across a wider range of performance contexts in C!.",
+        "6": "Student! should work on greater precision and adaptability in performance and further develop independent self-regulation skills in C!.",
+        "7": "Student! should continue developing high-level performance skills and explore how to apply strategies with even greater sophistication in C!.",
+        "8": "Student! should continue to push the boundaries of performance excellence and further refine self-regulation strategies in C!."
+      }
+    },
+    "D": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of reflective practice acquisition.",
+        "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In D!, he! provides basic reflections on performance with limited connection to goals and minimal explanation of what worked or how to improve.",
+        "4": "In D!, he! provides simple reflections on performance with some connection to goals, identifying basic areas for improvement with limited justification.",
+        "5": "In D!, he! provides adequate reflections on performance, connecting outcomes to goals and identifying relevant areas for improvement with some justification.",
+        "6": "In D!, he! provides thoughtful reflections on performance, clearly connecting outcomes to goals and proposing well-considered strategies for improvement.",
+        "7": "In D!, he! provides detailed and insightful reflections on performance, systematically connecting outcomes to goals and proposing specific, evidence-based improvements.",
+        "8": "In D!, he! provides exceptional, analytical reflections on performance, demonstrating deep self-awareness and proposing highly specific, innovative, and evidence-informed strategies for future improvement."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! reflective practice skills.",
+        "3": "Student! should work on connecting reflections more clearly to personal goals and explain what worked and what could be improved in D!.",
+        "4": "Student! should provide more detailed reflections, making stronger links between outcomes, goals, and strategies for improvement in D!.",
+        "5": "Student! should ensure reflections are well-justified and include more specific evidence from performance to support proposed improvements in D!.",
+        "6": "Student! should develop deeper analytical reflection and strengthen the connection between evidence and proposed improvement strategies in D!.",
+        "7": "Student! should continue to refine reflective depth, pushing for greater sophistication in the analysis of performance outcomes in D!.",
+        "8": "Student! should further develop highly analytical and evidence-rich reflection, exploring more innovative approaches to personal improvement in D!."
+      }
+    }
   }
 }
