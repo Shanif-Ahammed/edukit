@@ -19,7 +19,7 @@
         "5": "Student! can improve by applying subject knowledge with relevant examples to strengthen understanding of topics in Individuals and Societies.",
         "6": "Student! can improve by applying his! subject knowledge with well-developed, contextualized examples to demonstrate deeper understanding of topics.",
         "7": "Student! can improve by continuing to apply subject knowledge with relevant examples to strengthen understanding of topics in Individuals and Societies.",
-        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepen their appreciation of the subject."
+        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepend their appreciation of the subject."
       }
     },
     "B": {
@@ -41,7 +41,7 @@
         "5": "Student! can benefit from focusing on selecting more varied and reliable sources to strengthen investigations in B!.",
         "6": "Student! should develop more detailed analysis of sources to improve the quality of investigations in B!.",
         "7": "Student! will benefit from evaluating sources in greater depth to strengthen investigations further in B!.",
-        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepen their appreciation of the subject."
+        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepend their appreciation of the subject."
       }
     },
     "C": {
@@ -63,7 +63,7 @@
         "5": "Student! should focus on improving the precision and detail of written explanations in C!.",
         "6": "Student! should aim to develop explanations in greater depth to further strengthen communication in C!.",
         "7": "Student! will benefit from perfecting the clarity, organization, and precision demonstrated in C!.",
-        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepen their appreciation of the subject."
+        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepend their appreciation of the subject."
       }
     },
     "D": {
@@ -85,7 +85,7 @@
         "5": "Student! will improve by developing more detailed analysis and stronger justification of ideas in D!.",
         "6": "Student! will benefit from providing more developed evaluations and justifications to deepen analysis in D!.",
         "7": "Student! will benefit from developing even more detailed evaluation to strengthen critical thinking further in D!.",
-        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepen their appreciation of the subject."
+        "8": "Student! simply needs to continue to put in the effort that they have been applying this year, and they can look forward to another year of success. I advise them to read books that interest them, to deepend their appreciation of the subject."
       }
     }
   },
@@ -364,17 +364,17 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of textual analysis acquisition.",
         "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
-        "3": "He! demonstrates ability to recognize a number of isolated, high-frequency words in short, slow, repetitive spoken texts. Responds appropriately to simple commands when accompanied by visual or gestural cues.",
-        "4": "He! identifies a few high-frequency explicit details, particularly single words or short phrases that are heavily emphasized, repeated multiple times, or supported by visuals. Demonstrates a positive attitude toward listening tasks despite challenges.",
-        "5": "He! demonstrates growing ability to identify the main idea in short, simple, or clearly structured spoken texts. Identifies some explicit supporting details, particularly those that are repeated or visually supported.",
-        "6": "He! consistently identifies the central message, topic, or purpose of short to medium-length spoken texts. He! uses surrounding words, illustrations, speaker's tone, or situational context to determine the meaning of some unfamiliar words or phrases.",
-        "7": "He! consistently and accurately identifies explicit main ideas and most supporting details in spoken and visual texts.",
-        "8": "Student!'s greatest strength this term has been in A!, where He! achieved an outstanding Grade 8, demonstrating flawless textual analysis and comprehensive understanding."
+        "3": "he! demonstrates ability to recognize a number of isolated, high-frequency words in short, slow, repetitive spoken texts. Responds appropriately to simple commands when accompanied by visual or gestural cues.",
+        "4": "he! identifies a few high-frequency explicit details, particularly single words or short phrases that are heavily emphasized, repeated multiple times, or supported by visuals. Demonstrates a positive attitude toward listening tasks despite challenges.",
+        "5": "he! demonstrates growing ability to identify the main idea in short, simple, or clearly structured spoken texts. Identifies some explicit supporting details, particularly those that are repeated or visually supported.",
+        "6": "he! consistently identifies the central message, topic, or purpose of short to medium-length spoken texts. He! uses surrounding words, illustrations, speaker's tone, or situational context to determine the meaning of some unfamiliar words or phrases.",
+        "7": "he! consistently and accurately identifies explicit main ideas and most supporting details in spoken and visual texts.",
+        "8": "His! greatest strength this term has been in A!, where He! achieved an outstanding Grade 8, demonstrating flawless textual analysis and comprehensive understanding."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in analytical skills.",
-        "3": "Student! should Increase the number of recognized high-frequency words (e.g. Common nouns, verbs, adjectives and prepositions) through daily listening and vocabulary activities.",
+        "3": "Student! should Increase the number of recognized high-frequency words (e.g. common nouns, verbs, adjectives and prepositions) through daily listening and vocabulary activities.",
         "4": "Student! should build knowledge of high-frequency words beyond survival vocabulary. Work toward consistently identifying the main idea of short, simple spoken texts.",
         "5": "Student! should gradually reduce reliance on repetition, visuals, and slowed speech by listening to texts at normal speed with fewer supports, checking comprehension afterward.",
         "6": "Student! should practise making inferences when clues are less direct or spread across a longer passage, explaining the reasoning behind the inference.",
@@ -386,11 +386,11 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of structural organization acquisition.",
         "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
-        "3": "He! recognises a small number of isolated, high-frequency, highly familiar written words. Effectively uses pictures, illustrations, and symbols to understand the general meaning of very short, highly visual texts.",
-        "4": "He! demonstrates emerging comprehension. The student understands very basic information in short, simplified written and visual texts, primarily relying on visuals, repetition, and significant scaffolding.",
-        "5": "He! identifies the main idea in short, simple, or clearly structured written texts with regular support. Makes basic predictions about what might happen next in a predictable story or text based on clear clues and sustains reading of short texts.",
-        "6": "There is an indication of very strong, secure comprehension. He! understands most explicit and implied information in a range of written and visual texts, with only occasional difficulty accessing the most subtle or culturally specific meanings.",
-        "7": "He! demonstrates very strong, secure comprehension and understands most explicit and implied information in a range of written and visual texts, with only occasional difficulty accessing the most subtle or culturally specific meanings.",
+        "3": "he! recognises a small number of isolated, high-frequency, highly familiar written words. Effectively uses pictures, illustrations, and symbols to understand the general meaning of very short, highly visual texts.",
+        "4": "he! demonstrates emerging comprehension. The student understands very basic information in short, simplified written and visual texts, primarily relying on visuals, repetition, and significant scaffolding.",
+        "5": "he! identifies the main idea in short, simple, or clearly structured written texts with regular support. Makes basic predictions about what might happen next in a predictable story or text based on clear clues and sustains reading of short texts.",
+        "6": "There is an indication of very strong, secure comprehension. he! understands most explicit and implied information in a range of written and visual texts, with only occasional difficulty accessing the most subtle or culturally specific meanings.",
+        "7": "he! demonstrates very strong, secure comprehension and understands most explicit and implied information in a range of written and visual texts, with only occasional difficulty accessing the most subtle or culturally specific meanings.",
         "8": "Student!'s greatest strength this term has been in B!, where He! achieved an outstanding Grade 8, demonstrating flawless structural organization and comprehensive understanding."
       },
       "improvement": {
@@ -408,11 +408,11 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of text production acquisition.",
         "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
-        "3": "He! demonstrates limited communication skills, producing isolated high-frequency words and very short memorized phrases. Ability to respond to direct, simple prompts.",
-        "4": "He! expresses simple ideas or basic information in familiar contexts with significant support. Responds appropriately to direct, familiar requests and participates in very simple exchanges, responding to direct questions.",
-        "5": "He! expresses some main ideas and basic information in spoken and written responses, though expression may be simple, repetitive, or occasionally unclear. Ability to provide some relevant details, though elaboration is often limited.",
-        "6": "He! expresses main ideas and basic opinions clearly in most spoken and written responses, though some ideas may lack full development or precision. Ability to speak with adequate fluency for familiar topics.",
-        "7": "He! expresses ideas, opinions, and information clearly and effectively in most spoken and written responses, with only occasional lack of detail or precision.",
+        "3": "he! demonstrates limited communication skills, producing isolated high-frequency words and very short memorized phrases. Ability to respond to direct, simple prompts.",
+        "4": "he! expresses simple ideas or basic information in familiar contexts with significant support. Responds appropriately to direct, familiar requests and participates in very simple exchanges, responding to direct questions.",
+        "5": "he! expresses some main ideas and basic information in spoken and written responses, though expression may be simple, repetitive, or occasionally unclear. Ability to provide some relevant details, though elaboration is often limited.",
+        "6": "he! expresses main ideas and basic opinions clearly in most spoken and written responses, though some ideas may lack full development or precision. Ability to speak with adequate fluency for familiar topics.",
+        "7": "he! expresses ideas, opinions, and information clearly and effectively in most spoken and written responses, with only occasional lack of detail or precision.",
         "8": "Student!'s greatest strength this term has been in C!, where He! achieved an outstanding Grade 8, demonstrating flawless text production and comprehensive understanding."
       },
       "improvement": {
@@ -430,17 +430,17 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of linguistic control acquisition.",
         "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
-        "3": "He! selects very basic, concrete words; overgeneralization and reliance on gestures supplement vocabulary limitations. Spells a very small number of common words with some accuracy.",
-        "4": "He! uses very basic grammatical structures, often formulaic or memorized, and a limited range of high-frequency vocabulary. Errors are frequent and may sometimes obscure meaning, requiring significant support.",
+        "3": "he! selects very basic, concrete words; overgeneralization and reliance on gestures supplement vocabulary limitations. Spells a very small number of common words with some accuracy.",
+        "4": "he! uses very basic grammatical structures, often formulaic or memorized, and a limited range of high-frequency vocabulary. Errors are frequent and may sometimes obscure meaning, requiring significant support.",
         "5": "An indication of developing language use, he! uses basic grammatical structures and high-frequency vocabulary with inconsistent accuracy. Errors are frequent but often do not completely obscure meaning, especially in familiar contexts.",
-        "6": "He! uses a range of grammatical structures appropriate for most grade-appropriate tasks. Demonstrates adequate grammatical control; errors occur, but generally do not obscure meaning.",
-        "7": "He! demonstrates very strong, secure language use. He! uses a broad range of grammatical structures and vocabulary with good accuracy, though occasional minor errors may occur. Communication remains consistently clear and effective.",
-        "8": "He! has excellent, sophisticated language use. The student consistently uses a wide range of grammatical structures and vocabulary accurately and appropriately, with near-native fluency and control. Errors are rare and do not interfere with communication."
+        "6": "he!uses a range of grammatical structures appropriate for most grade-appropriate tasks. Demonstrates adequate grammatical control; errors occur, but generally do not obscure meaning.",
+        "7": "he! demonstrates very strong, secure language use. he! uses a broad range of grammatical structures and vocabulary with good accuracy, though occasional minor errors may occur. Communication remains consistently clear and effective.",
+        "8": "he! has excellent, sophisticated language use. The student consistently uses a wide range of grammatical structures and vocabulary accurately and appropriately, with near-native fluency and control. Errors are rare and do not interfere with communication."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in language conventions.",
-        "3": "Student! should move from producing isolated words to producing very short, simple phrases. In addition, increase the number of memorized, formulaic patterns.",
+        "3": "Student! should move from producing isolated words to producing very short, simple phrases.  In addition, increase the number of memorized, formulaic patterns.",
         "4": "Student! should expand beyond a very limited set of concrete vocabulary to include a wider range of high-frequency words for everyday topics.",
         "5": "Student! should begin noticing and self-correcting common errors when speaking or writing, using learned rules and patterns to improve accuracy in real time.",
         "6": "Student! should move beyond sufficient vocabulary for familiar topics to a wider range that includes academic terms, nuanced adjectives, and topic-specific language across diverse subjects.",
@@ -1176,19 +1176,19 @@
         "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
         "3": "In A!, he! identifies few stated information ( facts or opinions) in simple authentic texts. He! is able to identify basic conventions and make simple connections in simple authentic texts.",
         "4": "In A!, he! identifies some stated information (facts and opinions) in simple authentic texts. He! is also able to identify basic conventions and connections.",
-        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret conventions and connections. He! also demonstrates growing reading confidence.",
+        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret coventions and connections. He! also demonstrates growing reading confidence.",
         "6": "In A!, he! understands main ideas and supporting details in spoken multimodal texts. He! is able to demonstrate good listening comprehension skills and responds appropriately to spoken information.",
         "7": "In A!, he! has a strong understanding in spoken multimodal texts. He! is able to analyse conventions and identify speaker intentions. He! uses effective listening strategies and make meaningful connections.",
-        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to apply advanced listening strategies independently."
+        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to \napply advanced listening strategies independently."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in analytical skills.",
         "3": "He! should work on developing his! ability to identify all information in the multimodal text, including supporting details. He! also needs to focus on recognising basic text conventions more consistently when interpreting authentic materials.",
-        "4": "He! should continue developing his! comprehension skills by identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
+        "4": "He! should continue developing his! comprehension skills by \n identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
         "5": "He! should continue developing inference skills, practice listening to authentic materials and focus on identifying more detailed information in a variety of multimodal texts.",
         "6": "He! should continue developing understanding of authentic spoken texts and focus on identifying implied meaning.",
-        "7": "He! should continue developing inference and analytical skills. He! should also practise listening to a wider variety of authentic materials.",
+        "7": "He! should continue developing inference and analytical skills. He! should also \npractise listening to a wider variety of authentic materials.",
         "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
       }
     },
@@ -1210,7 +1210,7 @@
         "4": "He! is encouraged to develop greater confidence in interpreting conventions and making stronger connections within texts.",
         "5": "He! should continue developing his! comprehension skills by identifying specific details in written texts. He! also needs to further strengthen his! understanding of conventions and textual connections.",
         "6": "He! should aim to continue expanding his! vocabulary knowledge, focus on deeper analysis of texts, and further develop his! inference and interpretation skills to strengthen his! overall comprehension and critical reading abilities.",
-        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and making deeper inferences.",
+        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and  making deeper inferences.",
         "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
       }
     },
@@ -1221,8 +1221,8 @@
         "3": "In C!, he! uses a basic range of vocabulary and grammatical structures. During interactions, he! is able to communicate limited relevant information.",
         "4": "In C!, he! uses a basic range of vocabulary and grammatical structures adequately. His! pronunciation is generally comprehensible, and during interactions, he! is able to communicate some relevant information.",
         "5": "In C!, he! communicates appropriately in familiar situations and uses a range of vocabulary and grammatical structures with general accuracy. He! is also able to communicate most of the relevant information during interactions.",
-        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately. During interaction, he! communicates most of the relevant information effectively.",
-        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and he! demonstrates strong interaction skills.",
+        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately.  During interaction, he! communicates most of the relevant information effectively.",
+        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and  he! demonstrates strong interaction skills.",
         "8": "In C!, he! uses a wide range of vocabulary and grammatical structures accurately. His!pronunciation and intonation are clear, making communication easy to comprehend, and during interactions, he! communicates the required information effectively."
       },
       "improvement": {
@@ -1241,16 +1241,16 @@
         "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of linguistic control acquisition.",
         "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
         "3": "In D!, he! uses a basic range of vocabulary and grammatical structures and organizes information in a recognizable format using basic cohesive devices.",
-        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He! attempts to use appropriate text conventions and formatting.",
+        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He!\nattempts to use appropriate text conventions and formatting.",
         "5": "In D!, he! produces organised and clear written work, uses appropriate grammar and vocabulary, and demonstrates developing writing skills through the logical organisation of ideas and communication of relevant information.",
-        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively. He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
+        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively.  He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
         "7": "In D!, he! produces detailed and well-organised writing, and uses a varied range of vocabulary and grammatical structures effectively to express ideas clearly. He! communicates the required information suited to the audience and purpose.",
         "8": "In D!, he! uses a wide range of vocabulary and grammatical structures accurately. He! also organises information effectively using an appropriate format and a range of cohesive devices, while communicating the required information effectively."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in language conventions.",
-        "3": "He! should aim to expand his! vocabulary, organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
+        "3": "He! should aim to expand his! vocabulary,  organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
         "4": "He! should continue developing his! vocabulary and grammatical knowledge to communicate more accurately. Further practice with sentence structure and punctuation would strengthen his! writing.",
         "5": "He! should continue improving grammatical accuracy, using linking words effectively, and developing ideas with greater detail while showing clearer awareness of audience and purpose.",
         "6": "He! should continue developing his! grammatical accuracy and expanding his! range of vocabulary to communicate with greater precision. Further development of ideas and supporting details, would strengthen the coherenc of his! writing.",
@@ -1266,19 +1266,19 @@
         "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
         "3": "In A!, he! identifies few stated information ( facts or opinions) in simple authentic texts. He! is able to identify basic conventions and make simple connections in simple authentic texts.",
         "4": "In A!, he! identifies some stated information (facts and opinions) in simple authentic texts. He! is also able to identify basic conventions and connections.",
-        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret conventions and connections. He! also demonstrates growing reading confidence.",
+        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret coventions and connections. He! also demonstrates growing reading confidence.",
         "6": "In A!, he! understands main ideas and supporting details in spoken multimodal texts. He! is able to demonstrate good listening comprehension skills and responds appropriately to spoken information.",
         "7": "In A!, he! has a strong understanding in spoken multimodal texts. He! is able to analyse conventions and identify speaker intentions. He! uses effective listening strategies and make meaningful connections.",
-        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to apply advanced listening strategies independently."
+        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to \napply advanced listening strategies independently."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in analytical skills.",
         "3": "He! should work on developing his! ability to identify all information in the multimodal text, including supporting details. He! also needs to focus on recognising basic text conventions more consistently when interpreting authentic materials.",
-        "4": "He! should continue developing his! comprehension skills by identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
+        "4": "He! should continue developing his! comprehension skills by \n identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
         "5": "He! should continue developing inference skills, practice listening to authentic materials and focus on identifying more detailed information in a variety of multimodal texts.",
         "6": "He! should continue developing understanding of authentic spoken texts and focus on identifying implied meaning.",
-        "7": "He! should continue developing inference and analytical skills. He! should also practise listening to a wider variety of authentic materials.",
+        "7": "He! should continue developing inference and analytical skills. He! should also \npractise listening to a wider variety of authentic materials.",
         "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
       }
     },
@@ -1300,7 +1300,7 @@
         "4": "He! is encouraged to develop greater confidence in interpreting conventions and making stronger connections within texts.",
         "5": "He! should continue developing his! comprehension skills by identifying specific details in written texts. He! also needs to further strengthen his! understanding of conventions and textual connections.",
         "6": "He! should aim to continue expanding his! vocabulary knowledge, focus on deeper analysis of texts, and further develop his! inference and interpretation skills to strengthen his! overall comprehension and critical reading abilities.",
-        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and making deeper inferences.",
+        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and  making deeper inferences.",
         "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
       }
     },
@@ -1311,98 +1311,8 @@
         "3": "In C!, he! uses a basic range of vocabulary and grammatical structures. During interactions, he! is able to communicate limited relevant information.",
         "4": "In C!, he! uses a basic range of vocabulary and grammatical structures adequately. His! pronunciation is generally comprehensible, and during interactions, he! is able to communicate some relevant information.",
         "5": "In C!, he! communicates appropriately in familiar situations and uses a range of vocabulary and grammatical structures with general accuracy. He! is also able to communicate most of the relevant information during interactions.",
-        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately. During interaction, he! communicates most of the relevant information effectively.",
-        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and he! demonstrates strong interaction skills.",
-        "8": "In C!, he! uses a wide range of vocabulary and grammatical structures accurately. Sein!pronunciation and intonation are clear, making communication easy to comprehend, and during interactions, he! communicates the required information effectively."
-      },
-      "improvement": {
-        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
-        "2": "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build his! confidence in stylistic devices.",
-        "3": "He! should continue learning his! vocabulary and grammatical structures while further developing his! pronunciation and overall fluency. During interactions, he! should also develop his! responses with more detail and clarity.",
-        "4": "He! should continue developing his! vocabulary and grammatical structures to communicate more accurately and confidently. Further practice with pronunciation, fluency, and expanding responses will help him! communicate more effectively.",
-        "5": "He! should aim to further expand his! responses with greater detail. Greater attention to pronunciation, intonation, and the use of wider range of vocabulary and grammatical structures will help strengthen sein!communication skills.",
-        "6": "He! is encouraged to continue practicing speaking more spontaneously and aim to develop authentic accent and expand his! responses with greater detail during interactions and class discussions.",
-        "7": "He! should continue refining his! pronunciation and intonation, while practicing the use of more complex language during interaction.",
-        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
-      }
-    },
-    "D": {
-      "strength": {
-        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of linguistic control acquisition.",
-        "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In D!, he! uses a basic range of vocabulary and grammatical structures and organizes information in a recognizable format using basic cohesive devices.",
-        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He! attempts to use appropriate text conventions and formatting.",
-        "5": "In D!, he! produces organised and clear written work, uses appropriate grammar and vocabulary, and demonstrates developing writing skills through the logical organisation of ideas and communication of relevant information.",
-        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively. He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
-        "7": "In D!, he! produces detailed and well-organised writing, and uses a varied range of vocabulary and grammatical structures effectively to express ideas clearly. He! communicates the required information suited to the audience and purpose.",
-        "8": "In D!, he! uses a wide range of vocabulary and grammatical structures accurately. He! also organises information effectively using an appropriate format and a range of cohesive devices, while communicating the required information effectively."
-      },
-      "improvement": {
-        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
-        "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in language conventions.",
-        "3": "He! should aim to expand his! vocabulary, organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
-        "4": "He! should continue developing his! vocabulary and grammatical knowledge to communicate more accurately. Further practice with sentence structure and punctuation would strengthen his! writing.",
-        "5": "He! should continue improving grammatical accuracy, using linking words effectively, and developing ideas with greater detail while showing clearer awareness of audience and purpose.",
-        "6": "He! should continue developing his! grammatical accuracy and expanding his! range of vocabulary to communicate with greater precision. Further development of ideas and supporting details, would strengthen the coherenc of his! writing.",
-        "7": "He! should continue developing his! grammatical accuracy and further expanding his! range of vocabulary to communicate more effectively in writing.",
-        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
-      }
-    }
-  },
-  "Language Acquisition - Spanish": {
-    "A": {
-      "strength": {
-        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of textual analysis acquisition.",
-        "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In A!, he! identifies few stated information ( facts or opinions) in simple authentic texts. He! is able to identify basic conventions and make simple connections in simple authentic texts.",
-        "4": "In A!, he! identifies some stated information (facts and opinions) in simple authentic texts. He! is also able to identify basic conventions and connections.",
-        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret conventions and connections. He! also demonstrates growing reading confidence.",
-        "6": "In A!, he! understands main ideas and supporting details in spoken multimodal texts. He! is able to demonstrate good listening comprehension skills and responds appropriately to spoken information.",
-        "7": "In A!, he! has a strong understanding in spoken multimodal texts. He! is able to analyse conventions and identify speaker intentions. He! uses effective listening strategies and make meaningful connections.",
-        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to apply advanced listening strategies independently."
-      },
-      "improvement": {
-        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
-        "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in analytical skills.",
-        "3": "He! should work on developing his! ability to identify all information in the multimodal text, including supporting details. He! also needs to focus on recognising basic text conventions more consistently when interpreting authentic materials.",
-        "4": "He! should continue developing his! comprehension skills by identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
-        "5": "He! should continue developing inference skills, practice listening to authentic materials and focus on identifying more detailed information in a variety of multimodal texts.",
-        "6": "He! should continue developing understanding of authentic spoken texts and focus on identifying implied meaning.",
-        "7": "He! should continue developing inference and analytical skills. He! should also practise listening to a wider variety of authentic materials.",
-        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
-      }
-    },
-    "B": {
-      "strength": {
-        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of structural organization acquisition.",
-        "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In B!, he! Identifies basic information in short texts. He! is also beginning to recognise basic conventions and connections in simple authentic texts.",
-        "4": "In B!, he! is able to identify some stated information in simple written texts, and demonstrates a developing understanding of basic conventions and connections.",
-        "5": "In B!, he! understands main ideas and supporting details in texts, uses context clues effectively, and demonstrates growing confidence in his! reading skills. He! is also able to interpret conventions and connections appropriately.",
-        "6": "In B!, he! demonstrates very good comprehension of different text types. He! is able to identify key ideas and supporting details effectively. He! also interprets conventions and connections and uses his! reading strategies confidently.",
-        "7": "In B!, he! has a strong understanding of explicit and implicit information in written texts. He! analyses information accurately and thoughtfully and uses advanced reading strategies effectively.",
-        "8": "In B!, he! has an excellent understanding of explicit and implicit information in a variety of multimodal texts. He! can interpret ideas critically and thoughtfully and analyses text conventions and connections effectively."
-      },
-      "improvement": {
-        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
-        "2": "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build his! confidence in paragraph structures.",
-        "3": "He! should work on answering comprehension questions with more detail. Continued exposure to a variety of authentic texts will support his! understanding of conventions and connections.",
-        "4": "He! is encouraged to develop greater confidence in interpreting conventions and making stronger connections within texts.",
-        "5": "He! should continue developing his! comprehension skills by identifying specific details in written texts. He! also needs to further strengthen his! understanding of conventions and textual connections.",
-        "6": "He! should aim to continue expanding his! vocabulary knowledge, focus on deeper analysis of texts, and further develop his! inference and interpretation skills to strengthen his! overall comprehension and critical reading abilities.",
-        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and making deeper inferences.",
-        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
-      }
-    },
-    "C": {
-      "strength": {
-        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of text production acquisition.",
-        "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In C!, he! uses a basic range of vocabulary and grammatical structures. During interactions, he! is able to communicate limited relevant information.",
-        "4": "In C!, he! uses a basic range of vocabulary and grammatical structures adequately. His! pronunciation is generally comprehensible, and during interactions, he! is able to communicate some relevant information.",
-        "5": "In C!, he! communicates appropriately in familiar situations and uses a range of vocabulary and grammatical structures with general accuracy. He! is also able to communicate most of the relevant information during interactions.",
-        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately. During interaction, he! communicates most of the relevant information effectively.",
-        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and he! demonstrates strong interaction skills.",
+        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately.  During interaction, he! communicates most of the relevant information effectively.",
+        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and  he! demonstrates strong interaction skills.",
         "8": "In C!, he! uses a wide range of vocabulary and grammatical structures accurately. His!pronunciation and intonation are clear, making communication easy to comprehend, and during interactions, he! communicates the required information effectively."
       },
       "improvement": {
@@ -1421,16 +1331,106 @@
         "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of linguistic control acquisition.",
         "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
         "3": "In D!, he! uses a basic range of vocabulary and grammatical structures and organizes information in a recognizable format using basic cohesive devices.",
-        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He! attempts to use appropriate text conventions and formatting.",
+        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He!\nattempts to use appropriate text conventions and formatting.",
         "5": "In D!, he! produces organised and clear written work, uses appropriate grammar and vocabulary, and demonstrates developing writing skills through the logical organisation of ideas and communication of relevant information.",
-        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively. He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
+        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively.  He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
         "7": "In D!, he! produces detailed and well-organised writing, and uses a varied range of vocabulary and grammatical structures effectively to express ideas clearly. He! communicates the required information suited to the audience and purpose.",
         "8": "In D!, he! uses a wide range of vocabulary and grammatical structures accurately. He! also organises information effectively using an appropriate format and a range of cohesive devices, while communicating the required information effectively."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
         "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in language conventions.",
-        "3": "He! should aim to expand his! vocabulary, organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
+        "3": "He! should aim to expand his! vocabulary,  organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
+        "4": "He! should continue developing his! vocabulary and grammatical knowledge to communicate more accurately. Further practice with sentence structure and punctuation would strengthen his! writing.",
+        "5": "He! should continue improving grammatical accuracy, using linking words effectively, and developing ideas with greater detail while showing clearer awareness of audience and purpose.",
+        "6": "He! should continue developing his! grammatical accuracy and expanding his! range of vocabulary to communicate with greater precision. Further development of ideas and supporting details, would strengthen the coherenc of his! writing.",
+        "7": "He! should continue developing his! grammatical accuracy and further expanding his! range of vocabulary to communicate more effectively in writing.",
+        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
+      }
+    }
+  },
+  "Language Acquisition - Spanish": {
+    "A": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of textual analysis acquisition.",
+        "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In A!, he! identifies few stated information ( facts or opinions) in simple authentic texts. He! is able to identify basic conventions and make simple connections in simple authentic texts.",
+        "4": "In A!, he! identifies some stated information (facts and opinions) in simple authentic texts. He! is also able to identify basic conventions and connections.",
+        "5": "In A!, he! understands main ideas and details in simple spoken multimodal texts. He! uses context clues to interpret coventions and connections. He! also demonstrates growing reading confidence.",
+        "6": "In A!, he! understands main ideas and supporting details in spoken multimodal texts. He! is able to demonstrate good listening comprehension skills and responds appropriately to spoken information.",
+        "7": "In A!, he! has a strong understanding in spoken multimodal texts. He! is able to analyse conventions and identify speaker intentions. He! uses effective listening strategies and make meaningful connections.",
+        "8": "In A!, he! has an excellent comprehension of explicit and implicit information in spoken multimodal texts. He! interprets opinions, tone, and implicit meaning accurately. He! is able to \napply advanced listening strategies independently."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in A! (Grade 2) to build his! confidence in analytical skills.",
+        "3": "He! should work on developing his! ability to identify all information in the multimodal text, including supporting details. He! also needs to focus on recognising basic text conventions more consistently when interpreting authentic materials.",
+        "4": "He! should continue developing his! comprehension skills by \n identifying specific details in spoken texts. He! also needs to further develop his! ability to interpret conventions and identify connections effectively.",
+        "5": "He! should continue developing inference skills, practice listening to authentic materials and focus on identifying more detailed information in a variety of multimodal texts.",
+        "6": "He! should continue developing understanding of authentic spoken texts and focus on identifying implied meaning.",
+        "7": "He! should continue developing inference and analytical skills. He! should also \npractise listening to a wider variety of authentic materials.",
+        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
+      }
+    },
+    "B": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of structural organization acquisition.",
+        "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In B!, he! Identifies basic information in short texts. He! is also beginning to recognise basic conventions and connections in simple authentic texts.",
+        "4": "In B!, he! is able to identify some stated information in simple written texts, and demonstrates a developing understanding of basic conventions and connections.",
+        "5": "In B!, he! understands main ideas and supporting details in texts, uses context clues effectively, and demonstrates growing confidence in his! reading skills. He! is also able to interpret conventions and connections appropriately.",
+        "6": "In B!, he! demonstrates very good comprehension of different text types. He! is able to identify key ideas and supporting details effectively. He! also interprets conventions and connections and uses his! reading strategies confidently.",
+        "7": "In B!, he! has a strong understanding of explicit and implicit information in written texts. He! analyses information accurately and thoughtfully and uses advanced reading strategies effectively.",
+        "8": "In B!, he! has an excellent understanding of explicit and implicit information in a variety of multimodal texts. He! can interpret ideas critically and thoughtfully and analyses text conventions and connections effectively."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in B! (Grade 2) to build his! confidence in paragraph structures.",
+        "3": "He! should work on answering comprehension questions with more detail. Continued exposure to a variety of authentic texts will support his! understanding of conventions and connections.",
+        "4": "He! is encouraged to develop greater confidence in interpreting conventions and making stronger connections within texts.",
+        "5": "He! should continue developing his! comprehension skills by identifying specific details in written texts. He! also needs to further strengthen his! understanding of conventions and textual connections.",
+        "6": "He! should aim to continue expanding his! vocabulary knowledge, focus on deeper analysis of texts, and further develop his! inference and interpretation skills to strengthen his! overall comprehension and critical reading abilities.",
+        "7": "He! should continue developing critical reading skills by supporting interpretations with evidence from the text and  making deeper inferences.",
+        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
+      }
+    },
+    "C": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of text production acquisition.",
+        "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In C!, he! uses a basic range of vocabulary and grammatical structures. During interactions, he! is able to communicate limited relevant information.",
+        "4": "In C!, he! uses a basic range of vocabulary and grammatical structures adequately. His! pronunciation is generally comprehensible, and during interactions, he! is able to communicate some relevant information.",
+        "5": "In C!, he! communicates appropriately in familiar situations and uses a range of vocabulary and grammatical structures with general accuracy. He! is also able to communicate most of the relevant information during interactions.",
+        "6": "In C!, he! communicates confidently in familiar situations, uses a range of vocabulary and grammatical structures appropriately.  During interaction, he! communicates most of the relevant information effectively.",
+        "7": "In C!, he! uses a range of vocabulary and grammatical structures mostly accurately. His! pronunciation and intonation are clear and  he! demonstrates strong interaction skills.",
+        "8": "In C!, he! uses a wide range of vocabulary and grammatical structures accurately. His!pronunciation and intonation are clear, making communication easy to comprehend, and during interactions, he! communicates the required information effectively."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in C! (Grade 2) to build his! confidence in stylistic devices.",
+        "3": "He! should continue learning his! vocabulary and grammatical structures while further developing his! pronunciation and overall fluency. During interactions, he! should also develop his! responses with more detail and clarity.",
+        "4": "He! should continue developing his! vocabulary and grammatical structures to communicate more accurately and confidently. Further practice with pronunciation, fluency, and expanding responses will help him! communicate more effectively.",
+        "5": "He! should aim to further expand his! responses with greater detail. Greater attention to pronunciation, intonation, and the use of wider range of vocabulary and grammatical structures will help strengthen his!communication skills.",
+        "6": "He! is encouraged to continue practicing speaking more spontaneously and aim to develop authentic accent and expand his! responses with greater detail during interactions and class discussions.",
+        "7": "He! should continue refining his! pronunciation and intonation, while practicing the use of more complex language during interaction.",
+        "8": "With such consistently high marks in all criteria, Student! only needs to continue to put in the effort that they have been applying this year, and they will have future success in the subject."
+      }
+    },
+    "D": {
+      "strength": {
+        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of linguistic control acquisition.",
+        "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
+        "3": "In D!, he! uses a basic range of vocabulary and grammatical structures and organizes information in a recognizable format using basic cohesive devices.",
+        "4": "In D!, he! demonstrates a basic range of vocabulary and grammatical structures. He! communicates some relevant information appropriately. He!\nattempts to use appropriate text conventions and formatting.",
+        "5": "In D!, he! produces organised and clear written work, uses appropriate grammar and vocabulary, and demonstrates developing writing skills through the logical organisation of ideas and communication of relevant information.",
+        "6": "In D!, he! produces structured and coherent writing, uses appropriate vocabulary and grammar structures effectively.  He! demonstrates good organisation of ideas with an appropriate awareness of audience and purpose.",
+        "7": "In D!, he! produces detailed and well-organised writing, and uses a varied range of vocabulary and grammatical structures effectively to express ideas clearly. He! communicates the required information suited to the audience and purpose.",
+        "8": "In D!, he! uses a wide range of vocabulary and grammatical structures accurately. He! also organises information effectively using an appropriate format and a range of cohesive devices, while communicating the required information effectively."
+      },
+      "improvement": {
+        "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
+        "2": "It is important that Student! seeks targeted support to address gaps in D! (Grade 2) to build his! confidence in language conventions.",
+        "3": "He! should aim to expand his! vocabulary,  organise his! ideas more clearly and add greater detail to responses. Greater attention to spelling accuracy and text conventions is recommended.",
         "4": "He! should continue developing his! vocabulary and grammatical knowledge to communicate more accurately. Further practice with sentence structure and punctuation would strengthen his! writing.",
         "5": "He! should continue improving grammatical accuracy, using linking words effectively, and developing ideas with greater detail while showing clearer awareness of audience and purpose.",
         "6": "He! should continue developing his! grammatical accuracy and expanding his! range of vocabulary to communicate with greater precision. Further development of ideas and supporting details, would strengthen the coherenc of his! writing.",
@@ -1448,8 +1448,8 @@
         "4": "In A!, he! demonstrates basic understanding and uses some correct terminology. He! attempts to apply knowledge with support and identifies simple patterns, making basic conclusions.",
         "5": "In A!, he! shows good understanding of key concepts and often uses appropriate terminology. He! attempts to apply knowledge and identifies patterns, making reasonable but sometimes incomplete conclusions.",
         "6": "A!, he! can analyse quantitative and qualitative information critically, identifying patterns, anomalies, and contradictions. He! also makes scientifically supported judgments by weighing evidence against alternative explanations, avoiding overgeneralisation, and acknowledging when data are insufficient to draw firm conclusions.",
-        "7": "In A!, he! shows strong understanding and uses scientific terminology effectively. He! applies knowledge in new contexts and analyses information to draw clear, supported conclusions with some recognition of limitations.",
-        "8": "In A!, he! displays comprehensive understanding, using precise terminology accurately. He! applies knowledge confidently in unfamiliar contexts and critically analyses data to form well-supported, insightful scientific judgements."
+        "7": "In A!, he! shows strong understanding and uses scientific terminology effectively. he! applies knowledge in new contexts and analyses information to draw clear, supported conclusions with some recognition of limitations.",
+        "8": "In A!, he! displays comprehensive understanding, using precise terminology accurately. he! applies knowledge confidently in unfamiliar contexts and critically analyses data to form well-supported, insightful scientific judgements."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
@@ -1646,12 +1646,12 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of experimental design acquisition.",
         "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In B!, he! shows limited ability to form questions and hypotheses. He! requires support to identify variables and structure basic investigation methods.",
-        "4": "In B!, he! forms simple questions with limited clarity in variables. He! suggests basic investigation steps and identifies a few variables with support.",
-        "5": "In B!, he! identifies basic research questions and simple hypotheses. He! outlines investigations with some consideration of variables and measurement, though detail is sometimes limited.",
-        "6": "In B!, he! formulates suitable questions and hypotheses with some scientific reasoning. He! designs structured investigations with general control of variables and appropriate data collection methods.",
-        "7": "In B!, he! develops clear research questions and reasoned hypotheses. He! plans effective investigations with good control of variables and appropriate methods for collecting accurate data.",
-        "8": "In B!, he! formulates precise, testable physics questions and develops well-justified hypotheses. He! designs rigorous investigations controlling variables, ensuring accuracy, reliability, and valid data collection."
+        "3": "In B!, he! shows limited ability to form questions and hypotheses. he! requires support to identify variables and structure basic investigation methods.",
+        "4": "In B!, he! forms simple questions with limited clarity in variables. he! suggests basic investigation steps and identifies a few variables with support.",
+        "5": "In B!, he! identifies basic research questions and simple hypotheses. he! outlines investigations with some consideration of variables and measurement, though detail is sometimes limited.",
+        "6": "In B!, he! formulates suitable questions and hypotheses with some scientific reasoning. he! designs structured investigations with general control of variables and appropriate data collection methods.",
+        "7": "In B!, he! develops clear research questions and reasoned hypotheses. he! plans effective investigations with good control of variables and appropriate methods for collecting accurate data.",
+        "8": "In B!, he! formulates precise, testable physics questions and develops well-justified hypotheses. he! designs rigorous investigations controlling variables, ensuring accuracy, reliability, and valid data collection."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
@@ -1668,12 +1668,12 @@
       "strength": {
         "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of data analysis acquisition.",
         "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In C!, he! presents data with some clarity but limited processing. He! identifies simple patterns with minimal explanation and weak evaluation.",
-        "4": "In C!, he! demonstrates basic data presentation and uses simple graphs. He! describes trends and provides basic explanations with limited evaluation.",
-        "5": "In C!, he! presents data clearly and uses basic graphs correctly. He! identifies simple trends and gives reasonable explanations with some evaluation of results.",
-        "6": "In C!, he! processes data effectively and uses appropriate graphical methods. He! identifies trends and explains them with some physics reasoning while making supported evaluations.",
-        "7": "In C!, he! presents and analyses data accurately using suitable graphs. He! explains trends with clear physics reasoning and evaluates results with relevant and supported improvements",
-        "8": "In C!, he! processes and presents data with high precision, using appropriate graphs and analysis techniques. He! explains trends using advanced physics reasoning and evaluates methods with detailed, justified improvements."
+        "3": "In C!, he! presents data with some clarity but limited processing. he! identifies simple patterns with minimal explanation and weak evaluation.",
+        "4": "In C!, he! demonstrates basic data presentation and uses simple graphs. he! describes trends and provides basic explanations with limited evaluation.",
+        "5": "In C!, he! presents data clearly and uses basic graphs correctly. he! identifies simple trends and gives reasonable explanations with some evaluation of results.",
+        "6": "In C!, he! processes data effectively and uses appropriate graphical methods. he! identifies trends and explains them with some physics reasoning while making supported evaluations.",
+        "7": "In C!, he! presents and analyses data accurately using suitable graphs. he! explains trends with clear physics reasoning and evaluates results with relevant and supported improvements",
+        "8": "In C!, he! processes and presents data with high precision, using appropriate graphs and analysis techniques. he! explains trends using advanced physics reasoning and evaluates methods with detailed, justified improvements."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
@@ -2255,18 +2255,18 @@
         "1": "Student! a obtenu un niveau 1 en A!, ce qui indique qu'he! en est aux premières étapes de l'acquisition de l'analyse textuelle.",
         "2": "Student! a obtenu un niveau 2 en A!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En A!, il! identifie quelques aspects des textes. Ses idées sont appuyées par quelques exemples simples. Il/elle établit des comparaisons simples entre les textes, même si elle manquent parfois de précision et de développement.",
-        "4": "En A!, il! identifie certains aspects des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par quelques exemples pertinents et une terminologie parfois appropriée. Il! établit des comparaisons simples mais claires entre les textes.",
-        "5": "En A!, il! identifie certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par quelques exemples et une terminologie parfois appropriée. Il! peut établir quelques comparaisons entre les textes.",
-        "6": "En A!, il! analyse certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par desexemples et une terminologie appropriée. Il! est capable d’établir certaines comparaisons entre les textes et leurs caractéristiques.",
-        "7": "En A!, il! analyse plusieurs aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par des exemples pertinents et une terminologie appropriée. Il! compare les textes avec clarté.",
+        "4": "En A!, il! identifie certains aspects des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par quelques exemples pertinents et une terminologie parfois appropriée. il! établit des comparaisons simples mais claires entre les textes.",
+        "5": "En A!, il! identifie certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par quelques exemples et une terminologie parfois appropriée. il! peut établir quelques comparaisons entre les textes.",
+        "6": "En A!, il! analyse certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par desexemples et une terminologie appropriée. il! est capable d’établir certaines comparaisons entre les textes et leurs caractéristiques.",
+        "7": "En A!, il! analyse plusieurs aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par des exemples pertinents et une terminologie appropriée. il! compare les textes avec clarté.",
         "8": "En A!, il! analyse efficacement les aspects importants des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par des exemples précis et une terminologie appropriée. Il/elle compare efficacement les textes et leurs caractéristiques."
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en A! (niveau 1).",
         "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en A! (niveau 2) afin de renforcer sa! confiance dans les concepts littéraires.",
         "3": "Pour progresser, Student! doit choisir des exemples plus précis pour soutenir ses idées, utiliser une terminologie plus rigoureuse, et approfondir ses comparaisons en reliant les textes entre eux tout en expliquant l’impact des choix des auteurs.",
-        "4": "Pour progresser, Student! doit inclure des exemples détaillés, utiliser plus précisément la terminologie,, et développer ses idées de façon plus approfondie en expliquant leur importance. Il! doit également analyser les effets produits sur le public.",
-        "5": "Pour progresser davantage, Student! doit inclure des exemples plus détaillés issus des textes, utiliser une plus grande variété de terminologie spécifique à la matière et développer ses comparaisons en les expliquant plus clairement.",
+        "4": "Pour progresser, Student! doit inclure des exemples détaillés, utiliser plus précisément la terminologie,, et développer ses idées de façon plus approfondie en expliquant leur importance. il! doit également analyser les effets produits sur le public.",
+        "5": "Pour progresser davantage, Student!  doit inclure des exemples plus détaillés issus des textes, utiliser une plus grande variété de terminologie spécifique à la matière et développer ses comparaisons en les expliquant plus clairement.",
         "6": "Pour progresser davantage, Student! doit développer ses idées de manière encore plus approfondie, inclure une plus grande variété de détails pertinents et renforcer les comparaisons entre les textes afin d’apporter davantage de clarté.",
         "7": "Pour progresser encore, Student! doit continuer d'approfondir ses idées, varier ses détails pertinents et comparer explicitement les textes en expliquant clairement leurs similitudes et différences.",
         "8": "Avec des résultats aussi régulièrement élevés, Student! doit continuer à fournir les efforts qu’il! a maintenus, et il! connaîtra de futurs succès."
@@ -2298,7 +2298,7 @@
       "strength": {
         "1": "Student! a obtenu un niveau 1 en C!, ce qui indique qu'he! en est aux premières étapes de l'acquisition de la production de textes.",
         "2": "Student! a obtenu un niveau 2 en C!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
-        "3": "En C!, il! produit un travail qui montre une réflexion et une imagination de base, avec une exploration des idées présente mais limitée dans le processus créatif. Il! inclut un petit nombre de détails et d’exemples pertinents pour soutenir ses idées.",
+        "3": "En C!, il! produit un travail qui montre une réflexion et une imagination de base, avec une exploration des idées présente mais limitée dans le processus créatif. il! inclut un petit nombre de détails et d’exemples pertinents pour soutenir ses idées.",
         "4": "En C!, il! produit un travail montrant une certaine réflexion et imagination à travers des idées généralement pertinentes. Il utilise quelques procédés stylistiques appropriés et appuie parfois ses idées avec des exemples pertinents.",
         "5": "En C!, il! produit des textes montrant une certaine réflexion grâce à son engagement dans le processus créatif. Il utilise des choix stylistiques généralement appropriés et inclut quelques exemples pertinents pour soutenir ses idées.",
         "6": "En C!, il! produit des textes réfléchis et imaginatifs, explorant différentes idées grâce à un engagement personnel dans le processus créatif. Il fait des choix stylistiques appropriés et utilise des exemples pertinents pour soutenir ses idées.",
@@ -2334,7 +2334,7 @@
         "4": "Pour progresser encore, Student! doit améliorer la précision de sa langue en réduisant les erreurs de langue. Il! gagnerait aussi à enrichir son vocabulaire et varier plus ses structures de phrases pour rendre son expression plus riche.",
         "5": "Pour progresser encore, Student! doit améliorer la précision de son expression en réduisant les erreurs de langue. Il! devrait aussi enrichir son vocabulaire et varier ses structures de phrases pour rendre son expression plus développée.",
         "6": "Pour progresser davantage, élève! doit améliorer la précision et la cohérence de la langue, élargir son vocabulaire et varier ses structures de phrases pour renforcer son expression.",
-        "7": "Pour progresser encore, Student! doit continuer à améliorer sa précision. Il! doit aussi expérimenter une gamme plus large de vocabulaire et de structures de phrases plus sophistiquées pour apporter plus de précision et d’impact à son expression.",
+        "7": "Pour progresser encore, Student! doit continuer à améliorer sa précision. il! doit aussi expérimenter une gamme plus large de vocabulaire et de structures de phrases plus sophistiquées pour apporter plus de précision et d’impact à son expression.",
         "8": "Avec des résultats aussi régulièrement élevés, Student! doit continuer à fournir les efforts maintenus cette année, et il! connaîtra de futurs succès."
       }
     }
