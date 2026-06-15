@@ -61,6 +61,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // 1.5. Comment Bank JSON Files: Network First with Cache Fallback
+  // This ensures that updates to comments.json / ib_grade.json / atl.json / criteria.json are loaded
+  // immediately if the network is available, falling back to cache if offline.
+  if (event.request.url.includes('/comment_bank/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const responseCopy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseCopy));
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
+
   // 2. Static Assets (CSS, JS, SVG, Fonts): Stale-While-Revalidate Strategy
   // This allows lightning-fast load times from cache while silently checking the network for updates.
   event.respondWith(
