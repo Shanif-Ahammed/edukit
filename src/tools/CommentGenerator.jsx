@@ -322,8 +322,8 @@ const applyPlaceholders = (template, data) => {
 
   // Determine target language based on subject name
   const subjectName = (data.subject || '').trim().toLowerCase();
-  const isFrench = subjectName.includes('french');
-  const isGerman = subjectName.includes('german');
+  const isFrench = subjectName.includes('french') && !subjectName.includes('acquisition');
+  const isGerman = subjectName.includes('german') && !subjectName.includes('acquisition');
 
   // Resolve pronouns based on subject language and student gender/pronouns
   // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
@@ -370,30 +370,30 @@ const applyPlaceholders = (template, data) => {
   // 2. Language-specific pronoun replacements
   if (isFrench) {
     resolvedText = resolvedText
-      .replace(/\bil!\b/g, isMale ? 'il' : 'elle')
-      .replace(/\bIl!\b/g, isMale ? 'Il' : 'Elle')
-      .replace(/\belle!\b/g, isMale ? 'il' : 'elle')
-      .replace(/\bElle!\b/g, isMale ? 'Il' : 'Elle')
-      .replace(/\bqu'il!\b/g, isMale ? "qu'il" : "qu'elle")
-      .replace(/\bqu'elle!\b/g, isMale ? "qu'il" : "qu'elle")
-      .replace(/\bQu'il!\b/g, isMale ? "Qu'il" : "Qu'elle")
-      .replace(/\bQu'elle!\b/g, isMale ? "Qu'il" : "Qu'elle")
-      .replace(/\bélève!\b/g, data.forename)
-      .replace(/\bÉlève!\b/g, data.forename);
+      .replace(/\bil!(?!\w)/g, isMale ? 'il' : 'elle')
+      .replace(/\bIl!(?!\w)/g, isMale ? 'Il' : 'Elle')
+      .replace(/\belle!(?!\w)/g, isMale ? 'il' : 'elle')
+      .replace(/\bElle!(?!\w)/g, isMale ? 'Il' : 'Elle')
+      .replace(/\bqu'il!(?!\w)/g, isMale ? "qu'il" : "qu'elle")
+      .replace(/\bqu'elle!(?!\w)/g, isMale ? "qu'il" : "qu'elle")
+      .replace(/\bQu'il!(?!\w)/g, isMale ? "Qu'il" : "Qu'elle")
+      .replace(/\bQu'elle!(?!\w)/g, isMale ? "Qu'il" : "Qu'elle")
+      .replace(/\bélève!(?!\w)/g, data.forename)
+      .replace(/\bÉlève!(?!\w)/g, data.forename);
   } else if (isGerman) {
     resolvedText = resolvedText
-      .replace(/\ber!\b/g, isMale ? 'er' : 'sie')
-      .replace(/\bEr!\b/g, isMale ? 'Er' : 'Sie')
-      .replace(/\bsie!\b/g, isMale ? 'er' : 'sie')
-      .replace(/\bSie!\b/g, isMale ? 'Er' : 'Sie')
-      .replace(/\bihn!\b/g, isMale ? 'ihn' : 'sie')
-      .replace(/\bIhn!\b/g, isMale ? 'Ihn' : 'Sie')
-      .replace(/\bseine!\b/g, isMale ? 'seine' : 'ihre')
-      .replace(/\bSeine!\b/g, isMale ? 'Seine' : 'Ihre')
-      .replace(/\bseiner!\b/g, isMale ? 'seiner' : 'ihrer')
-      .replace(/\bSeiner!\b/g, isMale ? 'Seiner' : 'Ihrer')
-      .replace(/\bsein!\b/g, isMale ? 'sein' : 'ihr')
-      .replace(/\bSein!\b/g, isMale ? 'Sein' : 'Ihr');
+      .replace(/\ber!(?!\w)/g, isMale ? 'er' : 'sie')
+      .replace(/\bEr!(?!\w)/g, isMale ? 'Er' : 'Sie')
+      .replace(/\bsie!(?!\w)/g, isMale ? 'er' : 'sie')
+      .replace(/\bSie!(?!\w)/g, isMale ? 'Er' : 'Sie')
+      .replace(/\bihn!(?!\w)/g, isMale ? 'ihn' : 'sie')
+      .replace(/\bIhn!(?!\w)/g, isMale ? 'Ihn' : 'Sie')
+      .replace(/\bseine!(?!\w)/g, isMale ? 'seine' : 'ihre')
+      .replace(/\bSeine!(?!\w)/g, isMale ? 'Seine' : 'Ihre')
+      .replace(/\bseiner!(?!\w)/g, isMale ? 'seiner' : 'ihrer')
+      .replace(/\bSeiner!(?!\w)/g, isMale ? 'Seiner' : 'Ihrer')
+      .replace(/\bsein!(?!\w)/g, isMale ? 'sein' : 'ihr')
+      .replace(/\bSein!(?!\w)/g, isMale ? 'Sein' : 'Ihr');
   }
 
   // 3. Custom iSAMS English/generic placeholders

@@ -92,14 +92,14 @@
   "Individuals & Societies - French": {
     "A": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of conceptual knowledge acquisition.",
+        "1": "Student! achieved a Grade 1 in A!, indicating Il! is in the early stages of conceptual knowledge acquisition.",
         "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
-        "3": "En A!, he! fait preuve de connaissances et d'une compréhension limitées en Individus et Sociétés, avec des explications souvent peu claires ou incomplètes.",
-        "4": "En A!, he! démontre des connaissances et une compréhension en développement, bien que les explications manquent parfois de précision ou de détails.",
-        "5": "En A!, he! démontre une bonne connaissance et compréhension, avec des explications claires et quelques exemples pertinents dans la plupart des tâches.",
-        "6": "En A!, he! fait preuve de solides connaissances et d'une bonne compréhension en Individus et Sociétés, avec des explications généralement précises et des exemples pertinents à l'appui.",
-        "7": "En A!, he! fait preuve de connaissances et d'une compréhension très solides, utilisant des exemples pertinents et des explications claires pour soutenir efficacement ses idées.",
-        "8": "En A!, he! fait preuve d'excellentes connaissances et d'une compréhension approfondie, utilisant constamment une terminologie précise et des exemples détaillés pour étayer ses! explications."
+        "3": "En A!, il! fait preuve de connaissances et d'une compréhension limitées en Individus et Sociétés, avec des explications souvent peu claires ou incomplètes.",
+        "4": "En A!, il! démontre des connaissances et une compréhension en développement, bien que les explications manquent parfois de précision ou de détails.",
+        "5": "En A!, il! démontre une bonne connaissance et compréhension, avec des explications claires et quelques exemples pertinents dans la plupart des tâches.",
+        "6": "En A!, il! fait preuve de solides connaissances et d'une bonne compréhension en Individus et Sociétés, avec des explications généralement précises et des exemples pertinents à l'appui.",
+        "7": "En A!, il! fait preuve de connaissances et d'une compréhension très solides, utilisant des exemples pertinents et des explications claires pour soutenir efficacement ses idées.",
+        "8": "En A!, il! fait preuve d'excellentes connaissances et d'une compréhension approfondie, utilisant constamment une terminologie précise et des exemples détaillés pour étayer ses explications."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
@@ -114,14 +114,14 @@
     },
     "B": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of research and inquiry acquisition.",
+        "1": "Student! achieved a Grade 1 in B!, indicating Il! is in the early stages of research and inquiry acquisition.",
         "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
-        "3": "En B!, he! démontre des compétences limitées en investigation, les recherches manquant souvent de détails ou de pertinence.",
-        "4": "En B!, he! démontre des compétences en investigation en développement, bien que les recherches et l’analyse des sources manquent parfois de profondeur.",
-        "5": "En B!, he! fait preuve de bonnes compétences en investigation en Individus et Sociétés, rassemblant des informations pertinentes et organisant clairement les idées dans la plupart des tâches.",
-        "6": "En B!, he! fait preuve de bonnes compétences de recherche en Individus et Sociétés, utilisant des sources appropriées et des recherches pertinentes pour étayer son travail.",
-        "7": "En B!, he! démontre de solides compétences en investigation, en sélectionnant des sources pertinentes et en organisant efficacement ses recherches.",
-        "8": "En B!, he! formule des questions de recherche perspicaces en Individus et Sociétés et utilise efficacement des sources très pertinentes pour étayer des investigations détaillées."
+        "3": "En B!, il! démontre des compétences limitées en investigation, les recherches manquant souvent de détails ou de pertinence.",
+        "4": "En B!, il! démontre des compétences en investigation en développement, bien que les recherches et l’analyse des sources manquent parfois de profondeur.",
+        "5": "En B!, il! fait preuve de bonnes compétences en investigation en Individus et Sociétés, rassemblant des informations pertinentes et organisant clairement les idées dans la plupart des tâches.",
+        "6": "En B!, il! fait preuve de bonnes compétences de recherche en Individus et Sociétés, utilisant des sources appropriées et des recherches pertinentes pour étayer son travail.",
+        "7": "En B!, il! démontre de solides compétences en investigation, en sélectionnant des sources pertinentes et en organisant efficacement ses recherches.",
+        "8": "En B!, il! formule des questions de recherche perspicaces en Individus et Sociétés et utilise efficacement des sources très pertinentes pour étayer des investigations détaillées."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
@@ -136,14 +136,14 @@
     },
     "C": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of academic communication acquisition.",
+        "1": "Student! achieved a Grade 1 in C!, indicating Il! is in the early stages of academic communication acquisition.",
         "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
-        "3": "En C!, he! fait preuve de compétences de communication de base en Individus et Sociétés, bien que les idées soient souvent difficiles à suivre ou incomplètes.",
-        "4": "En C!, he! communique ses! idées avec une certaine clarté en Individus et Sociétés, bien que l'organisation et la terminologie soient parfois incohérentes.",
-        "5": "En C!, he! communique ses! idées de manière appropriée en Individus et Sociétés, avec une organisation globalement claire et une terminologie pertinente dans la plupart des tâches.",
-        "6": "En C!, he! communique ses! idées clairement en Individus et Sociétés, utilisant une terminologie appropriée et des réponses généralement bien organisées.",
-        "7": "En C!, he! communique ses! idées clairement et efficacement en Individus et Sociétés, avec des réponses bien organisées et une terminologie disciplinaire appropriée.",
-        "8": "En C!, he! communique ses! idées avec une clarté exceptionnelle en Individus et Sociétés, utilisant une terminologie précise et des réponses bien structurées dans l'ensemble de son! travail."
+        "3": "En C!, il! fait preuve de compétences de communication de base en Individus et Sociétés, bien que les idées soient souvent difficiles à suivre ou incomplètes.",
+        "4": "En C!, il! communique ses idées avec une certaine clarté en Individus et Sociétés, bien que l'organisation et la terminologie soient parfois incohérentes.",
+        "5": "En C!, il! communique ses idées de manière appropriée en Individus et Sociétés, avec une organisation globalement claire et une terminologie pertinente dans la plupart des tâches.",
+        "6": "En C!, il! communique ses idées clairement en Individus et Sociétés, utilisant une terminologie appropriée et des réponses généralement bien organisées.",
+        "7": "En C!, il! communique ses idées clairement et efficacement en Individus et Sociétés, avec des réponses bien organisées et une terminologie disciplinaire appropriée.",
+        "8": "En C!, il! communique ses idées avec une clarté exceptionnelle en Individus et Sociétés, utilisant une terminologie précise et des réponses bien structurées dans l'ensemble de son travail."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
@@ -158,14 +158,14 @@
     },
     "D": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of critical analysis acquisition.",
+        "1": "Student! achieved a Grade 1 in D!, indicating Il! is in the early stages of critical analysis acquisition.",
         "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
-        "3": "En D!, he! fait preuve de compétences limitées en pensée critique en Individus et Sociétés, avec une analyse souvent descriptive plutôt qu'analytique.",
-        "4": "En D!, he! fait preuve de compétences satisfaisante en pensée critique en Individus et Sociétés, bien que l'analyse et l'évaluation puissent parfois rester superficielles.",
-        "5": "En D!, he! fait preuve de compétences fiables en pensée critique en Individus et Sociétés, avec une analyse généralement claire et des conclusions étayées.",
-        "6": "En D!, he! fait preuve de solides compétences en pensée critique en Individus et Sociétés, analysant clairement les informations et soutenant les conclusions de manière appropriée.",
-        "7": "En D!, he! fait preuve de très solides compétences en pensée critique en Individus et Sociétés, avec une analyse claire et une évaluation réfléchie des preuves.",
-        "8": "En D!, he! fait preuve d'excellentes compétences en pensée critique en Individus et Sociétés, analysant constamment les concepts en profondeur et évaluant les preuves de manière réfléchie."
+        "3": "En D!, il! fait preuve de compétences limitées en pensée critique en Individus et Sociétés, avec une analyse souvent descriptive plutôt qu'analytique.",
+        "4": "En D!, il! fait preuve de compétences satisfaisante en pensée critique en Individus et Sociétés, bien que l'analyse et l'évaluation puissent parfois rester superficielles.",
+        "5": "En D!, il! fait preuve de compétences fiables en pensée critique en Individus et Sociétés, avec une analyse généralement claire et des conclusions étayées.",
+        "6": "En D!, il! fait preuve de solides compétences en pensée critique en Individus et Sociétés, analysant clairement les informations et soutenant les conclusions de manière appropriée.",
+        "7": "En D!, il! fait preuve de très solides compétences en pensée critique en Individus et Sociétés, avec une analyse claire et une évaluation réfléchie des preuves.",
+        "8": "En D!, il! fait preuve d'excellentes compétences en pensée critique en Individus et Sociétés, analysant constamment les concepts en profondeur et évaluant les preuves de manière réfléchie."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
@@ -182,14 +182,14 @@
   "Individuals & Societies - German": {
     "A": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in A!, indicating He! is in the early stages of conceptual knowledge acquisition.",
+        "1": "Student! achieved a Grade 1 in A!, indicating Er! is in the early stages of conceptual knowledge acquisition.",
         "2": "Student! achieved a Grade 2 in A!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In A! zeigt he! begrenzte Kenntnisse und ein eingeschränktes Verständnis in Individuen und Gesellschaften, mit Erklärungen, die oft unklar oder unvollständig sind.",
-        "4": "In A! zeigt he! wachsende Kenntnisse und ein sich entwickelndes Verständnis in Individuen und Gesellschaften, obwohl die Erklärungen manchmal an Detailtiefe oder Genauigkeit fehlen.",
-        "5": "In A! zeigt he! fundierte Kenntnisse und ein verlässliches Verständnis in Individuen und Gesellschaften, mit klaren Erklärungen und relevanten Beispielen in den meisten Aufgaben.",
-        "6": "In A! zeigt he! solide Kenntnisse und ein gutes Verständnis in Individuen und Gesellschaften, mit im Allgemeinen präzisen Erklärungen und relevanten unterstützenden Beispielen.",
+        "3": "In A! zeigt er! begrenzte Kenntnisse und ein eingeschränktes Verständnis in Individuen und Gesellschaften, mit Erklärungen, die oft unklar oder unvollständig sind.",
+        "4": "In A! zeigt er! wachsende Kenntnisse und ein sich entwickelndes Verständnis in Individuen und Gesellschaften, obwohl die Erklärungen manchmal an Detailtiefe oder Genauigkeit fehlen.",
+        "5": "In A! zeigt er! fundierte Kenntnisse und ein verlässliches Verständnis in Individuen und Gesellschaften, mit klaren Erklärungen und relevanten Beispielen in den meisten Aufgaben.",
+        "6": "In A! zeigt er! solide Kenntnisse und ein gutes Verständnis in Individuen und Gesellschaften, mit im Allgemeinen präzisen Erklärungen und relevanten unterstützenden Beispielen.",
         "7": "In A! zeigt er! sehr fundierte Kenntnisse und ein starkes Verständnis und nutzt relevante Beispiele sowie klare Erklärungen, um Ideen wirksam zu untermauern.",
-        "8": "In A! zeigt he! ausgezeichnete Kenntnisse und ein tiefes Verständnis, indem er! konsequent präzise Fachbegriffe und detaillierte Beispiele zur Unterstützung der Erklärungen verwendet."
+        "8": "In A! zeigt er! ausgezeichnete Kenntnisse und ein tiefes Verständnis, indem er! konsequent präzise Fachbegriffe und detaillierte Beispiele zur Unterstützung der Erklärungen verwendet."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in A! (Grade 1).",
@@ -204,14 +204,14 @@
     },
     "B": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in B!, indicating He! is in the early stages of research and inquiry acquisition.",
+        "1": "Student! achieved a Grade 1 in B!, indicating Er! is in the early stages of research and inquiry acquisition.",
         "2": "Student! achieved a Grade 2 in B!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In B! zeigt he! begrenzte Untersuchungskompetenzen in Individuen und Gesellschaften, wobei der Recherche häufig Detailtiefe oder Relevanz fehlt.",
-        "4": "In B! zeigt he! wachsende Untersuchungskompetenzen in Individuen und Gesellschaften, obwohl Recherche und Quellenanalyse manchmal noch mehr Tiefe erfordern.",
-        "5": "In B! zeigt he! verlässliche Untersuchungskompetenzen in Individuen und Gesellschaften, sammelt relevante Informationen und strukturiert Ideen in den meisten Aufgaben klar.",
-        "6": "In B! zeigt he! gute Untersuchungskompetenzen in Individuen und Gesellschaften und nutzt geeignete Quellen sowie relevante Recherchen, um seine! Arbeit zu unterstützen.",
-        "7": "In B! zeigt he! starke Untersuchungskompetenzen in Individuen und Gesellschaften, wählt relevante Quellen aus und organisiert die Recherche effektiv.",
-        "8": "In B! formuliert he! aufschlussreiche Forschungsfragen in Individuen und Gesellschaften und nutzt äußerst relevante Quellen gezielt, um detaillierte Untersuchungen durchzuführen."
+        "3": "In B! zeigt er! begrenzte Untersuchungskompetenzen in Individuen und Gesellschaften, wobei der Recherche häufig Detailtiefe oder Relevanz fehlt.",
+        "4": "In B! zeigt er! wachsende Untersuchungskompetenzen in Individuen und Gesellschaften, obwohl Recherche und Quellenanalyse manchmal noch mehr Tiefe erfordern.",
+        "5": "In B! zeigt er! verlässliche Untersuchungskompetenzen in Individuen und Gesellschaften, sammelt relevante Informationen und strukturiert Ideen in den meisten Aufgaben klar.",
+        "6": "In B! zeigt er! gute Untersuchungskompetenzen in Individuen und Gesellschaften und nutzt geeignete Quellen sowie relevante Recherchen, um seine! Arbeit zu unterstützen.",
+        "7": "In B! zeigt er! starke Untersuchungskompetenzen in Individuen und Gesellschaften, wählt relevante Quellen aus und organisiert die Recherche effektiv.",
+        "8": "In B! formuliert er! aufschlussreiche Forschungsfragen in Individuen und Gesellschaften und nutzt äußerst relevante Quellen gezielt, um detaillierte Untersuchungen durchzuführen."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in B! (Grade 1).",
@@ -226,14 +226,14 @@
     },
     "C": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in C!, indicating He! is in the early stages of academic communication acquisition.",
+        "1": "Student! achieved a Grade 1 in C!, indicating Er! is in the early stages of academic communication acquisition.",
         "2": "Student! achieved a Grade 2 in C!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In C! zeigt he! grundlegende Kommunikationsfähigkeiten in Individuen und Gesellschaften, obwohl seine! Ideen oft schwer nachvollziehbar oder unvollständig sind.",
-        "4": "In C! kommuniziert he! Ideen in Individuen und Gesellschaften mit einer gewissen Klarheit, obwohl die Organisation und die verwendete Terminologie manchmal inkonsistent sind.",
-        "5": "In C! kommuniziert he! Ideen in Individuen und Gesellschaften angemessen und verwendet in den meisten Aufgaben eine überwiegend klare Struktur sowie relevante Terminologie.",
-        "6": "In C! kommuniziert he! Ideen in Individuen und Gesellschaften klar, verwendet passende Fachterminologie und gibt weitgehend gut strukturierte Antworten.",
-        "7": "In C! kommuniziert he! Ideen in Individuen und Gesellschaften klar und effektiv, mit gut organisierten Antworten und angemessener Fachterminologie.",
-        "8": "In C! kommuniziert he! Ideen in Individuen und Gesellschaften außergewöhnlich klar und verwendet in seiner! gesamten Arbeit durchgehend präzise Fachterminologie sowie eine klare und logische Struktur."
+        "3": "In C! zeigt er! grundlegende Kommunikationsfähigkeiten in Individuen und Gesellschaften, obwohl seine! Ideen oft schwer nachvollziehbar oder unvollständig sind.",
+        "4": "In C! kommuniziert er! Ideen in Individuen und Gesellschaften mit einer gewissen Klarheit, obwohl die Organisation und die verwendete Terminologie manchmal inkonsistent sind.",
+        "5": "In C! kommuniziert er! Ideen in Individuen und Gesellschaften angemessen und verwendet in den meisten Aufgaben eine überwiegend klare Struktur sowie relevante Terminologie.",
+        "6": "In C! kommuniziert er! Ideen in Individuen und Gesellschaften klar, verwendet passende Fachterminologie und gibt weitgehend gut strukturierte Antworten.",
+        "7": "In C! kommuniziert er! Ideen in Individuen und Gesellschaften klar und effektiv, mit gut organisierten Antworten und angemessener Fachterminologie.",
+        "8": "In C! kommuniziert er! Ideen in Individuen und Gesellschaften außergewöhnlich klar und verwendet in seiner! gesamten Arbeit durchgehend präzise Fachterminologie sowie eine klare und logische Struktur."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in C! (Grade 1).",
@@ -248,14 +248,14 @@
     },
     "D": {
       "strength": {
-        "1": "Student! achieved a Grade 1 in D!, indicating He! is in the early stages of critical analysis acquisition.",
+        "1": "Student! achieved a Grade 1 in D!, indicating Er! is in the early stages of critical analysis acquisition.",
         "2": "Student! achieved a Grade 2 in D!, representing a starting point for skills consolidation under targeted support.",
-        "3": "In D! zeigt he! begrenzte kritische Denkfähigkeiten in Individuen und Gesellschaften, wobei die Analyse häufig eher beschreibend als analytisch ist.",
-        "4": "In D! zeigt he! wachsende kritische Denkfähigkeiten in Individuen und Gesellschaften, obwohl die Analyse und Bewertung gelegentlich oberflächlich bleiben.",
-        "5": "In D! zeigt he! verlässliche kritische Denkfähigkeiten in Individuen und Gesellschaften, mit einer allgemein klaren Analyse und begründeten Schlussfolgerungen.",
-        "6": "In D! zeigt he! starke kritische Denkfähigkeiten in Individuen und Gesellschaften, analysiert Informationen klar und begründet Schlussfolgerungen angemessen.",
-        "7": "In D! zeigt he! sehr starke kritische Denkfähigkeiten in Individuen und Gesellschaften, mit klarer Analyse und durchdachter Bewertung von Belegen.",
-        "8": "In D! zeigt he! ausgezeichnete kritische Denkfähigkeiten in Individuen und Gesellschaften, analysiert Konzepte konsequent tiefgründig und bewertet Belege durchdacht."
+        "3": "In D! zeigt er! begrenzte kritische Denkfähigkeiten in Individuen und Gesellschaften, wobei die Analyse häufig eher beschreibend als analytisch ist.",
+        "4": "In D! zeigt er! wachsende kritische Denkfähigkeiten in Individuen und Gesellschaften, obwohl die Analyse und Bewertung gelegentlich oberflächlich bleiben.",
+        "5": "In D! zeigt er! verlässliche kritische Denkfähigkeiten in Individuen und Gesellschaften, mit einer allgemein klaren Analyse und begründeten Schlussfolgerungen.",
+        "6": "In D! zeigt er! starke kritische Denkfähigkeiten in Individuen und Gesellschaften, analysiert Informationen klar und begründet Schlussfolgerungen angemessen.",
+        "7": "In D! zeigt er! sehr starke kritische Denkfähigkeiten in Individuen und Gesellschaften, mit klarer Analyse und durchdachter Bewertung von Belegen.",
+        "8": "In D! zeigt er! ausgezeichnete kritische Denkfähigkeiten in Individuen und Gesellschaften, analysiert Konzepte konsequent tiefgründig und bewertet Belege durchdacht."
       },
       "improvement": {
         "1": "Urgent targeted intervention is recommended for Student! to establish foundational skills in D! (Grade 1).",
@@ -2162,7 +2162,7 @@
   "Language and Literature - German": {
     "A": {
       "strength": {
-        "1": "Student! hat eine Note 1 in A! erreicht, was darauf hindeutet, dass he! sich in der Anfangsphase des Erwerbs der Textanalyse befindet.",
+        "1": "Student! hat eine Note 1 in A! erreicht, was darauf hindeutet, dass er! sich in der Anfangsphase des Erwerbs der Textanalyse befindet.",
         "2": "Student! hat eine Note 2 in A! erreicht, was einen Ausgangspunkt für die Konsolidierung der Fähigkeiten unter gezielter Unterstützung darstellt.",
         "3": "In A! demonstriert er! Weiterentwicklung des Textverständnisses und erkennt einige vertraute Ideen sowie grundlegende sprachliche und strukturelle Merkmale mit gelegentlicher Unterstützung.",
         "4": "In A! demonstriert er! ein grundlegendes Textverständnis, erkennt einige explizite Ideen und Merkmale, wobei die Analyse noch stärker beschreibend als interpretierend ausfällt.",
@@ -2173,7 +2173,7 @@
       },
       "improvement": {
         "1": "Eine dringende gezielte Intervention wird für Student! empfohlen, um grundlegende Fähigkeiten in A! (Note 1) aufzubauen.",
-        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in A! (Note 2) zu schließen und his! Vertrauen in literarische Konzepte zu stärken.",
+        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in A! (Note 2) zu schließen und sein! Vertrauen in literarische Konzepte zu stärken.",
         "3": "Student! sollte die Kenntnisse literarischer Fachbegriffe und Analysetechniken erweitern, um Texte detaillierter und sicherer untersuchen zu können.",
         "4": "Student! sollte üben, implizite Bedeutungen und Autorenentscheidungen zu erkennen, um von oberflächlichen Beobachtungen zur interpretativen Analyse überzugehen.",
         "5": "Student! sollte analytischer mit dem Text umgehen und über Zusammenfassung oder Beschreibung hinausgehen, um zu erkunden, wie Sprache und Struktur Bedeutung erzeugen.",
@@ -2184,7 +2184,7 @@
     },
     "B": {
       "strength": {
-        "1": "Student! hat eine Note 1 in B! erreicht, was darauf hindeutet, dass he! sich in der Anfangsphase des Erwerbs der strukturellen Organisation befindet.",
+        "1": "Student! hat eine Note 1 in B! erreicht, was darauf hindeutet, dass er! sich in der Anfangsphase des Erwerbs der strukturellen Organisation befindet.",
         "2": "Student! hat eine Note 2 in B! erreicht, was einen Ausgangspunkt für die Konsolidierung der Fähigkeiten unter gezielter Unterstützung darstellt.",
         "3": "In B! demonstriert er! ein sich entwickelndes Verständnis für Organisation und Struktur und ordnet Ideen in meist logischer Abfolge und Verknüpfung.",
         "4": "In B! demonstriert er! einen ausbaufähigen Organisationsansatz und präsentiert Ideen in einer einfachen Reihenfolge mit ansatzweiser Verknüpfung der inhaltllichen Elemente.",
@@ -2195,7 +2195,7 @@
       },
       "improvement": {
         "1": "Eine dringende gezielte Intervention wird für Student! empfohlen, um grundlegende Fähigkeiten in B! (Note 1) aufzubauen.",
-        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in B! (Note 2) zu schließen und his! Vertrauen in Absatzstrukturen zu stärken.",
+        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in B! (Note 2) zu schließen und sein! Vertrauen in Absatzstrukturen zu stärken.",
         "3": "Student! sollte an einem besser organisierten Aufbau des Texts arbeiten und sicherstellen, dass die Ideen thematisch gruppiert und explizit verknüpft werden.",
         "4": "Student! sollte daran arbeiten, Ideen klarer zu gruppieren und durch geeignete Übergänge zu verbinden, um eine stärkere Kohärenz und einen logischeren Aufbau in B! zu erreichen.",
         "5": "Student! sollte die Fähigkeit entwickeln, komplexe Ideen zu strukturieren und sicherzustellen, dass die Gliederung der Antwort die Argumentationsentwicklung widerspiegelt und unterstützt.",
@@ -2206,7 +2206,7 @@
     },
     "C": {
       "strength": {
-        "1": "Student! hat eine Note 1 in C! erreicht, was darauf hindeutet, dass he! sich in der Anfangsphase des Erwerbs der Textproduktion befindet.",
+        "1": "Student! hat eine Note 1 in C! erreicht, was darauf hindeutet, dass er! sich in der Anfangsphase des Erwerbs der Textproduktion befindet.",
         "2": "Student! hat eine Note 2 in C! erreicht, was einen Ausgangspunkt für die Konsolidierung der Fähigkeiten unter gezielter Unterstützung darstellt.",
         "3": "In C! demonstriert er! einen begrenzten Einsatz sprachlicher Mittel und verfasst Antworten mit meist angemessener Wortwahl.",
         "4": "In C! demonstriert er! einen grundlegenden Einsatz sprachlicher Mittel und trifft einfache, aber angemessene sprachliche Entscheidungen in vertrauten Kontexten.",
@@ -2217,18 +2217,18 @@
       },
       "improvement": {
         "1": "Eine dringende gezielte Intervention wird für Student! empfohlen, um grundlegende Fähigkeiten in C! (Note 1) aufzubauen.",
-        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in C! (Note 2) zu schließen und his! Vertrauen in stilistische Mittel zu stärken.",
+        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in C! (Note 2) zu schließen und sein! Vertrauen in stilistische Mittel zu stärken.",
         "3": "Student! sollte einen gezielteren Umgang mit Sprache entwickeln und Wörter und Strukturen mit einem klareren Gespür für die Wirkung auf den Leser wählen.",
         "4": "Student! sollte üben, ein breiteres Spektrum stilistischer Merkmale einzubeziehen und Kompetenz in dem bewussten Einsatz literarischer Techniken zu erlangen.",
         "5": "Student! sollte an einem vielfältigeren und präziseren Einsatz sprachlicher und literarischer Mittel arbeiten, damit die gewünschte Wirkung erzielt und der Text aussagekräftiger wird.",
         "6": "Student! sollte die stilistischen Entscheidungen verfeinern, um einen konsistenteren und zweckorientierteren Einsatz von sprachlichen Mitteln in der gesamten Antwort zu gewährleisten.",
         "7": "Student! sollte noch ehrgeizigere und vielfältigere stilistische Entscheidungen treffen und mit einem breiteren Spektrum literarischer und rhetorischer Mittel experimentieren.",
-        "8": "Student! könnte die stilistischen Entscheidungen noch weiter präzisieren, indem er! mit unterschiedlichen Registern, Perspektiven und komplexeren Ausdrucksformen experimentiert, um die Wirkung dier! Texte weiter zu steigern."
+        "8": "Student! könnte die stilistischen Entscheidungen noch weiter präzisieren, indem er! mit unterschiedlichen Registern, Perspektiven und komplexeren Ausdrucksformen experimentiert, um die Wirkung dieser Texte weiter zu steigern."
       }
     },
     "D": {
       "strength": {
-        "1": "Student! hat eine Note 1 in D! erreicht, was darauf hindeutet, dass he! sich in der Anfangsphase des Erwerbs der sprachlichen Beherrschung befindet.",
+        "1": "Student! hat eine Note 1 in D! erreicht, was darauf hindeutet, dass er! sich in der Anfangsphase des Erwerbs der sprachlichen Beherrschung befindet.",
         "2": "Student! hat eine Note 2 in D! erreicht, was einen Ausgangspunkt für die Konsolidierung der Fähigkeiten unter gezielter Unterstützung darstellt.",
         "3": "In D! demonstriert er! eine sich entwickelnde Sprachkompetenz und verfasst Arbeiten mit teilweise korrektem Einsatz einfacher Strukturen und einem soliden Wortschatz.",
         "4": "In D! demonstriert er! einen grundlegenden, aber meist genauen Sprachgebrauch für vertraute Textformen und greift dabei auf eine begrenzte Auswahl an Strukturen und Wortschatz zurück.",
@@ -2239,31 +2239,31 @@
       },
       "improvement": {
         "1": "Eine dringende gezielte Intervention wird für Student! empfohlen, um grundlegende Fähigkeiten in D! (Note 1) aufzubauen.",
-        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in D! (Note 2) zu schließen und his! Vertrauen in Sprachkonventionen zu stärken.",
+        "2": "Es ist wichtig, dass Student! gezielte Unterstützung sucht, um Lücken in D! (Note 2) zu schließen und sein! Vertrauen in Sprachkonventionen zu stärken.",
         "3": "Student! sollte zunächst grundlegende grammatikalische Korrektheit festigen, bevor er! zu vielfältigeren Strukturen übergeht, und dabei besonders auf Verbformen und Satzbau achten.",
         "4": "Student! sollte Wortschatz und sprachliche Kompetenzen ausbauen , indem er! mit komplexeren Satzstrukturen und einem breiteren akademischen Wortschatz experimentiert.",
         "5": "Student! sollte daran arbeiten, Fehler in komplexeren grammatikalischen Strukturen zu reduzieren, um eine größere Präzision und Klarheit im sprachlichen Ausdruck zu erreichen.",
         "6": "Student! sollte sich darauf konzentrieren, wiederkehrende Grammatikfehler zu vermeiden und den Einsatz fortgeschrittener Strukturen auszubauen, um eine größere Präzision zu erreichen.",
         "7": "Student! sollte die Verwendung komplexer syntaktischer Strukturen sowie Fachvokabular weiter ausbauen und dabei nach größerer Präzision und stilistischer Raffinesse streben.",
-        "8": "Student! könnte die sprachliche Präzision weiter verbessern, indem er! mit unterschiedlichen Registern, stilistischen Nuancen und anspruchsvolleren Ausdrucksformen experimentiert, um die Wirkung dier! Kommunikation weiter zu stärken."
+        "8": "Student! könnte die sprachliche Präzision weiter verbessern, indem er! mit unterschiedlichen Registern, stilistischen Nuancen und anspruchsvolleren Ausdrucksformen experimentiert, um die Wirkung dieser Kommunikation weiter zu stärken."
       }
     }
   },
   "Language and Literature - French": {
     "A": {
       "strength": {
-        "1": "Student! a obtenu un niveau 1 en A!, ce qui indique qu'he! en est aux premières étapes de l'acquisition de l'analyse textuelle.",
+        "1": "Student! a obtenu un niveau 1 en A!, ce qui indique qu'il! en est aux premières étapes de l'acquisition de l'analyse textuelle.",
         "2": "Student! a obtenu un niveau 2 en A!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
-        "3": "En A!, il! identifie quelques aspects des textes. Ses idées sont appuyées par quelques exemples simples. Il/elle établit des comparaisons simples entre les textes, même si elle manquent parfois de précision et de développement.",
+        "3": "En A!, il! identifie quelques aspects des textes. Ses idées sont appuyées par quelques exemples simples. Il! établit des comparaisons simples entre les textes, même si elle manquent parfois de précision et de développement.",
         "4": "En A!, il! identifie certains aspects des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par quelques exemples pertinents et une terminologie parfois appropriée. il! établit des comparaisons simples mais claires entre les textes.",
         "5": "En A!, il! identifie certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par quelques exemples et une terminologie parfois appropriée. il! peut établir quelques comparaisons entre les textes.",
         "6": "En A!, il! analyse certains aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par desexemples et une terminologie appropriée. il! est capable d’établir certaines comparaisons entre les textes et leurs caractéristiques.",
         "7": "En A!, il! analyse plusieurs aspects importants des textes et les choix de l’auteur. Ses idées sont appuyées par des exemples pertinents et une terminologie appropriée. il! compare les textes avec clarté.",
-        "8": "En A!, il! analyse efficacement les aspects importants des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par des exemples précis et une terminologie appropriée. Il/elle compare efficacement les textes et leurs caractéristiques."
+        "8": "En A!, il! analyse efficacement les aspects importants des textes ainsi que les choix de l’auteur. Ses idées sont appuyées par des exemples précis et une terminologie appropriée. Il! compare efficacement les textes et leurs caractéristiques."
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en A! (niveau 1).",
-        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en A! (niveau 2) afin de renforcer sa! confiance dans les concepts littéraires.",
+        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en A! (niveau 2) afin de renforcer sa confiance dans les concepts littéraires.",
         "3": "Pour progresser, Student! doit choisir des exemples plus précis pour soutenir ses idées, utiliser une terminologie plus rigoureuse, et approfondir ses comparaisons en reliant les textes entre eux tout en expliquant l’impact des choix des auteurs.",
         "4": "Pour progresser, Student! doit inclure des exemples détaillés, utiliser plus précisément la terminologie,, et développer ses idées de façon plus approfondie en expliquant leur importance. il! doit également analyser les effets produits sur le public.",
         "5": "Pour progresser davantage, Student!  doit inclure des exemples plus détaillés issus des textes, utiliser une plus grande variété de terminologie spécifique à la matière et développer ses comparaisons en les expliquant plus clairement.",
@@ -2274,7 +2274,7 @@
     },
     "B": {
       "strength": {
-        "1": "Student! a obtenu un niveau 1 en B!, ce qui indique qu'he! en est aux premières étapes de l'acquisition de l'organisation structurelle.",
+        "1": "Student! a obtenu un niveau 1 en B!, ce qui indique qu'il! en est aux premières étapes de l'acquisition de l'organisation structurelle.",
         "2": "Student! a obtenu un niveau 2 en B!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En B!, il! est capable d’organiser le contenu et les idées de manière simple, en utilisant parfois des structures de base et quelques outils pour présenter un travail adapté au contexte et à l’objectif.",
         "4": "En B!, il! est capable d’organiser le contenu et les idées de manière simple et généralement logique, en utilisant des structures de base et quelques outils pour présenter un travail adapté au contexte et à l’objectif.",
@@ -2285,7 +2285,7 @@
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en B! (niveau 1).",
-        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en B! (niveau 2) afin de renforcer sa! confiance dans les structures de paragraphes.",
+        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en B! (niveau 2) afin de renforcer sa confiance dans les structures de paragraphes.",
         "3": "Pour progresser encore, il! doit organiser ses idées de façon plus claire et logique avant la rédaction, utiliser des paragraphes simples pour faciliter la lecture, et planifier ses points clés à l’avance afin d’améliorer la clarté et la structure.",
         "4": "Pour progresser, il! doit mieux organiser ses idées de façon logique, utiliser des paragraphes et des outils de mise en forme pour plus de clarté, et planifier ses points clés afin d’améliorer la structure.",
         "5": "Pour progresser davantage, Student! doit organiser ses idées de manière plus claire et utiliser une mise en forme et une structure de base pour mieux soutenir la présentation.",
@@ -2296,7 +2296,7 @@
     },
     "C": {
       "strength": {
-        "1": "Student! a obtenu un niveau 1 en C!, ce qui indique qu'he! en est aux premières étapes de l'acquisition de la production de textes.",
+        "1": "Student! a obtenu un niveau 1 en C!, ce qui indique qu'il! en est aux premières étapes de l'acquisition de la production de textes.",
         "2": "Student! a obtenu un niveau 2 en C!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En C!, il! produit un travail qui montre une réflexion et une imagination de base, avec une exploration des idées présente mais limitée dans le processus créatif. il! inclut un petit nombre de détails et d’exemples pertinents pour soutenir ses idées.",
         "4": "En C!, il! produit un travail montrant une certaine réflexion et imagination à travers des idées généralement pertinentes. Il utilise quelques procédés stylistiques appropriés et appuie parfois ses idées avec des exemples pertinents.",
@@ -2307,7 +2307,7 @@
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en C! (niveau 1).",
-        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en C! (niveau 2) afin de renforcer sa! confiance dans les procédés stylistiques.",
+        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en C! (niveau 2) afin de renforcer sa confiance dans les procédés stylistiques.",
         "3": "Pour progresser davantage, Student! doit approfondir sa réflexion et faire preuve de plus de créativité dans l’exploration des idées. Il doit aussi varier ses exemples et détails pertinents et mieux les expliquer pour soutenir ses idées.",
         "4": "Pour progresser davantage, Student! doit approfondir ses idées et faire des choix stylistiques plus réfléchis pour renforcer la clarté et l’impact de son travail. Il doit aussi expliquer clairement ses exemples et les relier à ses arguments.",
         "5": "Pour progresser davantage, Student! devrait approfondir et clarifier ses idées, faire des choix stylistiques plus intentionnels et utiliser des exemples pertinents pour soutenir ses arguments.",
@@ -2318,7 +2318,7 @@
     },
     "D": {
       "strength": {
-        "1": "Student! a obtenu un niveau 1 en D!, ce qui indique qu'he! en est aux premières étapes de l'acquisition du contrôle linguistique.",
+        "1": "Student! a obtenu un niveau 1 en D!, ce qui indique qu'il! en est aux premières étapes de l'acquisition du contrôle linguistique.",
         "2": "Student! a obtenu un niveau 2 en D!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En D!, il! utilise un vocabulaire et des structures simples. Il! exprime parfois ses idées avec un registre approprié. Ses connaissances en langue sont en développement, malgré des erreurs persistantes.",
         "4": "En D!, il! utilise un vocabulaire parfois pertinent et des structures de phrases simples. Il! exprime ses idées avec un registre généralement approprié. Il! montre un contrôle limité mais en progrès de la langue, malgré des erreurs. .",
@@ -2329,7 +2329,7 @@
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en D! (niveau 1).",
-        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en D! (niveau 2) afin de renforcer sa! confiance dans les conventions de la langue.",
+        "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en D! (niveau 2) afin de renforcer sa confiance dans les conventions de la langue.",
         "3": "Pour progresser, Student! doit élargir son vocabulaire et varier ses structures de phrases afin de rendre son expression plus claire. Il! gagnerait aussi à améliorer la cohérence du registre et du style.",
         "4": "Pour progresser encore, Student! doit améliorer la précision de sa langue en réduisant les erreurs de langue. Il! gagnerait aussi à enrichir son vocabulaire et varier plus ses structures de phrases pour rendre son expression plus riche.",
         "5": "Pour progresser encore, Student! doit améliorer la précision de son expression en réduisant les erreurs de langue. Il! devrait aussi enrichir son vocabulaire et varier ses structures de phrases pour rendre son expression plus développée.",
