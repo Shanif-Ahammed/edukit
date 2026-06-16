@@ -1,0 +1,141 @@
+Student Name,Class,Subject,Teacher Name,Gender,Crit A,Crit B,Crit C,Crit D,CPT,IB Grade,MEG,ATL Progress,EAL Status,SEN / Learning Support Flag,Gifted & Talented Flag,Emirati
+Liam Henderson,7A Mathematics,Mathematics,Ms. Carter,Male,7,6,7,6,26,6,24,Excellent,No,No,Yes,No
+Sophia Patel,7A Mathematics,Mathematics,Ms. Carter,Female,5,5,6,5,21,5,19,Good,Yes,No,No,No
+Marcus Vance,7A Mathematics,Mathematics,Ms. Carter,Male,4,3,4,3,14,3,15,Needs Improvement,No,Yes,No,No
+Ji-Woo Park,7A Mathematics,Mathematics,Ms. Carter,Male,8,7,8,7,30,7,28,Excellent,No,No,Yes,No
+Zara Ahmed,7A Mathematics,Mathematics,Ms. Carter,Female,6,5,6,5,22,5,24,Good,No,No,No,Yes
+Alex Mercer,8B Mathematics Extended,Mathematics Extended,Mr. Thompson,Male,6,5,6,6,23,5,24,Good,No,No,No,No
+Sofia Lin,8B Mathematics Extended,Mathematics Extended,Mr. Thompson,Female,7,7,8,7,29,7,28,Excellent,No,No,Yes,No
+Elena Rostova,8B Mathematics Extended,Mathematics Extended,Mr. Thompson,Female,4,4,4,3,15,4,15,Developing,Yes,No,No,No
+Tariq Al Mansouri,8B Mathematics Extended,Mathematics Extended,Mr. Thompson,Male,8,7,7,7,29,7,24,Excellent,No,No,No,Yes
+Charlotte Hughes,9C Language and Literature - English,Language and Literature - English,Ms. Williams,Female,6,5,6,6,23,5,24,Good,No,No,No,No
+Ravi Menon,9C Language and Literature - English,Language and Literature - English,Ms. Williams,Male,7,7,7,6,27,6,24,Excellent,No,No,No,No
+Isabelle Laurent,9C Language and Literature - English,Language and Literature - English,Ms. Williams,Female,4,4,3,4,15,4,15,Developing,Yes,No,No,No
+Omar Siddiqui,9C Language and Literature - English,Language and Literature - English,Ms. Williams,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Grace Kim,9C Language and Literature - English,Language and Literature - English,Ms. Williams,Female,3,3,4,3,13,3,15,Needs Improvement,No,Yes,No,No
+Anya Morozova,10A Language and Literature - French,Language and Literature - French,Mme. Bertrand,Female,7,6,7,7,27,6,24,Excellent,No,No,No,No
+Pierre Dupont,10A Language and Literature - French,Language and Literature - French,Mme. Bertrand,Male,5,5,6,5,21,5,19,Good,Yes,No,No,No
+Chloe Dubois,10A Language and Literature - French,Language and Literature - French,Mme. Bertrand,Female,4,3,4,4,15,4,15,Developing,No,Yes,No,No
+François Martin,10A Language and Literature - French,Language and Literature - French,Mme. Bertrand,Male,6,6,6,5,23,5,24,Good,No,No,No,No
+Lena Müller,10B Language and Literature - German,Language and Literature - German,Herr Schmidt,Female,7,7,6,7,27,6,28,Excellent,No,No,Yes,No
+Klaus Weber,10B Language and Literature - German,Language and Literature - German,Herr Schmidt,Male,5,5,5,4,19,5,19,Good,No,No,No,No
+Anna Fischer,10B Language and Literature - German,Language and Literature - German,Herr Schmidt,Female,6,6,7,6,25,6,24,Good,Yes,No,No,No
+Hans Bauer,10B Language and Literature - German,Language and Literature - German,Herr Schmidt,Male,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Fatima Al Rashidi,9D Language and Literature - Arabic,Language and Literature - Arabic,Mr. Al Zaabi,Female,7,6,7,7,27,6,24,Excellent,No,No,No,Yes
+Mohammed Hassan,9D Language and Literature - Arabic,Language and Literature - Arabic,Mr. Al Zaabi,Male,5,5,5,5,20,5,19,Good,No,No,No,Yes
+Layla Khalid,9D Language and Literature - Arabic,Language and Literature - Arabic,Mr. Al Zaabi,Female,6,6,6,6,24,6,24,Good,No,No,No,Yes
+Yousif Al Rashid,9D Language and Literature - Arabic,Language and Literature - Arabic,Mr. Al Zaabi,Male,4,3,4,4,15,4,15,Developing,No,No,No,Yes
+Emma Rossi,8C English as an additional language,English as an additional language,Ms. Green,Female,5,5,6,5,21,5,19,Good,Yes,No,No,No
+Yuki Tanaka,8C English as an additional language,English as an additional language,Ms. Green,Female,6,6,7,6,25,6,24,Good,Yes,No,No,No
+Carlos Rivera,8C English as an additional language,English as an additional language,Ms. Green,Male,4,4,4,3,15,4,15,Developing,Yes,No,No,No
+Mei Lin,8C English as an additional language,English as an additional language,Ms. Green,Female,7,7,7,6,27,6,24,Excellent,Yes,No,Yes,No
+Noah Andersson,7B Language Acquisition - French,Language Acquisition - French,Mme. Leclerc,Male,7,6,7,7,27,6,28,Excellent,No,No,Yes,No
+Amira Hassan,7B Language Acquisition - French,Language Acquisition - French,Mme. Leclerc,Female,5,5,5,5,20,5,19,Good,No,No,No,Yes
+Connor Walsh,7B Language Acquisition - French,Language Acquisition - French,Mme. Leclerc,Male,4,4,4,4,16,4,15,Developing,No,No,No,No
+Lily Nakamura,7B Language Acquisition - French,Language Acquisition - French,Mme. Leclerc,Female,6,6,6,5,23,5,24,Good,Yes,No,No,No
+Samuel Adeyemi,8D Language Acquisition - German,Language Acquisition - German,Herr Braun,Male,5,5,5,4,19,5,19,Good,No,No,No,No
+Hana Al Zaabi,8D Language Acquisition - German,Language Acquisition - German,Herr Braun,Female,7,7,6,6,26,6,24,Excellent,No,No,No,Yes
+Ben Fitzgerald,8D Language Acquisition - German,Language Acquisition - German,Herr Braun,Male,4,3,4,4,15,4,15,Developing,No,Yes,No,No
+Nour Khalil,8D Language Acquisition - German,Language Acquisition - German,Herr Braun,Female,6,5,6,6,23,5,19,Good,Yes,No,No,No
+Kenji Watanabe,9E Language Acquisition - Spanish,Language Acquisition - Spanish,Ms. Garcia,Male,6,6,6,5,23,5,19,Good,No,No,No,No
+Layla Al Hammadi,9E Language Acquisition - Spanish,Language Acquisition - Spanish,Ms. Garcia,Female,7,7,6,7,27,6,24,Excellent,No,No,No,Yes
+Ethan Brooks,9E Language Acquisition - Spanish,Language Acquisition - Spanish,Ms. Garcia,Male,4,4,4,3,15,4,15,Developing,No,No,No,No
+Sana Hussain,9E Language Acquisition - Spanish,Language Acquisition - Spanish,Ms. Garcia,Female,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Ahmed Al Mansoori,10C Language Acquisition - Arabic,Language Acquisition - Arabic,Mr. Khalifa,Male,7,6,7,7,27,6,24,Excellent,No,No,No,Yes
+Sara Al Blooshi,10C Language Acquisition - Arabic,Language Acquisition - Arabic,Mr. Khalifa,Female,5,5,5,5,20,5,19,Good,No,No,No,Yes
+Mariam Obaid,10C Language Acquisition - Arabic,Language Acquisition - Arabic,Mr. Khalifa,Female,6,6,6,6,24,6,24,Good,No,No,No,Yes
+Rashid Khalil,10C Language Acquisition - Arabic,Language Acquisition - Arabic,Mr. Khalifa,Male,4,4,3,4,15,4,15,Developing,No,Yes,No,Yes
+Jack Sullivan,9F Individuals & Societies - English,Individuals & Societies - English,Mr. Davies,Male,6,5,6,5,22,5,19,Good,No,No,No,No
+Mei Chen,9F Individuals & Societies - English,Individuals & Societies - English,Mr. Davies,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Aarav Nair,9F Individuals & Societies - English,Individuals & Societies - English,Mr. Davies,Male,5,4,5,5,19,5,19,Good,Yes,No,No,No
+Leila Moradi,9F Individuals & Societies - English,Individuals & Societies - English,Mr. Davies,Female,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Tyler Evans,9F Individuals & Societies - English,Individuals & Societies - English,Mr. Davies,Male,3,3,4,3,13,3,15,Needs Improvement,No,No,No,No
+Camille Fontaine,10D Individuals & Societies - French,Individuals & Societies - French,Mme. Moreau,Female,6,6,7,6,25,6,24,Good,No,No,No,No
+Julien Bernard,10D Individuals & Societies - French,Individuals & Societies - French,Mme. Moreau,Male,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Isabeau Renard,10D Individuals & Societies - French,Individuals & Societies - French,Mme. Moreau,Female,5,5,5,4,19,5,19,Good,Yes,No,No,No
+Hugo Lefebvre,10D Individuals & Societies - French,Individuals & Societies - French,Mme. Moreau,Male,4,4,4,4,16,4,15,Developing,No,Yes,No,No
+Klara Hoffmann,10E Individuals & Societies - German,Individuals & Societies - German,Herr Klein,Female,7,6,7,6,26,6,24,Excellent,No,No,No,No
+Erik Schulz,10E Individuals & Societies - German,Individuals & Societies - German,Herr Klein,Male,5,5,6,5,21,5,19,Good,No,No,No,No
+Greta Neumann,10E Individuals & Societies - German,Individuals & Societies - German,Herr Klein,Female,6,6,6,6,24,6,24,Good,Yes,No,No,No
+Felix Wagner,10E Individuals & Societies - German,Individuals & Societies - German,Herr Klein,Male,4,3,4,4,15,4,15,Developing,No,Yes,No,No
+Priya Sharma,8E Individuals and Societies - Commerce,Individuals and Societies - Commerce,Ms. Khan,Female,6,5,6,6,23,5,24,Good,Yes,No,No,No
+Ben Hargreaves,8E Individuals and Societies - Commerce,Individuals and Societies - Commerce,Ms. Khan,Male,7,7,7,6,27,6,24,Excellent,No,No,No,No
+Tomás Rivera,8E Individuals and Societies - Commerce,Individuals and Societies - Commerce,Ms. Khan,Male,5,5,5,5,20,5,19,Good,No,No,Yes,No
+Fiona Gallagher,8E Individuals and Societies - Commerce,Individuals and Societies - Commerce,Ms. Khan,Female,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Oscar Finch,9G Design,Design,Mr. Blake,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Nia Brooks,9G Design,Design,Mr. Blake,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Lucas Thorne,9G Design,Design,Mr. Blake,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Isabella Rossi,9G Design,Design,Mr. Blake,Female,4,4,4,3,15,4,15,Developing,Yes,No,No,No
+Dante Cruz,9G Design,Design,Mr. Blake,Male,3,3,4,3,13,3,15,Needs Improvement,No,Yes,No,No
+Emma Watson,9H Information Technology,Information Technology,Mr. Singh,Female,6,6,6,6,24,6,24,Good,No,No,No,No
+Aisha Nasser,9H Information Technology,Information Technology,Mr. Singh,Female,7,7,7,6,27,6,24,Excellent,No,No,No,Yes
+Ryan Kowalski,9H Information Technology,Information Technology,Mr. Singh,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Chloe Sterling,9H Information Technology,Information Technology,Mr. Singh,Female,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+James O'Brien,9H Information Technology,Information Technology,Mr. Singh,Male,3,3,4,3,13,3,15,Needs Improvement,No,No,No,No
+Daniel Osei,10F Computer Science,Computer Science,Mr. Patel,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Vivienne Dubois,10F Computer Science,Computer Science,Mr. Patel,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Hamza Qureshi,10F Computer Science,Computer Science,Mr. Patel,Male,5,5,5,4,19,5,19,Good,No,No,No,No
+Amelia Scott,10F Computer Science,Computer Science,Mr. Patel,Female,4,4,4,4,16,4,15,Developing,Yes,No,No,No
+Luca Bianchi,10F Computer Science,Computer Science,Mr. Patel,Male,3,3,3,4,13,3,15,Needs Improvement,No,Yes,No,No
+Matteo Ferrari,8F Drama,Drama,Ms. Armstrong,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Jessica Park,8F Drama,Drama,Ms. Armstrong,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Khalid Ibrahim,8F Drama,Drama,Ms. Armstrong,Male,5,5,5,5,20,5,19,Good,No,No,No,Yes
+Amelia Scott,8F Drama,Drama,Ms. Armstrong,Female,4,4,4,3,15,4,15,Developing,No,Yes,No,No
+Noah Lee,9I Visual Arts,Visual Arts,Ms. Rivera,Male,6,6,6,6,24,6,24,Good,No,No,No,No
+Sofia Chen,9I Visual Arts,Visual Arts,Ms. Rivera,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Ethan Kim,9I Visual Arts,Visual Arts,Ms. Rivera,Male,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Mia Johnson,9I Visual Arts,Visual Arts,Ms. Rivera,Female,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Carlos Gomez,8G Music,Music,Mr. Harrison,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Yuna Park,8G Music,Music,Mr. Harrison,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Sam Wilson,8G Music,Music,Mr. Harrison,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Emily Davis,8G Music,Music,Mr. Harrison,Female,4,4,4,3,15,4,15,Developing,No,Yes,No,No
+Jake Morrison,9J Physical & Health Education,Physical & Health Education,Mr. Evans,Male,6,6,7,6,25,6,19,Good,No,No,No,No
+Yuki Sato,9J Physical & Health Education,Physical & Health Education,Mr. Evans,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Tom Brennan,9J Physical & Health Education,Physical & Health Education,Mr. Evans,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Aisha Begum,9J Physical & Health Education,Physical & Health Education,Mr. Evans,Female,4,4,4,3,15,4,15,Developing,Yes,No,No,No
+Ryan O'Connor,9J Physical & Health Education,Physical & Health Education,Mr. Evans,Male,3,3,4,3,13,3,15,Needs Improvement,No,Yes,No,No
+Lily Edwards,10G PHP (Portfolio),PHP (Portfolio),Ms. Thompson,Female,6,6,6,6,24,6,24,Good,No,No,No,No
+James Brown,10G PHP (Portfolio),PHP (Portfolio),Ms. Thompson,Male,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Aisha Malik,10G PHP (Portfolio),PHP (Portfolio),Ms. Thompson,Female,5,5,5,4,19,5,19,Good,Yes,No,No,No
+Leo Harris,10G PHP (Portfolio),PHP (Portfolio),Ms. Thompson,Male,4,4,4,4,16,4,15,Developing,No,Yes,No,No
+Sophia Integrated,8H Integrated Sciences - English,Integrated Sciences - English,Ms. Clarke,Female,6,6,7,6,25,6,24,Good,No,No,No,No
+Noah Integrated,8H Integrated Sciences - English,Integrated Sciences - English,Ms. Clarke,Male,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Mia Integrated,8H Integrated Sciences - English,Integrated Sciences - English,Ms. Clarke,Female,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Ethan Integrated,8H Integrated Sciences - English,Integrated Sciences - English,Ms. Clarke,Male,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Aria Bio,9A (Bio),Biology,Mr. Johnson,Female,6,6,7,6,25,6,24,Good,No,No,No,No
+Leo Bio,9A (Bio),Biology,Mr. Johnson,Male,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Mia Bio,9A (Bio),Biology,Mr. Johnson,Female,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Sam Bio,9A (Bio),Biology,Mr. Johnson,Male,4,4,4,3,15,4,15,Developing,No,Yes,No,No
+Grace Bio,9A (Bio),Biology,Mr. Johnson,Female,3,3,4,3,13,3,15,Needs Improvement,No,No,No,No
+Jake Phy,9B (Phy),Physics,Mr. Newton,Male,6,6,6,6,24,6,24,Good,No,No,No,No
+Sara Phy,9B (Phy),Physics,Mr. Newton,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Kai Phy,9B (Phy),Physics,Mr. Newton,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Nina Phy,9B (Phy),Physics,Mr. Newton,Female,4,4,3,4,15,4,15,Developing,Yes,No,No,No
+Tom Chem,9C (Chem),Chemistry,Ms. Curie,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Ella Chem,9C (Chem),Chemistry,Ms. Curie,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Alex Chem,9C (Chem),Chemistry,Ms. Curie,Male,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Zoe Chem,9C (Chem),Chemistry,Ms. Curie,Female,4,4,4,3,15,4,15,Developing,No,Yes,No,No
+Aaron Bio,10A (Bio),Double Science,Mr. Johnson,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Bella Bio,10A (Bio),Double Science,Mr. Johnson,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Cole Bio,10A (Bio),Double Science,Mr. Johnson,Male,5,5,5,5,20,5,19,Good,No,No,No,No
+Diana Bio,10A (Bio),Double Science,Mr. Johnson,Female,4,4,3,4,15,4,15,Developing,Yes,No,No,No
+Finn Phy,10B (Phy),Double Science,Mr. Newton,Male,6,5,6,6,23,5,24,Good,No,No,No,No
+Greta Phy,10B (Phy),Double Science,Mr. Newton,Female,7,7,6,7,27,6,28,Excellent,No,No,Yes,No
+Hugo Phy,10B (Phy),Double Science,Mr. Newton,Male,5,5,5,4,19,5,19,Good,No,No,No,No
+Iris Phy,10B (Phy),Double Science,Mr. Newton,Female,4,4,4,3,15,4,15,Developing,No,Yes,No,No
+Jack Chem,10C (Chem),Double Science,Ms. Curie,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Kara Chem,10C (Chem),Double Science,Ms. Curie,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Luis Chem,10C (Chem),Double Science,Ms. Curie,Male,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Maya Chem,10C (Chem),Double Science,Ms. Curie,Female,4,4,3,4,15,4,15,Developing,No,Yes,No,No
+Nina TriBio,11A-Bio,Triple Science,Ms. Wallace,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Oscar TriBio,11A-Bio,Triple Science,Ms. Wallace,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Petra TriBio,11A-Bio,Triple Science,Ms. Wallace,Female,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Quinn TriBio,11A-Bio,Triple Science,Ms. Wallace,Male,4,4,4,4,16,4,15,Developing,No,Yes,No,No
+Rosa TriPhy,11B-Phy,Triple Science,Mr. Faraday,Female,7,6,7,7,27,6,24,Excellent,No,No,No,No
+Sam TriPhy,11B-Phy,Triple Science,Mr. Faraday,Male,6,6,6,6,24,6,24,Good,No,No,No,No
+Tara TriPhy,11B-Phy,Triple Science,Mr. Faraday,Female,5,5,5,4,19,5,19,Good,No,No,No,No
+Umar TriPhy,11B-Phy,Triple Science,Mr. Faraday,Male,4,4,3,4,15,4,15,Developing,Yes,No,No,No
+Vera TriChem,11C-Chem,Triple Science,Ms. Mendeleev,Female,7,7,7,7,28,7,28,Excellent,No,No,Yes,No
+Will TriChem,11C-Chem,Triple Science,Ms. Mendeleev,Male,6,6,7,6,25,6,24,Good,No,No,No,No
+Xia TriChem,11C-Chem,Triple Science,Ms. Mendeleev,Female,5,5,5,5,20,5,19,Good,Yes,No,No,No
+Yannick TriChem,11C-Chem,Triple Science,Ms. Mendeleev,Male,4,4,4,3,15,4,15,Developing,No,Yes,No,No

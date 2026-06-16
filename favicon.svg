@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-110 -110 420 420" style="overflow: visible; isolation: isolate;">
+  <style>
+    .ring { fill: none; stroke-width: 16px; mix-blend-mode: multiply; opacity: 0.99; }
+    .ring-primary { stroke: #E10031; }
+    .ring-grey { stroke: #6b7280; }
+  </style>
+  <circle class="ring ring-primary" cx="100" cy="-8" r="90" />
+  <circle class="ring ring-primary" cx="100" cy="208" r="90" />
+  <circle class="ring ring-primary" cx="-8" cy="100" r="90" />
+  <circle class="ring ring-grey" cx="208" cy="100" r="90" />
+</svg>
