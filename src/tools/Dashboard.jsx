@@ -902,7 +902,7 @@ export default function Dashboard({ setActiveTool }) {
               </button>
             </div>
 
-            {/* Static Data Disclaimer */}
+                        {/* Static Data Disclaimer */}
             <div 
               style={{ 
                 background: 'var(--warning-bg)', 
@@ -921,6 +921,28 @@ export default function Dashboard({ setActiveTool }) {
               <AlertCircle size={18} style={{ flexShrink: 0, marginTop: '2px', color: 'var(--warning-text)' }} />
               <div>
                 <strong style={{ fontWeight: '800', color: 'var(--warning-text)' }}>⚠️ Static Data Disclaimer:</strong> This connected database is static. You will need to re-upload the spreadsheet whenever there is a change in classes or student grades. We highly recommend uploading your data after the gradebook is fully complete.
+              </div>
+            </div>
+
+            {/* ATL Default Hint */}
+            <div 
+              style={{ 
+                background: 'rgba(59, 130, 246, 0.05)', 
+                border: '1px solid rgba(59, 130, 246, 0.25)', 
+                color: '#3b82f6', 
+                padding: '1.1rem 1.25rem', 
+                borderRadius: '16px', 
+                fontSize: '0.84rem', 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '0.75rem',
+                marginBottom: '1.5rem',
+                lineHeight: '1.5'
+              }}
+            >
+              <HelpCircle size={18} style={{ flexShrink: 0, marginTop: '2px', color: '#3b82f6' }} />
+              <div>
+                <strong style={{ fontWeight: '800', color: '#3b82f6' }}>💡 Blank ATL Data Tip:</strong> If your spreadsheet contains blank cells in the <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>ATL Progress</strong> or <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>ATL Skill Attitude</strong> columns, they will automatically default to <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>"Practitioner"</strong> and <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>"ME"</strong> (Meets Expectations) respectively.
               </div>
             </div>
 

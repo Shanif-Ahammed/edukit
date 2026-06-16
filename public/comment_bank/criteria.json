@@ -12,16 +12,16 @@
     "D": "Writing"
   },
   "Language and Literature - German": {
-    "A": "Analyzing",
-    "B": "Organizing",
-    "C": "Producing text",
-    "D": "Using language"
+    "A": "Analysieren",
+    "B": "Organisieren",
+    "C": "Text produzieren",
+    "D": "Sprache verwenden"
   },
   "Language and Literature - French": {
-    "A": "Analyzing",
-    "B": "Organizing",
-    "C": "Producing text",
-    "D": "Using language"
+    "A": "Analyser",
+    "B": "Organiser",
+    "C": "Produire un texte",
+    "D": "Utiliser la langue"
   },
   "Language Acquisition - Arabic": {
     "A": "Listening",
@@ -66,16 +66,16 @@
     "D": "Applying mathematics in real world contexts"
   },
   "Individuals & Societies - French": {
-    "A": "Knowing and understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking critically"
+    "A": "Connaître et comprendre",
+    "B": "Mener une recherche",
+    "C": "Communiquer",
+    "D": "Penser de manière critique"
   },
   "Individuals & Societies - German": {
-    "A": "Knowing and understanding",
-    "B": "Investigating",
-    "C": "Communicating",
-    "D": "Thinking critically"
+    "A": "Wissen und Verstehen",
+    "B": "Untersuchen / Forschen",
+    "C": "Kommunizieren",
+    "D": "Kritisches Denken"
   },
   "Individuals & Societies - English": {
     "A": "Knowing and understanding",

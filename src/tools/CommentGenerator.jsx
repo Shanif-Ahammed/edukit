@@ -348,11 +348,11 @@ const applyPlaceholders = (template, data) => {
   const worstLetter = data.worst || 'D';
 
   const getCritString = (letter, rawName) => {
-    if (!rawName) return `Crit ${letter}`;
-    if (rawName.trim().toLowerCase() === `crit ${letter.toLowerCase()}`) {
-      return `Crit ${letter}`;
+    if (!rawName) return `Criteria ${letter}`;
+    if (rawName.trim().toLowerCase() === `crit ${letter.toLowerCase()}` || rawName.trim().toLowerCase() === `criteria ${letter.toLowerCase()}`) {
+      return `Criteria ${letter}`;
     }
-    return `Crit ${letter}: ${rawName}`;
+    return `Criteria ${letter}: ${rawName}`;
   };
 
   const critA = getCritString('A', names.A);
@@ -391,6 +391,15 @@ const applyPlaceholders = (template, data) => {
 
   let resolvedText = template || '';
 
+  // Resolve English reflexive pronoun based on gender/pronouns
+  let engReflexive = 'himself';
+  if (data.pronouns && data.pronouns.subj === 'she') {
+    engReflexive = 'herself';
+  } else if (data.pronouns && data.pronouns.subj === 'they') {
+    engReflexive = 'themselves';
+  }
+  const engReflexiveCap = engReflexive.charAt(0).toUpperCase() + engReflexive.slice(1);
+
   // 1. Standard bracket placeholders
   resolvedText = resolvedText
     .replace(/\[Name\]/g, data.forename)
@@ -400,6 +409,8 @@ const applyPlaceholders = (template, data) => {
     .replace(/\[his\/her\]/g, resolvedPronouns.poss)
     .replace(/\[Him\/Her\]/g, resolvedPronouns.obj.charAt(0).toUpperCase() + resolvedPronouns.obj.slice(1))
     .replace(/\[him\/her\]/g, resolvedPronouns.obj)
+    .replace(/\[Himself\/Herself\]/g, engReflexiveCap)
+    .replace(/\[himself\/herself\]/g, engReflexive)
     .replace(/\[Grade\]/g, data.grade)
     .replace(/\[Subject\]/g, data.subject)
     .replace(/\[CritA\]/g, critA)
@@ -448,6 +459,10 @@ const applyPlaceholders = (template, data) => {
     .replace(/His!/g, resolvedPronouns.poss.charAt(0).toUpperCase() + resolvedPronouns.poss.slice(1))
     .replace(/his!/g, resolvedPronouns.poss)
     .replace(/him!/g, resolvedPronouns.obj)
+    .replace(/Himself!/g, engReflexiveCap)
+    .replace(/himself!/g, engReflexive)
+    .replace(/Herself!/g, engReflexiveCap)
+    .replace(/herself!/g, engReflexive)
     .replace(/Subject!/g, data.subject)
     .replace(/A!\(?/g, critA)
     .replace(/B!\(?/g, critB)

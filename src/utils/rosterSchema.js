@@ -14,7 +14,11 @@ const yesNoBooleanSchema = z.preprocess((val) => {
 
 // Preprocessor to coerce strings or floats to strict integers or null
 const integerCoerceSchema = (min, max, name) => z.preprocess((val) => {
-  if (val === null || val === undefined || val === '') return null;
+  if (val === null || val === undefined) return null;
+  if (typeof val === 'string') {
+    const s = val.trim().toLowerCase();
+    if (s === '' || s === 'n/a' || s === 'na' || s === '-' || s.startsWith('#')) return null;
+  }
   const num = Number(val);
   return isNaN(num) ? null : Math.round(num);
 }, z.number().int().min(min, `${name} must be at least ${min}`).max(max, `${name} must be at most ${max}`).nullable());
@@ -38,14 +42,22 @@ export const StudentRowSchema = z.object({
   sen: yesNoBooleanSchema,
   gifted: yesNoBooleanSchema,
   emirati: yesNoBooleanSchema,
-  atlProgress: z.string().default('Practitioner'),
+  atlProgress: z.preprocess((val) => {
+    if (val === null || val === undefined || (typeof val === 'string' && val.trim() === '')) {
+      return undefined;
+    }
+    return val;
+  }, z.string().default('Practitioner')),
   attitude: z.preprocess((val) => {
+    if (val === null || val === undefined || (typeof val === 'string' && val.trim() === '')) {
+      return undefined;
+    }
     if (typeof val === 'string') {
       const s = val.trim().toUpperCase();
       if (s === 'ME' || s === 'AE' || s === 'EE' || s === 'BE') return s;
     }
     return val;
-  }, z.enum(['ME', 'AE', 'EE', 'BE'], { invalid_type_error: "Attitude must be ME or AE" }).optional().default('ME')),
+  }, z.enum(['ME', 'AE', 'EE', 'BE'], { invalid_type_error: "Attitude must be ME, AE, EE, or BE" }).optional().default('ME')),
   cpt: integerCoerceSchema(0, 32, "CPT"),
   critA: integerCoerceSchema(0, 8, "Criterion A"),
   critB: integerCoerceSchema(0, 8, "Criterion B"),
