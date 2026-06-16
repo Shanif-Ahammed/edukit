@@ -176,7 +176,7 @@ export default function Dashboard({ setActiveTool }) {
   // subject (Double/Triple Science, French, German, etc.) is exercised.
   const loadDemoData = async () => {
     try {
-      const res = await fetch('/sample_students.csv');
+      const res = await fetch('sample_students.csv');
       if (!res.ok) throw new Error('Could not fetch sample_students.csv');
       const blob = await res.blob();
       const file = new File([blob], 'sample_students.csv', { type: 'text/csv' });
@@ -197,7 +197,7 @@ export default function Dashboard({ setActiveTool }) {
   // Downloads sample_students.csv converted to .xlsx for easy reference.
   const downloadSampleExcel = async () => {
     try {
-      const res = await fetch('/sample_students.csv');
+      const res = await fetch('sample_students.csv');
       if (!res.ok) throw new Error('Could not fetch sample_students.csv');
       const text = await res.text();
       const wb = XLSX.read(text, { type: 'string' });

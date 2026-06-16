@@ -78,7 +78,7 @@ export default function HeaderNav() {
   // Downloads /sample_students.csv (all subjects, 33 classes) converted to .xlsx
   const downloadSampleExcel = async () => {
     try {
-      const res = await fetch('/sample_students.csv');
+      const res = await fetch('sample_students.csv');
       if (!res.ok) throw new Error('Could not fetch sample_students.csv');
       const text = await res.text();
       const wb = XLSX.read(text, { type: 'string' });

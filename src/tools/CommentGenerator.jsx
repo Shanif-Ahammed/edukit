@@ -28,18 +28,84 @@ const getNormalizedAtlProgress = (progress) => {
   return 'Practitioner'; // Default fallback
 };
 
-// Maps specific subject display names to their generic MYP subject group configurations
+// Maps specific subject display names to their generic MYP subject group configurations (using actual keys in criteria.json)
 const getGenericSubjectGroup = (sub) => {
   if (!sub) return 'Mathematics';
   const name = sub.toLowerCase();
   if (name.includes('math')) return 'Mathematics';
-  if (name.includes('science') || name.includes('biology') || name.includes('physics') || name.includes('chemistry')) return 'Sciences';
-  if (name.includes('literature') || name.includes('additional language') || name.includes('language acquisition')) return 'Language & Literature';
-  if (name.includes('societies') || name.includes('commerce')) return 'Individuals & Societies';
-  if (name.includes('design') || name.includes('technology')) return 'Design';
-  if (name.includes('drama') || name.includes('art') || name.includes('music')) return 'Arts';
-  if (name.includes('physical') || name.includes('health') || name.includes('phe')) return 'Physical & Health Education';
+  if (name.includes('science') || name.includes('biology') || name.includes('physics') || name.includes('chemistry')) return 'Integrated Sciences - English';
+  if (name.includes('literature') || name.includes('additional language') || name.includes('language acquisition') || name.includes('l&l') || name.includes('la') || name.includes('lit')) return 'Language and Literature - English';
+  if (name.includes('societies') || name.includes('commerce') || name.includes('i&s') || name.includes('ins')) return 'Individuals & Societies - English';
+  if (name.includes('design') || name.includes('technology') || name.includes('dt')) return 'Design';
+  if (name.includes('drama') || name.includes('art') || name.includes('music')) return 'The Arts';
+  if (name.includes('physical') || name.includes('health') || name.includes('phe') || name.includes('pe')) return 'Physical & Health Education';
   return 'Mathematics';
+};
+
+// Case-insensitive, whitespace-flexible, and special character-flexible matching algorithm for subjects
+const getBestMatchingSubjectKey = (subjectName, availableKeys) => {
+  if (!subjectName) return 'Mathematics';
+  const keys = Array.isArray(availableKeys) ? availableKeys : Object.keys(availableKeys || {});
+  if (keys.length === 0) return 'Mathematics';
+
+  // 1. Direct match
+  if (keys.includes(subjectName)) return subjectName;
+
+  // Helper to normalize and remove special chars (keep spaces and convert & to and)
+  const normalize = (str) => String(str || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9 ]/g, ''); // keep alphanumeric and spaces
+
+  const targetNorm = normalize(subjectName);
+  if (!targetNorm) return keys.includes('Mathematics') ? 'Mathematics' : keys[0];
+
+  // 2. Exact match on normalized string
+  let match = keys.find(k => normalize(k) === targetNorm);
+  if (match) return match;
+
+  // 3. Word-based match (all words in the target are present in the key, or vice-versa)
+  const targetWords = targetNorm.split(' ').filter(Boolean);
+  if (targetWords.length > 0) {
+    // Find keys that contain all words of the target
+    const candidates = keys.filter(k => {
+      const kNorm = normalize(k);
+      return targetWords.every(word => kNorm.includes(word));
+    });
+    if (candidates.length === 1) return candidates[0];
+    if (candidates.length > 1) {
+      return candidates.sort((a, b) => a.length - b.length)[0];
+    }
+
+    // Or if a key's words are all present in the target
+    const reverseCandidates = keys.filter(k => {
+      const kNorm = normalize(k);
+      const kWords = kNorm.split(' ').filter(Boolean);
+      return kWords.length > 0 && kWords.every(word => targetNorm.includes(word));
+    });
+    if (reverseCandidates.length === 1) return reverseCandidates[0];
+    if (reverseCandidates.length > 1) {
+      return reverseCandidates.sort((a, b) => b.length - a.length)[0];
+    }
+  }
+
+  // 4. Substring fallback
+  match = keys.find(k => {
+    const kNorm = normalize(k);
+    return kNorm.includes(targetNorm) || targetNorm.includes(kNorm);
+  });
+  if (match) return match;
+
+  // 5. Generic fallback based on group mapping
+  const genericGroup = getGenericSubjectGroup(subjectName);
+  const genericNorm = normalize(genericGroup);
+  match = keys.find(k => normalize(k) === genericNorm);
+  if (match) return match;
+
+  // 6. Default fallback
+  return keys.includes('Mathematics') ? 'Mathematics' : keys[0];
 };
 
 /**
@@ -365,9 +431,9 @@ const applyPlaceholders = (template, data) => {
   // Determine target language based on exact subject name
   // Only the two subjects per language carry non-English ATL comments
   // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
-  const subjectName = (data.subject || '').trim().toLowerCase().replace(/\s+/g, ' ');
-  const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals & societies - french';
-  const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals & societies - german';
+  const subjectName = (data.subject || '').trim().toLowerCase().replace(/\s+/g, ' ').replace(/&/g, 'and');
+  const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals and societies - french';
+  const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals and societies - german';
 
   // Resolve pronouns based on subject language and student gender/pronouns
   // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
@@ -540,36 +606,40 @@ export default function CommentGenerator() {
       try {
         // Resolve Double/Triple Science to the real science subject via the class name
         const rawSubject = subject || 'Mathematics';
-        const subjectKey = resolveScience(rawSubject, selectedClass);
+        const rawSubjectKey = resolveScience(rawSubject, selectedClass);
 
         // 1. Fetch ATL bank (universal with English, French, and German language support)
-        const atlRes = await fetch('/comment_bank/atl.json');
+        const atlRes = await fetch('comment_bank/atl.json');
         if (!atlRes.ok) throw new Error('Failed to fetch ATL bank');
         const atlAllData = await atlRes.json();
 
-        // Detect language based on active subject
-        // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
-        const subjectName = subjectKey.trim().toLowerCase().replace(/\s+/g, ' ');
-        const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals & societies - french';
-        const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals & societies - german';
+        // 2. Fetch consolidated comments bank (all subjects in one file)
+        const commentsRes = await fetch('comment_bank/comments.json');
+        if (!commentsRes.ok) throw new Error('Failed to fetch comments bank');
+        const commentsAll = await commentsRes.json();
+
+        // Resolve the best matching key in comments bank
+        const subjectKey = getBestMatchingSubjectKey(rawSubjectKey, commentsAll);
+
+        // Detect language based on resolved subject name
+        const normalizeForLang = (str) => String(str || '').trim().toLowerCase().replace(/\s+/g, ' ').replace(/&/g, 'and');
+        const subjectNameNorm = normalizeForLang(subjectKey);
+        const isFrench = subjectNameNorm === 'language and literature - french' || subjectNameNorm === 'individuals and societies - french';
+        const isGerman = subjectNameNorm === 'language and literature - german' || subjectNameNorm === 'individuals and societies - german';
         const langKey = isFrench ? 'french' : (isGerman ? 'german' : 'english');
 
         // Extract language-specific ATL data
         const atlData = atlAllData[langKey] || atlAllData['english'] || atlAllData;
 
-        // 2. Fetch consolidated comments bank (all subjects in one file)
-        const commentsRes = await fetch('/comment_bank/comments.json');
-        if (!commentsRes.ok) throw new Error('Failed to fetch comments bank');
-        const commentsAll = await commentsRes.json();
-
         // 3. Extract subject-specific A, B, C, D criteria blocks
-        const subjectComments = commentsAll[subjectKey] || commentsAll['Mathematics'] || {};
+        const subjectComments = commentsAll[subjectKey] || {};
 
         // 4. Fetch IB Grade bank (universal with subject divisions)
-        const ibRes = await fetch('/comment_bank/ib_grade.json');
+        const ibRes = await fetch('comment_bank/ib_grade.json');
         if (!ibRes.ok) throw new Error('Failed to fetch IB Grade bank');
         const ibAllData = await ibRes.json();
-        const ibData = ibAllData[subjectKey] || ibAllData.Mathematics || {};
+        const resolvedIbKey = getBestMatchingSubjectKey(subjectKey, ibAllData);
+        const ibData = ibAllData[resolvedIbKey] || {};
 
         const mergedBank = {
           ib_grade: ibData,
@@ -585,7 +655,7 @@ export default function CommentGenerator() {
 
         // 5. Fetch IB MYP Subject configurations (criteria names)
         try {
-          const criteriaRes = await fetch('/comment_bank/criteria.json');
+          const criteriaRes = await fetch('comment_bank/criteria.json');
           if (criteriaRes.ok) {
             const criteriaData = await criteriaRes.json();
             setMypSubjects(criteriaData);
@@ -633,12 +703,13 @@ export default function CommentGenerator() {
   })();
 
   // Resolve Double/Triple Science for criteria name lookup too
-  const resolvedSubjectForCrit = resolveScience(subject, selectedClass);
-  const subjectCrit = mypSubjects[resolvedSubjectForCrit] || mypSubjects[getGenericSubjectGroup(resolvedSubjectForCrit)] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
+  const rawSubjectForCrit = resolveScience(subject, selectedClass);
+  const resolvedSubjectForCrit = getBestMatchingSubjectKey(rawSubjectForCrit, mypSubjects);
+  const subjectCrit = mypSubjects[resolvedSubjectForCrit] || mypSubjects.Mathematics || Object.values(mypSubjects)[0];
   
   const critNames = (subjectCrit && typeof subjectCrit.A === 'string')
     ? subjectCrit
-    : { A: 'Crit A', B: 'Crit B', C: 'Crit C', D: 'Crit D' };
+    : { A: 'Criteria A', B: 'Criteria B', C: 'Criteria C', D: 'Criteria D' };
 
   // Sync subject if defined in database
   useEffect(() => {
