@@ -942,7 +942,7 @@ export default function Dashboard({ setActiveTool }) {
             >
               <HelpCircle size={18} style={{ flexShrink: 0, marginTop: '2px', color: '#3b82f6' }} />
               <div>
-                <strong style={{ fontWeight: '800', color: '#3b82f6' }}>💡 Blank ATL Data Tip:</strong> If your spreadsheet contains blank cells in the <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>ATL Progress</strong> or <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>ATL Skill Attitude</strong> columns, they will automatically default to <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>"Practitioner"</strong> and <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>"ME"</strong> (Meets Expectations) respectively.
+                <strong style={{ fontWeight: '800', color: '#3b82f6' }}>💡 Blank ATL Data Tip:</strong> If your spreadsheet contains blank cells in the <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>ATL Progress</strong> column, they will automatically default to <strong style={{ color: 'var(--text-main)', fontWeight: '750' }}>"Practitioner"</strong>.
               </div>
             </div>
 

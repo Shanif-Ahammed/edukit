@@ -21,7 +21,6 @@ const COLUMN_KEYS = {
   gradeLevel: [/^grade$/i, /grade\s*level/i, /year\s*group/i, /year$/i, /academic\s*year/i],
   ibGrade: [/^ib\s*grade$/i, /attainment\s*grade/i, /myp\s*grade/i, /level/i, /attainment/i],
   atl: [/^approaches$/i, /atl\s*progress/i, /atl\s*level/i, /approach\s*to\s*learning/i, /^atl$/i, /atl\s*skill$/i, /atl\s*skil$/i],
-  attitude: [/^attitude$/i, /attitude/i, /atl\s*skil\s*attitude/i, /atl\s*skill\s*attitude/i, /atl\s*attitude/i],
   gender: [/^gender$/i, /sex/i, /pronoun/i],
   eal: [/^eal$/i, /eal\s*status/i, /english\s*as\s*additional\s*language/i],
   sen: [/^sen$/i, /sen\s*\/\s*learning\s*support\s*flag/i, /learning\s*support/i, /inclusion/i, /support\s*flag/i],
@@ -155,7 +154,7 @@ export const DataProvider = ({ children }) => {
         matchedHeaders[standardKey] = match;
       } else {
         // Mark missing fields (ignoring non-critical optional columns in the missing lists)
-        if (standardKey !== 'meg' && standardKey !== 'formGroup' && standardKey !== 'attitude' && standardKey !== 'surname' && standardKey !== 'forename') {
+        if (standardKey !== 'meg' && standardKey !== 'formGroup' && standardKey !== 'surname' && standardKey !== 'forename') {
           missing.push(standardKey);
         }
       }
@@ -231,7 +230,6 @@ export const DataProvider = ({ children }) => {
         gifted: row[matchedHeaders.gifted],
         emirati: row[matchedHeaders.emirati],
         atlProgress: row[matchedHeaders.atl] !== undefined ? String(row[matchedHeaders.atl]).trim() : undefined,
-        attitude: row[matchedHeaders.attitude] !== undefined ? String(row[matchedHeaders.attitude]).trim() : undefined,
         cpt: rawCpt,
         critA: row[matchedHeaders.critA],
         critB: row[matchedHeaders.critB],
@@ -281,7 +279,6 @@ export const DataProvider = ({ children }) => {
           ibGrade: data.ibGrade,
           gradeLevel: data.gradeLevel,
           atlProgress: data.atlProgress,
-          attitude: data.attitude,
           eal: data.eal,
           sen: data.sen,
           gifted: data.gifted,

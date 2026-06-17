@@ -48,16 +48,6 @@ export const StudentRowSchema = z.object({
     }
     return val;
   }, z.string().default('Practitioner')),
-  attitude: z.preprocess((val) => {
-    if (val === null || val === undefined || (typeof val === 'string' && val.trim() === '')) {
-      return undefined;
-    }
-    if (typeof val === 'string') {
-      const s = val.trim().toUpperCase();
-      if (s === 'ME' || s === 'AE' || s === 'EE' || s === 'BE') return s;
-    }
-    return val;
-  }, z.enum(['ME', 'AE', 'EE', 'BE'], { invalid_type_error: "Attitude must be ME, AE, EE, or BE" }).optional().default('ME')),
   cpt: integerCoerceSchema(0, 32, "CPT"),
   critA: integerCoerceSchema(0, 8, "Criterion A"),
   critB: integerCoerceSchema(0, 8, "Criterion B"),
