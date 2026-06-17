@@ -413,12 +413,20 @@ const applyPlaceholders = (template, data) => {
   const bestLetter = data.best || 'A';
   const worstLetter = data.worst || 'D';
 
+  // Determine target language based on exact subject name
+  // Only the two subjects per language carry non-English ATL comments
+  // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
+  const subjectName = (data.subject || '').trim().toLowerCase().replace(/\s+/g, ' ').replace(/&/g, 'and');
+  const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals and societies - french';
+  const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals and societies - german';
+
   const getCritString = (letter, rawName) => {
-    if (!rawName) return `Criteria ${letter}`;
+    const prefix = isFrench ? 'Critère' : (isGerman ? 'Kriterium' : 'Criteria');
+    if (!rawName) return `${prefix} ${letter}`;
     if (rawName.trim().toLowerCase() === `crit ${letter.toLowerCase()}` || rawName.trim().toLowerCase() === `criteria ${letter.toLowerCase()}`) {
-      return `Criteria ${letter}`;
+      return `${prefix} ${letter}`;
     }
-    return `Criteria ${letter}: ${rawName}`;
+    return `${prefix} ${letter}: ${rawName}`;
   };
 
   const critA = getCritString('A', names.A);
@@ -427,13 +435,6 @@ const applyPlaceholders = (template, data) => {
   const critD = getCritString('D', names.D);
   const critBest = getCritString(bestLetter, names[bestLetter]);
   const critWorst = getCritString(worstLetter, names[worstLetter]);
-
-  // Determine target language based on exact subject name
-  // Only the two subjects per language carry non-English ATL comments
-  // Normalise whitespace so extra internal spaces (e.g. from iSAMS data) don't cause a miss
-  const subjectName = (data.subject || '').trim().toLowerCase().replace(/\s+/g, ' ').replace(/&/g, 'and');
-  const isFrench = subjectName === 'language and literature - french' || subjectName === 'individuals and societies - french';
-  const isGerman = subjectName === 'language and literature - german' || subjectName === 'individuals and societies - german';
 
   // Resolve pronouns based on subject language and student gender/pronouns
   // data.pronouns has { subj, obj, poss } in English (e.g. he/him/his or she/her/her)
