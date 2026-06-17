@@ -2299,17 +2299,17 @@
         "1": "Student! a obtenu un niveau 1 en C!, ce qui indique qu'il! en est aux premières étapes de l'acquisition de la production de textes.",
         "2": "Student! a obtenu un niveau 2 en C!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En C!, il! produit un travail qui montre une réflexion et une imagination de base, avec une exploration des idées présente mais limitée dans le processus créatif. il! inclut un petit nombre de détails et d’exemples pertinents pour soutenir ses idées.",
-        "4": "En C!, il! produit un travail montrant une certaine réflexion et imagination à travers des idées généralement pertinentes. Il utilise quelques procédés stylistiques appropriés et appuie parfois ses idées avec des exemples pertinents.",
-        "5": "En C!, il! produit des textes montrant une certaine réflexion grâce à son engagement dans le processus créatif. Il utilise des choix stylistiques généralement appropriés et inclut quelques exemples pertinents pour soutenir ses idées.",
-        "6": "En C!, il! produit des textes réfléchis et imaginatifs, explorant différentes idées grâce à un engagement personnel dans le processus créatif. Il fait des choix stylistiques appropriés et utilise des exemples pertinents pour soutenir ses idées.",
-        "7": "En C!, il! produit des textes réfléchis explorant des idées originales avec un engagement personnel constant. Il fait des choix stylistiques efficaces et sélectionne des exemples pertinents pour développer et soutenir ses idées.",
-        "8": "En C!, il! produit des textes réfléchis, explorant des idées originales.. Il fait aussi des choix stylistiques efficaces et sélectionne des exemples et détails précis pour soutenir ses idées."
+        "4": "En C!, il! produit un travail montrant une certaine réflexion et imagination à travers des idées généralement pertinentes. Il! utilise quelques procédés stylistiques appropriés et appuie parfois ses idées avec des exemples pertinents.",
+        "5": "En C!, il! produit des textes montrant une certaine réflexion grâce à son engagement dans le processus créatif. Il! utilise des choix stylistiques généralement appropriés et inclut quelques exemples pertinents pour soutenir ses idées.",
+        "6": "En C!, il! produit des textes réfléchis et imaginatifs, explorant différentes idées grâce à un engagement personnel dans le processus créatif. Il! fait des choix stylistiques appropriés et utilise des exemples pertinents pour soutenir ses idées.",
+        "7": "En C!, il! produit des textes réfléchis explorant des idées originales avec un engagement personnel constant. Il! fait des choix stylistiques efficaces et sélectionne des exemples pertinents pour développer et soutenir ses idées.",
+        "8": "En C!, il! produit des textes réfléchis, explorant des idées originales.. Il! fait aussi des choix stylistiques efficaces et sélectionne des exemples et détails précis pour soutenir ses idées."
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en C! (niveau 1).",
         "2": "Il est important que Student! recherche un soutien ciblé pour combler les lacunes en C! (niveau 2) afin de renforcer sa confiance dans les procédés stylistiques.",
-        "3": "Pour progresser davantage, Student! doit approfondir sa réflexion et faire preuve de plus de créativité dans l’exploration des idées. Il doit aussi varier ses exemples et détails pertinents et mieux les expliquer pour soutenir ses idées.",
-        "4": "Pour progresser davantage, Student! doit approfondir ses idées et faire des choix stylistiques plus réfléchis pour renforcer la clarté et l’impact de son travail. Il doit aussi expliquer clairement ses exemples et les relier à ses arguments.",
+        "3": "Pour progresser davantage, Student! doit approfondir sa réflexion et faire preuve de plus de créativité dans l’exploration des idées. Il! doit aussi varier ses exemples et détails pertinents et mieux les expliquer pour soutenir ses idées.",
+        "4": "Pour progresser davantage, Student! doit approfondir ses idées et faire des choix stylistiques plus réfléchis pour renforcer la clarté et l’impact de son travail. Il! doit aussi expliquer clairement ses exemples et les relier à ses arguments.",
         "5": "Pour progresser davantage, Student! devrait approfondir et clarifier ses idées, faire des choix stylistiques plus intentionnels et utiliser des exemples pertinents pour soutenir ses arguments.",
         "6": "Pour progresser davantage, Student! pourrait approfondir davantage ses idées et faire des choix stylistiques plus réfléchis, tout en continuant à utiliser des exemples pertinents pour soutenir et développer son travail.",
         "7": "Pour progresser encore, Student! pourrait explorer une plus grande variété d’idées et de perspectives, affiner ses choix stylistiques pour renforcer leur impact sur le public, et sélectionner des exemples précis pour soutenir efficacement ses idées.",
@@ -2322,10 +2322,10 @@
         "2": "Student! a obtenu un niveau 2 en D!, ce qui représente un point de départ pour la consolidation des compétences avec un soutien ciblé.",
         "3": "En D!, il! utilise un vocabulaire et des structures simples. Il! exprime parfois ses idées avec un registre approprié. Ses connaissances en langue sont en développement, malgré des erreurs persistantes.",
         "4": "En D!, il! utilise un vocabulaire parfois pertinent et des structures de phrases simples. Il! exprime ses idées avec un registre généralement approprié. Il! montre un contrôle limité mais en progrès de la langue, malgré des erreurs. .",
-        "5": "En D!, il! utilise un vocabulaire adéquat et des structures variées pour exprimer ses idées avec un registre généralement approprié. Il maîtrise de façon satisfaisante la langue, malgré quelques erreurs, permettant une communication de base claire .",
-        "6": "En D!, il! utilise un vocabulaire varié et des structures de phrases adaptées pour exprimer ses idées avec un registre approprié. Il maîtrise généralement bien la langue, montrant des compétences linguistiques solides à l’oral comme à l’écrit.",
-        "7": "En D!, il! utilise un vocabulaire varié et des structures efficaces pour exprimer clairement ses idées, avec un registre adapté. Il maîtrise bien la langue, montrant de solides compétences en communication.",
-        "8": "En D!, il! utilise un vocabulaire riche et des structures efficaces pour exprimer clairement ses idées avec un registre adapté. Il maîtrise parfaitement la langue, montrant des compétences avancées."
+        "5": "En D!, il! utilise un vocabulaire adéquat et des structures variées pour exprimer ses idées avec un registre généralement approprié. Il! maîtrise de façon satisfaisante la langue, malgré quelques erreurs, permettant une communication de base claire .",
+        "6": "En D!, il! utilise un vocabulaire varié et des structures de phrases adaptées pour exprimer ses idées avec un registre approprié. Il! maîtrise généralement bien la langue, montrant des compétences linguistiques solides à l’oral comme à l’écrit.",
+        "7": "En D!, il! utilise un vocabulaire varié et des structures efficaces pour exprimer clairement ses idées, avec un registre adapté. Il! maîtrise bien la langue, montrant de solides compétences en communication.",
+        "8": "En D!, il! utilise un vocabulaire riche et des structures efficaces pour exprimer clairement ses idées avec un registre adapté. Il! maîtrise parfaitement la langue, montrant des compétences avancées."
       },
       "improvement": {
         "1": "Une intervention ciblée urgente est recommandée pour Student! afin d'établir les compétences de base en D! (niveau 1).",
