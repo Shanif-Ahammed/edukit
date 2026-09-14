@@ -695,17 +695,23 @@ export default function Dashboard({ setActiveTool }) {
 
               {/* Featured module: Comment Generator */}
               <div
-                className="bento-card bento-col-7 is-clickable"
+                className={`bento-card bento-col-7 ${FEATURES.commentBank ? 'is-clickable' : 'is-locked'}`}
                 style={{ gap: '1rem' }}
-                onClick={() => setActiveTool('comment')}
+                onClick={FEATURES.commentBank ? () => setActiveTool('comment') : undefined}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div className="bento-icon" style={{ background: 'rgba(225, 0, 49, 0.09)', color: 'var(--primary)' }}>
                     <Sparkles size={18} />
                   </div>
-                  <span style={{ fontSize: '0.7rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '0.2rem 0.6rem', borderRadius: '30px', fontWeight: '750' }}>
-                    {students.length} Ranks Ready
-                  </span>
+                  {FEATURES.commentBank ? (
+                    <span style={{ fontSize: '0.7rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '0.2rem 0.6rem', borderRadius: '30px', fontWeight: '750' }}>
+                      {students.length} Ranks Ready
+                    </span>
+                  ) : (
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.2rem 0.6rem', borderRadius: '30px', fontWeight: '750' }}>
+                      Coming Soon
+                    </span>
+                  )}
                 </div>
                 <div style={{ flexGrow: 1 }}>
                   <h3 style={{ fontSize: '1.15rem', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '0.35rem', color: 'var(--text-main)' }}>
@@ -715,16 +721,18 @@ export default function Dashboard({ setActiveTool }) {
                     Generate detailed, personalized criterion remarks based on student grades and ATL values. Safe manual drafting holds warnings for grades 1 or 2.
                   </p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary)', fontWeight: '750', fontSize: '0.84rem' }}>
-                  Open Comment Generator <ArrowRight size={14} />
-                </div>
+                {FEATURES.commentBank && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary)', fontWeight: '750', fontSize: '0.84rem' }}>
+                    Open Comment Generator <ArrowRight size={14} />
+                  </div>
+                )}
               </div>
 
               {/* Flag-gated workspace modules */}
               {[
                 { flag: FEATURES.seatingChart, tool: 'seating', span: 'bento-col-5', Icon: Users, tint: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent)', title: 'Seating Chart Planner', desc: 'Design physical desk arrangements. Live drag-and-drop layout options (rows, clusters, circular) mapping student tags.', launch: 'Open Seating Planner' },
                 { flag: FEATURES.cohortAnalysis, tool: 'analysis', span: 'bento-col-4', Icon: BarChart3, tint: 'rgba(245, 158, 11, 0.1)', color: '#d97706', title: 'Cohort Data Analysis', desc: 'Track criteria trends, KHDA progress descriptors, target MEGs comparison, and automated intervention remarks.', launch: 'Open Cohort Analysis' },
-                { flag: FEATURES.gradebookList, tool: 'gradebook', span: 'bento-col-4', Icon: Grid, tint: 'rgba(13, 148, 136, 0.1)', color: '#0d9488', title: 'Gradebook List', desc: 'Preview class lists in grid format, inspect criteria A, B, C, D details, and safely edit individual records.', launch: 'Open Gradebook' },
+                { flag: FEATURES.gradebookList, tool: 'gradebook', span: 'bento-col-4', Icon: Grid, tint: 'rgba(13, 148, 136, 0.1)', color: '#0d9488', title: 'Class Context Sheet', desc: 'Printable A4 landscape roster showing demographic flags embedded under student names, CAT4 SAS scores, and IB criteria.', launch: 'Open Context Sheet' },
                 { flag: FEATURES.utilities, tool: 'utilities', span: 'bento-col-4', Icon: Layers, tint: 'rgba(225, 0, 49, 0.08)', color: 'var(--primary)', title: 'Teacher Utilities', desc: 'Cooperative learning structures, random student spin wheels, and multi-session classroom timers.', launch: 'Open Utilities' }
               ].map(({ flag, tool, span, Icon, tint, color, title, desc, launch }) => (
                 <div

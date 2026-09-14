@@ -279,16 +279,30 @@ Sent from SISD EduKit Teacher Portal`;
               color: activeTool === 'comment' ? 'var(--text-main)' : 'var(--text-muted)',
               borderRadius: '12px',
               padding: sidebarCollapsed ? '0.7rem 0' : '0.7rem 1.15rem',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              cursor: FEATURES.commentBank ? 'pointer' : 'not-allowed',
+              opacity: FEATURES.commentBank ? 1 : 0.65,
+              transition: 'all var(--transition-fast)'
             }}
-            onClick={() => setActiveTool('comment')}
+            onClick={FEATURES.commentBank ? () => setActiveTool('comment') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
               <Sparkles size={16} style={{ color: activeTool === 'comment' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
               {!sidebarCollapsed && <span>Comment Gen</span>}
             </div>
             {!sidebarCollapsed && (
-              fileConnected ? (
+              !FEATURES.commentBank ? (
+                <span style={{
+                  fontSize: '0.62rem',
+                  background: 'rgba(245, 158, 11, 0.1)',
+                  padding: '0.15rem 0.45rem',
+                  borderRadius: '4px',
+                  color: '#fbbf24',
+                  border: '1px solid rgba(245, 158, 11, 0.25)'
+                }}>
+                  Soon
+                </span>
+              ) : fileConnected ? (
                 <span style={{ fontSize: '0.68rem', background: 'rgba(16, 185, 129, 0.1)', padding: '0.1rem 0.4rem', borderRadius: '6px', color: '#10b981', fontWeight: '800' }}>
                   {students.length}
                 </span>
@@ -296,7 +310,7 @@ Sent from SISD EduKit Teacher Portal`;
                 <Lock size={12} style={{ opacity: 0.5 }} />
               )
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">Comment Gen</span>}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.commentBank ? 'Comment Gen' : 'Comment Gen (Coming Soon)'}</span>}
           </button>
 
           {/* Seating Planner Tab */}
@@ -396,7 +410,7 @@ Sent from SISD EduKit Teacher Portal`;
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: sidebarCollapsed ? '0' : '0.6rem', justifyContent: 'center' }}>
               <Grid size={16} style={{ color: activeTool === 'gradebook' ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.2s' }} />
-              {!sidebarCollapsed && <span>Gradebook List</span>}
+              {!sidebarCollapsed && <span>Class Context Sheet</span>}
             </div>
             {!sidebarCollapsed && !FEATURES.gradebookList && (
               <span style={{
@@ -413,7 +427,7 @@ Sent from SISD EduKit Teacher Portal`;
             {!sidebarCollapsed && FEATURES.gradebookList && activeTool === 'gradebook' && (
               <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 8px var(--primary)' }} />
             )}
-            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.gradebookList ? 'Gradebook List' : 'Gradebook List (Coming Soon)'}</span>}
+            {sidebarCollapsed && <span className="sidebar-tooltip">{FEATURES.gradebookList ? 'Class Context Sheet' : 'Class Context Sheet (Coming Soon)'}</span>}
           </button>
 
           {/* Utilities Tab */}

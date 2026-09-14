@@ -7,26 +7,42 @@ const DataContext = createContext();
 // Exact iSAMS Column Mappings & Fallbacks (Stable & Resilient)
 const COLUMN_KEYS = {
   name: [/student\s*name/i, /full\s*name/i, /^name$/i, /student/i],
-  forename: [/^forename$/i, /first\s*name/i],
-  surname: [/^surname$/i, /last\s*name/i],
-  class: [/^class$/i, /form\s*group/i, /group/i, /section/i],
-  subject: [/^subject$/i, /course/i, /discipline/i],
+  forename: [/^forename$/i, /first\s*name/i, /forenames/i, /given\s*name/i],
+  surname: [/^surname$/i, /last\s*name/i, /surnames/i, /family\s*name/i],
+  gender: [/^gender$/i, /sex/i, /pronoun/i],
+
+  // Demographics & Flags
+  emirati: [/^emirati$/i, /uae\s*national/i, /nationality/i],
+  eal: [/^eal$/i, /eal\s*status/i, /english\s*as\s*additional\s*language/i],
+  gifted: [/^magt$/i, /ma\s*gt$/i, /gifted\s*&\s*talented/i, /gifted/i, /g\s*&\s*t/i, /talented/i],
+  sen: [/^sen$/i, /^inclusion$/i, /sen\s*\/\s*learning\s*support/i, /learning\s*support/i, /support\s*flag/i],
+  boarding: [/^boarding$/i, /^boarder$/i, /boarding\s*flag/i, /boarder\s*status/i],
+
+  // CAT4 Scores & Summary Comments
+  cat4Verbal: [/verbal\s*sas/i, /cat4\s*verbal/i, /verbal/i],
+  cat4Quantitative: [/quantitative\s*sas/i, /quant\s*sas/i, /cat4\s*quant/i, /cat4\s*quantitative/i, /quantitative/i],
+  cat4Spatial: [/spatial\s*sas/i, /cat4\s*spatial/i, /spatial/i],
+  cat4NonVerbal: [/non\s*verbal\s*sas/i, /non-verbal\s*sas/i, /cat4\s*non\s*verbal/i, /cat4\s*non-verbal/i],
+  cat4Mean: [/mean\s*sas/i, /cat4\s*mean/i, /cat4\s*average/i, /average\s*sas/i],
+  cat4Comment: [/cat4\s*comment/i, /cat4\s*remark/i, /cat4\s*notes/i, /cat4\s*summary/i, /cat4_comment/i],
+
+  // Class & Teacher Details
+  class: [/^class$/i, /class\s*name/i, /form\s*group/i, /group/i, /section/i],
   teacherName: [/^teacher\s*name$/i, /teacher/i, /tutor/i, /instructor/i],
+
+  // Academic Grade Details (Optional)
+  subject: [/^subject$/i, /course/i, /discipline/i],
+  gradeLevel: [/^grade$/i, /grade\s*level/i, /year\s*group/i, /year$/i, /academic\s*year/i],
   meg: [/meg/i, /minimum\s*expected\s*grade/i, /target\s*grade/i, /expected\s*grade/i, /expected/i],
   critA: [/^criterion\s*a$/i, /crit\s*a/i, /crita/i],
   critB: [/^criterion\s*b$/i, /crit\s*b/i, /critb/i],
   critC: [/^criterion\s*c$/i, /crit\s*c/i, /critc/i],
   critD: [/^criterion\s*d$/i, /crit\s*d/i, /critd/i],
   cpt: [/^cpt$/i, /criterion\s*point\s*total/i, /total\s*points/i, /points/i, /score/i],
-  gradeLevel: [/^grade$/i, /grade\s*level/i, /year\s*group/i, /year$/i, /academic\s*year/i],
   ibGrade: [/^ib\s*grade$/i, /attainment\s*grade/i, /myp\s*grade/i, /level/i, /attainment/i],
   atl: [/^approaches$/i, /atl\s*progress/i, /atl\s*level/i, /approach\s*to\s*learning/i, /^atl$/i, /atl\s*skill$/i, /atl\s*skil$/i],
-  gender: [/^gender$/i, /sex/i, /pronoun/i],
-  eal: [/^eal$/i, /eal\s*status/i, /english\s*as\s*additional\s*language/i],
-  sen: [/^sen$/i, /sen\s*\/\s*learning\s*support\s*flag/i, /learning\s*support/i, /inclusion/i, /support\s*flag/i],
-  gifted: [/^ma\s*gt$/i, /gifted\s*&\s*talented\s*flag/i, /gifted/i, /g\s*&\s*t/i, /magt/i, /talented/i],
-  formGroup: [/form\s*group/i, /form/i, /registration\s*group/i, /advisor/i],
-  emirati: [/^emirati$/i, /uae\s*national/i, /nationality/i]
+  attitude: [/^attitude$/i],
+  formGroup: [/form\s*group/i, /form/i, /registration\s*group/i, /advisor/i]
 };
 
 const PERSIST_PREFIX = 'edukit_mis_';
@@ -229,6 +245,13 @@ export const DataProvider = ({ children }) => {
         sen: row[matchedHeaders.sen],
         gifted: row[matchedHeaders.gifted],
         emirati: row[matchedHeaders.emirati],
+        boarding: row[matchedHeaders.boarding],
+        cat4Verbal: row[matchedHeaders.cat4Verbal],
+        cat4Quantitative: row[matchedHeaders.cat4Quantitative],
+        cat4Spatial: row[matchedHeaders.cat4Spatial],
+        cat4NonVerbal: row[matchedHeaders.cat4NonVerbal],
+        cat4Mean: row[matchedHeaders.cat4Mean],
+        cat4Comment: row[matchedHeaders.cat4Comment] !== undefined ? String(row[matchedHeaders.cat4Comment]).trim() : undefined,
         atlProgress: row[matchedHeaders.atl] !== undefined ? String(row[matchedHeaders.atl]).trim() : undefined,
         cpt: rawCpt,
         critA: row[matchedHeaders.critA],
@@ -259,6 +282,7 @@ export const DataProvider = ({ children }) => {
         if (data.sen) tags.push('Inclusion');
         if (data.gifted) tags.push('MAGT');
         if (data.emirati) tags.push('Emirati');
+        if (data.boarding) tags.push('Boarding');
 
         parsedStudents.push({
           id: index + 1,
@@ -283,6 +307,13 @@ export const DataProvider = ({ children }) => {
           sen: data.sen,
           gifted: data.gifted,
           emirati: data.emirati,
+          boarding: data.boarding,
+          cat4Verbal: data.cat4Verbal,
+          cat4Quantitative: data.cat4Quantitative,
+          cat4Spatial: data.cat4Spatial,
+          cat4NonVerbal: data.cat4NonVerbal,
+          cat4Mean: data.cat4Mean,
+          cat4Comment: data.cat4Comment,
           formGroup: data.formGroup || data.className,
           tags,
           comment: '',
